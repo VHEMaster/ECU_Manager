@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58F19B10-BE21-42FF-941C-F42BA8F8C3D2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ECU_Manager</RootNamespace>
+    <AssemblyName>ECU_Manager</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComPortSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComPortSelector.Designer.cs">
+      <DependentUpon>ComPortSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Meter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MiddleLayer.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_DragPointRequest.cs" />
+    <Compile Include="Packets\PK_DragPointResponse.cs" />
+    <Compile Include="Packets\PK_DragStart.cs" />
+    <Compile Include="Packets\PK_DragStartAcknowledge.cs" />
+    <Compile Include="Packets\PK_DragStop.cs" />
+    <Compile Include="Packets\PK_DragStopAcknowledge.cs" />
+    <Compile Include="Packets\PK_DragUpdateRequest.cs" />
+    <Compile Include="Packets\PK_DragUpdateResponse.cs" />
+    <Compile Include="Packets\PK_RestoreConfigAcknowledge.cs" />
+    <Compile Include="Packets\PK_RestoreConfig.cs" />
+    <Compile Include="Packets\PK_SaveConfigAcknowledge.cs" />
+    <Compile Include="Packets\PK_SaveConfig.cs" />
+    <Compile Include="Packets\PK_TableMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryData.cs" />
+    <Compile Include="Packets\PK_TableMemoryData.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryRequest.cs" />
+    <Compile Include="Packets\PK_TableMemoryRequest.cs" />
+    <Compile Include="SyncForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyncForm.Designer.cs">
+      <DependentUpon>SyncForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Serializator.cs" />
+    <Compile Include="Tools\StructCopy.cs" />
+    <Compile Include="Packets\PK_GeneralStatusRequest.cs" />
+    <Compile Include="Packets\PK_GeneralStatusResponse.cs" />
+    <Compile Include="Packets\PK_PcConnected.cs" />
+    <Compile Include="Packets\PK_Ping.cs" />
+    <Compile Include="Packets\PK_Pong.cs" />
+    <Compile Include="Packets\PacketHandler.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Crc.cs" />
+    <Compile Include="Protocol\Getter.cs" />
+    <Compile Include="Protocol\ProtocolHandler.cs" />
+    <Compile Include="Protocol\Packet.cs" />
+    <Compile Include="Protocol\Sender.cs" />
+    <Compile Include="Tables\ConfigStruct.cs" />
+    <Compile Include="Tables\Consts.cs" />
+    <Compile Include="Tables\IgnitionTable.cs" />
+    <Compile Include="Tables\ParamsTable.cs" />
+    <EmbeddedResource Include="ComPortSelector.resx">
+      <DependentUpon>ComPortSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SyncForm.resx">
+      <DependentUpon>SyncForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Packets\Enums.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
