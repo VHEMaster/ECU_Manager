@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ECU_Manager.Tables
+namespace ECU_Manager.Structs
 {
     [Serializable]
     public struct EcuTable
@@ -14,7 +14,7 @@ namespace ECU_Manager.Tables
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Consts.TABLE_STRING_MAX)]
         public string name;
 
-        eInjChannel inj_channel;
+        public int inj_channel;
 
         public float ignition_initial;
         public float injector_performance;

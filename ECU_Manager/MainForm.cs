@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ECU_Manager.Packets;
-using ECU_Manager.Tables;
+using ECU_Manager.Structs;
 using ECU_Manager.Tools;
 
 namespace ECU_Manager

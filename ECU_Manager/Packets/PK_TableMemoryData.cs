@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using ECU_Manager.Protocol;
-using ECU_Manager.Tables;
+using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {

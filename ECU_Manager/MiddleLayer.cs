@@ -7,7 +7,7 @@ using ECU_Manager.Protocol;
 using ECU_Manager.Packets;
 using System.Threading;
 using System.Runtime.InteropServices;
-using ECU_Manager.Tables;
+using ECU_Manager.Structs;
 using ECU_Manager.Tools;
 
 namespace ECU_Manager

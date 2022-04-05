@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ECU_Manager.Tables
+namespace ECU_Manager.Structs
 {
     [Serializable]
     public struct EcuCorrections

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECU_Manager.Tables
+namespace ECU_Manager.Structs
 {
     public class Consts
     {

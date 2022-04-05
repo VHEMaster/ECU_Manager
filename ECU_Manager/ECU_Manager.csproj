@@ -98,6 +98,8 @@
     <Compile Include="SyncForm.Designer.cs">
       <DependentUpon>SyncForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Structs\EcuCorrections.cs" />
+    <Compile Include="Structs\EcuCriticalBackup.cs" />
     <Compile Include="Tools\Serializator.cs" />
     <Compile Include="Tools\StructCopy.cs" />
     <Compile Include="Packets\PK_ParametersRequest.cs" />
@@ -113,10 +115,10 @@
     <Compile Include="Protocol\ProtocolHandler.cs" />
     <Compile Include="Protocol\Packet.cs" />
     <Compile Include="Protocol\Sender.cs" />
-    <Compile Include="Tables\ConfigStruct.cs" />
-    <Compile Include="Tables\Consts.cs" />
-    <Compile Include="Tables\EcuTable.cs" />
-    <Compile Include="Tables\ParamsTable.cs" />
+    <Compile Include="Structs\ConfigStruct.cs" />
+    <Compile Include="Structs\Consts.cs" />
+    <Compile Include="Structs\EcuTable.cs" />
+    <Compile Include="Structs\ParamsTable.cs" />
     <EmbeddedResource Include="ComPortSelector.resx">
       <DependentUpon>ComPortSelector.cs</DependentUpon>
     </EmbeddedResource>

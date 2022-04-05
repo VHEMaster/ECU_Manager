@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using ECU_Manager.Protocol;
-using ECU_Manager.Tables;
+using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {
@@ -20,7 +20,7 @@ namespace ECU_Manager.Packets
 
         public ushort crc;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_Critical_MAX_SIZE)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_CRITICAL_MAX_SIZE)]
         public byte[] Data;
 
         public PK_CriticalMemoryData(int dummy, int Criticalsize, int offset, int size, byte[] data)
@@ -31,7 +31,7 @@ namespace ECU_Manager.Packets
             Offset = (uint)offset;
             Size = (uint)size;
             ErrorCode = 0;
-            Data = new byte[Consts.PACKET_Critical_MAX_SIZE];
+            Data = new byte[Consts.PACKET_CRITICAL_MAX_SIZE];
 
             for (int i = 0; i < size; i++)
                 Data[i] = data[i];
