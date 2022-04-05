@@ -8,20 +8,17 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragStartAcknowledge
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
         public byte ErrorCode;
 
         public float FromRPM;
         public float ToRPM;
 
-        public PK_DragStartAcknowledge(Channel destination)
+        public PK_DragStartAcknowledge(int dummy)
         {
             PacketID = (byte)Packets.DragStartAcknowledgeID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             FromRPM = 0;
             ToRPM = 0;
             ErrorCode = 0;

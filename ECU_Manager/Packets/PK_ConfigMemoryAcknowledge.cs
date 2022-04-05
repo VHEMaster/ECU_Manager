@@ -9,10 +9,8 @@ namespace ECU_Manager.Packets
 {
     public struct PK_ConfigMemoryAcknowledge
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public uint ErrorCode;
 
@@ -20,11 +18,10 @@ namespace ECU_Manager.Packets
         public uint Offset;
         public uint Size;
 
-        public PK_ConfigMemoryAcknowledge(Channel destination, int configsize, int offset, int size, int errorcode)
+        public PK_ConfigMemoryAcknowledge(int dummy, int configsize, int offset, int size, int errorcode)
         {
             PacketID = (byte)Packets.ConfigMemoryAcknowledgeID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             ConfigSize = (uint)configsize;
             Offset = (uint)offset;
             Size = (uint)size;

@@ -11,32 +11,39 @@ namespace ECU_Manager.Tables
     [Serializable]
     public struct ParamsTable
     {
-        public int tables_count;
-        public int isCutoffEnabled;
-        public int isTemperatureEnabled;
-        public int isEconomEnabled;
-        public int isAutostartEnabled;
-        public int isIgnitionByHall;
-        public int isHallLearningMode;
-        public int isSwitchByExternal;
-        public int isEconOutAsStrobe;
+        public float engineVolume;
+
         public int isForceTable;
-        public int forceTableNumber;
+        public int isSwitchByExternal;
+        public int startupTableNumber;
         public int switchPos1Table;
         public int switchPos0Table;
         public int switchPos2Table;
+        public int forceTable;
 
-        public float EconRpmThreshold;
-        public float CutoffRPM;
-        public int CutoffMode;
-        public float CutoffAngle;
-        public int isEconIgnitionOff;
-        public int isForceIdle;
-        public int engineVolume;
-        public int isForceIgnition;
-        public int forceIgnitionAngle;
+        public float cutoffRPM;
+        public int cutoffMode;
+        public float cutoffAngle;
+        public float cutoffMixture;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 25)]
+        public float speedCorrection;
+
+        public int useLambdaSensor;
+        public int useTSPS;
+        public int useKnockSensor;
+        public int performAdaptation;
+        public int isSingleCoil;
+        public int isIndividualCoils;
+
+        public float fanHighTemperature;
+        public float fanLowTemperature;
+
+        public int isBluetoothEnabled;
+        public int bluetoothPin;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Consts.TABLE_STRING_MAX)]
+        public string bluetoothName;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 995)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

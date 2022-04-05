@@ -15,14 +15,18 @@ namespace ECU_Manager.Tables
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_SETUPS_MAX)]
         [XmlArray("tables")]
         [XmlArrayItem("table")]
-        public IgnitionTable[] tables;
+        public EcuTable[] tables;
+        public EcuCriticalBackup critical;
+        public EcuCorrections corrections;
 
         public ConfigStruct(int _)
         {
             parameters = new ParamsTable();
-            tables = new IgnitionTable[4];
-            for (int i = 0; i < 4; i++)
-                tables[i] = new IgnitionTable(); 
+            tables = new EcuTable[Consts.TABLE_SETUPS_MAX];
+            for (int i = 0; i < Consts.TABLE_SETUPS_MAX; i++)
+                tables[i] = new EcuTable();
+            corrections = new EcuCorrections();
+            critical = new EcuCriticalBackup();
         }
     }
 }

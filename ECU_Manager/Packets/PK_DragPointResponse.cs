@@ -8,11 +8,9 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragPointResponse
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
-        
+        public ushort PacketID;
+        public ushort PacketLength;
+
         public uint ErrorCode;
         public float FromRPM;
         public float ToRPM;
@@ -24,12 +22,11 @@ namespace ECU_Manager.Packets
         public float Ignition;
         public uint Time;
 
-        public PK_DragPointResponse(Channel destination)
+        public PK_DragPointResponse(int dummy)
         {
             PacketID = (byte)Packets.DragPointResponseID;
-            Destination = (byte)destination;
-            Dummy = 0;
-
+            
+            
             ErrorCode = 0;
             FromRPM = 0;
             ToRPM = 0;

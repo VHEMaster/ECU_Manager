@@ -33,7 +33,7 @@ namespace ECU_Manager.Packets
                     result = pc2.FromBytes(bytes);
                     break;
                 case Packets.GeneralStatusResponseID:
-                    StructCopy<PK_GeneralStatusResponse> pc4 = new StructCopy<PK_GeneralStatusResponse>();
+                    StructCopy<PK_ParametersResponse> pc4 = new StructCopy<PK_ParametersResponse>();
                     result = pc4.FromBytes(bytes);
                     break;
                 case Packets.TableMemoryAcknowledgeID:
@@ -101,8 +101,8 @@ namespace ECU_Manager.Packets
 
         public void SendGeneralStatusRequest()
         {
-            PK_GeneralStatusRequest packet = new PK_GeneralStatusRequest(Channel.etrECU);
-            StructCopy<PK_GeneralStatusRequest> StructCopy = new StructCopy<PK_GeneralStatusRequest>();
+            PK_ParametersRequest packet = new PK_ParametersRequest(Channel.etrECU);
+            StructCopy<PK_ParametersRequest> StructCopy = new StructCopy<PK_ParametersRequest>();
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }

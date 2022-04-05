@@ -123,13 +123,13 @@ namespace ECU_Manager
             int size = 4;
             int offset;
             bool equals;
-            StructCopy<IgnitionTable> structCopy = new StructCopy<IgnitionTable>();
+            StructCopy<EcuTable> structCopy = new StructCopy<EcuTable>();
             while(true)
             {
                 equals = true;
                 byte[] current = structCopy.GetBytes(Config.tables[table]);
                 byte[] previous = structCopy.GetBytes(oldconfig.tables[table]);
-                for (int i = 0; i < Marshal.SizeOf(typeof(IgnitionTable)); i++)
+                for (int i = 0; i < Marshal.SizeOf(typeof(EcuTable)); i++)
                 {
                     if (current[i] != previous[i])
                     {
@@ -143,7 +143,7 @@ namespace ECU_Manager
                             previous[j + offset] = current[j + offset];
                         }
                         oldconfig.tables[table] = structCopy.FromBytes(previous);
-                        PacketHandler.SendTableData(table, Marshal.SizeOf(typeof(IgnitionTable)), offset, size, senddata);
+                        PacketHandler.SendTableData(table, Marshal.SizeOf(typeof(EcuTable)), offset, size, senddata);
 
                     }
                 }
@@ -224,14 +224,14 @@ namespace ECU_Manager
                                     Config.parameters = structParamsCopy.FromBytes(bSyncArray);
                                 }
                                 iSyncStep++;
-                                iSyncSize = Marshal.SizeOf(typeof(IgnitionTable));
+                                iSyncSize = Marshal.SizeOf(typeof(EcuTable));
                                 if (bSyncLoad)
                                 {
                                     bSyncArray = new byte[iSyncSize];
                                 }
                                 else if (bSyncSave)
                                 {
-                                    StructCopy<IgnitionTable> structTableSaveCopy = new StructCopy<IgnitionTable>();
+                                    StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
                                     bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
                                 }
                                 iSyncLeft = iSyncSize;
@@ -260,7 +260,7 @@ namespace ECU_Manager
                                 {
                                     if (bSyncLoad)
                                     {
-                                        StructCopy<IgnitionTable> structTablesCopy = new StructCopy<IgnitionTable>();
+                                        StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
                                         Config.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
                                     }
 
@@ -271,7 +271,7 @@ namespace ECU_Manager
 
                                         if (bSyncSave)
                                         {
-                                            StructCopy<IgnitionTable> structTableSaveCopy = new StructCopy<IgnitionTable>();
+                                            StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
                                             bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
                                         }
                                     }
@@ -364,9 +364,9 @@ namespace ECU_Manager
                             }
                         }
                     }
-                    else if (packetobj.GetType() == typeof(PK_GeneralStatusResponse))
+                    else if (packetobj.GetType() == typeof(PK_ParametersResponse))
                     {
-                        PK_GeneralStatusResponse gsr = (PK_GeneralStatusResponse)packetobj;
+                        PK_ParametersResponse gsr = (PK_ParametersResponse)packetobj;
                         action = new Action(() => mainForm.UpdateGeneralStatus(gsr));
                         if (mainForm.InvokeRequired)
                             mainForm.BeginInvoke(action);

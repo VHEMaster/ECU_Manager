@@ -8,19 +8,16 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragStop
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public float FromRPM;
         public float ToRPM;
 
-        public PK_DragStop(Channel destination, float fromrpm, float torpm)
+        public PK_DragStop(int dummy, float fromrpm, float torpm)
         {
             PacketID = (byte)Packets.DragStopID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             FromRPM = fromrpm;
             ToRPM = torpm;
 

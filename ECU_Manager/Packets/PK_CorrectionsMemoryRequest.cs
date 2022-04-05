@@ -6,20 +6,20 @@ using ECU_Manager.Protocol;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_ConfigMemoryRequest
+    public struct PK_CorrectionsMemoryRequest
     {
         public ushort PacketID;
         public ushort PacketLength;
 
-        public uint ConfigSize;
+        public uint CorrectionsSize;
         public uint Offset;
         public uint Size;
 
-        public PK_ConfigMemoryRequest(int dummy, int configsize, int offset, int size)
+        public PK_CorrectionsMemoryRequest(int dummy, int Correctionssize, int offset, int size)
         {
-            PacketID = (byte)Packets.ConfigMemoryRequestID;
+            PacketID = (byte)Packets.CorrectionsMemoryRequestID;
             
-            ConfigSize = (uint)configsize;
+            CorrectionsSize = (uint)Correctionssize;
             Offset = (uint)offset;
             Size = (uint)size;
 

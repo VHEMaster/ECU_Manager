@@ -3898,7 +3898,7 @@
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(233, 15);
-            this.toolStripStatusLabel1.Text = "Welcome to Advanced Car Ignition System";
+            this.toolStripStatusLabel1.Text = "Welcome to Engine Control Unit";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel4
@@ -3961,7 +3961,7 @@
             this.label1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
             this.label1.Size = new System.Drawing.Size(487, 34);
             this.label1.TabIndex = 1;
-            this.label1.Text = "ADVANCED CAR IGNITION SYSTEM";
+            this.label1.Text = "ENGINE CONTROL UNIT";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button1
@@ -4020,7 +4020,7 @@
             this.MinimumSize = new System.Drawing.Size(854, 480);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Advanced Car Ignition System - Manager";
+            this.Text = "Engine Control Unit - Manager";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);

@@ -8,10 +8,8 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragUpdateResponse
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public byte ErrorCode;
         public float FromRPM;
@@ -28,11 +26,10 @@ namespace ECU_Manager.Packets
         public byte Started;
         public byte Completed;
 
-        public PK_DragUpdateResponse(Channel destination)
+        public PK_DragUpdateResponse(int dummy)
         {
             PacketID = (byte)Packets.DragUpdateResponseID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             FromRPM = 0;
             ToRPM = 0;
             ErrorCode = 0;

@@ -9,10 +9,8 @@ namespace ECU_Manager.Packets
 {
     public struct PK_TableMemoryData
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public uint ErrorCode;
 
@@ -26,11 +24,10 @@ namespace ECU_Manager.Packets
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_TABLE_MAX_SIZE)]
         public byte[] Data;
 
-        public PK_TableMemoryData(Channel destination, int tablesize, int table, int offset, int size, byte[] data)
+        public PK_TableMemoryData(int dummy, int tablesize, int table, int offset, int size, byte[] data)
         {
             PacketID = (byte)Packets.TableMemoryDataID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             Table = (uint)table;
             TableSize = (uint)tablesize;
             Offset = (uint)offset;

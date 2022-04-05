@@ -8,16 +8,13 @@ namespace ECU_Manager.Packets
 {
     public struct PK_SaveConfigAcknowledge
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
         public uint ErrorCode;
-        public PK_SaveConfigAcknowledge(Channel destination)
+        public PK_SaveConfigAcknowledge(int dummy)
         {
             PacketID = (byte)Packets.SaveConfigAcknowledgeID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             ErrorCode = 0;
 
             PacketLength = 0;

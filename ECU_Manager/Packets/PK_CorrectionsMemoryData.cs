@@ -7,31 +7,31 @@ using ECU_Manager.Tables;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_ConfigMemoryData
+    public struct PK_CorrectionsMemoryData
     {
         public ushort PacketID;
         public ushort PacketLength;
 
         public uint ErrorCode;
         
-        public uint ConfigSize;
+        public uint CorrectionsSize;
         public uint Offset;
         public uint Size;
 
         public ushort crc;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_CONFIG_MAX_SIZE)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_Corrections_MAX_SIZE)]
         public byte[] Data;
 
-        public PK_ConfigMemoryData(int dummy, int configsize, int offset, int size, byte[] data)
+        public PK_CorrectionsMemoryData(int dummy, int Correctionssize, int offset, int size, byte[] data)
         {
-            PacketID = (byte)Packets.ConfigMemoryDataID;
+            PacketID = (byte)Packets.CorrectionsMemoryDataID;
             
-            ConfigSize = (uint)configsize;
+            CorrectionsSize = (uint)Correctionssize;
             Offset = (uint)offset;
             Size = (uint)size;
             ErrorCode = 0;
-            Data = new byte[Consts.PACKET_CONFIG_MAX_SIZE];
+            Data = new byte[Consts.PACKET_Corrections_MAX_SIZE];
 
             for (int i = 0; i < size; i++)
                 Data[i] = data[i];

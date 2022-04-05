@@ -8,16 +8,13 @@ namespace ECU_Manager.Packets
 {
     public struct PK_Ping
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
         public int RandomPing;
-        public PK_Ping(Channel destination, int value = 0)
+        public PK_Ping(int dummy, int value = 0)
         {
             PacketID = (byte)Packets.PingID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             RandomPing = value;
 
             PacketLength = 0;

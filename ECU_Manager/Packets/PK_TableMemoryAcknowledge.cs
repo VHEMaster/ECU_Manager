@@ -8,10 +8,8 @@ namespace ECU_Manager.Packets
 {
     public struct PK_TableMemoryAcknowledge
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public uint ErrorCode;
 
@@ -20,11 +18,10 @@ namespace ECU_Manager.Packets
         public uint Offset;
         public uint Size;
 
-        public PK_TableMemoryAcknowledge(Channel destination, int tablesize, int table, int offset, int size, int errorcode)
+        public PK_TableMemoryAcknowledge(int dummy, int tablesize, int table, int offset, int size, int errorcode)
         {
             PacketID = (byte)Packets.TableMemoryAcknowledgeID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             Table = (uint)table;
             TableSize = (uint)tablesize;
             Offset = (uint)offset;

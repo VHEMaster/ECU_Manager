@@ -8,16 +8,13 @@ namespace ECU_Manager.Packets
 {
     public struct PK_SaveConfig
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
-        public PK_SaveConfig(Channel destination)
+        public ushort PacketID;
+        public ushort PacketLength;
+        public PK_SaveConfig(int dummy)
         {
             PacketID = (byte)Packets.SaveConfigID;
-            Destination = (byte)destination;
-            Dummy = 0;
-
+            
+            
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());
         }

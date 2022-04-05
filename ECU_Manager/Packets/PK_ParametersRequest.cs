@@ -6,23 +6,15 @@ using ECU_Manager.Protocol;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_DragStopAcknowledge
+    public struct PK_ParametersRequest
     {
         public ushort PacketID;
         public ushort PacketLength;
-        public byte ErrorCode;
-
-        public float FromRPM;
-        public float ToRPM;
-
-        public PK_DragStopAcknowledge(int dummy)
+        public PK_ParametersRequest(int dummy)
         {
-            PacketID = (byte)Packets.DragStopAcknowledgeID;
+            PacketID = (byte)Packets.ParametersRequestID;
             
-            FromRPM = 0;
-            ToRPM = 0;
-            ErrorCode = 0;
-
+            
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());
         }

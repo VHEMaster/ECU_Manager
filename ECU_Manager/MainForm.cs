@@ -64,7 +64,7 @@ namespace ECU_Manager
         DragStatusType eDragStatus = DragStatusType.Ready;
         float fDragFromRPM = 2000;
         float fDragToRPM = 3000;
-        PK_GeneralStatusResponse GeneralStatus;
+        PK_ParametersResponse GeneralStatus;
 
         public MainForm(string portname)
         {
@@ -914,7 +914,7 @@ namespace ECU_Manager
 
         }
 
-        public void UpdateGeneralStatus(PK_GeneralStatusResponse status)
+        public void UpdateGeneralStatus(PK_ParametersResponse status)
         {
             GeneralStatus = status;
             //if (tableLayoutPanel3.Visible)
@@ -1520,7 +1520,7 @@ namespace ECU_Manager
 
             if (from != to && from >= 0 && from < 4 && to >= 0 && to < 4)
             {
-                StructCopy<IgnitionTable> structCopy = new StructCopy<IgnitionTable>();
+                StructCopy<EcuTable> structCopy = new StructCopy<EcuTable>();
                 byte[] data = structCopy.GetBytes(middleLayer.Config.tables[from]);
                 middleLayer.Config.tables[to] = structCopy.FromBytes(data);
                 middleLayer.SyncSave(false);
@@ -1734,7 +1734,7 @@ namespace ECU_Manager
             {
                 try
                 {
-                    middleLayer.Config.tables[iCurrentTable] = Serializator<IgnitionTable>.Deserialize(dlgExport.FileName);
+                    middleLayer.Config.tables[iCurrentTable] = Serializator<EcuTable>.Deserialize(dlgExport.FileName);
                     if (!middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(iCurrentTable);
@@ -1755,7 +1755,7 @@ namespace ECU_Manager
             {
                 try
                 {
-                    Serializator<IgnitionTable>.Serialize(dlgExport.FileName, middleLayer.Config.tables[iCurrentTable]);
+                    Serializator<EcuTable>.Serialize(dlgExport.FileName, middleLayer.Config.tables[iCurrentTable]);
                     MessageBox.Show($"Table export success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)

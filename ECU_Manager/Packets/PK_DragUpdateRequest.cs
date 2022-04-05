@@ -8,17 +8,14 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragUpdateRequest
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
-        public PK_DragUpdateRequest(Channel destination)
+        public PK_DragUpdateRequest(int dummy)
         {
             PacketID = (byte)Packets.DragUpdateRequestID;
-            Destination = (byte)destination;
-            Dummy = 0;
-
+            
+            
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());
         }

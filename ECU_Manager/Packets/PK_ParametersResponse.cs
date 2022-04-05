@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_GeneralStatusResponse
+    public struct PK_ParametersResponse
     {
         public ushort PacketID;
         public ushort PacketLength;
@@ -26,9 +26,9 @@ namespace ECU_Manager.Packets
         public float Voltage;
         public float Temperature;
         public float FuelUsage;
-        public PK_GeneralStatusResponse(int dummy)
+        public PK_ParametersResponse(int dummy)
         {
-            PacketID = (byte)Packets.GeneralStatusResponseID;
+            PacketID = (byte)Packets.ParametersResponseID;
             
             
             tablenum = 0;

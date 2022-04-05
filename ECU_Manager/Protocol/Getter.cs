@@ -19,7 +19,7 @@ namespace ECU_Manager.Protocol
         {
             this.sender = sender;
             this.sp = sp;
-            rxfifo = new Queue<byte>(4096);
+            rxfifo = new Queue<byte>(20480);
             fifomutex = new Mutex();
             rxthread = new Thread(RxThread);
             rxthread.IsBackground = true;
@@ -118,7 +118,7 @@ namespace ECU_Manager.Protocol
 
                 if (packet.Length > 8)
                 {
-                    if (packet.Length < 384)
+                    if (packet.Length < 768)
                     {
                         data = new byte[packet.Length - 10];
 

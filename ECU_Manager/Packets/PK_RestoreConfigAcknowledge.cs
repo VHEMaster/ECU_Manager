@@ -8,16 +8,13 @@ namespace ECU_Manager.Packets
 {
     public struct PK_RestoreConfigAcknowledge
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
         public uint ErrorCode;
-        public PK_RestoreConfigAcknowledge(Channel destination)
+        public PK_RestoreConfigAcknowledge(int dummy)
         {
             PacketID = (byte)Packets.RestoreConfigAcknowledgeID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             ErrorCode = 0;
 
             PacketLength = 0;

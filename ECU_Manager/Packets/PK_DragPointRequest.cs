@@ -8,20 +8,17 @@ namespace ECU_Manager.Packets
 {
     public struct PK_DragPointRequest
     {
-        public byte PacketID;
-        public byte PacketLength;
-        public byte Destination;
-        public byte Dummy;
+        public ushort PacketID;
+        public ushort PacketLength;
 
         public uint PointNumber;
         public float FromRPM;
         public float ToRPM;
 
-        public PK_DragPointRequest(Channel destination, float fromrpm, float torpm, int pointnumber)
+        public PK_DragPointRequest(int dummy, float fromrpm, float torpm, int pointnumber)
         {
             PacketID = (byte)Packets.DragPointRequestID;
-            Destination = (byte)destination;
-            Dummy = 0;
+            
             FromRPM = fromrpm;
             ToRPM = torpm;
             PointNumber = (uint)pointnumber;
