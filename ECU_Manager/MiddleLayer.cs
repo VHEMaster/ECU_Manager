@@ -236,7 +236,7 @@ namespace ECU_Manager
                                 }
                                 iSyncLeft = iSyncSize;
                                 iSyncOffset = 0;
-                                iSyncNumimit = Config.parameters.tables_count;
+                                iSyncNumimit = Consts.TABLE_SETUPS_MAX;
                             }
                             if (iSyncStep == 3)
                             {
@@ -322,7 +322,6 @@ namespace ECU_Manager
         private void ReceivedEvent(Packet packet)
         {
             Action action = null;
-            ushort crc;
             int errorcode = 0;
             if(packet != null)
             {
@@ -445,16 +444,11 @@ namespace ECU_Manager
                             {
                                 if (cmd.Offset == iSyncOffset && cmd.Size == iSyncStepSize && cmd.ConfigSize == iSyncSize)
                                 {
-                                    crc = Crc.crc_16(cmd.Data, cmd.Data.Length);
-                                    if (cmd.crc == crc)
-                                    {
-                                        for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
-                                            bSyncArray[i] = cmd.Data[j];
-                                        iSyncOffset += iSyncStepSize;
-                                        iSyncLeft -= iSyncStepSize;
-                                        bSyncRequestDone = true;
-                                    }
-                                    else errorcode = 2;
+                                    for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
+                                        bSyncArray[i] = cmd.Data[j];
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
                                 }
                                 else errorcode = 1;
                             }
@@ -471,16 +465,11 @@ namespace ECU_Manager
                             {
                                 if (cmd.Offset == iSyncOffset && cmd.Size == iSyncStepSize && cmd.TableSize == iSyncSize && cmd.Table == iSyncNum)
                                 {
-                                    crc = Crc.crc_16(cmd.Data, cmd.Data.Length);
-                                    if (cmd.crc == crc)
-                                    {
-                                        for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
-                                            bSyncArray[i] = cmd.Data[j];
-                                        iSyncOffset += iSyncStepSize;
-                                        iSyncLeft -= iSyncStepSize;
-                                        bSyncRequestDone = true;
-                                    }
-                                    else errorcode = 2;
+                                    for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
+                                        bSyncArray[i] = cmd.Data[j];
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
                                 }
                                 else errorcode = 1;
                             }

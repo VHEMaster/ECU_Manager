@@ -19,8 +19,6 @@ namespace ECU_Manager.Packets
         public uint Offset;
         public uint Size;
 
-        public ushort crc;
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.PACKET_TABLE_MAX_SIZE)]
         public byte[] Data;
 
@@ -37,7 +35,6 @@ namespace ECU_Manager.Packets
 
             for (int i = 0; i < size; i++)
                 Data[i] = data[i];
-            crc = Crc.crc_16(Data, Data.Length);
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());

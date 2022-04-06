@@ -81,8 +81,12 @@
     <Compile Include="Packets\PK_DragStopAcknowledge.cs" />
     <Compile Include="Packets\PK_DragUpdateRequest.cs" />
     <Compile Include="Packets\PK_DragUpdateResponse.cs" />
-    <Compile Include="Packets\PK_GeneralStatusRequest.cs" />
-    <Compile Include="Packets\PK_GeneralStatusResponse.cs" />
+    <Compile Include="Packets\PK_ForceParametersDataAcknowledge.cs" />
+    <Compile Include="Packets\PK_ForceParametersData.cs" />
+    <Compile Include="Packets\PK_ResetStatusRequest.cs" />
+    <Compile Include="Packets\PK_StatusRequest.cs" />
+    <Compile Include="Packets\PK_ResetStatusResponse.cs" />
+    <Compile Include="Packets\PK_StatusResponse.cs" />
     <Compile Include="Packets\PK_RestoreConfigAcknowledge.cs" />
     <Compile Include="Packets\PK_RestoreConfig.cs" />
     <Compile Include="Packets\PK_SaveConfigAcknowledge.cs" />
@@ -92,6 +96,10 @@
     <Compile Include="Packets\PK_TableMemoryData.cs" />
     <Compile Include="Packets\PK_ConfigMemoryRequest.cs" />
     <Compile Include="Packets\PK_TableMemoryRequest.cs" />
+    <Compile Include="Structs\CheckData.cs" />
+    <Compile Include="Structs\EcuForceParameters.cs" />
+    <Compile Include="Structs\EcuStatus.cs" />
+    <Compile Include="Structs\EcuParameters.cs" />
     <Compile Include="SyncForm.cs">
       <SubType>Form</SubType>
     </Compile>

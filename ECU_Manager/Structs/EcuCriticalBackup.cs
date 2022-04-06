@@ -13,12 +13,7 @@ namespace ECU_Manager.Structs
     {
         public float km_driven;
         public float fuel_consumed;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
-        [XmlArray("status_recorded")]
-        [XmlArrayItem("byte")]
-
-        public byte[] status_recorded;
+        public EcuStatus status_recorded;
         public byte idle_valve_position;
     }
 }

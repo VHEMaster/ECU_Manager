@@ -9,16 +9,16 @@ using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_ParametersResponse
+    public struct PK_ForceParametersData
     {
         public ushort PacketID;
         public ushort PacketLength;
-        public EcuParameters Parameters;
-        public PK_ParametersResponse(int dummy)
+        public EcuForceParameters ForceParameters;
+        public PK_ForceParametersData(int dummy)
         {
-            PacketID = (byte)Packets.ParametersResponseID;
+            PacketID = (byte)Packets.ForceParametersDataID;
 
-            Parameters = new EcuParameters();
+            ForceParameters = new EcuForceParameters();
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());

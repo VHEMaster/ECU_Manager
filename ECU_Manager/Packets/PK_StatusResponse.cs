@@ -9,16 +9,19 @@ using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_ParametersResponse
+    public struct PK_StatusResponse
     {
         public ushort PacketID;
         public ushort PacketLength;
-        public EcuParameters Parameters;
-        public PK_ParametersResponse(int dummy)
-        {
-            PacketID = (byte)Packets.ParametersResponseID;
+        public EcuStatus CheckBitmap;
+        public EcuStatus CheckBitmapRecorded;
 
-            Parameters = new EcuParameters();
+        public PK_StatusResponse(int dummy)
+        {
+            PacketID = (byte)Packets.StatusResponseID;
+
+            CheckBitmap = new EcuStatus();
+            CheckBitmapRecorded = new EcuStatus();
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());

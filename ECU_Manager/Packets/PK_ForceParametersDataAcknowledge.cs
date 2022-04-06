@@ -6,15 +6,18 @@ using ECU_Manager.Protocol;
 
 namespace ECU_Manager.Packets
 {
-    public struct PK_GeneralStatusRequest
+    public struct PK_ForceParametersDataAcknowledge
     {
         public ushort PacketID;
         public ushort PacketLength;
-        public PK_GeneralStatusRequest(int dummy)
+
+        public int ErrorCode;
+        public PK_ForceParametersDataAcknowledge(int dummy)
         {
-            PacketID = (byte)Packets.GeneralStatusRequestID;
-            
-            
+            PacketID = (byte)Packets.ForceParametersDataAcknowledgeID;
+
+            ErrorCode = 0;
+
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());
         }

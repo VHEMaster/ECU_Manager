@@ -6,8 +6,54 @@ using System.Threading.Tasks;
 
 namespace ECU_Manager.Structs
 {
+    public class CheckDataItem
+    {
+        public readonly ErrorCode ErrorCode;
+        public readonly string Message;
+        public readonly bool Active;
+
+        public CheckDataItem(ErrorCode errorCode, string message, bool active)
+        {
+            this.ErrorCode = errorCode;
+            this.Message = message;
+            this.Active = active;
+        }
+
+        public override string ToString()
+        {
+            return (Active ? "Active" : "Inactive") + $":{ErrorCode.ToString()}:{Message}";
+        }
+    }
+
     public static class CheckData
     {
+        public static List<CheckDataItem> CheckDataList { get; private set; } = new List<CheckDataItem>();
+
+        public static List<CheckDataItem> GenerateFromBitmap(byte[] check_bitmap_status, byte[] check_bitmap_recorded)
+        {
+            List<CheckDataItem> checkDataList = new List<CheckDataItem>();
+            CheckDataItem Item;
+
+            for (int i = 0; i < Consts.CHECK_ITEMS_MAX; i++)
+            {
+                if ((check_bitmap_recorded[i >> 3] & (1 << (i & 7))) > 0 || (check_bitmap_status[i >> 3] & (1 << (i & 7))) > 0)
+                {
+                    try
+                    {
+                        Item = new CheckDataItem((ErrorCode)i, ErrorStrings[i], (check_bitmap_status[i >> 3] & (1 << (i & 7))) > 0);
+                        CheckDataList.Add(Item);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+
+            CheckDataList = checkDataList;
+            return checkDataList;
+        }
+
         private static readonly string[] ErrorStrings = new string[74]
         {
             "Invalid",
@@ -92,84 +138,6 @@ namespace ECU_Manager.Structs
             "Knock: Detonation Found",
             "Knock: Low Noise Level",
         };
-        public enum ErrorCode
-        {
-            NoFailure = 0,
-            FlashLoadFailure,
-            FlashSaveFailure,
-            FlashInitFailure,
-            BkpsramSaveFailure,
-            BkpsramLoadFailure,
-            SensorMapFailure,
-            SensorKnockFailure,
-            SensorCspsFailure,
-            SensorTspsFailure,
-            SensorAirTempFailure,
-            SensorEngineTempFailure,
-            SensorTPSFailure,
-            SensorRefVoltageFailure,
-            SensorPwrVoltageFailure,
-            SensorLambdaFailure,
-            OutputDriverFailure,
-            Injector4OpenCircuit,
-            Injector4ShortToBatOrOverheat,
-            Injector4ShortToGND,
-            Injector3OpenCircuit,
-            Injector3ShortToBatOrOverheat,
-            Injector3ShortToGND,
-            Injector2OpenCircuit,
-            Injector2ShortToBatOrOverheat,
-            Injector2ShortToGND,
-            Injector1OpenCircuit,
-            Injector1ShortToBatOrOverheat,
-            Injector1ShortToGND,
-            InjectorCommunicationFailure,
-            CheckEngineOpenCirtuit,
-            CheckEngineShortToBatOrOverheat,
-            CheckEngineShortToGND,
-            SpeedMeterOpenCirtuit,
-            SpeedMeterShortToBatOrOverheat,
-            SpeedMeterShortToGND,
-            TachometerOpenCirtuit,
-            TachometerShortToBatOrOverheat,
-            TachometerShortToGND,
-            FuelPumpOpenCirtuit,
-            FuelPumpShortToBatOrOverheat,
-            FuelPumpShortToGND,
-            Outputs1CommunicationFailure,
-            OutRsvd2OpenCirtuit,
-            OutRsvd2ShortToBatOrOverheat,
-            OutRsvd2ShortToGND,
-            OutRsvd1OpenCirtuit,
-            OutRsvd1ShortToBatOrOverheat,
-            OutRsvd1ShortToGND,
-            StarterRelayOpenCirtuit,
-            StarterRelayShortToBatOrOverheat,
-            StarterRelayShortToGND,
-            FamRelayOpenCirtuit,
-            FanRelayShortToBatOrOverheat,
-            FanRelayShortToGND,
-            Outputs2CommunicationFailure,
-            IdleValveFailure,
-            IdleValveDriverFailure,
-            InjectionUnderflow,
-            LambdaCommunicationFailure,
-            LambdaVMShortToBat,
-            LambdaVMLowBattery,
-            LambdaVMShortToGND,
-            LambdaUNShortToBat,
-            LambdaUNLowBattery,
-            LambdaUNShortToGND,
-            LambdaIAIPShortToBat,
-            LambdaIAIPLowBattery,
-            LambdaIAIPShortToGND,
-            LambdaDIAHGDShortToBat,
-            LambdaDIAHGDOpenCirtuit,
-            LambdaDIAHGDShortToGND,
-            KnockDetonationFound,
-            KnockLowNoiseLevel,
-            Count,
-        };
 
         public static string GetStringForCode(ErrorCode errorCode)
         {
@@ -180,4 +148,82 @@ namespace ECU_Manager.Structs
             return $"Invalid error code: {(int)errorCode}";
         }
     }
+    public enum ErrorCode
+    {
+        NoFailure = 0,
+        FlashLoadFailure,
+        FlashSaveFailure,
+        FlashInitFailure,
+        BkpsramSaveFailure,
+        BkpsramLoadFailure,
+        SensorMapFailure,
+        SensorKnockFailure,
+        SensorCspsFailure,
+        SensorTspsFailure,
+        SensorAirTempFailure,
+        SensorEngineTempFailure,
+        SensorTPSFailure,
+        SensorRefVoltageFailure,
+        SensorPwrVoltageFailure,
+        SensorLambdaFailure,
+        OutputDriverFailure,
+        Injector4OpenCircuit,
+        Injector4ShortToBatOrOverheat,
+        Injector4ShortToGND,
+        Injector3OpenCircuit,
+        Injector3ShortToBatOrOverheat,
+        Injector3ShortToGND,
+        Injector2OpenCircuit,
+        Injector2ShortToBatOrOverheat,
+        Injector2ShortToGND,
+        Injector1OpenCircuit,
+        Injector1ShortToBatOrOverheat,
+        Injector1ShortToGND,
+        InjectorCommunicationFailure,
+        CheckEngineOpenCirtuit,
+        CheckEngineShortToBatOrOverheat,
+        CheckEngineShortToGND,
+        SpeedMeterOpenCirtuit,
+        SpeedMeterShortToBatOrOverheat,
+        SpeedMeterShortToGND,
+        TachometerOpenCirtuit,
+        TachometerShortToBatOrOverheat,
+        TachometerShortToGND,
+        FuelPumpOpenCirtuit,
+        FuelPumpShortToBatOrOverheat,
+        FuelPumpShortToGND,
+        Outputs1CommunicationFailure,
+        OutRsvd2OpenCirtuit,
+        OutRsvd2ShortToBatOrOverheat,
+        OutRsvd2ShortToGND,
+        OutRsvd1OpenCirtuit,
+        OutRsvd1ShortToBatOrOverheat,
+        OutRsvd1ShortToGND,
+        StarterRelayOpenCirtuit,
+        StarterRelayShortToBatOrOverheat,
+        StarterRelayShortToGND,
+        FamRelayOpenCirtuit,
+        FanRelayShortToBatOrOverheat,
+        FanRelayShortToGND,
+        Outputs2CommunicationFailure,
+        IdleValveFailure,
+        IdleValveDriverFailure,
+        InjectionUnderflow,
+        LambdaCommunicationFailure,
+        LambdaVMShortToBat,
+        LambdaVMLowBattery,
+        LambdaVMShortToGND,
+        LambdaUNShortToBat,
+        LambdaUNLowBattery,
+        LambdaUNShortToGND,
+        LambdaIAIPShortToBat,
+        LambdaIAIPLowBattery,
+        LambdaIAIPShortToGND,
+        LambdaDIAHGDShortToBat,
+        LambdaDIAHGDOpenCirtuit,
+        LambdaDIAHGDShortToGND,
+        KnockDetonationFound,
+        KnockLowNoiseLevel,
+        Count,
+    };
 }

@@ -111,8 +111,12 @@ namespace ECU_Manager.Structs
         //TODO: maybe not needed?..
         //public int air_temp_count;
         //[MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        //[XmlArray("air_temps")]
+        //[XmlArrayItem("temperature")]
         //public float[] air_temps;
         //[MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        //[XmlArray("air_temp_mix_corr")]
+        //[XmlArrayItem("corr")]
         //public float[] air_temp_mix_corr;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]

@@ -21,6 +21,7 @@ namespace ECU_Manager.Structs
         public const int TABLE_STRING_MAX = 16;
 
         public const int CHECK_ITEMS_MAX = 128;
+        public const int CHECK_BITMAP_SIZE = 16;
 
         public const int PACKET_TABLE_MAX_SIZE = 512;
         public const int PACKET_CONFIG_MAX_SIZE = PACKET_TABLE_MAX_SIZE;
