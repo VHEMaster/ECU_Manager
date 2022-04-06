@@ -224,6 +224,90 @@ namespace ECU_Manager
                                     Config.parameters = structParamsCopy.FromBytes(bSyncArray);
                                 }
                                 iSyncStep++;
+                                iSyncSize = Marshal.SizeOf(typeof(EcuCriticalBackup));
+                                if (bSyncLoad)
+                                {
+                                    bSyncArray = new byte[iSyncSize];
+                                }
+                                else if (bSyncSave)
+                                {
+                                    StructCopy<EcuCriticalBackup> structParamsSaveCopy = new StructCopy<EcuCriticalBackup>();
+                                    bSyncArray = structParamsSaveCopy.GetBytes(Config.critical);
+                                }
+                                iSyncLeft = iSyncSize;
+                                iSyncOffset = 0;
+                                iSyncNum = 0;
+                            }
+                            if (iSyncStep == 3)
+                            {
+                                if (iSyncLeft > 0)
+                                {
+                                    bSyncRequestDone = false;
+                                    iSyncStepSize = iSyncLeft > Consts.PACKET_CRITICAL_MAX_SIZE ? Consts.PACKET_CRITICAL_MAX_SIZE : iSyncLeft;
+                                    if (bSyncLoad)
+                                    {
+                                        PacketHandler.SendCriticalRequest(iSyncSize, iSyncOffset, iSyncStepSize);
+                                    }
+                                    else if (bSyncSave)
+                                    {
+                                        byte[] savecriticaldata = new byte[iSyncStepSize];
+                                        for (int i = 0; i < iSyncStepSize; i++)
+                                            savecriticaldata[i] = bSyncArray[i + iSyncOffset];
+                                        PacketHandler.SendCriticalData(iSyncSize, iSyncOffset, iSyncStepSize, savecriticaldata);
+                                    }
+                                }
+                                else iSyncStep++;
+                            }
+                            if (iSyncStep == 4)
+                            {
+                                if (bSyncLoad)
+                                {
+                                    StructCopy<EcuCriticalBackup> structCriticalCopy = new StructCopy<EcuCriticalBackup>();
+                                    Config.critical = structCriticalCopy.FromBytes(bSyncArray);
+                                }
+                                iSyncStep++;
+                                iSyncSize = Marshal.SizeOf(typeof(EcuCorrections));
+                                if (bSyncLoad)
+                                {
+                                    bSyncArray = new byte[iSyncSize];
+                                }
+                                else if (bSyncSave)
+                                {
+                                    StructCopy<EcuCorrections> structCriticalSaveCopy = new StructCopy<EcuCorrections>();
+                                    bSyncArray = structCriticalSaveCopy.GetBytes(Config.corrections);
+                                }
+                                iSyncLeft = iSyncSize;
+                                iSyncOffset = 0;
+                                iSyncNum = 0;
+                            }
+                            if (iSyncStep == 5)
+                            {
+                                if (iSyncLeft > 0)
+                                {
+                                    bSyncRequestDone = false;
+                                    iSyncStepSize = iSyncLeft > Consts.PACKET_CORRECTION_MAX_SIZE ? Consts.PACKET_CORRECTION_MAX_SIZE : iSyncLeft;
+                                    if (bSyncLoad)
+                                    {
+                                        PacketHandler.SendCorrectionsRequest(iSyncSize, iSyncOffset, iSyncStepSize);
+                                    }
+                                    else if (bSyncSave)
+                                    {
+                                        byte[] saveCorrectionsdata = new byte[iSyncStepSize];
+                                        for (int i = 0; i < iSyncStepSize; i++)
+                                            saveCorrectionsdata[i] = bSyncArray[i + iSyncOffset];
+                                        PacketHandler.SendCorrectionsData(iSyncSize, iSyncOffset, iSyncStepSize, saveCorrectionsdata);
+                                    }
+                                }
+                                else iSyncStep++;
+                            }
+                            if (iSyncStep == 6)
+                            {
+                                if (bSyncLoad)
+                                {
+                                    StructCopy<EcuCorrections> structCorrectionsCopy = new StructCopy<EcuCorrections>();
+                                    Config.corrections = structCorrectionsCopy.FromBytes(bSyncArray);
+                                }
+                                iSyncStep++;
                                 iSyncSize = Marshal.SizeOf(typeof(EcuTable));
                                 if (bSyncLoad)
                                 {
@@ -238,7 +322,7 @@ namespace ECU_Manager
                                 iSyncOffset = 0;
                                 iSyncNumimit = Consts.TABLE_SETUPS_MAX;
                             }
-                            if (iSyncStep == 3)
+                            if (iSyncStep == 7)
                             {
                                 if (iSyncLeft > 0)
                                 {
@@ -366,7 +450,7 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_ParametersResponse))
                     {
                         PK_ParametersResponse gsr = (PK_ParametersResponse)packetobj;
-                        action = new Action(() => mainForm.UpdateGeneralStatus(gsr));
+                        action = new Action(() => mainForm.UpdateParameters(gsr));
                         if (mainForm.InvokeRequired)
                             mainForm.BeginInvoke(action);
                         else action.Invoke();
@@ -421,12 +505,44 @@ namespace ECU_Manager
                     }
                     else if (packetobj.GetType() == typeof(PK_ConfigMemoryAcknowledge))
                     {
-                        PK_ConfigMemoryAcknowledge cma = (PK_ConfigMemoryAcknowledge)packetobj;
+                        PK_ConfigMemoryAcknowledge cma1 = (PK_ConfigMemoryAcknowledge)packetobj;
                         lock (SyncMutex)
                         {
                             if (bSyncSave)
                             {
-                                if (cma.ErrorCode == 0)
+                                if (cma1.ErrorCode == 0)
+                                {
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
+                                }
+                            }
+                        }
+                    }
+                    else if (packetobj.GetType() == typeof(PK_CriticalMemoryAcknowledge))
+                    {
+                        PK_CriticalMemoryAcknowledge cma2 = (PK_CriticalMemoryAcknowledge)packetobj;
+                        lock (SyncMutex)
+                        {
+                            if (bSyncSave)
+                            {
+                                if (cma2.ErrorCode == 0)
+                                {
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
+                                }
+                            }
+                        }
+                    }
+                    else if (packetobj.GetType() == typeof(PK_CorrectionsMemoryAcknowledge))
+                    {
+                        PK_CorrectionsMemoryAcknowledge cma3 = (PK_CorrectionsMemoryAcknowledge)packetobj;
+                        lock (SyncMutex)
+                        {
+                            if (bSyncSave)
+                            {
+                                if (cma3.ErrorCode == 0)
                                 {
                                     iSyncOffset += iSyncStepSize;
                                     iSyncLeft -= iSyncStepSize;
@@ -476,6 +592,48 @@ namespace ECU_Manager
                             else errorcode = (int)cmd.ErrorCode + 50;
                         }
                         PacketHandler.SendTableAcknowledge((int)cmd.Table, (int)cmd.TableSize, (int)cmd.Offset, (int)cmd.Size, errorcode);
+                    }
+                    else if (packetobj.GetType() == typeof(PK_CriticalMemoryData))
+                    {
+                        PK_CriticalMemoryData cmd = (PK_CriticalMemoryData)packetobj;
+                        lock (SyncMutex)
+                        {
+                            if (cmd.ErrorCode == 0)
+                            {
+                                if (cmd.Offset == iSyncOffset && cmd.Size == iSyncStepSize && cmd.CriticalSize == iSyncSize)
+                                {
+                                    for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
+                                        bSyncArray[i] = cmd.Data[j];
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
+                                }
+                                else errorcode = 1;
+                            }
+                            else errorcode = (int)cmd.ErrorCode + 50;
+                        }
+                        PacketHandler.SendCriticalAcknowledge((int)cmd.CriticalSize, (int)cmd.Offset, (int)cmd.Size, errorcode);
+                    }
+                    else if (packetobj.GetType() == typeof(PK_CorrectionsMemoryData))
+                    {
+                        PK_CorrectionsMemoryData cmd = (PK_CorrectionsMemoryData)packetobj;
+                        lock (SyncMutex)
+                        {
+                            if (cmd.ErrorCode == 0)
+                            {
+                                if (cmd.Offset == iSyncOffset && cmd.Size == iSyncStepSize && cmd.CorrectionsSize == iSyncSize)
+                                {
+                                    for (int i = iSyncOffset, j = 0; j < iSyncStepSize; i++, j++)
+                                        bSyncArray[i] = cmd.Data[j];
+                                    iSyncOffset += iSyncStepSize;
+                                    iSyncLeft -= iSyncStepSize;
+                                    bSyncRequestDone = true;
+                                }
+                                else errorcode = 1;
+                            }
+                            else errorcode = (int)cmd.ErrorCode + 50;
+                        }
+                        PacketHandler.SendCorrectionsAcknowledge((int)cmd.CorrectionsSize, (int)cmd.Offset, (int)cmd.Size, errorcode);
                     }
                 }
             }

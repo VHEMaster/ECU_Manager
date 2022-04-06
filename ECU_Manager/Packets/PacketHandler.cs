@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ECU_Manager.Protocol;
 using ECU_Manager.Tools;
 using ECU_Manager.Packets;
+using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {
@@ -159,6 +160,38 @@ namespace ECU_Manager.Packets
             protocolHandler.Send(Channel.etrECU, bytes);
         }
 
+        public void SendCriticalData(int size, int offset, int stepsize, byte[] data)
+        {
+            PK_CriticalMemoryData packet = new PK_CriticalMemoryData(0, size, offset, stepsize, data);
+            StructCopy<PK_CriticalMemoryData> StructCopy = new StructCopy<PK_CriticalMemoryData>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendCriticalRequest(int size, int offset, int stepsize)
+        {
+            PK_CriticalMemoryRequest packet = new PK_CriticalMemoryRequest(0, size, offset, stepsize);
+            StructCopy<PK_CriticalMemoryRequest> StructCopy = new StructCopy<PK_CriticalMemoryRequest>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendCorrectionsRequest(int size, int offset, int stepsize)
+        {
+            PK_CorrectionsMemoryRequest packet = new PK_CorrectionsMemoryRequest(0, size, offset, stepsize);
+            StructCopy<PK_CorrectionsMemoryRequest> StructCopy = new StructCopy<PK_CorrectionsMemoryRequest>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendCorrectionsData(int size, int offset, int stepsize, byte[] data)
+        {
+            PK_CorrectionsMemoryData packet = new PK_CorrectionsMemoryData(0, size, offset, stepsize, data);
+            StructCopy<PK_CorrectionsMemoryData> StructCopy = new StructCopy<PK_CorrectionsMemoryData>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
         public void SendTableData(int table, int size, int offset, int stepsize, byte[] data)
         {
             PK_TableMemoryData packet = new PK_TableMemoryData(0, size, table, offset, stepsize, data);
@@ -167,10 +200,34 @@ namespace ECU_Manager.Packets
             protocolHandler.Send(Channel.etrECU, bytes);
         }
 
+        public void SendForceParametersData(int table, int size, int offset, int stepsize, EcuForceParameters data)
+        {
+            PK_ForceParametersData packet = new PK_ForceParametersData(0, data);
+            StructCopy<PK_ForceParametersData> StructCopy = new StructCopy<PK_ForceParametersData>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
         public void SendConfigAcknowledge(int size, int offset, int stepsize, int errorcode)
         {
             PK_ConfigMemoryAcknowledge packet = new PK_ConfigMemoryAcknowledge(0, size, offset, stepsize, errorcode);
             StructCopy<PK_ConfigMemoryAcknowledge> StructCopy = new StructCopy<PK_ConfigMemoryAcknowledge>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendCorrectionsAcknowledge(int size, int offset, int stepsize, int errorcode)
+        {
+            PK_CorrectionsMemoryAcknowledge packet = new PK_CorrectionsMemoryAcknowledge(0, size, offset, stepsize, errorcode);
+            StructCopy<PK_CorrectionsMemoryAcknowledge> StructCopy = new StructCopy<PK_CorrectionsMemoryAcknowledge>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendCriticalAcknowledge(int size, int offset, int stepsize, int errorcode)
+        {
+            PK_CriticalMemoryAcknowledge packet = new PK_CriticalMemoryAcknowledge(0, size, offset, stepsize, errorcode);
+            StructCopy<PK_CriticalMemoryAcknowledge> StructCopy = new StructCopy<PK_CriticalMemoryAcknowledge>();
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }
@@ -203,6 +260,22 @@ namespace ECU_Manager.Packets
         {
             PK_RestoreConfig packet = new PK_RestoreConfig(0);
             StructCopy<PK_RestoreConfig> StructCopy = new StructCopy<PK_RestoreConfig>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendStatusRequest()
+        {
+            PK_StatusRequest packet = new PK_StatusRequest(0);
+            StructCopy<PK_StatusRequest> StructCopy = new StructCopy<PK_StatusRequest>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendResetStatusRequest()
+        {
+            PK_ResetStatusRequest packet = new PK_ResetStatusRequest(0);
+            StructCopy<PK_ResetStatusRequest> StructCopy = new StructCopy<PK_ResetStatusRequest>();
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }

@@ -14,11 +14,11 @@ namespace ECU_Manager.Packets
         public ushort PacketID;
         public ushort PacketLength;
         public EcuForceParameters ForceParameters;
-        public PK_ForceParametersData(int dummy)
+        public PK_ForceParametersData(int dummy, EcuForceParameters parameters)
         {
             PacketID = (byte)Packets.ForceParametersDataID;
 
-            ForceParameters = new EcuForceParameters();
+            ForceParameters = parameters;
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());

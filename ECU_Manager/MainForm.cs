@@ -914,7 +914,7 @@ namespace ECU_Manager
 
         }
 
-        public void UpdateGeneralStatus(PK_ParametersResponse status)
+        public void UpdateParameters(PK_ParametersResponse status)
         {
             GeneralStatus = status;
             //if (tableLayoutPanel3.Visible)
