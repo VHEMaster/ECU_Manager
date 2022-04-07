@@ -15,7 +15,7 @@ using ECU_Manager.Tools;
 
 namespace ECU_Manager
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IEcuEventHandler
     {
         MiddleLayer middleLayer;
         SyncForm syncForm;
@@ -64,12 +64,12 @@ namespace ECU_Manager
         DragStatusType eDragStatus = DragStatusType.Ready;
         float fDragFromRPM = 2000;
         float fDragToRPM = 3000;
-        PK_ParametersResponse GeneralStatus;
+        EcuParameters gParameters;
 
-        public MainForm(string portname)
+        public MainForm(MiddleLayer middleLayer)
         {
             InitializeComponent();
-            middleLayer = new MiddleLayer(this, portname);
+            this.middleLayer = middleLayer;
 
             tlpIgnitions.RowStyles.Clear();
             tlpIgnitions.ColumnStyles.Clear();
@@ -143,7 +143,55 @@ namespace ECU_Manager
             
         }
 
+        public void UpdateParametersEvent(EcuParameters parameters)
+        {
+            Action action = new Action(() => { this.UpdateParameters(parameters); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
+        public void UpdateDragStatusEvent(PK_DragUpdateResponse dur)
+        {
+            Action action = new Action(() => { this.UpdateDragStatus(dur); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
+        public void UpdateDragPointEvent(PK_DragPointResponse dpr)
+        {
+            Action action = new Action(() => { this.UpdateDragPoint(dpr); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
+        public void DragStartAckEvent(PK_DragStartAcknowledge dsaa)
+        {
+            Action action = new Action(() => { this.DragStartAck(dsaa); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
+        public void DragStopAckEvent(PK_DragStopAcknowledge dsta)
+        {
+            Action action = new Action(() => { this.DragStopAck(dsta); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
         public void SynchronizedEvent()
+        {
+            Action action = new Action(() => { this.SynchronizedEventInternal(); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+        }
+
+        private void SynchronizedEventInternal()
         {
             if (syncForm.InvokeRequired)
                 syncForm.Invoke(new Action(() => syncForm.CloseForm()));
@@ -410,7 +458,7 @@ namespace ECU_Manager
             series.BorderWidth = 8;
             series.Color = Color.Red;
             series.MarkerStyle = MarkerStyle.Circle;
-            series.Points.AddXY(GeneralStatus.RealRPM, GeneralStatus.IgnitionAngle);
+            series.Points.AddXY(gParameters.RealRPM, gParameters.IgnitionAngle);
 
 
         }
@@ -420,19 +468,19 @@ namespace ECU_Manager
             int seriescount = chartIgnitions.Series.Count;
             if (seriescount > 0 && chartIgnitions.Series[0].Points.Count > 0)
             {
-                chartIgnitions.Series[seriescount - 1].Points[0].XValue = GeneralStatus.RealRPM;
-                chartIgnitions.Series[seriescount - 1].Points[0].YValues[0] = GeneralStatus.IgnitionAngle;
+                chartIgnitions.Series[seriescount - 1].Points[0].XValue = gParameters.RealRPM;
+                chartIgnitions.Series[seriescount - 1].Points[0].YValues[0] = gParameters.IgnitionAngle;
             }
 
             seriescount = chartIdleAngles.Series.Count;
             if (seriescount > 0 && chartIdleAngles.Series[0].Points.Count > 0)
             {
-                chartIdleAngles.Series[seriescount - 1].Points[0].XValue = GeneralStatus.RealRPM;
-                chartIdleAngles.Series[seriescount - 1].Points[0].YValues[0] = GeneralStatus.IgnitionAngle;
+                chartIdleAngles.Series[seriescount - 1].Points[0].XValue = gParameters.RealRPM;
+                chartIdleAngles.Series[seriescount - 1].Points[0].YValues[0] = gParameters.IgnitionAngle;
             }
 
-            float pressure = GeneralStatus.Pressure;
-            float rpm = GeneralStatus.RPM;
+            float pressure = gParameters.Pressure;
+            float rpm = gParameters.RPM;
             int rpmindex = -1;
             int pressindex = -1;
 
@@ -693,7 +741,7 @@ namespace ECU_Manager
             }
         }
 
-        internal void UpdateDragStatus(PK_DragUpdateResponse dur)
+        private void UpdateDragStatus(PK_DragUpdateResponse dur)
         {
             lblDragRpm.Text = dur.CurrentRPM.ToString("F0");
             lblDragTime.Text = (dur.Time / 1000000.0).ToString("F2") + "s";
@@ -762,7 +810,7 @@ namespace ECU_Manager
             }
         }
 
-        internal void UpdateDragPoint(PK_DragPointResponse dpr)
+        private void UpdateDragPoint(PK_DragPointResponse dpr)
         {
             if (dpr.ErrorCode == 0)
             {
@@ -808,7 +856,7 @@ namespace ECU_Manager
             }
         }
 
-        internal void DragStartAck(PK_DragStartAcknowledge dsaa)
+        private void DragStartAck(PK_DragStartAcknowledge dsaa)
         {
             if(eDragStatus == DragStatusType.Ready)
             {
@@ -825,7 +873,7 @@ namespace ECU_Manager
             }
         }
 
-        internal void DragStopAck(PK_DragStopAcknowledge dsta)
+        private void DragStopAck(PK_DragStopAcknowledge dsta)
         {
             eDragStatus = DragStatusType.Ready;
             lblDragStatus.Text = "Aborted";
@@ -914,27 +962,27 @@ namespace ECU_Manager
 
         }
 
-        public void UpdateParameters(PK_ParametersResponse status)
+        private void UpdateParameters(EcuParameters parameters)
         {
-            GeneralStatus = status;
+            gParameters = parameters;
             //if (tableLayoutPanel3.Visible)
             {
-                mGenIgn.NeedleVal = status.IgnitionAngle;
-                mGenPress.NeedleVal = status.Pressure;
-                mGenRPM.NeedleVal = status.RPM;
-                mGenTemp.NeedleVal = status.Temperature;
-                mGenFuelUsage.NeedleVal = status.FuelUsage;
-                label7.Text = (status.tablenum + 1).ToString();
-                label8.Text = status.tablename;
-                label10.Text = status.valvenum == 0 ? "All Closed" : status.valvenum == 1 ? "Petrol" : status.valvenum == 2 ? "Propane" : "Invalid";
-                label16.Text = status.Voltage.ToString("F2") + "V";
+                mGenIgn.NeedleVal = parameters.IgnitionAngle;
+                mGenPress.NeedleVal = parameters.Pressure;
+                mGenRPM.NeedleVal = parameters.RPM;
+                mGenTemp.NeedleVal = parameters.Temperature;
+                mGenFuelUsage.NeedleVal = parameters.FuelUsage;
+                label7.Text = (parameters.tablenum + 1).ToString();
+                label8.Text = parameters.tablename;
+                label10.Text = parameters.valvenum == 0 ? "All Closed" : parameters.valvenum == 1 ? "Petrol" : parameters.valvenum == 2 ? "Propane" : "Invalid";
+                label16.Text = parameters.Voltage.ToString("F2") + "V";
             }
             if(panel11.Visible)
             {
-                lblSetupRPM.Text = status.RPM.ToString("F0");
-                lblSetupPressure.Text = status.Pressure.ToString("F0");
-                lblSetupIgnition.Text = status.IgnitionAngle.ToString("F1") + "°";
-                lblSetupTemperature.Text = status.Temperature.ToString("F1") + "°";
+                lblSetupRPM.Text = parameters.RPM.ToString("F0");
+                lblSetupPressure.Text = parameters.Pressure.ToString("F0");
+                lblSetupIgnition.Text = parameters.IgnitionAngle.ToString("F1") + "°";
+                lblSetupTemperature.Text = parameters.Temperature.ToString("F1") + "°";
             }
             UpdateIgnitionChartPoint();
             generalStatusReceived = true;

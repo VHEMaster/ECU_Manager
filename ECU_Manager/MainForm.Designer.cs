@@ -168,17 +168,7 @@
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.tlpIgnitions = new System.Windows.Forms.TableLayoutPanel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.lblSetupTemperature = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
-            this.lblSetupIgnition = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.lblSetupPressure = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.lblSetupRPM = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
             this.chartIgnitions = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -306,10 +296,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.cbLive = new System.Windows.Forms.CheckBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmr1sec = new System.Windows.Forms.Timer(this.components);
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -353,8 +343,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel15.SuspendLayout();
-            this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartIgnitions)).BeginInit();
             this.tabPage10.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -782,7 +770,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1091, 605);
+            this.tabPage2.Size = new System.Drawing.Size(1099, 605);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -1602,7 +1590,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 40);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1085, 555);
+            this.tabPage8.Size = new System.Drawing.Size(1085, 566);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
             // 
@@ -1951,7 +1939,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel15);
+            this.splitContainer1.Panel1.Controls.Add(this.tlpIgnitions);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.splitContainer1.Panel1MinSize = 128;
             // 
@@ -1963,22 +1951,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1077, 516);
             this.splitContainer1.SplitterDistance = 303;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // tableLayoutPanel15
-            // 
-            this.tableLayoutPanel15.ColumnCount = 2;
-            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel15.Controls.Add(this.tlpIgnitions, 0, 0);
-            this.tableLayoutPanel15.Controls.Add(this.panel11, 1, 0);
-            this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel15.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel15.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel15.Name = "tableLayoutPanel15";
-            this.tableLayoutPanel15.RowCount = 1;
-            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(1073, 296);
-            this.tableLayoutPanel15.TabIndex = 1;
             // 
             // tlpIgnitions
             // 
@@ -1994,101 +1966,8 @@
             this.tlpIgnitions.RowCount = 2;
             this.tlpIgnitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpIgnitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpIgnitions.Size = new System.Drawing.Size(973, 296);
+            this.tlpIgnitions.Size = new System.Drawing.Size(1073, 296);
             this.tlpIgnitions.TabIndex = 0;
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.lblSetupTemperature);
-            this.panel11.Controls.Add(this.label67);
-            this.panel11.Controls.Add(this.lblSetupIgnition);
-            this.panel11.Controls.Add(this.label70);
-            this.panel11.Controls.Add(this.lblSetupPressure);
-            this.panel11.Controls.Add(this.label68);
-            this.panel11.Controls.Add(this.lblSetupRPM);
-            this.panel11.Controls.Add(this.label61);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(973, 3);
-            this.panel11.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(100, 293);
-            this.panel11.TabIndex = 1;
-            // 
-            // lblSetupTemperature
-            // 
-            this.lblSetupTemperature.AutoSize = true;
-            this.lblSetupTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSetupTemperature.Location = new System.Drawing.Point(3, 156);
-            this.lblSetupTemperature.Name = "lblSetupTemperature";
-            this.lblSetupTemperature.Size = new System.Drawing.Size(43, 20);
-            this.lblSetupTemperature.TabIndex = 7;
-            this.lblSetupTemperature.Text = "00°C";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(3, 132);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(70, 24);
-            this.label67.TabIndex = 6;
-            this.label67.Text = "Temp.:";
-            // 
-            // lblSetupIgnition
-            // 
-            this.lblSetupIgnition.AutoSize = true;
-            this.lblSetupIgnition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSetupIgnition.Location = new System.Drawing.Point(3, 112);
-            this.lblSetupIgnition.Name = "lblSetupIgnition";
-            this.lblSetupIgnition.Size = new System.Drawing.Size(45, 20);
-            this.lblSetupIgnition.TabIndex = 5;
-            this.lblSetupIgnition.Text = "00.0°";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(3, 88);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(75, 24);
-            this.label70.TabIndex = 4;
-            this.label70.Text = "Ignition:";
-            // 
-            // lblSetupPressure
-            // 
-            this.lblSetupPressure.AutoSize = true;
-            this.lblSetupPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSetupPressure.Location = new System.Drawing.Point(3, 68);
-            this.lblSetupPressure.Name = "lblSetupPressure";
-            this.lblSetupPressure.Size = new System.Drawing.Size(63, 20);
-            this.lblSetupPressure.TabIndex = 3;
-            this.lblSetupPressure.Text = "000000";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(3, 44);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(90, 24);
-            this.label68.TabIndex = 2;
-            this.label68.Text = "Pressure:";
-            // 
-            // lblSetupRPM
-            // 
-            this.lblSetupRPM.AutoSize = true;
-            this.lblSetupRPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSetupRPM.Location = new System.Drawing.Point(3, 24);
-            this.lblSetupRPM.Name = "lblSetupRPM";
-            this.lblSetupRPM.Size = new System.Drawing.Size(45, 20);
-            this.lblSetupRPM.TabIndex = 1;
-            this.lblSetupRPM.Text = "0000";
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(3, 0);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(56, 24);
-            this.label61.TabIndex = 0;
-            this.label61.Text = "RPM:";
             // 
             // chartIgnitions
             // 
@@ -2617,7 +2496,7 @@
             this.tabPage15.Controls.Add(this.tableLayoutPanel7);
             this.tabPage15.Location = new System.Drawing.Point(4, 35);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(1069, 527);
+            this.tabPage15.Size = new System.Drawing.Size(1077, 516);
             this.tabPage15.TabIndex = 2;
             this.tabPage15.Text = "RPMs";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -2635,7 +2514,7 @@
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1069, 527);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1077, 516);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // panel4
@@ -2646,10 +2525,10 @@
             this.panel4.Controls.Add(this.nudIdleRPMItem);
             this.panel4.Controls.Add(this.label27);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 489);
+            this.panel4.Location = new System.Drawing.Point(0, 478);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1069, 38);
+            this.panel4.Size = new System.Drawing.Size(1077, 38);
             this.panel4.TabIndex = 1;
             // 
             // nudIdleRPMValue
@@ -2751,7 +2630,7 @@
             series6.YValuesPerPoint = 2;
             series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartIdleRPMs.Series.Add(series6);
-            this.chartIdleRPMs.Size = new System.Drawing.Size(1063, 483);
+            this.chartIdleRPMs.Size = new System.Drawing.Size(1071, 472);
             this.chartIdleRPMs.TabIndex = 2;
             this.chartIdleRPMs.Text = " ";
             // 
@@ -2761,7 +2640,7 @@
             this.tabPage6.Controls.Add(this.tabControl5);
             this.tabPage6.Location = new System.Drawing.Point(4, 40);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1077, 555);
+            this.tabPage6.Size = new System.Drawing.Size(1085, 566);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "Temperature";
             // 
@@ -2777,7 +2656,7 @@
             this.tabControl5.Name = "tabControl5";
             this.tabControl5.Padding = new System.Drawing.Point(12, 4);
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(1077, 555);
+            this.tabControl5.Size = new System.Drawing.Size(1085, 566);
             this.tabControl5.TabIndex = 5;
             // 
             // tabPage13
@@ -2785,7 +2664,7 @@
             this.tabPage13.Controls.Add(this.tableLayoutPanel9);
             this.tabPage13.Location = new System.Drawing.Point(4, 35);
             this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(1069, 516);
+            this.tabPage13.Size = new System.Drawing.Size(1077, 527);
             this.tabPage13.TabIndex = 1;
             this.tabPage13.Text = "Ignition Angles";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -2804,7 +2683,7 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(1069, 516);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(1077, 527);
             this.tableLayoutPanel9.TabIndex = 4;
             // 
             // chartTempAngles
@@ -2836,7 +2715,7 @@
             series7.YValuesPerPoint = 2;
             series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartTempAngles.Series.Add(series7);
-            this.chartTempAngles.Size = new System.Drawing.Size(1063, 472);
+            this.chartTempAngles.Size = new System.Drawing.Size(1071, 483);
             this.chartTempAngles.TabIndex = 3;
             this.chartTempAngles.Text = " ";
             // 
@@ -2850,10 +2729,10 @@
             this.panel6.Controls.Add(this.nudTempAngleItem);
             this.panel6.Controls.Add(this.label34);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 478);
+            this.panel6.Location = new System.Drawing.Point(0, 489);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1069, 38);
+            this.panel6.Size = new System.Drawing.Size(1077, 38);
             this.panel6.TabIndex = 1;
             // 
             // lblTemp
@@ -2951,7 +2830,7 @@
             this.tabPage16.Controls.Add(this.tableLayoutPanel10);
             this.tabPage16.Location = new System.Drawing.Point(4, 35);
             this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(1069, 527);
+            this.tabPage16.Size = new System.Drawing.Size(1077, 527);
             this.tabPage16.TabIndex = 2;
             this.tabPage16.Text = "Temperatures";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -2969,7 +2848,7 @@
             this.tableLayoutPanel10.RowCount = 2;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(1069, 527);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1077, 527);
             this.tableLayoutPanel10.TabIndex = 3;
             // 
             // panel7
@@ -2983,7 +2862,7 @@
             this.panel7.Location = new System.Drawing.Point(0, 489);
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1069, 38);
+            this.panel7.Size = new System.Drawing.Size(1077, 38);
             this.panel7.TabIndex = 1;
             // 
             // nudTempValue
@@ -3090,7 +2969,7 @@
             series8.YValuesPerPoint = 2;
             series8.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartTemps.Series.Add(series8);
-            this.chartTemps.Size = new System.Drawing.Size(1063, 483);
+            this.chartTemps.Size = new System.Drawing.Size(1071, 483);
             this.chartTemps.TabIndex = 2;
             this.chartTemps.Text = " ";
             // 
@@ -3099,7 +2978,7 @@
             this.tabPage7.Controls.Add(this.tableLayoutPanel11);
             this.tabPage7.Location = new System.Drawing.Point(4, 35);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1069, 527);
+            this.tabPage7.Size = new System.Drawing.Size(1077, 527);
             this.tabPage7.TabIndex = 3;
             this.tabPage7.Text = "Servo Accelerator";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -3118,7 +2997,7 @@
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(1069, 527);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(1077, 527);
             this.tableLayoutPanel11.TabIndex = 5;
             // 
             // chartTempServoAcc
@@ -3150,7 +3029,7 @@
             series9.YValuesPerPoint = 2;
             series9.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartTempServoAcc.Series.Add(series9);
-            this.chartTempServoAcc.Size = new System.Drawing.Size(1063, 483);
+            this.chartTempServoAcc.Size = new System.Drawing.Size(1071, 483);
             this.chartTempServoAcc.TabIndex = 3;
             this.chartTempServoAcc.Text = " ";
             // 
@@ -3167,7 +3046,7 @@
             this.panel8.Location = new System.Drawing.Point(0, 489);
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1069, 38);
+            this.panel8.Size = new System.Drawing.Size(1077, 38);
             this.panel8.TabIndex = 1;
             // 
             // lblTempServoAcc
@@ -3254,7 +3133,7 @@
             this.tabPage17.Controls.Add(this.tableLayoutPanel12);
             this.tabPage17.Location = new System.Drawing.Point(4, 35);
             this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(1069, 527);
+            this.tabPage17.Size = new System.Drawing.Size(1077, 527);
             this.tabPage17.TabIndex = 4;
             this.tabPage17.Text = "Servo Choke";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -3273,7 +3152,7 @@
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(1069, 527);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(1077, 527);
             this.tableLayoutPanel12.TabIndex = 6;
             // 
             // chartTempServoChoke
@@ -3305,7 +3184,7 @@
             series10.YValuesPerPoint = 2;
             series10.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartTempServoChoke.Series.Add(series10);
-            this.chartTempServoChoke.Size = new System.Drawing.Size(1063, 483);
+            this.chartTempServoChoke.Size = new System.Drawing.Size(1071, 483);
             this.chartTempServoChoke.TabIndex = 3;
             this.chartTempServoChoke.Text = " ";
             // 
@@ -3322,7 +3201,7 @@
             this.panel9.Location = new System.Drawing.Point(0, 489);
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1069, 38);
+            this.panel9.Size = new System.Drawing.Size(1077, 38);
             this.panel9.TabIndex = 1;
             // 
             // lblTempServoChoke
@@ -3410,7 +3289,7 @@
             this.tabPage18.Controls.Add(this.tableLayoutPanel13);
             this.tabPage18.Location = new System.Drawing.Point(4, 44);
             this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Size = new System.Drawing.Size(1091, 605);
+            this.tabPage18.Size = new System.Drawing.Size(1099, 605);
             this.tabPage18.TabIndex = 3;
             this.tabPage18.Text = "Drag Measure";
             // 
@@ -3427,8 +3306,8 @@
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 605F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(1091, 605);
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 616F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 616);
             this.tableLayoutPanel13.TabIndex = 6;
             // 
             // panel10
@@ -3456,7 +3335,7 @@
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 605);
+            this.panel10.Size = new System.Drawing.Size(200, 616);
             this.panel10.TabIndex = 6;
             // 
             // label63
@@ -3708,7 +3587,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(891, 605);
+            this.tabControl2.Size = new System.Drawing.Size(899, 616);
             this.tabControl2.TabIndex = 7;
             // 
             // tabPage19
@@ -3718,7 +3597,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 36);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(883, 565);
+            this.tabPage19.Size = new System.Drawing.Size(891, 576);
             this.tabPage19.TabIndex = 0;
             this.tabPage19.Text = "RPM vs. Time";
             // 
@@ -3753,7 +3632,7 @@
             series11.YValuesPerPoint = 2;
             series11.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragTime.Series.Add(series11);
-            this.chartDragTime.Size = new System.Drawing.Size(877, 559);
+            this.chartDragTime.Size = new System.Drawing.Size(885, 570);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
             // 
@@ -3764,7 +3643,7 @@
             this.tabPage21.Location = new System.Drawing.Point(4, 36);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(883, 565);
+            this.tabPage21.Size = new System.Drawing.Size(891, 576);
             this.tabPage21.TabIndex = 2;
             this.tabPage21.Text = "ΔRPM vs. Time";
             // 
@@ -3799,7 +3678,7 @@
             series12.YValuesPerPoint = 2;
             series12.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragAccel.Series.Add(series12);
-            this.chartDragAccel.Size = new System.Drawing.Size(877, 559);
+            this.chartDragAccel.Size = new System.Drawing.Size(885, 570);
             this.chartDragAccel.TabIndex = 6;
             this.chartDragAccel.Text = " ";
             // 
@@ -3810,7 +3689,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 36);
             this.tabPage20.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(883, 565);
+            this.tabPage20.Size = new System.Drawing.Size(891, 576);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Table View";
             // 
@@ -3826,7 +3705,7 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(883, 565);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 576);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // lvDragTable
@@ -3845,7 +3724,7 @@
             this.lvDragTable.Margin = new System.Windows.Forms.Padding(0);
             this.lvDragTable.MultiSelect = false;
             this.lvDragTable.Name = "lvDragTable";
-            this.lvDragTable.Size = new System.Drawing.Size(883, 565);
+            this.lvDragTable.Size = new System.Drawing.Size(891, 576);
             this.lvDragTable.TabIndex = 0;
             this.lvDragTable.UseCompatibleStateImageBehavior = false;
             this.lvDragTable.View = System.Windows.Forms.View.Details;
@@ -4074,9 +3953,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel15.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartIgnitions)).EndInit();
             this.tabPage10.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -4407,17 +4283,7 @@
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.NumericUpDown nudForceIgnitionAngle;
         private System.Windows.Forms.CheckBox cbForceIgnition;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.TableLayoutPanel tlpIgnitions;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Label lblSetupIgnition;
-        private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.Label lblSetupPressure;
-        private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.Label lblSetupRPM;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.Label lblSetupTemperature;
-        private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TextBox tbDragName;
     }

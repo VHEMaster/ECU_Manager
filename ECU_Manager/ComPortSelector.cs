@@ -48,7 +48,11 @@ namespace ECU_Manager
             if (SerialPort.GetPortNames().Contains(portname))
             {
                 this.Hide();
-                MainForm mainForm = new MainForm(portname);
+                MiddleLayer middleLayer = new MiddleLayer(portname);
+                MainForm mainForm = new MainForm(middleLayer);
+                DiagForm diagForm = new DiagForm(middleLayer);
+                middleLayer.RegisterEventHandler(mainForm);
+                middleLayer.RegisterEventHandler(diagForm);
                 mainForm.ShowDialog();
                 this.Close();
             }

@@ -56,9 +56,34 @@
     <Compile Include="ComPortSelector.Designer.cs">
       <DependentUpon>ComPortSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Editor1D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Editor1D.Designer.cs">
+      <DependentUpon>Editor1D.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Editor2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Editor2D.Designer.cs">
+      <DependentUpon>Editor2D.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Meter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DiagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiagForm.Designer.cs">
+      <DependentUpon>DiagForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IEcuEventHandler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +154,15 @@
     <Compile Include="Structs\ParamsTable.cs" />
     <EmbeddedResource Include="ComPortSelector.resx">
       <DependentUpon>ComPortSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor1D.resx">
+      <DependentUpon>Editor1D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor2D.resx">
+      <DependentUpon>Editor2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DiagForm.resx">
+      <DependentUpon>DiagForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

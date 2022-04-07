@@ -12,7 +12,7 @@ using ECU_Manager.Tools;
 
 namespace ECU_Manager
 {
-    class MiddleLayer
+    public class MiddleLayer
     {
         public PacketHandler PacketHandler { get; private set; }
         public bool IsCtrlConnected = true;
@@ -21,7 +21,7 @@ namespace ECU_Manager
         private ConfigStruct oldconfig = new ConfigStruct(0);
 
         ProtocolHandler protocolHandler;
-        MainForm mainForm;
+        List<IEcuEventHandler> eventHandlers;
         Thread thread;
 
         object SyncMutex = new object();
@@ -34,14 +34,15 @@ namespace ECU_Manager
         int iSyncStepSize = 0;
         int iSyncLeft = 0;
         int iSyncOffset = 0;
+        bool bSyncFastSync = false;
         bool bSyncLoad = false;
         bool bSyncSave = false;
         bool bSyncFlash = false;
         byte[] bSyncArray = null;
 
-        public MiddleLayer(MainForm mainForm, string portname)
+        public MiddleLayer(string portname)
         {
-            this.mainForm = mainForm;
+            eventHandlers = new List<IEcuEventHandler>();
             protocolHandler = new ProtocolHandler(portname, ReceivedEvent, SentEvent, TimeoutEvent);
             PacketHandler = new PacketHandler(protocolHandler);
             thread = new Thread(BackgroundThread);
@@ -66,6 +67,11 @@ namespace ECU_Manager
             }
         }
 
+        public void RegisterEventHandler(IEcuEventHandler eventHandler)
+        {
+            eventHandlers.Add(eventHandler);
+        }
+
         public bool SyncSave(bool flashSave)
         {
             lock (SyncMutex)
@@ -78,6 +84,21 @@ namespace ECU_Manager
                 bSyncRequestDone = true;
                 bSyncSave = true;
                 bSyncFlash = flashSave;
+                return true;
+            }
+        }
+
+        public bool SyncFast()
+        {
+            lock (SyncMutex)
+            {
+                if (bSyncRequired)
+                    return false;
+
+                iSyncStep = 0;
+                bSyncRequired = true;
+                bSyncRequestDone = true;
+                bSyncFastSync = true;
                 return true;
             }
         }
@@ -153,7 +174,6 @@ namespace ECU_Manager
 
         private void BackgroundThread()
         {
-            Action action = null;
             while (true)
             {
                 if (IsCtrlConnected)
@@ -181,51 +201,67 @@ namespace ECU_Manager
 
                             if (iSyncStep == 0)
                             {
-                                iSyncStep++;
-                                iSyncSize = Marshal.SizeOf(typeof(ParamsTable));
-                                if (bSyncLoad)
+                                if (bSyncFastSync)
                                 {
-                                    bSyncArray = new byte[iSyncSize];
+                                    iSyncStep++;
                                 }
-                                else if (bSyncSave)
+                                else
                                 {
-                                    StructCopy<ParamsTable> structParamsSaveCopy = new StructCopy<ParamsTable>();
-                                    bSyncArray = structParamsSaveCopy.GetBytes(Config.parameters);
-                                }
-                                iSyncLeft = iSyncSize;
-                                iSyncOffset = 0;
-                                iSyncNum = 0;
-                            }
-                            if (iSyncStep == 1)
-                            {
-                                if (iSyncLeft > 0)
-                                {
-                                    bSyncRequestDone = false;
-                                    iSyncStepSize = iSyncLeft > Consts.PACKET_CONFIG_MAX_SIZE ? Consts.PACKET_CONFIG_MAX_SIZE : iSyncLeft;
+                                    iSyncSize = Marshal.SizeOf(typeof(ParamsTable));
                                     if (bSyncLoad)
                                     {
-                                        PacketHandler.SendConfigRequest(iSyncSize, iSyncOffset, iSyncStepSize);
+                                        bSyncArray = new byte[iSyncSize];
                                     }
                                     else if (bSyncSave)
                                     {
-                                        byte[] saveparamsdata = new byte[iSyncStepSize];
-                                        for (int i = 0; i < iSyncStepSize; i++)
-                                            saveparamsdata[i] = bSyncArray[i + iSyncOffset];
-                                        PacketHandler.SendConfigData(iSyncSize, iSyncOffset, iSyncStepSize, saveparamsdata);
+                                        StructCopy<ParamsTable> structParamsSaveCopy = new StructCopy<ParamsTable>();
+                                        bSyncArray = structParamsSaveCopy.GetBytes(Config.parameters);
                                     }
+                                    iSyncLeft = iSyncSize;
+                                    iSyncOffset = 0;
+                                    iSyncNum = 0;
                                 }
-                                else iSyncStep++;
+                            }
+                            if (iSyncStep == 1)
+                            {
+                                if (bSyncFastSync)
+                                {
+                                    iSyncStep++;
+                                }
+                                else
+                                {
+                                    if (iSyncLeft > 0)
+                                    {
+                                        bSyncRequestDone = false;
+                                        iSyncStepSize = iSyncLeft > Consts.PACKET_CONFIG_MAX_SIZE ? Consts.PACKET_CONFIG_MAX_SIZE : iSyncLeft;
+                                        if (bSyncLoad)
+                                        {
+                                            PacketHandler.SendConfigRequest(iSyncSize, iSyncOffset, iSyncStepSize);
+                                        }
+                                        else if (bSyncSave)
+                                        {
+                                            byte[] saveparamsdata = new byte[iSyncStepSize];
+                                            for (int i = 0; i < iSyncStepSize; i++)
+                                                saveparamsdata[i] = bSyncArray[i + iSyncOffset];
+                                            PacketHandler.SendConfigData(iSyncSize, iSyncOffset, iSyncStepSize, saveparamsdata);
+                                        }
+                                    }
+                                    else iSyncStep++;
+                                }
                             }
                             if (iSyncStep == 2)
                             {
-                                if (bSyncLoad)
+                                if (!bSyncFastSync)
                                 {
-                                    StructCopy<ParamsTable> structParamsCopy = new StructCopy<ParamsTable>();
-                                    Config.parameters = structParamsCopy.FromBytes(bSyncArray);
+                                    if (bSyncLoad)
+                                    {
+                                        StructCopy<ParamsTable> structParamsCopy = new StructCopy<ParamsTable>();
+                                        Config.parameters = structParamsCopy.FromBytes(bSyncArray);
+                                    }
                                 }
                                 iSyncStep++;
                                 iSyncSize = Marshal.SizeOf(typeof(EcuCriticalBackup));
-                                if (bSyncLoad)
+                                if (bSyncLoad || bSyncFastSync)
                                 {
                                     bSyncArray = new byte[iSyncSize];
                                 }
@@ -244,7 +280,7 @@ namespace ECU_Manager
                                 {
                                     bSyncRequestDone = false;
                                     iSyncStepSize = iSyncLeft > Consts.PACKET_CRITICAL_MAX_SIZE ? Consts.PACKET_CRITICAL_MAX_SIZE : iSyncLeft;
-                                    if (bSyncLoad)
+                                    if (bSyncLoad || bSyncFastSync)
                                     {
                                         PacketHandler.SendCriticalRequest(iSyncSize, iSyncOffset, iSyncStepSize);
                                     }
@@ -260,14 +296,14 @@ namespace ECU_Manager
                             }
                             if (iSyncStep == 4)
                             {
-                                if (bSyncLoad)
+                                if (bSyncLoad || bSyncFastSync)
                                 {
                                     StructCopy<EcuCriticalBackup> structCriticalCopy = new StructCopy<EcuCriticalBackup>();
                                     Config.critical = structCriticalCopy.FromBytes(bSyncArray);
                                 }
                                 iSyncStep++;
                                 iSyncSize = Marshal.SizeOf(typeof(EcuCorrections));
-                                if (bSyncLoad)
+                                if (bSyncLoad || bSyncFastSync)
                                 {
                                     bSyncArray = new byte[iSyncSize];
                                 }
@@ -286,7 +322,7 @@ namespace ECU_Manager
                                 {
                                     bSyncRequestDone = false;
                                     iSyncStepSize = iSyncLeft > Consts.PACKET_CORRECTION_MAX_SIZE ? Consts.PACKET_CORRECTION_MAX_SIZE : iSyncLeft;
-                                    if (bSyncLoad)
+                                    if (bSyncLoad || bSyncFastSync)
                                     {
                                         PacketHandler.SendCorrectionsRequest(iSyncSize, iSyncOffset, iSyncStepSize);
                                     }
@@ -302,25 +338,32 @@ namespace ECU_Manager
                             }
                             if (iSyncStep == 6)
                             {
-                                if (bSyncLoad)
+                                if (bSyncLoad || bSyncFastSync)
                                 {
                                     StructCopy<EcuCorrections> structCorrectionsCopy = new StructCopy<EcuCorrections>();
                                     Config.corrections = structCorrectionsCopy.FromBytes(bSyncArray);
                                 }
-                                iSyncStep++;
-                                iSyncSize = Marshal.SizeOf(typeof(EcuTable));
-                                if (bSyncLoad)
+                                if (bSyncFastSync)
                                 {
-                                    bSyncArray = new byte[iSyncSize];
+                                    iSyncStep++;
                                 }
-                                else if (bSyncSave)
+                                else
                                 {
-                                    StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
-                                    bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
+                                    iSyncStep++;
+                                    iSyncSize = Marshal.SizeOf(typeof(EcuTable));
+                                    if (bSyncLoad)
+                                    {
+                                        bSyncArray = new byte[iSyncSize];
+                                    }
+                                    else if (bSyncSave)
+                                    {
+                                        StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
+                                        bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
+                                    }
+                                    iSyncLeft = iSyncSize;
+                                    iSyncOffset = 0;
+                                    iSyncNumimit = Consts.TABLE_SETUPS_MAX;
                                 }
-                                iSyncLeft = iSyncSize;
-                                iSyncOffset = 0;
-                                iSyncNumimit = Consts.TABLE_SETUPS_MAX;
                             }
                             if (iSyncStep == 7)
                             {
@@ -342,43 +385,59 @@ namespace ECU_Manager
                                 }
                                 else
                                 {
-                                    if (bSyncLoad)
-                                    {
-                                        StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
-                                        Config.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
-                                    }
-
-                                    if (++iSyncNum < iSyncNumimit)
-                                    {
-                                        iSyncLeft = iSyncSize;
-                                        iSyncOffset = 0;
-
-                                        if (bSyncSave)
-                                        {
-                                            StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
-                                            bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (bSyncLoad)
-                                        {
-                                            StructCopy<ConfigStruct> structCopy = new StructCopy<ConfigStruct>();
-                                            byte[] config = structCopy.GetBytes(Config);
-                                            oldconfig = structCopy.FromBytes(config);
-                                        }
-                                        iSyncStep = 0;
-                                        bSyncLoad = false;
-                                        bSyncSave = false;
-                                        bSyncFlash = false;
-                                        bSyncRequired = false;
-                                        action = new Action(() => mainForm.SynchronizedEvent());
-                                        if (mainForm.InvokeRequired)
-                                            mainForm.BeginInvoke(action);
-                                        else action.Invoke();
-                                    }
+                                    iSyncStep++;
                                 }
 
+                            }
+                            if(iSyncStep == 8)
+                            {
+                                if (bSyncFastSync)
+                                {
+                                    iSyncStep++;
+                                }
+
+                                if (bSyncLoad)
+                                {
+                                    StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
+                                    Config.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
+                                }
+
+
+                                if (++iSyncNum < iSyncNumimit)
+                                {
+                                    iSyncLeft = iSyncSize;
+                                    iSyncOffset = 0;
+
+                                    if (bSyncSave)
+                                    {
+                                        StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
+                                        bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
+                                    }
+                                }
+                                else
+                                {
+                                    iSyncStep++;
+                                }
+                            }
+                            if (iSyncStep == 9)
+                            {
+                                if (!bSyncFastSync)
+                                {
+                                    if (bSyncLoad)
+                                    {
+                                        StructCopy<ConfigStruct> structCopy = new StructCopy<ConfigStruct>();
+                                        byte[] config = structCopy.GetBytes(Config);
+                                        oldconfig = structCopy.FromBytes(config);
+                                    }
+                                }
+                                iSyncStep = 0;
+                                bSyncLoad = false;
+                                bSyncSave = false;
+                                bSyncFastSync = false;
+                                bSyncFlash = false;
+                                bSyncRequired = false;
+                                foreach (IEcuEventHandler handler in eventHandlers)
+                                    handler.SynchronizedEvent();
                             }
                         }
                     }
@@ -405,7 +464,6 @@ namespace ECU_Manager
 
         private void ReceivedEvent(Packet packet)
         {
-            Action action = null;
             int errorcode = 0;
             if(packet != null)
             {
@@ -450,42 +508,32 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_ParametersResponse))
                     {
                         PK_ParametersResponse gsr = (PK_ParametersResponse)packetobj;
-                        action = new Action(() => mainForm.UpdateParameters(gsr));
-                        if (mainForm.InvokeRequired)
-                            mainForm.BeginInvoke(action);
-                        else action.Invoke();
+                        foreach (IEcuEventHandler handler in eventHandlers)
+                            handler.UpdateParametersEvent(gsr.Parameters);
                     }
                     else if (packetobj.GetType() == typeof(PK_DragUpdateResponse))
                     {
                         PK_DragUpdateResponse dur = (PK_DragUpdateResponse)packetobj;
-                        action = new Action(() => mainForm.UpdateDragStatus(dur));
-                        if (mainForm.InvokeRequired)
-                            mainForm.BeginInvoke(action);
-                        else action.Invoke();
+                        foreach (IEcuEventHandler handler in eventHandlers)
+                            handler.UpdateDragStatusEvent(dur);
                     }
                     else if (packetobj.GetType() == typeof(PK_DragPointResponse))
                     {
                         PK_DragPointResponse dpr = (PK_DragPointResponse)packetobj;
-                        action = new Action(() => mainForm.UpdateDragPoint(dpr));
-                        if (mainForm.InvokeRequired)
-                            mainForm.BeginInvoke(action);
-                        else action.Invoke();
+                        foreach (IEcuEventHandler handler in eventHandlers)
+                            handler.UpdateDragPointEvent(dpr);
                     }
                     else if (packetobj.GetType() == typeof(PK_DragStartAcknowledge))
                     {
                         PK_DragStartAcknowledge dsaa = (PK_DragStartAcknowledge)packetobj;
-                        action = new Action(() => mainForm.DragStartAck(dsaa));
-                        if (mainForm.InvokeRequired)
-                            mainForm.BeginInvoke(action);
-                        else action.Invoke();
+                        foreach (IEcuEventHandler handler in eventHandlers)
+                            handler.DragStartAckEvent(dsaa);
                     }
                     else if (packetobj.GetType() == typeof(PK_DragStopAcknowledge))
                     {
                         PK_DragStopAcknowledge dsta = (PK_DragStopAcknowledge)packetobj;
-                        action = new Action(() => mainForm.DragStopAck(dsta));
-                        if (mainForm.InvokeRequired)
-                            mainForm.BeginInvoke(action);
-                        else action.Invoke();
+                        foreach (IEcuEventHandler handler in eventHandlers)
+                            handler.DragStopAckEvent(dsta);
                     }
                     else if (packetobj.GetType() == typeof(PK_TableMemoryAcknowledge))
                     {
