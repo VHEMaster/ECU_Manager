@@ -127,7 +127,7 @@
     </Compile>
     <Compile Include="Structs\EcuCorrections.cs" />
     <Compile Include="Structs\EcuCriticalBackup.cs" />
-    <Compile Include="Tools\Interpolate.cs" />
+    <Compile Include="Tools\Interpolation.cs" />
     <Compile Include="Tools\Serializator.cs" />
     <Compile Include="Tools\StructCopy.cs" />
     <Compile Include="Packets\PK_ParametersRequest.cs" />

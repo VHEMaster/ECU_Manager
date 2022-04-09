@@ -174,12 +174,12 @@ namespace ECU_Manager.Controls
                     }
                     else if (fieldParamX != null && dep1d != null)
                     {
-                        Interpolate interpolate = new Interpolate((float)fieldParamX.GetValue(parameters), dep1d, size);
+                        Interpolation interpolate = new Interpolation((float)fieldParamX.GetValue(parameters), dep1d, size);
                         series.Points.AddXY((float)fieldParamX.GetValue(parameters), interpolate.Interpolate1D(array1d));
                     }
                     else if (fieldParamY != null)
                     {
-                        Interpolate interpolate = new Interpolate((float)fieldParamY.GetValue(parameters), array1d, size);
+                        Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(parameters), array1d, size);
                         series.Points.AddXY((float)(interpolate.indexes[0] + interpolate.mult), (float)fieldParamY.GetValue(parameters));
                     }
                 }

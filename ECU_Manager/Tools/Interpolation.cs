@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECU_Manager.Tools
 {
-    public class Interpolate
+    public class Interpolation
     {
         internal double[] values = new double[2];
         internal int[] indexes = new int[2];
@@ -30,7 +30,7 @@ namespace ECU_Manager.Tools
             return -1;
         }
 
-        public Interpolate(float value, float[] table, int size)
+        public Interpolation(float value, float[] table, int size)
         {
             int find_index = -1;
 
@@ -97,7 +97,7 @@ namespace ECU_Manager.Tools
             return result;
         }
 
-        public static float Interpolate2D(Interpolate input_x, Interpolate input_y, float[] table, int y_size)
+        public static float Interpolate2D(Interpolation input_x, Interpolation input_y, float[] table, int y_size)
         {
             float result = 0.0f;
             double[] output_1d = new double[2];
@@ -118,7 +118,7 @@ namespace ECU_Manager.Tools
             return result;
         }
 
-        public static float Interpolate2D(Interpolate input_x, Interpolate input_y, float[][] table)
+        public static float Interpolate2D(Interpolation input_x, Interpolation input_y, float[][] table)
         {
             float result = 0.0f;
             double[] output_1d = new double[2];
@@ -139,22 +139,22 @@ namespace ECU_Manager.Tools
             return result;
         }
 
-        public float Interpolate2DAsX(Interpolate input_y, float[] table, int y_size)
+        public float Interpolate2DAsX(Interpolation input_y, float[] table, int y_size)
         {
             return Interpolate2D(this, input_y, table, y_size);
         }
 
-        public float Interpolate2DAsY(Interpolate input_x, float[] table, int y_size)
+        public float Interpolate2DAsY(Interpolation input_x, float[] table, int y_size)
         {
             return Interpolate2D(input_x, this, table, y_size);
         }
 
-        public float Interpolate2DAsX(Interpolate input_y, float[][] table)
+        public float Interpolate2DAsX(Interpolation input_y, float[][] table)
         {
             return Interpolate2D(this, input_y, table);
         }
 
-        public float Interpolate2DAsY(Interpolate input_x, float[][] table)
+        public float Interpolate2DAsY(Interpolation input_x, float[][] table)
         {
             return Interpolate2D(input_x, this, table);
         }
