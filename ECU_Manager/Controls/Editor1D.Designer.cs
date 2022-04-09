@@ -31,6 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblParams = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.nudValue = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.nudItem = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
             this.chart1DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudValue)).BeginInit();
@@ -47,22 +49,38 @@
             // 
             // tableLayoutPanel5
             // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.panel2, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.chart1DChart, 0, 0);
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.lblParams, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.panel2, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.chart1DChart, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblTitle, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowCount = 3;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(958, 531);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
+            // lblParams
+            // 
+            this.lblParams.AutoSize = true;
+            this.lblParams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblParams.Location = new System.Drawing.Point(482, 0);
+            this.lblParams.Name = "lblParams";
+            this.lblParams.Size = new System.Drawing.Size(473, 30);
+            this.lblParams.TabIndex = 4;
+            this.lblParams.Text = "Parameters";
+            this.lblParams.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // panel2
             // 
+            this.tableLayoutPanel5.SetColumnSpan(this.panel2, 2);
             this.panel2.Controls.Add(this.nudValue);
             this.panel2.Controls.Add(this.label22);
             this.panel2.Controls.Add(this.btnPressApply);
@@ -146,12 +164,14 @@
             chartArea1.AxisX.Interval = 1D;
             chartArea1.AxisX.IsMarginVisible = false;
             chartArea1.AxisX.Minimum = 1D;
+            chartArea1.AxisY.Interval = 20000D;
             chartArea1.AxisY.Maximum = 120000D;
             chartArea1.AxisY.Minimum = 0D;
             chartArea1.Name = "ChartArea1";
             this.chart1DChart.ChartAreas.Add(chartArea1);
+            this.tableLayoutPanel5.SetColumnSpan(this.chart1DChart, 2);
             this.chart1DChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chart1DChart.Location = new System.Drawing.Point(3, 3);
+            this.chart1DChart.Location = new System.Drawing.Point(3, 33);
             this.chart1DChart.Name = "chart1DChart";
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
@@ -171,9 +191,20 @@
             series1.YValuesPerPoint = 2;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chart1DChart.Series.Add(series1);
-            this.chart1DChart.Size = new System.Drawing.Size(952, 487);
+            this.chart1DChart.Size = new System.Drawing.Size(952, 457);
             this.chart1DChart.TabIndex = 2;
             this.chart1DChart.Text = " ";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitle.Location = new System.Drawing.Point(3, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(473, 30);
+            this.lblTitle.TabIndex = 3;
+            this.lblTitle.Text = "Chart 1D";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Editor1D
             // 
@@ -184,7 +215,7 @@
             this.Controls.Add(this.tableLayoutPanel5);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Editor1D";
@@ -192,6 +223,7 @@
             this.ShowInTaskbar = false;
             this.Text = "Editor1D";
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudValue)).EndInit();
@@ -211,5 +243,7 @@
         private System.Windows.Forms.NumericUpDown nudItem;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1DChart;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblParams;
     }
 }
