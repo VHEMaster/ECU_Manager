@@ -14,10 +14,10 @@ namespace ECU_Manager
 {
     public class MiddleLayer
     {
+        public ComponentStructure ComponentStructure { get; private set; }
         public PacketHandler PacketHandler { get; private set; }
         public bool IsCtrlConnected = true;
         public bool IsSynchronizing { get { return bSyncRequired; } }
-        public ConfigStruct Config = new ConfigStruct(0);
         private ConfigStruct oldconfig = new ConfigStruct(0);
 
         ProtocolHandler protocolHandler;
@@ -40,11 +40,13 @@ namespace ECU_Manager
         bool bSyncFlash = false;
         byte[] bSyncArray = null;
 
-        public MiddleLayer(string portname)
+        public MiddleLayer(string portname
         {
+
             eventHandlers = new List<IEcuEventHandler>();
             protocolHandler = new ProtocolHandler(portname, ReceivedEvent, SentEvent, TimeoutEvent);
             PacketHandler = new PacketHandler(protocolHandler);
+            ComponentStructure = new ComponentStructure();
             thread = new Thread(BackgroundThread);
             thread.IsBackground = true;
             thread.Start();
@@ -113,7 +115,7 @@ namespace ECU_Manager
             while(true)
             {
                 equals = true;
-                byte[] current = structCopy.GetBytes(Config.parameters);
+                byte[] current = structCopy.GetBytes(ComponentStructure.ConfigStruct.parameters);
                 byte[] previous = structCopy.GetBytes(oldconfig.parameters);
                 for (int i = 0; i < Marshal.SizeOf(typeof(ParamsTable)); i++)
                 {
@@ -148,7 +150,7 @@ namespace ECU_Manager
             while(true)
             {
                 equals = true;
-                byte[] current = structCopy.GetBytes(Config.tables[table]);
+                byte[] current = structCopy.GetBytes(ComponentStructure.ConfigStruct.tables[table]);
                 byte[] previous = structCopy.GetBytes(oldconfig.tables[table]);
                 for (int i = 0; i < Marshal.SizeOf(typeof(EcuTable)); i++)
                 {
@@ -215,7 +217,7 @@ namespace ECU_Manager
                                     else if (bSyncSave)
                                     {
                                         StructCopy<ParamsTable> structParamsSaveCopy = new StructCopy<ParamsTable>();
-                                        bSyncArray = structParamsSaveCopy.GetBytes(Config.parameters);
+                                        bSyncArray = structParamsSaveCopy.GetBytes(ComponentStructure.ConfigStruct.parameters);
                                     }
                                     iSyncLeft = iSyncSize;
                                     iSyncOffset = 0;
@@ -256,7 +258,7 @@ namespace ECU_Manager
                                     if (bSyncLoad)
                                     {
                                         StructCopy<ParamsTable> structParamsCopy = new StructCopy<ParamsTable>();
-                                        Config.parameters = structParamsCopy.FromBytes(bSyncArray);
+                                        ComponentStructure.ConfigStruct.parameters = structParamsCopy.FromBytes(bSyncArray);
                                     }
                                 }
                                 iSyncStep++;
@@ -268,7 +270,7 @@ namespace ECU_Manager
                                 else if (bSyncSave)
                                 {
                                     StructCopy<EcuCriticalBackup> structParamsSaveCopy = new StructCopy<EcuCriticalBackup>();
-                                    bSyncArray = structParamsSaveCopy.GetBytes(Config.critical);
+                                    bSyncArray = structParamsSaveCopy.GetBytes(ComponentStructure.ConfigStruct.critical);
                                 }
                                 iSyncLeft = iSyncSize;
                                 iSyncOffset = 0;
@@ -299,7 +301,11 @@ namespace ECU_Manager
                                 if (bSyncLoad || bSyncFastSync)
                                 {
                                     StructCopy<EcuCriticalBackup> structCriticalCopy = new StructCopy<EcuCriticalBackup>();
-                                    Config.critical = structCriticalCopy.FromBytes(bSyncArray);
+                                    ComponentStructure.ConfigStruct.critical = structCriticalCopy.FromBytes(bSyncArray);
+
+                                    StructCopy<EcuCriticalBackup> structCopy = new StructCopy<EcuCriticalBackup>();
+                                    byte[] config = structCopy.GetBytes(ComponentStructure.ConfigStruct.critical);
+                                    oldconfig.critical = structCopy.FromBytes(config);
                                 }
                                 iSyncStep++;
                                 iSyncSize = Marshal.SizeOf(typeof(EcuCorrections));
@@ -310,7 +316,7 @@ namespace ECU_Manager
                                 else if (bSyncSave)
                                 {
                                     StructCopy<EcuCorrections> structCriticalSaveCopy = new StructCopy<EcuCorrections>();
-                                    bSyncArray = structCriticalSaveCopy.GetBytes(Config.corrections);
+                                    bSyncArray = structCriticalSaveCopy.GetBytes(ComponentStructure.ConfigStruct.corrections);
                                 }
                                 iSyncLeft = iSyncSize;
                                 iSyncOffset = 0;
@@ -341,7 +347,11 @@ namespace ECU_Manager
                                 if (bSyncLoad || bSyncFastSync)
                                 {
                                     StructCopy<EcuCorrections> structCorrectionsCopy = new StructCopy<EcuCorrections>();
-                                    Config.corrections = structCorrectionsCopy.FromBytes(bSyncArray);
+                                    ComponentStructure.ConfigStruct.corrections = structCorrectionsCopy.FromBytes(bSyncArray);
+
+                                    StructCopy<EcuCorrections> structCopy = new StructCopy<EcuCorrections>();
+                                    byte[] config = structCopy.GetBytes(ComponentStructure.ConfigStruct.corrections);
+                                    oldconfig.corrections = structCopy.FromBytes(config);
                                 }
                                 if (bSyncFastSync)
                                 {
@@ -358,7 +368,7 @@ namespace ECU_Manager
                                     else if (bSyncSave)
                                     {
                                         StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
-                                        bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
+                                        bSyncArray = structTableSaveCopy.GetBytes(ComponentStructure.ConfigStruct.tables[iSyncNum]);
                                     }
                                     iSyncLeft = iSyncSize;
                                     iSyncOffset = 0;
@@ -399,7 +409,7 @@ namespace ECU_Manager
                                 if (bSyncLoad)
                                 {
                                     StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
-                                    Config.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
+                                    ComponentStructure.ConfigStruct.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
                                 }
 
 
@@ -411,7 +421,7 @@ namespace ECU_Manager
                                     if (bSyncSave)
                                     {
                                         StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
-                                        bSyncArray = structTableSaveCopy.GetBytes(Config.tables[iSyncNum]);
+                                        bSyncArray = structTableSaveCopy.GetBytes(ComponentStructure.ConfigStruct.tables[iSyncNum]);
                                     }
                                 }
                                 else
@@ -426,7 +436,7 @@ namespace ECU_Manager
                                     if (bSyncLoad)
                                     {
                                         StructCopy<ConfigStruct> structCopy = new StructCopy<ConfigStruct>();
-                                        byte[] config = structCopy.GetBytes(Config);
+                                        byte[] config = structCopy.GetBytes(ComponentStructure.ConfigStruct);
                                         oldconfig = structCopy.FromBytes(config);
                                     }
                                 }
@@ -508,6 +518,7 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_ParametersResponse))
                     {
                         PK_ParametersResponse gsr = (PK_ParametersResponse)packetobj;
+                        ComponentStructure.EcuParameters = gsr.Parameters;
                         foreach (IEcuEventHandler handler in eventHandlers)
                             handler.UpdateParametersEvent(gsr.Parameters);
                     }

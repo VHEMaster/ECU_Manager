@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -114,6 +114,7 @@
             0,
             0,
             0});
+            this.nudValue.ValueChanged += new System.EventHandler(this.nudValue_ValueChanged);
             // 
             // label22
             // 
@@ -132,6 +133,7 @@
             this.btnPressApply.TabIndex = 2;
             this.btnPressApply.Text = "Apply";
             this.btnPressApply.UseVisualStyleBackColor = true;
+            this.btnPressApply.Click += new System.EventHandler(this.btnPressApply_Click);
             // 
             // nudItem
             // 
@@ -149,6 +151,7 @@
             0,
             0,
             0});
+            this.nudItem.ValueChanged += new System.EventHandler(this.nudItem_ValueChanged);
             // 
             // label21
             // 
@@ -161,36 +164,36 @@
             // 
             // chart1DChart
             // 
-            chartArea1.AxisX.Interval = 1D;
-            chartArea1.AxisX.IsMarginVisible = false;
-            chartArea1.AxisX.Minimum = 1D;
-            chartArea1.AxisY.Interval = 20000D;
-            chartArea1.AxisY.Maximum = 120000D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.Name = "ChartArea1";
-            this.chart1DChart.ChartAreas.Add(chartArea1);
+            chartArea3.AxisX.Interval = 1D;
+            chartArea3.AxisX.IsMarginVisible = false;
+            chartArea3.AxisX.Minimum = 1D;
+            chartArea3.AxisY.Interval = 20000D;
+            chartArea3.AxisY.Maximum = 120000D;
+            chartArea3.AxisY.Minimum = 0D;
+            chartArea3.Name = "ChartArea1";
+            this.chart1DChart.ChartAreas.Add(chartArea3);
             this.tableLayoutPanel5.SetColumnSpan(this.chart1DChart, 2);
             this.chart1DChart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1DChart.Location = new System.Drawing.Point(3, 33);
             this.chart1DChart.Name = "chart1DChart";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Brown;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series1.IsValueShownAsLabel = true;
-            series1.LabelBorderWidth = 0;
-            series1.MarkerColor = System.Drawing.Color.Black;
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Series1";
-            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series1.SmartLabelStyle.MaxMovingDistance = 100D;
-            series1.SmartLabelStyle.MinMovingDistance = 10D;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series1.YValuesPerPoint = 2;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart1DChart.Series.Add(series1);
+            series3.BorderWidth = 3;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Brown;
+            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series3.IsValueShownAsLabel = true;
+            series3.LabelBorderWidth = 0;
+            series3.MarkerColor = System.Drawing.Color.Black;
+            series3.MarkerSize = 8;
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Name = "Series1";
+            series3.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series3.SmartLabelStyle.MaxMovingDistance = 100D;
+            series3.SmartLabelStyle.MinMovingDistance = 10D;
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series3.YValuesPerPoint = 2;
+            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart1DChart.Series.Add(series3);
             this.chart1DChart.Size = new System.Drawing.Size(952, 457);
             this.chart1DChart.TabIndex = 2;
             this.chart1DChart.Text = " ";

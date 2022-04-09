@@ -22,6 +22,7 @@ namespace ECU_Manager
         DateTime lastReceivedGeneralStatus = DateTime.Now;
         int iCurrentTable = 0;
         bool generalStatusReceived = false;
+        ComponentStructure cs;
 
         List<int> tlpRows = new List<int>();
         List<int> tlpColumns = new List<int>();
@@ -70,6 +71,7 @@ namespace ECU_Manager
         {
             InitializeComponent();
             this.middleLayer = middleLayer;
+            this.cs = middleLayer.ComponentStructure;
 
             tlpIgnitions.RowStyles.Clear();
             tlpIgnitions.ColumnStyles.Clear();
@@ -206,8 +208,8 @@ namespace ECU_Manager
             rbCutoffMode7.Checked = false;
             rbCutoffMode8.Checked = false;
 
-            cbCutoffEnabled.Checked = middleLayer.Config.parameters.isCutoffEnabled > 0;
-            switch (middleLayer.Config.parameters.CutoffMode)
+            cbCutoffEnabled.Checked = cs.ConfigStruct.parameters.isCutoffEnabled > 0;
+            switch (cs.ConfigStruct.parameters.CutoffMode)
             {
                 case 0: rbCutoffMode1.Checked = true; break;
                 case 1: rbCutoffMode2.Checked = true; break;
@@ -220,33 +222,33 @@ namespace ECU_Manager
                 default: break;
             }
 
-            lblCutoffRPM.Text = middleLayer.Config.parameters.CutoffRPM.ToString("F0");
-            tbCutoffRPM.Value = Convert.ToInt32(middleLayer.Config.parameters.CutoffRPM);
+            lblCutoffRPM.Text = cs.ConfigStruct.parameters.CutoffRPM.ToString("F0");
+            tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.CutoffRPM);
 
-            lblCutoffAngle.Text = middleLayer.Config.parameters.CutoffAngle.ToString("F0");
-            tbCutoffAngle.Value = Convert.ToInt32(middleLayer.Config.parameters.CutoffAngle);
+            lblCutoffAngle.Text = cs.ConfigStruct.parameters.CutoffAngle.ToString("F0");
+            tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.CutoffAngle);
 
-            cbEconEnabled.Checked = middleLayer.Config.parameters.isEconomEnabled > 0;
-            cbEconStrobe.Checked = middleLayer.Config.parameters.isEconOutAsStrobe > 0;
-            cbEconIgnitionBreak.Checked = middleLayer.Config.parameters.isEconIgnitionOff > 0;
+            cbEconEnabled.Checked = cs.ConfigStruct.parameters.isEconomEnabled > 0;
+            cbEconStrobe.Checked = cs.ConfigStruct.parameters.isEconOutAsStrobe > 0;
+            cbEconIgnitionBreak.Checked = cs.ConfigStruct.parameters.isEconIgnitionOff > 0;
 
-            lblEconRPM.Text = middleLayer.Config.parameters.EconRpmThreshold.ToString("F0");
-            tbEconRPM.Value = Convert.ToInt32(middleLayer.Config.parameters.EconRpmThreshold);
+            lblEconRPM.Text = cs.ConfigStruct.parameters.EconRpmThreshold.ToString("F0");
+            tbEconRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.EconRpmThreshold);
 
-            nudSwPos1.Value = middleLayer.Config.parameters.switchPos1Table + 1;
-            nudSwPos0.Value = middleLayer.Config.parameters.switchPos0Table + 1;
-            nudSwPos2.Value = middleLayer.Config.parameters.switchPos2Table + 1;
-            nudFuelForce.Value = middleLayer.Config.parameters.forceTableNumber + 1;
-            nudEngVol.Value = middleLayer.Config.parameters.engineVolume;
-            nudForceIgnitionAngle.Value = middleLayer.Config.parameters.forceIgnitionAngle;
+            nudSwPos1.Value = cs.ConfigStruct.parameters.switchPos1Table + 1;
+            nudSwPos0.Value = cs.ConfigStruct.parameters.switchPos0Table + 1;
+            nudSwPos2.Value = cs.ConfigStruct.parameters.switchPos2Table + 1;
+            nudFuelForce.Value = cs.ConfigStruct.parameters.forceTableNumber + 1;
+            nudEngVol.Value = cs.ConfigStruct.parameters.engineVolume;
+            nudForceIgnitionAngle.Value = cs.ConfigStruct.parameters.forceIgnitionAngle;
 
-            cbTempEnabled.Checked = middleLayer.Config.parameters.isTemperatureEnabled > 0;
-            cbAutostartEnabled.Checked = middleLayer.Config.parameters.isAutostartEnabled > 0;
-            cbHallIgnition.Checked = middleLayer.Config.parameters.isIgnitionByHall > 0;
-            cbHallLearn.Checked = middleLayer.Config.parameters.isHallLearningMode > 0;
-            cbForceIgnition.Checked = middleLayer.Config.parameters.isForceIgnition > 0;
-            cbFuelForce.Checked = middleLayer.Config.parameters.isForceTable > 0;
-            cbFuelExtSw.Checked = middleLayer.Config.parameters.isSwitchByExternal > 0;
+            cbTempEnabled.Checked = cs.ConfigStruct.parameters.isTemperatureEnabled > 0;
+            cbAutostartEnabled.Checked = cs.ConfigStruct.parameters.isAutostartEnabled > 0;
+            cbHallIgnition.Checked = cs.ConfigStruct.parameters.isIgnitionByHall > 0;
+            cbHallLearn.Checked = cs.ConfigStruct.parameters.isHallLearningMode > 0;
+            cbForceIgnition.Checked = cs.ConfigStruct.parameters.isForceIgnition > 0;
+            cbFuelForce.Checked = cs.ConfigStruct.parameters.isForceTable > 0;
+            cbFuelExtSw.Checked = cs.ConfigStruct.parameters.isSwitchByExternal > 0;
 
             nudToolsCurTable.Minimum = 1;
             nudToolsCurTable.Maximum = Consts.TABLE_SETUPS_MAX;
@@ -261,123 +263,123 @@ namespace ECU_Manager
         {
             Series series;
             tbParamsName.MaxLength = Consts.TABLE_STRING_MAX - 1;
-            tbParamsName.Text = middleLayer.Config.tables[iCurrentTable].name;
+            tbParamsName.Text = cs.ConfigStruct.tables[iCurrentTable].name;
             rbParamsValve0.Checked = false;
             rbParamsValve1.Checked = false;
             rbParamsValve2.Checked = false;
 
-            switch(middleLayer.Config.tables[iCurrentTable].valve_channel)
+            switch(cs.ConfigStruct.tables[iCurrentTable].valve_channel)
             {
                 case 0: rbParamsValve0.Checked = true; break;
                 case 1: rbParamsValve1.Checked = true; break;
                 case 2: rbParamsValve2.Checked = true; break;
                 default: break;
             }
-            nudParamsValveTimeout.Value = middleLayer.Config.tables[iCurrentTable].valve_timeout;
-            nudParamsOctane.Value = (decimal)middleLayer.Config.tables[iCurrentTable].octane_corrector;
-            nudParamsInitial.Value = (decimal)middleLayer.Config.tables[iCurrentTable].initial_ignition;
+            nudParamsValveTimeout.Value = cs.ConfigStruct.tables[iCurrentTable].valve_timeout;
+            nudParamsOctane.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].octane_corrector;
+            nudParamsInitial.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].initial_ignition;
 
-            nudParamsFuelRate.Value = (decimal)middleLayer.Config.tables[iCurrentTable].fuel_rate;
-            nudParamsFuelVolume.Value = (decimal)middleLayer.Config.tables[iCurrentTable].fuel_volume;
+            nudParamsFuelRate.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].fuel_rate;
+            nudParamsFuelVolume.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].fuel_volume;
 
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntIdles.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
 
-            nudParamsCntPress.Value = middleLayer.Config.tables[iCurrentTable].pressures_count;
-            nudParamsCntRPMs.Value = middleLayer.Config.tables[iCurrentTable].rotates_count;
-            nudParamsCntIdles.Value = middleLayer.Config.tables[iCurrentTable].idles_count;
-            nudParamsCntTemps.Value = middleLayer.Config.tables[iCurrentTable].temperatures_count;
+            nudParamsCntPress.Value = cs.ConfigStruct.tables[iCurrentTable].pressures_count;
+            nudParamsCntRPMs.Value = cs.ConfigStruct.tables[iCurrentTable].rotates_count;
+            nudParamsCntIdles.Value = cs.ConfigStruct.tables[iCurrentTable].idles_count;
+            nudParamsCntTemps.Value = cs.ConfigStruct.tables[iCurrentTable].temperatures_count;
 
             chartIgnPressures.Series[0].Points.Clear();
             chartIgnPressures.ChartAreas[0].AxisX.Minimum = 1;
-            chartIgnPressures.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].pressures_count;
+            chartIgnPressures.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].pressures_count;
             nudIgnPressItem.Minimum = 1;
             nudIgnPressItem.Maximum = Consts.TABLE_PRESSURES_MAX;
-            nudIgnPressValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].pressures[(int)nudIgnPressItem.Value - 1];
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].pressures_count; i++)
-                chartIgnPressures.Series[0].Points[chartIgnPressures.Series[0].Points.AddXY(i + 1, middleLayer.Config.tables[iCurrentTable].pressures[i])].Tag = i;
+            nudIgnPressValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].pressures[(int)nudIgnPressItem.Value - 1];
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].pressures_count; i++)
+                chartIgnPressures.Series[0].Points[chartIgnPressures.Series[0].Points.AddXY(i + 1, cs.ConfigStruct.tables[iCurrentTable].pressures[i])].Tag = i;
 
             chartIgnRPMs.Series[0].Points.Clear();
             chartIgnRPMs.ChartAreas[0].AxisX.Minimum = 1;
-            chartIgnRPMs.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].rotates_count;
+            chartIgnRPMs.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].rotates_count;
             nudIgnRPMItem.Minimum = 1;
             nudIgnRPMItem.Maximum = Consts.TABLE_ROTATES_MAX;
-            nudIgnRPMValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].rotates[(int)nudIgnRPMItem.Value - 1];
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].rotates_count; i++)
-                chartIgnRPMs.Series[0].Points[chartIgnRPMs.Series[0].Points.AddXY(i + 1, middleLayer.Config.tables[iCurrentTable].rotates[i])].Tag = i;
+            nudIgnRPMValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].rotates[(int)nudIgnRPMItem.Value - 1];
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].rotates_count; i++)
+                chartIgnRPMs.Series[0].Points[chartIgnRPMs.Series[0].Points.AddXY(i + 1, cs.ConfigStruct.tables[iCurrentTable].rotates[i])].Tag = i;
 
             chartIdleRPMs.Series[0].Points.Clear();
             chartIdleRPMs.ChartAreas[0].AxisX.Minimum = 1;
-            chartIdleRPMs.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].idles_count;
+            chartIdleRPMs.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].idles_count;
             nudIdleRPMItem.Minimum = 1;
             nudIdleRPMItem.Maximum = Consts.TABLE_ROTATES_MAX;
-            nudIdleRPMValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].idle_rotates[(int)nudIdleRPMItem.Value - 1];
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].idles_count; i++)
-                chartIdleRPMs.Series[0].Points[chartIdleRPMs.Series[0].Points.AddXY(i + 1, middleLayer.Config.tables[iCurrentTable].idle_rotates[i])].Tag = i;
+            nudIdleRPMValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].idle_rotates[(int)nudIdleRPMItem.Value - 1];
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].idles_count; i++)
+                chartIdleRPMs.Series[0].Points[chartIdleRPMs.Series[0].Points.AddXY(i + 1, cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i])].Tag = i;
 
             chartIdleAngles.Series[0].Points.Clear();
-            chartIdleAngles.ChartAreas[0].AxisX.Minimum = middleLayer.Config.tables[iCurrentTable].idle_rotates[0] - (middleLayer.Config.tables[iCurrentTable].idle_rotates[0] % 50);
-            chartIdleAngles.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].idle_rotates[middleLayer.Config.tables[iCurrentTable].idles_count - 1] + (50 - (middleLayer.Config.tables[iCurrentTable].idle_rotates[middleLayer.Config.tables[iCurrentTable].idles_count - 1] % 50));
+            chartIdleAngles.ChartAreas[0].AxisX.Minimum = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[0] - (cs.ConfigStruct.tables[iCurrentTable].idle_rotates[0] % 50);
+            chartIdleAngles.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[cs.ConfigStruct.tables[iCurrentTable].idles_count - 1] + (50 - (cs.ConfigStruct.tables[iCurrentTable].idle_rotates[cs.ConfigStruct.tables[iCurrentTable].idles_count - 1] % 50));
             nudIdleAngleItem.Minimum = 1;
             nudIdleAngleItem.Maximum = Consts.TABLE_ROTATES_MAX;
-            nudIdleAngleValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].idle_ignitions[(int)nudIdleAngleItem.Value - 1];
-            lblIdleRPM.Text = middleLayer.Config.tables[iCurrentTable].idle_rotates[(int)nudIdleAngleItem.Value - 1].ToString("F0");
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].idles_count; i++)
-                chartIdleAngles.Series[0].Points[(int)chartIdleAngles.Series[0].Points.AddXY(middleLayer.Config.tables[iCurrentTable].idle_rotates[i], middleLayer.Config.tables[iCurrentTable].idle_ignitions[i])].Tag = i;
+            nudIdleAngleValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].idle_ignitions[(int)nudIdleAngleItem.Value - 1];
+            lblIdleRPM.Text = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[(int)nudIdleAngleItem.Value - 1].ToString("F0");
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].idles_count; i++)
+                chartIdleAngles.Series[0].Points[(int)chartIdleAngles.Series[0].Points.AddXY(cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i], cs.ConfigStruct.tables[iCurrentTable].idle_ignitions[i])].Tag = i;
 
             chartTemps.Series[0].Points.Clear();
             chartTemps.ChartAreas[0].AxisX.Minimum = 1;
-            chartTemps.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].temperatures_count;
+            chartTemps.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].temperatures_count;
             nudTempItem.Minimum = 1;
             nudTempItem.Maximum = Consts.TABLE_TEMPERATURES_MAX;
-            nudTempValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].temperatures[(int)nudTempItem.Value - 1];
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].temperatures_count; i++)
-                chartTemps.Series[0].Points[chartTemps.Series[0].Points.AddXY(i + 1, middleLayer.Config.tables[iCurrentTable].temperatures[i])].Tag = i;
+            nudTempValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)nudTempItem.Value - 1];
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].temperatures_count; i++)
+                chartTemps.Series[0].Points[chartTemps.Series[0].Points.AddXY(i + 1, cs.ConfigStruct.tables[iCurrentTable].temperatures[i])].Tag = i;
 
             chartTempAngles.Series[0].Points.Clear();
-            chartTempAngles.ChartAreas[0].AxisX.Minimum = middleLayer.Config.tables[iCurrentTable].temperatures[0] - (middleLayer.Config.tables[iCurrentTable].temperatures[0] % 10);
-            chartTempAngles.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] + (10 - (middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] % 10));
+            chartTempAngles.ChartAreas[0].AxisX.Minimum = cs.ConfigStruct.tables[iCurrentTable].temperatures[0] - (cs.ConfigStruct.tables[iCurrentTable].temperatures[0] % 10);
+            chartTempAngles.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] + (10 - (cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] % 10));
             nudTempAngleItem.Minimum = 1;
             nudTempAngleItem.Maximum = Consts.TABLE_TEMPERATURES_MAX;
-            nudTempAngleValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].temperature_ignitions[(int)nudTempAngleItem.Value - 1];
-            lblTemp.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)nudTempAngleItem.Value - 1].ToString("F0");
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].temperatures_count; i++)
-                chartTempAngles.Series[0].Points[(int)chartTempAngles.Series[0].Points.AddXY(middleLayer.Config.tables[iCurrentTable].temperatures[i], middleLayer.Config.tables[iCurrentTable].temperature_ignitions[i])].Tag = i;
+            nudTempAngleValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].temperature_ignitions[(int)nudTempAngleItem.Value - 1];
+            lblTemp.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)nudTempAngleItem.Value - 1].ToString("F0");
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].temperatures_count; i++)
+                chartTempAngles.Series[0].Points[(int)chartTempAngles.Series[0].Points.AddXY(cs.ConfigStruct.tables[iCurrentTable].temperatures[i], cs.ConfigStruct.tables[iCurrentTable].temperature_ignitions[i])].Tag = i;
 
             chartTempServoAcc.Series[0].Points.Clear();
-            chartTempServoAcc.ChartAreas[0].AxisX.Minimum = middleLayer.Config.tables[iCurrentTable].temperatures[0] - (middleLayer.Config.tables[iCurrentTable].temperatures[0] % 10);
-            chartTempServoAcc.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] + (10 - (middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] % 10));
+            chartTempServoAcc.ChartAreas[0].AxisX.Minimum = cs.ConfigStruct.tables[iCurrentTable].temperatures[0] - (cs.ConfigStruct.tables[iCurrentTable].temperatures[0] % 10);
+            chartTempServoAcc.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] + (10 - (cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] % 10));
             nudTempServoAccItem.Minimum = 1;
             nudTempServoAccItem.Maximum = Consts.TABLE_TEMPERATURES_MAX;
-            nudTempServoAccValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].servo_acc[(int)nudTempServoAccItem.Value - 1];
-            lblTemp.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)nudTempServoAccItem.Value - 1].ToString("F0");
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].temperatures_count; i++)
-                chartTempServoAcc.Series[0].Points[(int)chartTempServoAcc.Series[0].Points.AddXY(middleLayer.Config.tables[iCurrentTable].temperatures[i], middleLayer.Config.tables[iCurrentTable].servo_acc[i])].Tag = i;
+            nudTempServoAccValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].servo_acc[(int)nudTempServoAccItem.Value - 1];
+            lblTemp.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)nudTempServoAccItem.Value - 1].ToString("F0");
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].temperatures_count; i++)
+                chartTempServoAcc.Series[0].Points[(int)chartTempServoAcc.Series[0].Points.AddXY(cs.ConfigStruct.tables[iCurrentTable].temperatures[i], cs.ConfigStruct.tables[iCurrentTable].servo_acc[i])].Tag = i;
 
             chartTempServoChoke.Series[0].Points.Clear();
-            chartTempServoChoke.ChartAreas[0].AxisX.Minimum = middleLayer.Config.tables[iCurrentTable].temperatures[0] - (middleLayer.Config.tables[iCurrentTable].temperatures[0] % 10);
-            chartTempServoChoke.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] + (10 - (middleLayer.Config.tables[iCurrentTable].temperatures[middleLayer.Config.tables[iCurrentTable].temperatures_count - 1] % 10));
+            chartTempServoChoke.ChartAreas[0].AxisX.Minimum = cs.ConfigStruct.tables[iCurrentTable].temperatures[0] - (cs.ConfigStruct.tables[iCurrentTable].temperatures[0] % 10);
+            chartTempServoChoke.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] + (10 - (cs.ConfigStruct.tables[iCurrentTable].temperatures[cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1] % 10));
             nudTempServoChokeItem.Minimum = 1;
             nudTempServoChokeItem.Maximum = Consts.TABLE_TEMPERATURES_MAX;
-            nudTempServoChokeValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].servo_choke[(int)nudTempServoChokeItem.Value - 1];
-            lblTemp.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)nudTempServoChokeItem.Value - 1].ToString("F0");
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].temperatures_count; i++)
-                chartTempServoChoke.Series[0].Points[(int)chartTempServoChoke.Series[0].Points.AddXY(middleLayer.Config.tables[iCurrentTable].temperatures[i], middleLayer.Config.tables[iCurrentTable].servo_choke[i])].Tag = i;
+            nudTempServoChokeValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].servo_choke[(int)nudTempServoChokeItem.Value - 1];
+            lblTemp.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)nudTempServoChokeItem.Value - 1].ToString("F0");
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].temperatures_count; i++)
+                chartTempServoChoke.Series[0].Points[(int)chartTempServoChoke.Series[0].Points.AddXY(cs.ConfigStruct.tables[iCurrentTable].temperatures[i], cs.ConfigStruct.tables[iCurrentTable].servo_choke[i])].Tag = i;
 
 
             tlpIgnitions.SuspendLayout();
             tlpIgnitions.RowStyles[tlpInfoRow] = new RowStyle(SizeType.AutoSize);
             tlpIgnitions.ColumnStyles[tlpInfoColumn] = new ColumnStyle(SizeType.AutoSize);
 
-            for (int y = 0; y < middleLayer.Config.tables[iCurrentTable].pressures_count; y++)
+            for (int y = 0; y < cs.ConfigStruct.tables[iCurrentTable].pressures_count; y++)
                 tlpIgnitions.RowStyles[tlpRows[y]] = new RowStyle(SizeType.AutoSize);
-            for (int y = middleLayer.Config.tables[iCurrentTable].pressures_count; y < Consts.TABLE_PRESSURES_MAX; y++)
+            for (int y = cs.ConfigStruct.tables[iCurrentTable].pressures_count; y < Consts.TABLE_PRESSURES_MAX; y++)
                 tlpIgnitions.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Absolute, 0.0f);
-            for (int x = 0; x < middleLayer.Config.tables[iCurrentTable].rotates_count; x++)
+            for (int x = 0; x < cs.ConfigStruct.tables[iCurrentTable].rotates_count; x++)
                 tlpIgnitions.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Percent, 10.0f);
-            for (int x = middleLayer.Config.tables[iCurrentTable].rotates_count; x < Consts.TABLE_ROTATES_MAX; x++)
+            for (int x = cs.ConfigStruct.tables[iCurrentTable].rotates_count; x < Consts.TABLE_ROTATES_MAX; x++)
                 tlpIgnitions.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Absolute, 0.0f);
 
             foreach (Control control in tlpIgnitions.Controls)
@@ -389,20 +391,20 @@ namespace ECU_Manager
                     {
                         int x = ((int)control.Tag) % (Consts.TABLE_ROTATES_MAX);
                         int y = ((int)control.Tag) / (Consts.TABLE_ROTATES_MAX);
-                        control.Visible = x < middleLayer.Config.tables[iCurrentTable].rotates_count && y < middleLayer.Config.tables[iCurrentTable].pressures_count;
+                        control.Visible = x < cs.ConfigStruct.tables[iCurrentTable].rotates_count && y < cs.ConfigStruct.tables[iCurrentTable].pressures_count;
 
                         NumericUpDown nud = (NumericUpDown)control;
-                        nud.Value = (decimal)middleLayer.Config.tables[iCurrentTable].ignitions[(int)nud.Tag];
+                        nud.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].ignitions[(int)nud.Tag];
                     }
                     else if (control.GetType() == typeof(Label))
                     {
                         int x = ((int)control.Tag) % (Consts.TABLE_ROTATES_MAX + 1);
                         int y = ((int)control.Tag) / (Consts.TABLE_ROTATES_MAX + 1);
-                        control.Visible = (x - 1) < middleLayer.Config.tables[iCurrentTable].rotates_count && (y - 1) < middleLayer.Config.tables[iCurrentTable].pressures_count;
+                        control.Visible = (x - 1) < cs.ConfigStruct.tables[iCurrentTable].rotates_count && (y - 1) < cs.ConfigStruct.tables[iCurrentTable].pressures_count;
 
                         Label lbl = (Label)control;
-                        if (x == 0 && y != 0) lbl.Text = middleLayer.Config.tables[iCurrentTable].pressures[y - 1].ToString("F0");
-                        else if (y == 0 && x != 0) lbl.Text = middleLayer.Config.tables[iCurrentTable].rotates[x - 1].ToString("F0");
+                        if (x == 0 && y != 0) lbl.Text = cs.ConfigStruct.tables[iCurrentTable].pressures[y - 1].ToString("F0");
+                        else if (y == 0 && x != 0) lbl.Text = cs.ConfigStruct.tables[iCurrentTable].rotates[x - 1].ToString("F0");
                     }
                 }
             }
@@ -416,14 +418,14 @@ namespace ECU_Manager
             int ignMax = int.MinValue;
 
             chartIgnitions.Series.Clear();
-            chartIgnitions.ChartAreas[0].AxisX.Minimum = middleLayer.Config.tables[iCurrentTable].rotates[0] - (middleLayer.Config.tables[iCurrentTable].rotates[0] % 100);
-            chartIgnitions.ChartAreas[0].AxisX.Maximum = middleLayer.Config.tables[iCurrentTable].rotates[middleLayer.Config.tables[iCurrentTable].rotates_count - 1] + (100 - (middleLayer.Config.tables[iCurrentTable].rotates[middleLayer.Config.tables[iCurrentTable].rotates_count - 1] % 100));
+            chartIgnitions.ChartAreas[0].AxisX.Minimum = cs.ConfigStruct.tables[iCurrentTable].rotates[0] - (cs.ConfigStruct.tables[iCurrentTable].rotates[0] % 100);
+            chartIgnitions.ChartAreas[0].AxisX.Maximum = cs.ConfigStruct.tables[iCurrentTable].rotates[cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1] + (100 - (cs.ConfigStruct.tables[iCurrentTable].rotates[cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1] % 100));
             
-            if (middleLayer.Config.tables[iCurrentTable].pressures_count > 0 && middleLayer.Config.tables[iCurrentTable].rotates_count > 0)
+            if (cs.ConfigStruct.tables[iCurrentTable].pressures_count > 0 && cs.ConfigStruct.tables[iCurrentTable].rotates_count > 0)
             {
-                for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].pressures_count; i++)
+                for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].pressures_count; i++)
                 {
-                    series = chartIgnitions.Series.Add(middleLayer.Config.tables[iCurrentTable].pressures[i].ToString("F0"));
+                    series = chartIgnitions.Series.Add(cs.ConfigStruct.tables[iCurrentTable].pressures[i].ToString("F0"));
                     series.Tag = i;
                     series.ChartType = SeriesChartType.Line;
                     series.XAxisType = AxisType.Primary;
@@ -431,12 +433,12 @@ namespace ECU_Manager
                     series.YAxisType = AxisType.Primary;
                     series.YValueType = ChartValueType.Single;
                     series.BorderWidth = 2;
-                    float trans = (float)i / (float)(middleLayer.Config.tables[iCurrentTable].pressures_count - 1);
+                    float trans = (float)i / (float)(cs.ConfigStruct.tables[iCurrentTable].pressures_count - 1);
                     series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-                    for (int j = 0; j < middleLayer.Config.tables[iCurrentTable].rotates_count; j++)
+                    for (int j = 0; j < cs.ConfigStruct.tables[iCurrentTable].rotates_count; j++)
                     {
-                        float ign = middleLayer.Config.tables[iCurrentTable].ignitions[i * Consts.TABLE_ROTATES_MAX + j];
-                        int point = series.Points.AddXY(middleLayer.Config.tables[iCurrentTable].rotates[j], ign);
+                        float ign = cs.ConfigStruct.tables[iCurrentTable].ignitions[i * Consts.TABLE_ROTATES_MAX + j];
+                        int point = series.Points.AddXY(cs.ConfigStruct.tables[iCurrentTable].rotates[j], ign);
                         series.Points[point].Tag = j;
                         if (ign > ignMax)
                             ignMax = (int)ign;
@@ -484,25 +486,25 @@ namespace ECU_Manager
             int rpmindex = -1;
             int pressindex = -1;
 
-            if (middleLayer.Config.tables[iCurrentTable].rotates_count > 0 && middleLayer.Config.tables[iCurrentTable].pressures_count > 0)
+            if (cs.ConfigStruct.tables[iCurrentTable].rotates_count > 0 && cs.ConfigStruct.tables[iCurrentTable].pressures_count > 0)
             {
 
-                if (rpm < middleLayer.Config.tables[iCurrentTable].rotates[0])
+                if (rpm < cs.ConfigStruct.tables[iCurrentTable].rotates[0])
                 {
                     rpmindex = 0;
                 }
-                else if (rpm > middleLayer.Config.tables[iCurrentTable].rotates[middleLayer.Config.tables[iCurrentTable].rotates_count - 1])
+                else if (rpm > cs.ConfigStruct.tables[iCurrentTable].rotates[cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1])
                 {
-                    rpmindex = middleLayer.Config.tables[iCurrentTable].rotates_count - 1;
+                    rpmindex = cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1;
                 }
                 else
                 {
-                    for (int i = 1; i < middleLayer.Config.tables[iCurrentTable].rotates_count; i++)
+                    for (int i = 1; i < cs.ConfigStruct.tables[iCurrentTable].rotates_count; i++)
                     {
-                        if (middleLayer.Config.tables[iCurrentTable].rotates[i - 1] <= rpm && middleLayer.Config.tables[iCurrentTable].rotates[i] > rpm)
+                        if (cs.ConfigStruct.tables[iCurrentTable].rotates[i - 1] <= rpm && cs.ConfigStruct.tables[iCurrentTable].rotates[i] > rpm)
                         {
-                            if (rpm - middleLayer.Config.tables[iCurrentTable].rotates[i - 1] <
-                                (middleLayer.Config.tables[iCurrentTable].rotates[i] - middleLayer.Config.tables[iCurrentTable].rotates[i - 1]) / 2)
+                            if (rpm - cs.ConfigStruct.tables[iCurrentTable].rotates[i - 1] <
+                                (cs.ConfigStruct.tables[iCurrentTable].rotates[i] - cs.ConfigStruct.tables[iCurrentTable].rotates[i - 1]) / 2)
                             {
                                 rpmindex = i - 1;
                             }
@@ -514,22 +516,22 @@ namespace ECU_Manager
                     }
                 }
 
-                if (pressure < middleLayer.Config.tables[iCurrentTable].pressures[0])
+                if (pressure < cs.ConfigStruct.tables[iCurrentTable].pressures[0])
                 {
                     pressindex = 0;
                 }
-                else if (pressure > middleLayer.Config.tables[iCurrentTable].pressures[middleLayer.Config.tables[iCurrentTable].pressures_count - 1])
+                else if (pressure > cs.ConfigStruct.tables[iCurrentTable].pressures[cs.ConfigStruct.tables[iCurrentTable].pressures_count - 1])
                 {
-                    pressindex = middleLayer.Config.tables[iCurrentTable].pressures_count - 1;
+                    pressindex = cs.ConfigStruct.tables[iCurrentTable].pressures_count - 1;
                 }
                 else
                 {
-                    for (int i = 1; i < middleLayer.Config.tables[iCurrentTable].pressures_count; i++)
+                    for (int i = 1; i < cs.ConfigStruct.tables[iCurrentTable].pressures_count; i++)
                     {
-                        if (middleLayer.Config.tables[iCurrentTable].pressures[i - 1] <= pressure && middleLayer.Config.tables[iCurrentTable].pressures[i] > pressure)
+                        if (cs.ConfigStruct.tables[iCurrentTable].pressures[i - 1] <= pressure && cs.ConfigStruct.tables[iCurrentTable].pressures[i] > pressure)
                         {
-                            if (pressure - middleLayer.Config.tables[iCurrentTable].pressures[i - 1] <
-                                (middleLayer.Config.tables[iCurrentTable].pressures[i] - middleLayer.Config.tables[iCurrentTable].pressures[i - 1]) / 2)
+                            if (pressure - cs.ConfigStruct.tables[iCurrentTable].pressures[i - 1] <
+                                (cs.ConfigStruct.tables[iCurrentTable].pressures[i] - cs.ConfigStruct.tables[iCurrentTable].pressures[i - 1]) / 2)
                             {
                                 pressindex = i - 1;
                             }
@@ -926,9 +928,9 @@ namespace ECU_Manager
             Color back = Color.FromArgb(r, g, b);
             if (!middleLayer.IsSynchronizing)
             {
-                if (middleLayer.Config.tables[iCurrentTable].ignitions[index] != value)
+                if (cs.ConfigStruct.tables[iCurrentTable].ignitions[index] != value)
                 {
-                    middleLayer.Config.tables[iCurrentTable].ignitions[index] = value;
+                    cs.ConfigStruct.tables[iCurrentTable].ignitions[index] = value;
                     if (!middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(iCurrentTable);
@@ -991,7 +993,7 @@ namespace ECU_Manager
         
         private void tmr1sec_Tick(object sender, EventArgs e)
         {
-            if(middleLayer.Config.parameters.isHallLearningMode > 0)
+            if(cs.ConfigStruct.parameters.isHallLearningMode > 0)
             {
                 middleLayer.SyncLoad(false);
             }
@@ -1015,7 +1017,7 @@ namespace ECU_Manager
         
         private void cbForceIgnition_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isForceIgnition = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isForceIgnition = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1024,7 +1026,7 @@ namespace ECU_Manager
 
         private void nudForceIgnitionAngle_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.forceIgnitionAngle = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.forceIgnitionAngle = (int)((NumericUpDown)sender).Value - 1;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1033,7 +1035,7 @@ namespace ECU_Manager
 
         private void cbCutoffEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isCutoffEnabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isCutoffEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1045,7 +1047,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 0;
+                cs.ConfigStruct.parameters.CutoffMode = 0;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1057,7 +1059,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 1;
+                cs.ConfigStruct.parameters.CutoffMode = 1;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1069,7 +1071,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 2;
+                cs.ConfigStruct.parameters.CutoffMode = 2;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1081,7 +1083,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 3;
+                cs.ConfigStruct.parameters.CutoffMode = 3;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1093,7 +1095,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 4;
+                cs.ConfigStruct.parameters.CutoffMode = 4;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1105,7 +1107,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 5;
+                cs.ConfigStruct.parameters.CutoffMode = 5;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1117,7 +1119,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 6;
+                cs.ConfigStruct.parameters.CutoffMode = 6;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1129,7 +1131,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.parameters.CutoffMode = 7;
+                cs.ConfigStruct.parameters.CutoffMode = 7;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
@@ -1141,7 +1143,7 @@ namespace ECU_Manager
         {
             ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 100;
             lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
-            middleLayer.Config.parameters.CutoffRPM = ((TrackBar)sender).Value;
+            cs.ConfigStruct.parameters.CutoffRPM = ((TrackBar)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1151,7 +1153,7 @@ namespace ECU_Manager
         private void tbCutoffAngle_Scroll(object sender, EventArgs e)
         {
             lblCutoffAngle.Text = ((TrackBar)sender).Value.ToString();
-            middleLayer.Config.parameters.CutoffAngle = ((TrackBar)sender).Value;
+            cs.ConfigStruct.parameters.CutoffAngle = ((TrackBar)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1160,7 +1162,7 @@ namespace ECU_Manager
 
         private void cbEconEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isEconomEnabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isEconomEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1169,7 +1171,7 @@ namespace ECU_Manager
 
         private void cbEconStrobe_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isEconOutAsStrobe = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isEconOutAsStrobe = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1178,7 +1180,7 @@ namespace ECU_Manager
 
         private void cbEconIgnitionBreak_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isEconIgnitionOff = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isEconIgnitionOff = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1189,7 +1191,7 @@ namespace ECU_Manager
         {
             ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 100;
             lblEconRPM.Text = ((TrackBar)sender).Value.ToString();
-            middleLayer.Config.parameters.EconRpmThreshold = ((TrackBar)sender).Value;
+            cs.ConfigStruct.parameters.EconRpmThreshold = ((TrackBar)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1198,7 +1200,7 @@ namespace ECU_Manager
 
         private void cbFuelExtSw_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isSwitchByExternal = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isSwitchByExternal = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1207,7 +1209,7 @@ namespace ECU_Manager
 
         private void nudSwPos1_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.switchPos1Table = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.switchPos1Table = (int)((NumericUpDown)sender).Value - 1;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1216,7 +1218,7 @@ namespace ECU_Manager
 
         private void nudEngVol_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.engineVolume = (int)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.parameters.engineVolume = (int)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1225,7 +1227,7 @@ namespace ECU_Manager
 
         private void nudSwPos0_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.switchPos0Table = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.switchPos0Table = (int)((NumericUpDown)sender).Value - 1;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1234,7 +1236,7 @@ namespace ECU_Manager
 
         private void nudSwPos2_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.switchPos2Table = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.switchPos2Table = (int)((NumericUpDown)sender).Value - 1;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1243,7 +1245,7 @@ namespace ECU_Manager
 
         private void cbFuelForce_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isForceTable = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isForceTable = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1252,7 +1254,7 @@ namespace ECU_Manager
 
         private void nudFuelForce_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.forceTableNumber = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.forceTableNumber = (int)((NumericUpDown)sender).Value - 1;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1261,7 +1263,7 @@ namespace ECU_Manager
 
         private void cbTempEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isTemperatureEnabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isTemperatureEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1270,7 +1272,7 @@ namespace ECU_Manager
 
         private void cbAutostartEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isAutostartEnabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isAutostartEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1279,7 +1281,7 @@ namespace ECU_Manager
 
         private void cbHallIgnition_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isIgnitionByHall = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isIgnitionByHall = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1289,7 +1291,7 @@ namespace ECU_Manager
         private void cbHallLearn_CheckedChanged(object sender, EventArgs e)
         {
             bool learningmode = ((CheckBox)sender).Checked;
-            middleLayer.Config.parameters.isHallLearningMode = learningmode ? 1 : 0;
+            cs.ConfigStruct.parameters.isHallLearningMode = learningmode ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1302,7 +1304,7 @@ namespace ECU_Manager
 
         private void cbForceIdle_CheckedChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.parameters.isForceIdle = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.parameters.isForceIdle = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -1332,24 +1334,24 @@ namespace ECU_Manager
 
         private void nudIgnPressItem_ValueChanged(object sender, EventArgs e)
         {
-            nudIgnPressValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].pressures[(int)((NumericUpDown)sender).Value - 1];
+            nudIgnPressValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].pressures[(int)((NumericUpDown)sender).Value - 1];
         }
 
         private void nudIgnPressValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudIgnPressItem.Value - 1;
-            if (index > 0 && value - 500 < middleLayer.Config.tables[iCurrentTable].pressures[index - 1])
+            if (index > 0 && value - 500 < cs.ConfigStruct.tables[iCurrentTable].pressures[index - 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].pressures[index - 1] + 500;
+                value = cs.ConfigStruct.tables[iCurrentTable].pressures[index - 1] + 500;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            else if (index < middleLayer.Config.tables[iCurrentTable].pressures_count - 1 && value + 500 > middleLayer.Config.tables[iCurrentTable].pressures[index + 1])
+            else if (index < cs.ConfigStruct.tables[iCurrentTable].pressures_count - 1 && value + 500 > cs.ConfigStruct.tables[iCurrentTable].pressures[index + 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].pressures[index + 1] - 500;
+                value = cs.ConfigStruct.tables[iCurrentTable].pressures[index + 1] - 500;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            middleLayer.Config.tables[iCurrentTable].pressures[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].pressures[index] = value;
             var result = chartIgnPressures.Series[0].Points.Where(n => (int)n.Tag == index);
             if(result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1363,24 +1365,24 @@ namespace ECU_Manager
 
         private void nudIgnRPMItem_ValueChanged(object sender, EventArgs e)
         {
-            nudIgnRPMValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].rotates[(int)((NumericUpDown)sender).Value - 1];
+            nudIgnRPMValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].rotates[(int)((NumericUpDown)sender).Value - 1];
         }
 
         private void nudIgnRPMValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudIgnRPMItem.Value - 1;
-            if (index > 0 && value - 20 < middleLayer.Config.tables[iCurrentTable].rotates[index - 1])
+            if (index > 0 && value - 20 < cs.ConfigStruct.tables[iCurrentTable].rotates[index - 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].rotates[index - 1] + 20;
+                value = cs.ConfigStruct.tables[iCurrentTable].rotates[index - 1] + 20;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            else if (index < middleLayer.Config.tables[iCurrentTable].rotates_count - 1 && value + 20 > middleLayer.Config.tables[iCurrentTable].rotates[index + 1])
+            else if (index < cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1 && value + 20 > cs.ConfigStruct.tables[iCurrentTable].rotates[index + 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].rotates[index + 1] - 20;
+                value = cs.ConfigStruct.tables[iCurrentTable].rotates[index + 1] - 20;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            middleLayer.Config.tables[iCurrentTable].rotates[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].rotates[index] = value;
             var result = chartIgnRPMs.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1400,24 +1402,24 @@ namespace ECU_Manager
 
         private void nudIdleRPMItem_ValueChanged(object sender, EventArgs e)
         {
-            nudIdleRPMValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].idle_rotates[(int)((NumericUpDown)sender).Value - 1];
+            nudIdleRPMValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].idle_rotates[(int)((NumericUpDown)sender).Value - 1];
         }
 
         private void nudIdleRPMValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudIdleRPMItem.Value - 1;
-            if (index > 0 && value - 5 < middleLayer.Config.tables[iCurrentTable].idle_rotates[index - 1])
+            if (index > 0 && value - 5 < cs.ConfigStruct.tables[iCurrentTable].idle_rotates[index - 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].idle_rotates[index - 1] + 5;
+                value = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[index - 1] + 5;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            else if (index < middleLayer.Config.tables[iCurrentTable].idles_count - 1 && value + 5 > middleLayer.Config.tables[iCurrentTable].idle_rotates[index + 1])
+            else if (index < cs.ConfigStruct.tables[iCurrentTable].idles_count - 1 && value + 5 > cs.ConfigStruct.tables[iCurrentTable].idle_rotates[index + 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].idle_rotates[index + 1] - 5;
+                value = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[index + 1] - 5;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            middleLayer.Config.tables[iCurrentTable].idle_rotates[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].idle_rotates[index] = value;
             var result = chartIdleRPMs.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1431,15 +1433,15 @@ namespace ECU_Manager
 
         private void nudIdleAngleItem_ValueChanged(object sender, EventArgs e)
         {
-            nudIdleAngleValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].idle_ignitions[(int)((NumericUpDown)sender).Value - 1];
-            lblIdleRPM.Text = middleLayer.Config.tables[iCurrentTable].idle_rotates[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
+            nudIdleAngleValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].idle_ignitions[(int)((NumericUpDown)sender).Value - 1];
+            lblIdleRPM.Text = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
         }
 
         private void nudIdleAngleValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudIdleAngleItem.Value - 1;
-            middleLayer.Config.tables[iCurrentTable].idle_ignitions[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].idle_ignitions[index] = value;
             var result = chartIdleAngles.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1453,15 +1455,15 @@ namespace ECU_Manager
 
         private void nudTempAngleItem_ValueChanged(object sender, EventArgs e)
         {
-            nudTempAngleValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].temperature_ignitions[(int)((NumericUpDown)sender).Value - 1];
-            lblTemp.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
+            nudTempAngleValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].temperature_ignitions[(int)((NumericUpDown)sender).Value - 1];
+            lblTemp.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
         }
 
         private void nudTempAngleValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudTempAngleItem.Value - 1;
-            middleLayer.Config.tables[iCurrentTable].temperature_ignitions[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].temperature_ignitions[index] = value;
             var result = chartTempAngles.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1475,8 +1477,8 @@ namespace ECU_Manager
 
         private void nudTempItem_ValueChanged(object sender, EventArgs e)
         {
-            nudTempValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1];
-            lblIdleRPM.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
+            nudTempValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1];
+            lblIdleRPM.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
         }
 
         private void nudTempValue_ValueChanged(object sender, EventArgs e)
@@ -1484,18 +1486,18 @@ namespace ECU_Manager
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudTempItem.Value - 1;
 
-            if (index > 0 && value - 1 < middleLayer.Config.tables[iCurrentTable].temperatures[index - 1])
+            if (index > 0 && value - 1 < cs.ConfigStruct.tables[iCurrentTable].temperatures[index - 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].temperatures[index - 1] + 1;
+                value = cs.ConfigStruct.tables[iCurrentTable].temperatures[index - 1] + 1;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
-            else if (index < middleLayer.Config.tables[iCurrentTable].idles_count - 1 && value + 1 > middleLayer.Config.tables[iCurrentTable].temperatures[index + 1])
+            else if (index < cs.ConfigStruct.tables[iCurrentTable].idles_count - 1 && value + 1 > cs.ConfigStruct.tables[iCurrentTable].temperatures[index + 1])
             {
-                value = middleLayer.Config.tables[iCurrentTable].temperatures[index + 1] - 1;
+                value = cs.ConfigStruct.tables[iCurrentTable].temperatures[index + 1] - 1;
                 ((NumericUpDown)sender).Value = (decimal)value;
             }
 
-            middleLayer.Config.tables[iCurrentTable].temperatures[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].temperatures[index] = value;
             var result = chartTemps.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1509,15 +1511,15 @@ namespace ECU_Manager
 
         private void nudTempServoAccItem_ValueChanged(object sender, EventArgs e)
         {
-            nudTempServoAccValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].servo_acc[(int)((NumericUpDown)sender).Value - 1];
-            lblTempServoAcc.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
+            nudTempServoAccValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].servo_acc[(int)((NumericUpDown)sender).Value - 1];
+            lblTempServoAcc.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
         }
 
         private void nudTempServoAccValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudTempServoAccItem.Value - 1;
-            middleLayer.Config.tables[iCurrentTable].servo_acc[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].servo_acc[index] = value;
             var result = chartTempServoAcc.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1531,15 +1533,15 @@ namespace ECU_Manager
 
         private void nudTempServoChokeItem_ValueChanged(object sender, EventArgs e)
         {
-            nudTempServoChokeValue.Value = (decimal)middleLayer.Config.tables[iCurrentTable].servo_choke[(int)((NumericUpDown)sender).Value - 1];
-            lblTempServoChoke.Text = middleLayer.Config.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
+            nudTempServoChokeValue.Value = (decimal)cs.ConfigStruct.tables[iCurrentTable].servo_choke[(int)((NumericUpDown)sender).Value - 1];
+            lblTempServoChoke.Text = cs.ConfigStruct.tables[iCurrentTable].temperatures[(int)((NumericUpDown)sender).Value - 1].ToString("F0");
         }
 
         private void nudTempServoChokeValue_ValueChanged(object sender, EventArgs e)
         {
             float value = (float)((NumericUpDown)sender).Value;
             int index = (int)nudTempServoChokeItem.Value - 1;
-            middleLayer.Config.tables[iCurrentTable].servo_choke[index] = value;
+            cs.ConfigStruct.tables[iCurrentTable].servo_choke[index] = value;
             var result = chartTempServoChoke.Series[0].Points.Where(n => (int)n.Tag == index);
             if (result.FirstOrDefault() != null) result.FirstOrDefault().YValues = new double[1] { value };
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1569,15 +1571,15 @@ namespace ECU_Manager
             if (from != to && from >= 0 && from < 4 && to >= 0 && to < 4)
             {
                 StructCopy<EcuTable> structCopy = new StructCopy<EcuTable>();
-                byte[] data = structCopy.GetBytes(middleLayer.Config.tables[from]);
-                middleLayer.Config.tables[to] = structCopy.FromBytes(data);
+                byte[] data = structCopy.GetBytes(cs.ConfigStruct.tables[from]);
+                cs.ConfigStruct.tables[to] = structCopy.FromBytes(data);
                 middleLayer.SyncSave(false);
             }
         }
 
         private void tbParamsName_TextChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].name = ((TextBox)sender).Text;
+            cs.ConfigStruct.tables[iCurrentTable].name = ((TextBox)sender).Text;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1588,7 +1590,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.tables[iCurrentTable].valve_channel = 0;
+                cs.ConfigStruct.tables[iCurrentTable].valve_channel = 0;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateTable(iCurrentTable);
@@ -1600,7 +1602,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.tables[iCurrentTable].valve_channel = 1;
+                cs.ConfigStruct.tables[iCurrentTable].valve_channel = 1;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateTable(iCurrentTable);
@@ -1612,7 +1614,7 @@ namespace ECU_Manager
         {
             if (((RadioButton)sender).Checked)
             {
-                middleLayer.Config.tables[iCurrentTable].valve_channel = 2;
+                cs.ConfigStruct.tables[iCurrentTable].valve_channel = 2;
                 if (!middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateTable(iCurrentTable);
@@ -1622,7 +1624,7 @@ namespace ECU_Manager
 
         private void nudParamsValveTimeout_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].valve_timeout = (int)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[iCurrentTable].valve_timeout = (int)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1631,7 +1633,7 @@ namespace ECU_Manager
 
         private void nudParamsOctane_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].octane_corrector = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[iCurrentTable].octane_corrector = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1640,7 +1642,7 @@ namespace ECU_Manager
 
         private void nudParamsInitial_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].initial_ignition = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[iCurrentTable].initial_ignition = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1649,10 +1651,10 @@ namespace ECU_Manager
 
         private void nudParamsCntPress_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].pressures_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].pressures_count - 1; i++)
-                if (middleLayer.Config.tables[iCurrentTable].pressures[i + 1] <= middleLayer.Config.tables[iCurrentTable].pressures[i])
-                    middleLayer.Config.tables[iCurrentTable].pressures[i + 1] = middleLayer.Config.tables[iCurrentTable].pressures[i] + 1000;
+            cs.ConfigStruct.tables[iCurrentTable].pressures_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].pressures_count - 1; i++)
+                if (cs.ConfigStruct.tables[iCurrentTable].pressures[i + 1] <= cs.ConfigStruct.tables[iCurrentTable].pressures[i])
+                    cs.ConfigStruct.tables[iCurrentTable].pressures[i + 1] = cs.ConfigStruct.tables[iCurrentTable].pressures[i] + 1000;
             UpdateIgnitionsGui();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1662,10 +1664,10 @@ namespace ECU_Manager
 
         private void nudParamsCntRPMs_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].rotates_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].rotates_count - 1; i++)
-                if (middleLayer.Config.tables[iCurrentTable].rotates[i + 1] <= middleLayer.Config.tables[iCurrentTable].rotates[i])
-                    middleLayer.Config.tables[iCurrentTable].rotates[i + 1] = middleLayer.Config.tables[iCurrentTable].rotates[i] + 100;
+            cs.ConfigStruct.tables[iCurrentTable].rotates_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].rotates_count - 1; i++)
+                if (cs.ConfigStruct.tables[iCurrentTable].rotates[i + 1] <= cs.ConfigStruct.tables[iCurrentTable].rotates[i])
+                    cs.ConfigStruct.tables[iCurrentTable].rotates[i + 1] = cs.ConfigStruct.tables[iCurrentTable].rotates[i] + 100;
             UpdateIgnitionsGui();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1675,10 +1677,10 @@ namespace ECU_Manager
 
         private void nudParamsCntIdles_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].idles_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].idles_count - 1; i++)
-                if (middleLayer.Config.tables[iCurrentTable].idle_rotates[i + 1] <= middleLayer.Config.tables[iCurrentTable].idle_rotates[i])
-                    middleLayer.Config.tables[iCurrentTable].idle_rotates[i + 1] = middleLayer.Config.tables[iCurrentTable].idle_rotates[i] + 50;
+            cs.ConfigStruct.tables[iCurrentTable].idles_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].idles_count - 1; i++)
+                if (cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i + 1] <= cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i])
+                    cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i + 1] = cs.ConfigStruct.tables[iCurrentTable].idle_rotates[i] + 50;
             UpdateIgnitionsGui();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1688,10 +1690,10 @@ namespace ECU_Manager
 
         private void nudParamsCntTemps_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].temperatures_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < middleLayer.Config.tables[iCurrentTable].temperatures_count - 1; i++)
-                if (middleLayer.Config.tables[iCurrentTable].temperatures[i + 1] <= middleLayer.Config.tables[iCurrentTable].temperatures[i])
-                    middleLayer.Config.tables[iCurrentTable].temperatures[i + 1] = middleLayer.Config.tables[iCurrentTable].temperatures[i] + 10;
+            cs.ConfigStruct.tables[iCurrentTable].temperatures_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[iCurrentTable].temperatures_count - 1; i++)
+                if (cs.ConfigStruct.tables[iCurrentTable].temperatures[i + 1] <= cs.ConfigStruct.tables[iCurrentTable].temperatures[i])
+                    cs.ConfigStruct.tables[iCurrentTable].temperatures[i + 1] = cs.ConfigStruct.tables[iCurrentTable].temperatures[i] + 10;
             UpdateIgnitionsGui();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1701,7 +1703,7 @@ namespace ECU_Manager
 
         private void nudParamsFuelRate_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].fuel_rate = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[iCurrentTable].fuel_rate = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1710,7 +1712,7 @@ namespace ECU_Manager
 
         private void nudParamsFuelVolume_ValueChanged(object sender, EventArgs e)
         {
-            middleLayer.Config.tables[iCurrentTable].fuel_volume = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[iCurrentTable].fuel_volume = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(iCurrentTable);
@@ -1782,7 +1784,7 @@ namespace ECU_Manager
             {
                 try
                 {
-                    middleLayer.Config.tables[iCurrentTable] = Serializator<EcuTable>.Deserialize(dlgExport.FileName);
+                    cs.ConfigStruct.tables[iCurrentTable] = Serializator<EcuTable>.Deserialize(dlgExport.FileName);
                     if (!middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(iCurrentTable);
@@ -1803,7 +1805,7 @@ namespace ECU_Manager
             {
                 try
                 {
-                    Serializator<EcuTable>.Serialize(dlgExport.FileName, middleLayer.Config.tables[iCurrentTable]);
+                    Serializator<EcuTable>.Serialize(dlgExport.FileName, cs.ConfigStruct.tables[iCurrentTable]);
                     MessageBox.Show($"Table export success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
