@@ -11,15 +11,15 @@ namespace ECU_Manager.Packets
         public ushort PacketID;
         public ushort PacketLength;
 
-        public float FromRPM;
-        public float ToRPM;
+        public float FromSpeed;
+        public float ToSpeed;
 
-        public PK_DragStart(int dummy, float fromrpm, float torpm)
+        public PK_DragStart(int dummy, float fromspeed, float tospeed)
         {
             PacketID = (byte)Packets.DragStartID;
             
-            FromRPM = fromrpm;
-            ToRPM = torpm;
+            FromSpeed = fromspeed;
+            ToSpeed = tospeed;
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());

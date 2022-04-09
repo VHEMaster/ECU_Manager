@@ -12,15 +12,15 @@ namespace ECU_Manager.Packets
         public ushort PacketLength;
         public byte ErrorCode;
 
-        public float FromRPM;
-        public float ToRPM;
+        public float FromSpeed;
+        public float ToSpeed;
 
         public PK_DragStopAcknowledge(int dummy)
         {
             PacketID = (byte)Packets.DragStopAcknowledgeID;
             
-            FromRPM = 0;
-            ToRPM = 0;
+            FromSpeed = 0;
+            ToSpeed = 0;
             ErrorCode = 0;
 
             PacketLength = 0;

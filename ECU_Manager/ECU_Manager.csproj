@@ -117,6 +117,7 @@
     <Compile Include="Packets\PK_TableMemoryRequest.cs" />
     <Compile Include="Structs\CheckData.cs" />
     <Compile Include="Structs\ComponentStructure.cs" />
+    <Compile Include="Structs\DragPoint.cs" />
     <Compile Include="Structs\EcuForceParameters.cs" />
     <Compile Include="Structs\EcuStatus.cs" />
     <Compile Include="Structs\EcuParameters.cs" />

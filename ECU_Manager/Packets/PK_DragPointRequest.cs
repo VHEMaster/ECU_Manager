@@ -11,16 +11,16 @@ namespace ECU_Manager.Packets
         public ushort PacketID;
         public ushort PacketLength;
 
+        public float FromSpeed;
+        public float ToSpeed;
         public uint PointNumber;
-        public float FromRPM;
-        public float ToRPM;
 
-        public PK_DragPointRequest(int dummy, float fromrpm, float torpm, int pointnumber)
+        public PK_DragPointRequest(int dummy, float fromspeed, float tospeed, int pointnumber)
         {
             PacketID = (byte)Packets.DragPointRequestID;
             
-            FromRPM = fromrpm;
-            ToRPM = torpm;
+            FromSpeed = fromspeed;
+            ToSpeed = tospeed;
             PointNumber = (uint)pointnumber;
 
             PacketLength = 0;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using ECU_Manager.Protocol;
+using ECU_Manager.Structs;
 
 namespace ECU_Manager.Packets
 {
@@ -12,15 +13,11 @@ namespace ECU_Manager.Packets
         public ushort PacketLength;
 
         public uint ErrorCode;
-        public float FromRPM;
-        public float ToRPM;
+        public float FromSpeed;
+        public float ToSpeed;
         public uint PointNumber;
 
-        public float RPM;
-        public float Pressure;
-        public float Load;
-        public float Ignition;
-        public uint Time;
+        public DragPoint Point;
 
         public PK_DragPointResponse(int dummy)
         {
@@ -28,15 +25,11 @@ namespace ECU_Manager.Packets
             
             
             ErrorCode = 0;
-            FromRPM = 0;
-            ToRPM = 0;
+            FromSpeed = 0;
+            ToSpeed = 0;
             PointNumber = 0;
 
-            RPM = 0;
-            Pressure = 0;
-            Load = 0;
-            Ignition = 0;
-            Time = 0;
+            Point = new DragPoint();
 
             PacketLength = 0;
             PacketLength = (byte)Marshal.SizeOf(GetType());
