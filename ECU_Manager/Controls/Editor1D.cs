@@ -119,6 +119,7 @@ namespace ECU_Manager.Controls
 
 
             lblParams.Text = string.Empty;
+            lblItemValue.Text = string.Empty;
             chart1DChart.Series.Clear();
             if (array1d != null)
             {
@@ -164,6 +165,11 @@ namespace ECU_Manager.Controls
                 }
                 else
                 {
+                    if (!string.IsNullOrWhiteSpace(sTitleStatusX)) {
+                        lblItemValue.Text = $"{sTitleStatusX}: ";
+                        lblItemValue.Text += $"{dep1d[(int)nudItem.Value - 1].ToString(sFormatStatusX)}";
+                    }
+
                     chart1DChart.Series[0].XValueType = ChartValueType.Single;
                     chart1DChart.ChartAreas[0].AxisX.Interval = fIntervalX;
                     chart1DChart.ChartAreas[0].AxisX.Minimum = dep1d[0];
@@ -236,7 +242,14 @@ namespace ECU_Manager.Controls
         private void nudItem_ValueChanged(object sender, EventArgs e)
         {
             float[] array1d = null;
+            float[] dep1d = null;
 
+            if (!string.IsNullOrWhiteSpace(sConfigDepX))
+            {
+                FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                if (fieldDepX != null)
+                    dep1d = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
@@ -245,6 +258,13 @@ namespace ECU_Manager.Controls
             }
 
             nudItem.Value = (decimal)array1d[(int)((NumericUpDown)sender).Value - 1];
+
+            lblItemValue.Text = string.Empty;
+            if (dep1d != null && !string.IsNullOrWhiteSpace(sTitleStatusX))
+            {
+                lblItemValue.Text = $"{sTitleStatusX}: ";
+                lblItemValue.Text += $"{dep1d[(int)((NumericUpDown)sender).Value - 1].ToString(sFormatStatusX)}";
+            }
         }
 
         private void nudValue_ValueChanged(object sender, EventArgs e)

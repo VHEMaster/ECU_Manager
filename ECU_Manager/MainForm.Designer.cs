@@ -2148,7 +2148,7 @@
             this.tabPage11.Controls.Add(this.tableLayoutPanel6);
             this.tabPage11.Location = new System.Drawing.Point(4, 35);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(1077, 527);
+            this.tabPage11.Size = new System.Drawing.Size(1077, 516);
             this.tabPage11.TabIndex = 2;
             this.tabPage11.Text = "RPMs";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -2166,7 +2166,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(1077, 527);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1077, 516);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // panel3
@@ -2177,7 +2177,7 @@
             this.panel3.Controls.Add(this.nudIgnRPMItem);
             this.panel3.Controls.Add(this.label25);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 489);
+            this.panel3.Location = new System.Drawing.Point(0, 478);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1077, 38);
@@ -2282,7 +2282,7 @@
             series3.YValuesPerPoint = 2;
             series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartIgnRPMs.Series.Add(series3);
-            this.chartIgnRPMs.Size = new System.Drawing.Size(1071, 483);
+            this.chartIgnRPMs.Size = new System.Drawing.Size(1071, 472);
             this.chartIgnRPMs.TabIndex = 2;
             this.chartIgnRPMs.Text = " ";
             // 
@@ -2491,7 +2491,7 @@
             this.tabPage15.Controls.Add(this.tableLayoutPanel7);
             this.tabPage15.Location = new System.Drawing.Point(4, 35);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(1077, 527);
+            this.tabPage15.Size = new System.Drawing.Size(1077, 516);
             this.tabPage15.TabIndex = 2;
             this.tabPage15.Text = "RPMs";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -2509,7 +2509,7 @@
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1077, 527);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1077, 516);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // panel4
@@ -2520,7 +2520,7 @@
             this.panel4.Controls.Add(this.nudIdleRPMItem);
             this.panel4.Controls.Add(this.label27);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 489);
+            this.panel4.Location = new System.Drawing.Point(0, 478);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1077, 38);
@@ -2625,7 +2625,7 @@
             series6.YValuesPerPoint = 2;
             series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartIdleRPMs.Series.Add(series6);
-            this.chartIdleRPMs.Size = new System.Drawing.Size(1071, 483);
+            this.chartIdleRPMs.Size = new System.Drawing.Size(1071, 472);
             this.chartIdleRPMs.TabIndex = 2;
             this.chartIdleRPMs.Text = " ";
             // 
