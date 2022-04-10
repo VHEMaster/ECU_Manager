@@ -43,7 +43,12 @@ namespace ECU_Manager.Protocol
             this.comPort = comPort;
 
             sp = new SerialPortStream(comPort, 960000, 8, Parity.None, StopBits.One);
+            sp.ReadBufferSize = 4096;
+            sp.WriteBufferSize = 4096;
             sp.OpenDirect();
+            sp.DiscardInBuffer();
+            sp.DiscardOutBuffer();
+            sp.Flush();
 
             sender = new Sender(sp);
             getter = new Getter(sp, sender);
@@ -154,7 +159,7 @@ namespace ECU_Manager.Protocol
                             if (feedback.PacketId == packet.PacketId && feedback.Destination == packet.Source && feedback.Source == packet.Destination)
                             {
                                 DateTime now2 = DateTime.Now;
-                                Console.WriteLine($"Ack time: {(now2 - now).TotalMilliseconds.ToString("F2")}");
+                                Console.WriteLine($"Ack time{{{iAckRetries}}}: {(now2 - now).TotalMilliseconds.ToString("F2")}");
                                 sentEvent?.BeginInvoke(packet, null, null);
                                 break;
                             }
@@ -165,7 +170,7 @@ namespace ECU_Manager.Protocol
                             Console.WriteLine("Packet Loss!");
                             break;
                         }
-                        Console.WriteLine("Timeout occured.");
+                        Console.WriteLine($"Timeout occured{{{iAckRetries}}}.");
                     }
                 }
                 catch (TimeoutException) { }

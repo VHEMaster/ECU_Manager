@@ -128,7 +128,7 @@ namespace ECU_Manager.Packets
             protocolHandler.Send(dest, bytes);
         }
 
-        public void SendGeneralStatusRequest()
+        public void SendParametersRequest()
         {
             PK_ParametersRequest packet = new PK_ParametersRequest(0);
             StructCopy<PK_ParametersRequest> StructCopy = new StructCopy<PK_ParametersRequest>();

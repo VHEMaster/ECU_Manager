@@ -19,8 +19,8 @@ namespace ECU_Manager
     {
         MiddleLayer middleLayer;
         SyncForm syncForm;
-        DateTime lastReceivedGeneralStatus = DateTime.Now;
-        bool generalStatusReceived = false;
+        DateTime lastReceivedarameters = DateTime.Now;
+        bool parametersReceived = false;
         ComponentStructure cs;
 
         class DragRun
@@ -173,7 +173,12 @@ namespace ECU_Manager
 
             UpdateEcuTableValues();
 
-            middleLayer.PacketHandler.SendGeneralStatusRequest();
+            if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
+            {
+                parametersReceived = false;
+                lastReceivedarameters = DateTime.Now;
+                middleLayer.PacketHandler.SendParametersRequest();
+            }
         }
 
         private void UpdateEcuTableValues()
@@ -528,8 +533,8 @@ namespace ECU_Manager
                 label10.Text = parameters.InjectorChannel == 0 ? "Channel 1" : parameters.InjectorChannel == 1 ? "Channel 2" : "Invalid";
                 label16.Text = parameters.PowerVoltage.ToString("F2") + "V";
             }
-            generalStatusReceived = true;
-            lastReceivedGeneralStatus = DateTime.Now;
+            parametersReceived = true;
+            lastReceivedarameters = DateTime.Now;
         }
         
         private void tmr1sec_Tick(object sender, EventArgs e)
@@ -541,11 +546,11 @@ namespace ECU_Manager
         {
             tableLayoutPanel1.Enabled = !middleLayer.IsSynchronizing;
             toolStripProgressBar1.Style = middleLayer.IsSynchronizing ? ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
-            if (generalStatusReceived || (DateTime.Now - lastReceivedGeneralStatus).TotalMilliseconds > 200)
+            if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
             {
-                generalStatusReceived = false;
-                lastReceivedGeneralStatus = DateTime.Now;
-                middleLayer.PacketHandler.SendGeneralStatusRequest();
+                parametersReceived = false;
+                lastReceivedarameters = DateTime.Now;
+                middleLayer.PacketHandler.SendParametersRequest();
             }
             if((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
             {
