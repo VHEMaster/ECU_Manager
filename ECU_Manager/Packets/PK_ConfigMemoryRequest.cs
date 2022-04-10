@@ -24,7 +24,7 @@ namespace ECU_Manager.Packets
             Size = (uint)size;
 
             PacketLength = 0;
-            PacketLength = (byte)Marshal.SizeOf(GetType());
+            PacketLength = (ushort)Marshal.SizeOf(GetType());
         }
 
     }

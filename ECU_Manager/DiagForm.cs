@@ -21,6 +21,7 @@ namespace ECU_Manager
         public DiagForm(MiddleLayer middleLayer)
         {
             InitializeComponent();
+            middleLayer.RegisterEventHandler(this);
         }
 
         public void UpdateParametersEvent(EcuParameters parameters)
@@ -54,6 +55,11 @@ namespace ECU_Manager
         private void UpdateParameters(EcuParameters parameters)
         {
 
+        }
+
+        private void DiagForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

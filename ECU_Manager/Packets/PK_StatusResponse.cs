@@ -24,7 +24,7 @@ namespace ECU_Manager.Packets
             CheckBitmapRecorded = new EcuStatus();
 
             PacketLength = 0;
-            PacketLength = (byte)Marshal.SizeOf(GetType());
+            PacketLength = (ushort)Marshal.SizeOf(GetType());
         }
     }
 }

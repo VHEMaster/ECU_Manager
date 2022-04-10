@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO.Ports;
 using System.Threading;
+using RJCP.IO.Ports;
 
 namespace ECU_Manager.Protocol
 {
     public class Getter
     {
-        private SerialPort sp;
+        private SerialPortStream sp;
         private Sender sender;
         private Queue<byte> rxfifo;
         private Thread rxthread;
         private Mutex fifomutex;
-        public Getter(SerialPort sp, Sender sender)
+        public Getter(SerialPortStream sp, Sender sender)
         {
             this.sender = sender;
             this.sp = sp;
             rxfifo = new Queue<byte>(20480);
             fifomutex = new Mutex();
             rxthread = new Thread(RxThread);
+            rxthread.Name = "RX Thread";
             rxthread.IsBackground = true;
             rxthread.Priority = ThreadPriority.Highest;
             rxthread.Start();
@@ -37,7 +38,7 @@ namespace ECU_Manager.Protocol
                     {
                         int bytestoread = sp.BytesToRead;
                         byte[] data = new byte[bytestoread];
-                        sp.BaseStream.Read(data, 0, bytestoread);
+                        sp.Read(data, 0, bytestoread);
                         fifomutex.WaitOne();
                         foreach (byte b in data)
                             rxfifo.Enqueue(b);

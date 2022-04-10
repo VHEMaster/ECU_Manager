@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea25 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend25 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea26 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend26 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tmr50ms = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -114,6 +114,30 @@
             this.nudToolsCurTable = new System.Windows.Forms.NumericUpDown();
             this.label23 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label50 = new System.Windows.Forms.Label();
+            this.nudParamsCorrIgnCy4 = new System.Windows.Forms.NumericUpDown();
+            this.label52 = new System.Windows.Forms.Label();
+            this.nudParamsCorrIgnCy3 = new System.Windows.Forms.NumericUpDown();
+            this.label54 = new System.Windows.Forms.Label();
+            this.nudParamsCorrIgnCy2 = new System.Windows.Forms.NumericUpDown();
+            this.label55 = new System.Windows.Forms.Label();
+            this.nudParamsCorrIgnCy1 = new System.Windows.Forms.NumericUpDown();
+            this.label46 = new System.Windows.Forms.Label();
+            this.nudParamsCorrInjCy4 = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.nudParamsCorrInjCy3 = new System.Windows.Forms.NumericUpDown();
+            this.label40 = new System.Windows.Forms.Label();
+            this.nudParamsCorrInjCy2 = new System.Windows.Forms.NumericUpDown();
+            this.label39 = new System.Windows.Forms.Label();
+            this.nudParamsCorrInjCy1 = new System.Windows.Forms.NumericUpDown();
+            this.label35 = new System.Windows.Forms.Label();
+            this.nudParamsEnrPMapTps = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
+            this.nudParamsIdleIgnDevMax = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
+            this.nudParamsIdleIgnDevMin = new System.Windows.Forms.NumericUpDown();
+            this.label38 = new System.Windows.Forms.Label();
+            this.nudParamsIdleIgnFanCorr = new System.Windows.Forms.NumericUpDown();
             this.label29 = new System.Windows.Forms.Label();
             this.nudParamsPidIdleIgnI = new System.Windows.Forms.NumericUpDown();
             this.label30 = new System.Windows.Forms.Label();
@@ -195,30 +219,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmr1sec = new System.Windows.Forms.Timer(this.components);
-            this.label35 = new System.Windows.Forms.Label();
-            this.nudParamsEnrPMapTps = new System.Windows.Forms.NumericUpDown();
-            this.label36 = new System.Windows.Forms.Label();
-            this.nudParamsIdleIgnDevMax = new System.Windows.Forms.NumericUpDown();
-            this.label37 = new System.Windows.Forms.Label();
-            this.nudParamsIdleIgnDevMin = new System.Windows.Forms.NumericUpDown();
-            this.label38 = new System.Windows.Forms.Label();
-            this.nudParamsIdleIgnFanCorr = new System.Windows.Forms.NumericUpDown();
-            this.label39 = new System.Windows.Forms.Label();
-            this.nudParamsCorrInjCy1 = new System.Windows.Forms.NumericUpDown();
-            this.label40 = new System.Windows.Forms.Label();
-            this.nudParamsCorrInjCy2 = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.nudParamsCorrInjCy3 = new System.Windows.Forms.NumericUpDown();
-            this.label46 = new System.Windows.Forms.Label();
-            this.nudParamsCorrInjCy4 = new System.Windows.Forms.NumericUpDown();
-            this.label50 = new System.Windows.Forms.Label();
-            this.nudParamsCorrIgnCy4 = new System.Windows.Forms.NumericUpDown();
-            this.label52 = new System.Windows.Forms.Label();
-            this.nudParamsCorrIgnCy3 = new System.Windows.Forms.NumericUpDown();
-            this.label54 = new System.Windows.Forms.Label();
-            this.nudParamsCorrIgnCy2 = new System.Windows.Forms.NumericUpDown();
-            this.label55 = new System.Windows.Forms.Label();
-            this.nudParamsCorrIgnCy1 = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -245,6 +245,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsEnrPMapTps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnFanCorr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleIgnI)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleIgnP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleValveD)).BeginInit();
@@ -277,18 +289,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsEnrPMapTps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnFanCorr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy1)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -670,7 +670,7 @@
             // cbIsSingleCoil
             // 
             this.cbIsSingleCoil.AutoSize = true;
-            this.cbIsSingleCoil.Location = new System.Drawing.Point(4, 198);
+            this.cbIsSingleCoil.Location = new System.Drawing.Point(6, 198);
             this.cbIsSingleCoil.Name = "cbIsSingleCoil";
             this.cbIsSingleCoil.Size = new System.Drawing.Size(137, 28);
             this.cbIsSingleCoil.TabIndex = 11;
@@ -755,7 +755,7 @@
             // cbIsIndivCoils
             // 
             this.cbIsIndivCoils.AutoSize = true;
-            this.cbIsIndivCoils.Location = new System.Drawing.Point(4, 164);
+            this.cbIsIndivCoils.Location = new System.Drawing.Point(6, 164);
             this.cbIsIndivCoils.Name = "cbIsIndivCoils";
             this.cbIsIndivCoils.Size = new System.Drawing.Size(137, 28);
             this.cbIsIndivCoils.TabIndex = 6;
@@ -766,7 +766,7 @@
             // cbPerformCorrs
             // 
             this.cbPerformCorrs.AutoSize = true;
-            this.cbPerformCorrs.Location = new System.Drawing.Point(4, 130);
+            this.cbPerformCorrs.Location = new System.Drawing.Point(6, 130);
             this.cbPerformCorrs.Name = "cbPerformCorrs";
             this.cbPerformCorrs.Size = new System.Drawing.Size(196, 28);
             this.cbPerformCorrs.TabIndex = 5;
@@ -788,7 +788,6 @@
             // cbUseKnock
             // 
             this.cbUseKnock.AutoSize = true;
-            this.cbUseKnock.Enabled = false;
             this.cbUseKnock.Location = new System.Drawing.Point(6, 62);
             this.cbUseKnock.Name = "cbUseKnock";
             this.cbUseKnock.Size = new System.Drawing.Size(120, 28);
@@ -1452,6 +1451,392 @@
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(553, 339);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(119, 24);
+            this.label50.TabIndex = 71;
+            this.label50.Text = "Corr.Ign.Cy4:";
+            // 
+            // nudParamsCorrIgnCy4
+            // 
+            this.nudParamsCorrIgnCy4.DecimalPlaces = 1;
+            this.nudParamsCorrIgnCy4.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(677, 337);
+            this.nudParamsCorrIgnCy4.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudParamsCorrIgnCy4.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrIgnCy4.Name = "nudParamsCorrIgnCy4";
+            this.nudParamsCorrIgnCy4.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrIgnCy4.TabIndex = 70;
+            this.nudParamsCorrIgnCy4.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy4_ValueChanged);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(553, 306);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(119, 24);
+            this.label52.TabIndex = 69;
+            this.label52.Text = "Corr.Ign.Cy3:";
+            // 
+            // nudParamsCorrIgnCy3
+            // 
+            this.nudParamsCorrIgnCy3.DecimalPlaces = 1;
+            this.nudParamsCorrIgnCy3.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(677, 304);
+            this.nudParamsCorrIgnCy3.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudParamsCorrIgnCy3.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrIgnCy3.Name = "nudParamsCorrIgnCy3";
+            this.nudParamsCorrIgnCy3.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrIgnCy3.TabIndex = 68;
+            this.nudParamsCorrIgnCy3.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy3_ValueChanged);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(553, 271);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(119, 24);
+            this.label54.TabIndex = 67;
+            this.label54.Text = "Corr.Ign.Cy2:";
+            // 
+            // nudParamsCorrIgnCy2
+            // 
+            this.nudParamsCorrIgnCy2.DecimalPlaces = 1;
+            this.nudParamsCorrIgnCy2.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(677, 269);
+            this.nudParamsCorrIgnCy2.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudParamsCorrIgnCy2.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrIgnCy2.Name = "nudParamsCorrIgnCy2";
+            this.nudParamsCorrIgnCy2.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrIgnCy2.TabIndex = 66;
+            this.nudParamsCorrIgnCy2.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy2_ValueChanged);
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(553, 234);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(119, 24);
+            this.label55.TabIndex = 65;
+            this.label55.Text = "Corr.Ign.Cy1:";
+            // 
+            // nudParamsCorrIgnCy1
+            // 
+            this.nudParamsCorrIgnCy1.DecimalPlaces = 1;
+            this.nudParamsCorrIgnCy1.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(677, 232);
+            this.nudParamsCorrIgnCy1.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nudParamsCorrIgnCy1.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrIgnCy1.Name = "nudParamsCorrIgnCy1";
+            this.nudParamsCorrIgnCy1.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrIgnCy1.TabIndex = 64;
+            this.nudParamsCorrIgnCy1.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy1_ValueChanged);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(297, 339);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(112, 24);
+            this.label46.TabIndex = 63;
+            this.label46.Text = "Corr.Inj.Cy4:";
+            // 
+            // nudParamsCorrInjCy4
+            // 
+            this.nudParamsCorrInjCy4.DecimalPlaces = 3;
+            this.nudParamsCorrInjCy4.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(421, 337);
+            this.nudParamsCorrInjCy4.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudParamsCorrInjCy4.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrInjCy4.Name = "nudParamsCorrInjCy4";
+            this.nudParamsCorrInjCy4.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrInjCy4.TabIndex = 62;
+            this.nudParamsCorrInjCy4.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy4_ValueChanged);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(297, 306);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(112, 24);
+            this.label41.TabIndex = 61;
+            this.label41.Text = "Corr.Inj.Cy3:";
+            // 
+            // nudParamsCorrInjCy3
+            // 
+            this.nudParamsCorrInjCy3.DecimalPlaces = 3;
+            this.nudParamsCorrInjCy3.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(421, 304);
+            this.nudParamsCorrInjCy3.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudParamsCorrInjCy3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrInjCy3.Name = "nudParamsCorrInjCy3";
+            this.nudParamsCorrInjCy3.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrInjCy3.TabIndex = 60;
+            this.nudParamsCorrInjCy3.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy3_ValueChanged);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(297, 271);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(112, 24);
+            this.label40.TabIndex = 59;
+            this.label40.Text = "Corr.Inj.Cy2:";
+            // 
+            // nudParamsCorrInjCy2
+            // 
+            this.nudParamsCorrInjCy2.DecimalPlaces = 3;
+            this.nudParamsCorrInjCy2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(421, 269);
+            this.nudParamsCorrInjCy2.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudParamsCorrInjCy2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrInjCy2.Name = "nudParamsCorrInjCy2";
+            this.nudParamsCorrInjCy2.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrInjCy2.TabIndex = 58;
+            this.nudParamsCorrInjCy2.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy2_ValueChanged);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(297, 234);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(112, 24);
+            this.label39.TabIndex = 57;
+            this.label39.Text = "Corr.Inj.Cy1:";
+            // 
+            // nudParamsCorrInjCy1
+            // 
+            this.nudParamsCorrInjCy1.DecimalPlaces = 3;
+            this.nudParamsCorrInjCy1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(421, 232);
+            this.nudParamsCorrInjCy1.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudParamsCorrInjCy1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsCorrInjCy1.Name = "nudParamsCorrInjCy1";
+            this.nudParamsCorrInjCy1.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsCorrInjCy1.TabIndex = 56;
+            this.nudParamsCorrInjCy1.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy1_ValueChanged);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(3, 234);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(149, 24);
+            this.label35.TabIndex = 55;
+            this.label35.Text = "Enr.P.MAP/TPS:";
+            // 
+            // nudParamsEnrPMapTps
+            // 
+            this.nudParamsEnrPMapTps.DecimalPlaces = 2;
+            this.nudParamsEnrPMapTps.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            131072});
+            this.nudParamsEnrPMapTps.Location = new System.Drawing.Point(168, 232);
+            this.nudParamsEnrPMapTps.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudParamsEnrPMapTps.Name = "nudParamsEnrPMapTps";
+            this.nudParamsEnrPMapTps.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsEnrPMapTps.TabIndex = 54;
+            this.nudParamsEnrPMapTps.ValueChanged += new System.EventHandler(this.nudParamsEnrPMapTps_ValueChanged);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(3, 304);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(155, 24);
+            this.label36.TabIndex = 53;
+            this.label36.Text = "Idle Ign.Dev.Max:";
+            // 
+            // nudParamsIdleIgnDevMax
+            // 
+            this.nudParamsIdleIgnDevMax.DecimalPlaces = 1;
+            this.nudParamsIdleIgnDevMax.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsIdleIgnDevMax.Location = new System.Drawing.Point(168, 302);
+            this.nudParamsIdleIgnDevMax.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudParamsIdleIgnDevMax.Name = "nudParamsIdleIgnDevMax";
+            this.nudParamsIdleIgnDevMax.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnDevMax.TabIndex = 52;
+            this.nudParamsIdleIgnDevMax.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMax_ValueChanged);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(3, 269);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(150, 24);
+            this.label37.TabIndex = 51;
+            this.label37.Text = "Idle Ign.Dev.Min:";
+            // 
+            // nudParamsIdleIgnDevMin
+            // 
+            this.nudParamsIdleIgnDevMin.DecimalPlaces = 1;
+            this.nudParamsIdleIgnDevMin.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsIdleIgnDevMin.Location = new System.Drawing.Point(168, 267);
+            this.nudParamsIdleIgnDevMin.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudParamsIdleIgnDevMin.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsIdleIgnDevMin.Name = "nudParamsIdleIgnDevMin";
+            this.nudParamsIdleIgnDevMin.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnDevMin.TabIndex = 50;
+            this.nudParamsIdleIgnDevMin.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMin_ValueChanged);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(3, 339);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(160, 24);
+            this.label38.TabIndex = 49;
+            this.label38.Text = "Idle Ign.Fan Corr.:";
+            // 
+            // nudParamsIdleIgnFanCorr
+            // 
+            this.nudParamsIdleIgnFanCorr.DecimalPlaces = 1;
+            this.nudParamsIdleIgnFanCorr.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.nudParamsIdleIgnFanCorr.Location = new System.Drawing.Point(168, 337);
+            this.nudParamsIdleIgnFanCorr.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudParamsIdleIgnFanCorr.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.nudParamsIdleIgnFanCorr.Name = "nudParamsIdleIgnFanCorr";
+            this.nudParamsIdleIgnFanCorr.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnFanCorr.TabIndex = 48;
+            this.nudParamsIdleIgnFanCorr.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnFanCorr_ValueChanged);
+            // 
             // label29
             // 
             this.label29.AutoSize = true;
@@ -1529,12 +1914,12 @@
             // 
             // nudParamsPidIdleValveD
             // 
-            this.nudParamsPidIdleValveD.DecimalPlaces = 3;
+            this.nudParamsPidIdleValveD.DecimalPlaces = 4;
             this.nudParamsPidIdleValveD.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            196608});
+            262144});
             this.nudParamsPidIdleValveD.Location = new System.Drawing.Point(782, 81);
             this.nudParamsPidIdleValveD.Maximum = new decimal(new int[] {
             10,
@@ -1562,12 +1947,12 @@
             // 
             // nudParamsPidIdleIgnD
             // 
-            this.nudParamsPidIdleIgnD.DecimalPlaces = 3;
+            this.nudParamsPidIdleIgnD.DecimalPlaces = 4;
             this.nudParamsPidIdleIgnD.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            196608});
+            262144});
             this.nudParamsPidIdleIgnD.Location = new System.Drawing.Point(782, 186);
             this.nudParamsPidIdleIgnD.Maximum = new decimal(new int[] {
             10,
@@ -2225,35 +2610,35 @@
             // 
             // chartDragTime
             // 
-            chartArea25.Name = "ChartArea1";
-            chartArea25.Position.Auto = false;
-            chartArea25.Position.Height = 100F;
-            chartArea25.Position.Width = 88F;
-            this.chartDragTime.ChartAreas.Add(chartArea25);
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 88F;
+            this.chartDragTime.ChartAreas.Add(chartArea1);
             this.chartDragTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend25.Name = "Legend1";
-            this.chartDragTime.Legends.Add(legend25);
+            legend1.Name = "Legend1";
+            this.chartDragTime.Legends.Add(legend1);
             this.chartDragTime.Location = new System.Drawing.Point(3, 3);
             this.chartDragTime.Name = "chartDragTime";
-            series25.BorderWidth = 3;
-            series25.ChartArea = "ChartArea1";
-            series25.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series25.Color = System.Drawing.Color.Brown;
-            series25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series25.IsValueShownAsLabel = true;
-            series25.LabelBorderWidth = 0;
-            series25.Legend = "Legend1";
-            series25.MarkerColor = System.Drawing.Color.Black;
-            series25.MarkerSize = 8;
-            series25.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series25.Name = "Series1";
-            series25.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series25.SmartLabelStyle.MaxMovingDistance = 100D;
-            series25.SmartLabelStyle.MinMovingDistance = 10D;
-            series25.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series25.YValuesPerPoint = 2;
-            series25.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragTime.Series.Add(series25);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Brown;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelBorderWidth = 0;
+            series1.Legend = "Legend1";
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series1.SmartLabelStyle.MaxMovingDistance = 100D;
+            series1.SmartLabelStyle.MinMovingDistance = 10D;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series1.YValuesPerPoint = 2;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragTime.Series.Add(series1);
             this.chartDragTime.Size = new System.Drawing.Size(885, 559);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
@@ -2271,35 +2656,35 @@
             // 
             // chartDragAccel
             // 
-            chartArea26.Name = "ChartArea1";
-            chartArea26.Position.Auto = false;
-            chartArea26.Position.Height = 100F;
-            chartArea26.Position.Width = 88F;
-            this.chartDragAccel.ChartAreas.Add(chartArea26);
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 88F;
+            this.chartDragAccel.ChartAreas.Add(chartArea2);
             this.chartDragAccel.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend26.Name = "Legend1";
-            this.chartDragAccel.Legends.Add(legend26);
+            legend2.Name = "Legend1";
+            this.chartDragAccel.Legends.Add(legend2);
             this.chartDragAccel.Location = new System.Drawing.Point(3, 3);
             this.chartDragAccel.Name = "chartDragAccel";
-            series26.BorderWidth = 3;
-            series26.ChartArea = "ChartArea1";
-            series26.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series26.Color = System.Drawing.Color.Brown;
-            series26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series26.IsValueShownAsLabel = true;
-            series26.LabelBorderWidth = 0;
-            series26.Legend = "Legend1";
-            series26.MarkerColor = System.Drawing.Color.Black;
-            series26.MarkerSize = 8;
-            series26.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series26.Name = "Series1";
-            series26.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series26.SmartLabelStyle.MaxMovingDistance = 100D;
-            series26.SmartLabelStyle.MinMovingDistance = 10D;
-            series26.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series26.YValuesPerPoint = 2;
-            series26.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragAccel.Series.Add(series26);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.Brown;
+            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series2.IsValueShownAsLabel = true;
+            series2.LabelBorderWidth = 0;
+            series2.Legend = "Legend1";
+            series2.MarkerColor = System.Drawing.Color.Black;
+            series2.MarkerSize = 8;
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series1";
+            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series2.SmartLabelStyle.MaxMovingDistance = 100D;
+            series2.SmartLabelStyle.MinMovingDistance = 10D;
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series2.YValuesPerPoint = 2;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragAccel.Series.Add(series2);
             this.chartDragAccel.Size = new System.Drawing.Size(885, 559);
             this.chartDragAccel.TabIndex = 6;
             this.chartDragAccel.Text = " ";
@@ -2511,392 +2896,6 @@
             this.tmr1sec.Interval = 1000;
             this.tmr1sec.Tick += new System.EventHandler(this.tmr1sec_Tick);
             // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(3, 234);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(149, 24);
-            this.label35.TabIndex = 55;
-            this.label35.Text = "Enr.P.MAP/TPS:";
-            // 
-            // nudParamsEnrPMapTps
-            // 
-            this.nudParamsEnrPMapTps.DecimalPlaces = 2;
-            this.nudParamsEnrPMapTps.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            131072});
-            this.nudParamsEnrPMapTps.Location = new System.Drawing.Point(168, 232);
-            this.nudParamsEnrPMapTps.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudParamsEnrPMapTps.Name = "nudParamsEnrPMapTps";
-            this.nudParamsEnrPMapTps.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsEnrPMapTps.TabIndex = 54;
-            this.nudParamsEnrPMapTps.ValueChanged += new System.EventHandler(this.nudParamsEnrPMapTps_ValueChanged);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(3, 304);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(155, 24);
-            this.label36.TabIndex = 53;
-            this.label36.Text = "Idle Ign.Dev.Max:";
-            // 
-            // nudParamsIdleIgnDevMax
-            // 
-            this.nudParamsIdleIgnDevMax.DecimalPlaces = 1;
-            this.nudParamsIdleIgnDevMax.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsIdleIgnDevMax.Location = new System.Drawing.Point(168, 302);
-            this.nudParamsIdleIgnDevMax.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsIdleIgnDevMax.Name = "nudParamsIdleIgnDevMax";
-            this.nudParamsIdleIgnDevMax.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsIdleIgnDevMax.TabIndex = 52;
-            this.nudParamsIdleIgnDevMax.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMax_ValueChanged);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(3, 269);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(150, 24);
-            this.label37.TabIndex = 51;
-            this.label37.Text = "Idle Ign.Dev.Min:";
-            // 
-            // nudParamsIdleIgnDevMin
-            // 
-            this.nudParamsIdleIgnDevMin.DecimalPlaces = 1;
-            this.nudParamsIdleIgnDevMin.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsIdleIgnDevMin.Location = new System.Drawing.Point(168, 267);
-            this.nudParamsIdleIgnDevMin.Maximum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudParamsIdleIgnDevMin.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsIdleIgnDevMin.Name = "nudParamsIdleIgnDevMin";
-            this.nudParamsIdleIgnDevMin.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsIdleIgnDevMin.TabIndex = 50;
-            this.nudParamsIdleIgnDevMin.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMin_ValueChanged);
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(3, 339);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(160, 24);
-            this.label38.TabIndex = 49;
-            this.label38.Text = "Idle Ign.Fan Corr.:";
-            // 
-            // nudParamsIdleIgnFanCorr
-            // 
-            this.nudParamsIdleIgnFanCorr.DecimalPlaces = 1;
-            this.nudParamsIdleIgnFanCorr.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsIdleIgnFanCorr.Location = new System.Drawing.Point(168, 337);
-            this.nudParamsIdleIgnFanCorr.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.nudParamsIdleIgnFanCorr.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsIdleIgnFanCorr.Name = "nudParamsIdleIgnFanCorr";
-            this.nudParamsIdleIgnFanCorr.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsIdleIgnFanCorr.TabIndex = 48;
-            this.nudParamsIdleIgnFanCorr.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnFanCorr_ValueChanged);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(297, 234);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(112, 24);
-            this.label39.TabIndex = 57;
-            this.label39.Text = "Corr.Inj.Cy1:";
-            // 
-            // nudParamsCorrInjCy1
-            // 
-            this.nudParamsCorrInjCy1.DecimalPlaces = 3;
-            this.nudParamsCorrInjCy1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(421, 232);
-            this.nudParamsCorrInjCy1.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudParamsCorrInjCy1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrInjCy1.Name = "nudParamsCorrInjCy1";
-            this.nudParamsCorrInjCy1.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrInjCy1.TabIndex = 56;
-            this.nudParamsCorrInjCy1.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy1_ValueChanged);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(297, 271);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(112, 24);
-            this.label40.TabIndex = 59;
-            this.label40.Text = "Corr.Inj.Cy2:";
-            // 
-            // nudParamsCorrInjCy2
-            // 
-            this.nudParamsCorrInjCy2.DecimalPlaces = 3;
-            this.nudParamsCorrInjCy2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(421, 269);
-            this.nudParamsCorrInjCy2.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudParamsCorrInjCy2.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrInjCy2.Name = "nudParamsCorrInjCy2";
-            this.nudParamsCorrInjCy2.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrInjCy2.TabIndex = 58;
-            this.nudParamsCorrInjCy2.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy2_ValueChanged);
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(297, 306);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(112, 24);
-            this.label41.TabIndex = 61;
-            this.label41.Text = "Corr.Inj.Cy3:";
-            // 
-            // nudParamsCorrInjCy3
-            // 
-            this.nudParamsCorrInjCy3.DecimalPlaces = 3;
-            this.nudParamsCorrInjCy3.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(421, 304);
-            this.nudParamsCorrInjCy3.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudParamsCorrInjCy3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrInjCy3.Name = "nudParamsCorrInjCy3";
-            this.nudParamsCorrInjCy3.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrInjCy3.TabIndex = 60;
-            this.nudParamsCorrInjCy3.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy3_ValueChanged);
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(297, 339);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(112, 24);
-            this.label46.TabIndex = 63;
-            this.label46.Text = "Corr.Inj.Cy4:";
-            // 
-            // nudParamsCorrInjCy4
-            // 
-            this.nudParamsCorrInjCy4.DecimalPlaces = 3;
-            this.nudParamsCorrInjCy4.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(421, 337);
-            this.nudParamsCorrInjCy4.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudParamsCorrInjCy4.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrInjCy4.Name = "nudParamsCorrInjCy4";
-            this.nudParamsCorrInjCy4.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrInjCy4.TabIndex = 62;
-            this.nudParamsCorrInjCy4.ValueChanged += new System.EventHandler(this.nudParamsCorrInjCy4_ValueChanged);
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(553, 339);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(119, 24);
-            this.label50.TabIndex = 71;
-            this.label50.Text = "Corr.Ign.Cy4:";
-            // 
-            // nudParamsCorrIgnCy4
-            // 
-            this.nudParamsCorrIgnCy4.DecimalPlaces = 1;
-            this.nudParamsCorrIgnCy4.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(677, 337);
-            this.nudParamsCorrIgnCy4.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.nudParamsCorrIgnCy4.Minimum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrIgnCy4.Name = "nudParamsCorrIgnCy4";
-            this.nudParamsCorrIgnCy4.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrIgnCy4.TabIndex = 70;
-            this.nudParamsCorrIgnCy4.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy4_ValueChanged);
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(553, 306);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(119, 24);
-            this.label52.TabIndex = 69;
-            this.label52.Text = "Corr.Ign.Cy3:";
-            // 
-            // nudParamsCorrIgnCy3
-            // 
-            this.nudParamsCorrIgnCy3.DecimalPlaces = 1;
-            this.nudParamsCorrIgnCy3.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(677, 304);
-            this.nudParamsCorrIgnCy3.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.nudParamsCorrIgnCy3.Minimum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrIgnCy3.Name = "nudParamsCorrIgnCy3";
-            this.nudParamsCorrIgnCy3.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrIgnCy3.TabIndex = 68;
-            this.nudParamsCorrIgnCy3.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy3_ValueChanged);
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(553, 271);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(119, 24);
-            this.label54.TabIndex = 67;
-            this.label54.Text = "Corr.Ign.Cy2:";
-            // 
-            // nudParamsCorrIgnCy2
-            // 
-            this.nudParamsCorrIgnCy2.DecimalPlaces = 1;
-            this.nudParamsCorrIgnCy2.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(677, 269);
-            this.nudParamsCorrIgnCy2.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.nudParamsCorrIgnCy2.Minimum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrIgnCy2.Name = "nudParamsCorrIgnCy2";
-            this.nudParamsCorrIgnCy2.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrIgnCy2.TabIndex = 66;
-            this.nudParamsCorrIgnCy2.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy2_ValueChanged);
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(553, 234);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(119, 24);
-            this.label55.TabIndex = 65;
-            this.label55.Text = "Corr.Ign.Cy1:";
-            // 
-            // nudParamsCorrIgnCy1
-            // 
-            this.nudParamsCorrIgnCy1.DecimalPlaces = 1;
-            this.nudParamsCorrIgnCy1.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
-            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(677, 232);
-            this.nudParamsCorrIgnCy1.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.nudParamsCorrIgnCy1.Minimum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsCorrIgnCy1.Name = "nudParamsCorrIgnCy1";
-            this.nudParamsCorrIgnCy1.Size = new System.Drawing.Size(89, 29);
-            this.nudParamsCorrIgnCy1.TabIndex = 64;
-            this.nudParamsCorrIgnCy1.ValueChanged += new System.EventHandler(this.nudParamsCorrIgnCy1_ValueChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -2909,6 +2908,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Engine Control Unit - Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -2943,6 +2943,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsEnrPMapTps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnFanCorr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleIgnI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleIgnP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidIdleValveD)).EndInit();
@@ -2979,18 +2991,6 @@
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsEnrPMapTps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnDevMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleIgnFanCorr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrInjCy4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy1)).EndInit();
             this.ResumeLayout(false);
 
         }

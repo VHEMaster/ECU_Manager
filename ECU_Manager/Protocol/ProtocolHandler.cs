@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RJCP.IO.Ports;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,7 +19,7 @@ namespace ECU_Manager.Protocol
         const int RETRIES_MAX = 20;
         const int RETRY_TIMEOUT = 50;
 
-        SerialPort sp;
+        SerialPortStream sp;
         string comPort;
         PacketReceivedEvent receivedEvent;
         PacketSentEvent sentEvent;
@@ -42,23 +42,8 @@ namespace ECU_Manager.Protocol
             this.sentEvent = sentEvent;
             this.comPort = comPort;
 
-            sp = new SerialPort(comPort, 960000, Parity.None, 8, StopBits.One);
-            sp.ReadBufferSize = 4096;
-            sp.WriteBufferSize = 4096;
-
-            //FTDI ftdi = new FTDI();
-            //uint ftdiDeviceCount = 0;
-            //ftdi.GetNumberOfDevices(ref ftdiDeviceCount);
-            //FT_DEVICE_INFO_NODE[] ftdiDeviceList = new FTDI.FT_DEVICE_INFO_NODE[ftdiDeviceCount];
-            //ftdi.GetDeviceList(ftdiDeviceList);
-            //ftdi.OpenBySerialNumber(ftdiDeviceList[0].SerialNumber);
-            //ftdi.SetLatency(16);
-            //ftdi.GetCOMPort(out comPort);
-
-            sp.Open();
-            sp.DiscardInBuffer();
-            sp.DiscardOutBuffer();
-            sp.BaseStream.Flush();
+            sp = new SerialPortStream(comPort, 960000, 8, Parity.None, StopBits.One);
+            sp.OpenDirect();
 
             sender = new Sender(sp);
             getter = new Getter(sp, sender);
@@ -69,9 +54,11 @@ namespace ECU_Manager.Protocol
               
 
             getterThread = new Thread(Getter);
+            getterThread.Name = "Getter Thread";
             getterThread.IsBackground = true;
             getterThread.Priority = ThreadPriority.Highest;
             senderThread = new Thread(Sender);
+            senderThread.Name = "Sender Thread";
             senderThread.IsBackground = true;
             senderThread.Priority = ThreadPriority.AboveNormal;
 
@@ -86,8 +73,8 @@ namespace ECU_Manager.Protocol
             {
                 if (sp.IsOpen)
                     sp.Close();
-                sp.Open();
-                sp.BaseStream.Flush();
+                sp.OpenDirect();
+                sp.Flush();
             }
             catch { }
         }

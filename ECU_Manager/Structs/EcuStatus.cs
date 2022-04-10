@@ -11,7 +11,7 @@ namespace ECU_Manager.Structs
     [Serializable]
     public struct EcuStatus
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 28)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         [XmlArray("status")]
         [XmlArrayItem("byte")]
         public byte[] bytes;

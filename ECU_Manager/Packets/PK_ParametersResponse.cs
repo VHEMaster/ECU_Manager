@@ -21,7 +21,7 @@ namespace ECU_Manager.Packets
             Parameters = new EcuParameters();
 
             PacketLength = 0;
-            PacketLength = (byte)Marshal.SizeOf(GetType());
+            PacketLength = (ushort)Marshal.SizeOf(GetType());
         }
     }
 }

@@ -51,10 +51,10 @@ namespace ECU_Manager
                 MiddleLayer middleLayer = new MiddleLayer(portname);
                 MainForm mainForm = new MainForm(middleLayer);
                 DiagForm diagForm = new DiagForm(middleLayer);
-                middleLayer.RegisterEventHandler(mainForm);
-                middleLayer.RegisterEventHandler(diagForm);
-                mainForm.ShowDialog();
-                this.Close();
+                mainForm.Show();
+                diagForm.Show();
+                diagForm.Location = new Point(mainForm.Location.X + mainForm.Size.Width, mainForm.Location.Y);
+                diagForm.Size = new Size(diagForm.Size.Width, mainForm.Size.Height);
             }
             else MessageBox.Show($"Port {portname} not available.", "ECU", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

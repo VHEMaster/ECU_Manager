@@ -18,7 +18,7 @@ namespace ECU_Manager.Packets
             RandomPing = value;
 
             PacketLength = 0;
-            PacketLength = (byte)Marshal.SizeOf(GetType());
+            PacketLength = (ushort)Marshal.SizeOf(GetType());
         }
 
     }

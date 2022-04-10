@@ -23,11 +23,6 @@ namespace ECU_Manager
         bool generalStatusReceived = false;
         ComponentStructure cs;
 
-        List<int> tlpRows = new List<int>();
-        List<int> tlpColumns = new List<int>();
-        int tlpInfoRow = 0;
-        int tlpInfoColumn = 0;
-
         class DragRun
         {
             public List<DragPoint> Points;
@@ -60,6 +55,8 @@ namespace ECU_Manager
         public MainForm(MiddleLayer middleLayer)
         {
             InitializeComponent();
+            middleLayer.RegisterEventHandler(this);
+
             this.middleLayer = middleLayer;
             this.cs = middleLayer.ComponentStructure;
 
@@ -153,8 +150,8 @@ namespace ECU_Manager
             lblCutoffAngle.Text = cs.ConfigStruct.parameters.cutoffAngle.ToString("F1");
             tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAngle * 10.0f);
 
-            lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffAngle.ToString("F1");
-            tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAngle * 10.0f);
+            lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
+            tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
 
             nudSwPos1.Value = cs.ConfigStruct.parameters.switchPos1Table + 1;
             nudSwPos0.Value = cs.ConfigStruct.parameters.switchPos0Table + 1;
@@ -819,17 +816,17 @@ namespace ECU_Manager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            middleLayer.SyncSave(true);
+            while (!middleLayer.SyncSave(true));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            middleLayer.SyncLoad(true);
+            while(!middleLayer.SyncLoad(true));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            middleLayer.SyncLoad(false);
+            while (!middleLayer.SyncLoad(false));
         }
 
         private void nudToolsCurTable_ValueChanged(object sender, EventArgs e)
@@ -1257,6 +1254,11 @@ namespace ECU_Manager
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

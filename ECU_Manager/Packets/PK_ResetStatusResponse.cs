@@ -22,7 +22,7 @@ namespace ECU_Manager.Packets
             ErrorCode = 0;
 
             PacketLength = 0;
-            PacketLength = (byte)Marshal.SizeOf(GetType());
+            PacketLength = (ushort)Marshal.SizeOf(GetType());
         }
     }
 }

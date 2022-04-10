@@ -11,5 +11,10 @@ namespace ECU_Manager.Structs
         public ConfigStruct ConfigStruct;
         public EcuParameters EcuParameters;
         public int CurrentTable;
+        public ComponentStructure()
+        {
+            ConfigStruct = new ConfigStruct(0);
+            EcuParameters = new EcuParameters();
+        }
     }
 }

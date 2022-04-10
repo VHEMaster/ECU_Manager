@@ -17,7 +17,7 @@ namespace ECU_Manager
         public ComponentStructure ComponentStructure { get; private set; }
         public PacketHandler PacketHandler { get; private set; }
         public bool IsCtrlConnected = true;
-        public bool IsSynchronizing { get { return bSyncRequired; } }
+        public bool IsSynchronizing { get { return bSyncRequired && !bSyncFastSync; } }
         private ConfigStruct oldconfig = new ConfigStruct(0);
 
         ProtocolHandler protocolHandler;
@@ -42,12 +42,12 @@ namespace ECU_Manager
 
         public MiddleLayer(string portname)
         {
-
             eventHandlers = new List<IEcuEventHandler>();
             protocolHandler = new ProtocolHandler(portname, ReceivedEvent, SentEvent, TimeoutEvent);
             PacketHandler = new PacketHandler(protocolHandler);
             ComponentStructure = new ComponentStructure();
             thread = new Thread(BackgroundThread);
+            thread.Name = "MiddleLayer Thread";
             thread.IsBackground = true;
             thread.Start();
         }
@@ -71,7 +71,10 @@ namespace ECU_Manager
 
         public void RegisterEventHandler(IEcuEventHandler eventHandler)
         {
-            eventHandlers.Add(eventHandler);
+            lock (eventHandlers)
+            {
+                eventHandlers.Add(eventHandler);
+            }
         }
 
         public bool SyncSave(bool flashSave)
@@ -222,6 +225,7 @@ namespace ECU_Manager
                                     iSyncLeft = iSyncSize;
                                     iSyncOffset = 0;
                                     iSyncNum = 0;
+                                    iSyncStep++;
                                 }
                             }
                             if (iSyncStep == 1)
@@ -446,8 +450,11 @@ namespace ECU_Manager
                                 bSyncFastSync = false;
                                 bSyncFlash = false;
                                 bSyncRequired = false;
-                                foreach (IEcuEventHandler handler in eventHandlers)
-                                    handler.SynchronizedEvent();
+                                
+                                lock(eventHandlers) {
+                                    foreach (IEcuEventHandler handler in eventHandlers)
+                                        handler.SynchronizedEvent();
+                                }
                             }
                         }
                     }
@@ -488,7 +495,7 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_RestoreConfigAcknowledge))
                     {
                         PK_RestoreConfigAcknowledge rca = (PK_RestoreConfigAcknowledge)packetobj;
-                        if (rca.ErrorCode == 0)
+                        //if (rca.ErrorCode == 0)
                         {
                             lock (SyncMutex)
                             {
@@ -503,7 +510,7 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_SaveConfigAcknowledge))
                     {
                         PK_SaveConfigAcknowledge sca = (PK_SaveConfigAcknowledge)packetobj;
-                        if (sca.ErrorCode == 0)
+                        //if (sca.ErrorCode == 0)
                         {
                             lock (SyncMutex)
                             {
@@ -519,32 +526,47 @@ namespace ECU_Manager
                     {
                         PK_ParametersResponse gsr = (PK_ParametersResponse)packetobj;
                         ComponentStructure.EcuParameters = gsr.Parameters;
-                        foreach (IEcuEventHandler handler in eventHandlers)
-                            handler.UpdateParametersEvent(gsr.Parameters);
+                        lock (eventHandlers)
+                        {
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.UpdateParametersEvent(gsr.Parameters);
+                        }
                     }
                     else if (packetobj.GetType() == typeof(PK_DragUpdateResponse))
                     {
                         PK_DragUpdateResponse dur = (PK_DragUpdateResponse)packetobj;
-                        foreach (IEcuEventHandler handler in eventHandlers)
-                            handler.UpdateDragStatusEvent(dur);
+                        lock (eventHandlers)
+                        {
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.UpdateDragStatusEvent(dur);
+                        }
                     }
                     else if (packetobj.GetType() == typeof(PK_DragPointResponse))
                     {
                         PK_DragPointResponse dpr = (PK_DragPointResponse)packetobj;
-                        foreach (IEcuEventHandler handler in eventHandlers)
-                            handler.UpdateDragPointEvent(dpr);
+                        lock (eventHandlers)
+                        {
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.UpdateDragPointEvent(dpr);
+                        }
                     }
                     else if (packetobj.GetType() == typeof(PK_DragStartAcknowledge))
                     {
                         PK_DragStartAcknowledge dsaa = (PK_DragStartAcknowledge)packetobj;
-                        foreach (IEcuEventHandler handler in eventHandlers)
-                            handler.DragStartAckEvent(dsaa);
+                        lock (eventHandlers)
+                        {
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.DragStartAckEvent(dsaa);
+                        }
                     }
                     else if (packetobj.GetType() == typeof(PK_DragStopAcknowledge))
                     {
                         PK_DragStopAcknowledge dsta = (PK_DragStopAcknowledge)packetobj;
-                        foreach (IEcuEventHandler handler in eventHandlers)
-                            handler.DragStopAckEvent(dsta);
+                        lock (eventHandlers)
+                        {
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.DragStopAckEvent(dsta);
+                        }
                     }
                     else if (packetobj.GetType() == typeof(PK_TableMemoryAcknowledge))
                     {

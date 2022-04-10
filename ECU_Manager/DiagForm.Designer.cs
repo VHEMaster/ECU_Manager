@@ -41,6 +41,7 @@
             this.Name = "DiagForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Engine Control Unit - Parameters";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DiagForm_FormClosed);
             this.ResumeLayout(false);
 
         }
