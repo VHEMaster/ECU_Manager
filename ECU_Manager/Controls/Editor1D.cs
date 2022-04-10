@@ -40,7 +40,7 @@ namespace ECU_Manager.Controls
 
         private ComponentStructure cs;
 
-        public Editor1D(ComponentStructure componentStructure, string name, float min, float max, float step, float mindiff, float chartminy, float chartmaxy, float intervalx, float intervaly, bool log10 = false)
+        public Editor1D(ComponentStructure componentStructure, string name, float min, float max, float step, float mindiff, float chartminy, float chartmaxy, float intervalx, float intervaly, int arraysizex, bool log10 = false)
         {
             InitializeComponent();
 
@@ -53,6 +53,7 @@ namespace ECU_Manager.Controls
             fChartMinY = chartminy;
             fChartMaxY = chartmaxy;
             fMinDiff = mindiff;
+            sArraySizeX = arraysizex;
 
             bLog10 = log10;
             lblTitle.Text = sName;
@@ -67,13 +68,12 @@ namespace ECU_Manager.Controls
             UpdateTableEvent = eventHandler;
         }
 
-        public void SetConfig(string arrayname, string sizex, string depx, int arraysizex)
+        public void SetConfig(string arrayname, string sizex, string depx)
         {
             sArrayName = arrayname;
             sConfigSizeX = sizex;
             sConfigDepX = depx;
-            sArraySizeX = arraysizex;
-    }
+        }
 
         public void SetX(string param, string title, string format)
         {
@@ -182,8 +182,8 @@ namespace ECU_Manager.Controls
                 if (!string.IsNullOrWhiteSpace(sParamsStatusX) || !string.IsNullOrWhiteSpace(sParamsStatusY))
                 {
 
-                    FieldInfo fieldParamX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sParamsStatusX);
-                    FieldInfo fieldParamY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sParamsStatusY);
+                    FieldInfo fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
+                    FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
 
                     if (fieldParamX != null && !string.IsNullOrWhiteSpace(sFormatStatusX))
                     {
@@ -300,7 +300,15 @@ namespace ECU_Manager.Controls
                     value = array1d[index + 1] - fMinDiff;
                     ((NumericUpDown)sender).Value = (decimal)value;
                 }
-                array1d[index] = value;
+
+                if (array1d[index] != value)
+                {
+                    array1d[index] = value;
+
+                    //TODO: check if need to check if IsSynchronizing
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
+                }
+
                 if (chart1DChart.Series.Count > 0)
                 {
                     var result = chart1DChart.Series[0].Points.Where(n => (int)n.Tag == index);
@@ -309,8 +317,6 @@ namespace ECU_Manager.Controls
                         result.FirstOrDefault().YValues = new double[1] { value };
                     }
                 }
-
-                UpdateTableEvent?.Invoke(sender, new EventArgs());
             }
 
         }

@@ -78,7 +78,7 @@ namespace ECU_Manager.Tools
 
             if (this.values[1] != this.values[0])
                 this.mult = (value - this.values[0]) / (this.values[1] - this.values[0]);
-            else this.mult = 1.0;
+            else this.mult = 1.0f;
         }
 
         public float Interpolate1D(float[] table)
