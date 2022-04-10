@@ -33,6 +33,7 @@ namespace ECU_Manager.Controls
         private string sFormatStatusY;
         private string sFormatStatusD;
         private string sArrayName;
+        private string sCalibrationTable;
         private float fStepSize;
         private float fIntervalX;
         private float fIntervalY;
@@ -45,8 +46,9 @@ namespace ECU_Manager.Controls
         private int iSizeX;
         private int iSizeY;
         private bool bLog10;
-        
+
         private ColorTransience ColorTransience = null;
+        private ColorTransience CalibrationColorTransience = null;
 
         private EventHandler UpdateTableEvent = null;
 
@@ -103,6 +105,10 @@ namespace ECU_Manager.Controls
                 tlpColumns.Add(tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f)));
             tlp2DTable.ColumnCount = iArraySizeX + 1;
             tlp2DTable.RowCount = iArraySizeY + 1;
+
+            CalibrationColorTransience = new ColorTransience(0.0f, 1.0f, Color.Black);
+            CalibrationColorTransience.Add(Color.FromArgb(255, 0, 0), 0.0f);
+            CalibrationColorTransience.Add(Color.FromArgb(0, 192, 0), 1.0f);
 
 
             for (int y = -1; y < iArraySizeY; y++)
@@ -191,6 +197,11 @@ namespace ECU_Manager.Controls
             sParamsStatusD = param;
             sTitleStatusD = title;
             sFormatStatusD = format;
+        }
+
+        public void SetCalibrationTable(string table)
+        {
+            sCalibrationTable = table;
         }
 
         public void SetTableColorTrans(ColorTransience colorTransience)
@@ -424,6 +435,7 @@ namespace ECU_Manager.Controls
             float[] depx = null;
             float[] depy = null;
             float[] array2d = null;
+            float[] arraycalib = null;
 
             float paramx = 0;
             float paramy = 0;
@@ -524,6 +536,13 @@ namespace ECU_Manager.Controls
 
             if (sizex > 0 && sizey > 0)
             {
+                if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+                {
+                    FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
+                    if (calibrationTable != null)
+                        arraycalib = (float[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+                }
+
                 for (int i = 0; i < tlp2DTable.Controls.Count; i++)
                 {
                     if (tlp2DTable.Controls[i] is NumericUpDown)
@@ -531,22 +550,40 @@ namespace ECU_Manager.Controls
                         NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
 
                         int r, g, b;
+                        int index = (int)nud.Tag;
                         Color color;
-                        Color original = ColorTransience.Get((float)nud.Value);
+                        Color original;
                         double mult;
                         bool handled = false;
+
+                        if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+                        {
+                            if (arraycalib == null)
+                            {
+                                original = Color.DarkGray;
+                            }
+                            else
+                            {
+                                original = CalibrationColorTransience.Get(arraycalib[index]);
+                            }
+                        }
+                        else
+                        {
+                            original = ColorTransience.Get((float)nud.Value);
+                        }
+
                         for (int y = 0; y < 2; y++)
                         {
                             for (int x = 0; x < 2; x++)
-                            {   
-                                if ((int)nud.Tag == interpolationX.indexes[x] * iArraySizeX + interpolationY.indexes[y])
+                            {
+                                if (index == interpolationX.indexes[x] * iArraySizeX + interpolationY.indexes[y])
                                 {
                                     color = Color.DarkGray;
                                     if (x == 0 && y == 0)
                                         mult = (1.0 - interpolationX.mult) * 1.0f - (interpolationY.mult);
                                     else if (x == 0 && y != 0)
                                         mult = (1.0 - interpolationX.mult) * interpolationY.mult;
-                                    else if(x != 0 && y == 0)
+                                    else if (x != 0 && y == 0)
                                         mult = interpolationX.mult * (1.0f - interpolationY.mult);
                                     else
                                         mult = interpolationX.mult * interpolationY.mult;
@@ -555,7 +592,7 @@ namespace ECU_Manager.Controls
                                     g = (int)((color.G - original.G) * mult + original.G);
                                     b = (int)((color.B - original.B) * mult + original.B);
 
-                                    nud.BackColor = Color.FromArgb(r,g,b);
+                                    nud.BackColor = Color.FromArgb(r, g, b);
                                     nud.ForeColor = Color.White;
                                     nud.Font = new Font(nud.Font, FontStyle.Bold);
                                     handled = true;
@@ -566,6 +603,7 @@ namespace ECU_Manager.Controls
                         {
                             nudTableItem_ValueChanged(nud, new EventArgs());
                         }
+                        
                     }
                 }
             }
@@ -602,10 +640,11 @@ namespace ECU_Manager.Controls
                 UpdateTableEvent?.Invoke(sender, new EventArgs());
             }
 
-            if (ColorTransience != null)
+            if (ColorTransience != null || !string.IsNullOrWhiteSpace(sCalibrationTable))
             {
                 text = Color.White;
-                back = ColorTransience.Get(value);
+                if(string.IsNullOrWhiteSpace(sCalibrationTable))
+                    back = ColorTransience.Get(value);
             }
 
             nud.ForeColor = text;

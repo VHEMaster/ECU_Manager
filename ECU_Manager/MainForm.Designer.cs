@@ -29,15 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tmr50ms = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -148,20 +145,14 @@
             this.tbParamsName = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tlpIgnitions = new System.Windows.Forms.TableLayoutPanel();
-            this.chartIgnitions = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage18 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label63 = new System.Windows.Forms.Label();
             this.tbDragName = new System.Windows.Forms.TextBox();
-            this.label66 = new System.Windows.Forms.Label();
-            this.nudDragAccelStep = new System.Windows.Forms.NumericUpDown();
             this.label65 = new System.Windows.Forms.Label();
             this.nudDragTableSplit = new System.Windows.Forms.NumericUpDown();
-            this.lblDragRpm = new System.Windows.Forms.Label();
+            this.lblDragSpeed = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.lblDragTime = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
@@ -171,9 +162,9 @@
             this.lblDragStatus = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
-            this.nudDragRPMTo = new System.Windows.Forms.NumericUpDown();
+            this.nudDragSpeedTo = new System.Windows.Forms.NumericUpDown();
             this.label58 = new System.Windows.Forms.Label();
-            this.nudDragRPMFrom = new System.Windows.Forms.NumericUpDown();
+            this.nudDragSpeedFrom = new System.Windows.Forms.NumericUpDown();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage19 = new System.Windows.Forms.TabPage();
             this.chartDragTime = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -197,7 +188,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmr1sec = new System.Windows.Forms.Timer(this.components);
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -235,20 +225,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInitial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsOctane)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.tabControl3.SuspendLayout();
-            this.tabPage9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartIgnitions)).BeginInit();
             this.tabPage18.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragAccelStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDragTableSplit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragRPMTo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragRPMFrom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDragSpeedTo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDragSpeedFrom)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartDragTime)).BeginInit();
@@ -259,7 +241,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1750,7 +1731,6 @@
             // 
             // tabControl3
             // 
-            this.tabControl3.Controls.Add(this.tabPage9);
             this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl3.Location = new System.Drawing.Point(0, 0);
             this.tabControl3.Margin = new System.Windows.Forms.Padding(0);
@@ -1759,93 +1739,6 @@
             this.tabControl3.SelectedIndex = 0;
             this.tabControl3.Size = new System.Drawing.Size(1085, 555);
             this.tabControl3.TabIndex = 1;
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.Controls.Add(this.splitContainer1);
-            this.tabPage9.Location = new System.Drawing.Point(4, 35);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(1077, 516);
-            this.tabPage9.TabIndex = 0;
-            this.tabPage9.Text = "Ignitions";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.tlpIgnitions);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.splitContainer1.Panel1MinSize = 128;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.chartIgnitions);
-            this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.splitContainer1.Panel2MinSize = 128;
-            this.splitContainer1.Size = new System.Drawing.Size(1077, 516);
-            this.splitContainer1.SplitterDistance = 303;
-            this.splitContainer1.TabIndex = 1;
-            // 
-            // tlpIgnitions
-            // 
-            this.tlpIgnitions.AutoScroll = true;
-            this.tlpIgnitions.ColumnCount = 2;
-            this.tlpIgnitions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpIgnitions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpIgnitions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpIgnitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tlpIgnitions.Location = new System.Drawing.Point(0, 0);
-            this.tlpIgnitions.Margin = new System.Windows.Forms.Padding(0);
-            this.tlpIgnitions.Name = "tlpIgnitions";
-            this.tlpIgnitions.RowCount = 2;
-            this.tlpIgnitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpIgnitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpIgnitions.Size = new System.Drawing.Size(1073, 296);
-            this.tlpIgnitions.TabIndex = 0;
-            // 
-            // chartIgnitions
-            // 
-            chartArea1.AxisX.Interval = 500D;
-            chartArea1.AxisY.Interval = 5D;
-            chartArea1.AxisY.Maximum = 60D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.Name = "ChartArea1";
-            this.chartIgnitions.ChartAreas.Add(chartArea1);
-            this.chartIgnitions.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartIgnitions.Legends.Add(legend1);
-            this.chartIgnitions.Location = new System.Drawing.Point(0, 3);
-            this.chartIgnitions.Name = "chartIgnitions";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Brown;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series1.IsValueShownAsLabel = true;
-            series1.LabelBorderWidth = 0;
-            series1.Legend = "Legend1";
-            series1.MarkerColor = System.Drawing.Color.Black;
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Series1";
-            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series1.SmartLabelStyle.MaxMovingDistance = 100D;
-            series1.SmartLabelStyle.MinMovingDistance = 10D;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series1.YValuesPerPoint = 2;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartIgnitions.Series.Add(series1);
-            this.chartIgnitions.Size = new System.Drawing.Size(1073, 202);
-            this.chartIgnitions.TabIndex = 4;
-            this.chartIgnitions.Text = " ";
             // 
             // tabPage18
             // 
@@ -1878,11 +1771,9 @@
             // 
             this.panel10.Controls.Add(this.label63);
             this.panel10.Controls.Add(this.tbDragName);
-            this.panel10.Controls.Add(this.label66);
-            this.panel10.Controls.Add(this.nudDragAccelStep);
             this.panel10.Controls.Add(this.label65);
             this.panel10.Controls.Add(this.nudDragTableSplit);
-            this.panel10.Controls.Add(this.lblDragRpm);
+            this.panel10.Controls.Add(this.lblDragSpeed);
             this.panel10.Controls.Add(this.label64);
             this.panel10.Controls.Add(this.lblDragTime);
             this.panel10.Controls.Add(this.label62);
@@ -1892,9 +1783,9 @@
             this.panel10.Controls.Add(this.lblDragStatus);
             this.panel10.Controls.Add(this.label59);
             this.panel10.Controls.Add(this.label57);
-            this.panel10.Controls.Add(this.nudDragRPMTo);
+            this.panel10.Controls.Add(this.nudDragSpeedTo);
             this.panel10.Controls.Add(this.label58);
-            this.panel10.Controls.Add(this.nudDragRPMFrom);
+            this.panel10.Controls.Add(this.nudDragSpeedFrom);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
@@ -1905,7 +1796,7 @@
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(6, 392);
+            this.label63.Location = new System.Drawing.Point(3, 343);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(66, 24);
             this.label63.TabIndex = 24;
@@ -1913,53 +1804,16 @@
             // 
             // tbDragName
             // 
-            this.tbDragName.Location = new System.Drawing.Point(6, 419);
+            this.tbDragName.Location = new System.Drawing.Point(3, 370);
             this.tbDragName.Name = "tbDragName";
             this.tbDragName.Size = new System.Drawing.Size(191, 29);
             this.tbDragName.TabIndex = 23;
             this.tbDragName.Text = "Drag Run";
             // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(5, 354);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(113, 24);
-            this.label66.TabIndex = 22;
-            this.label66.Text = "ΔRPM t. ms:";
-            // 
-            // nudDragAccelStep
-            // 
-            this.nudDragAccelStep.Increment = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudDragAccelStep.Location = new System.Drawing.Point(122, 352);
-            this.nudDragAccelStep.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudDragAccelStep.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudDragAccelStep.Name = "nudDragAccelStep";
-            this.nudDragAccelStep.Size = new System.Drawing.Size(75, 29);
-            this.nudDragAccelStep.TabIndex = 21;
-            this.nudDragAccelStep.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudDragAccelStep.ValueChanged += new System.EventHandler(this.nudDragAccelStep_ValueChanged);
-            // 
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(5, 319);
+            this.label65.Location = new System.Drawing.Point(3, 302);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(103, 24);
             this.label65.TabIndex = 20;
@@ -1967,7 +1821,7 @@
             // 
             // nudDragTableSplit
             // 
-            this.nudDragTableSplit.Location = new System.Drawing.Point(122, 317);
+            this.nudDragTableSplit.Location = new System.Drawing.Point(120, 300);
             this.nudDragTableSplit.Minimum = new decimal(new int[] {
             1,
             0,
@@ -1983,23 +1837,23 @@
             0});
             this.nudDragTableSplit.ValueChanged += new System.EventHandler(this.nudDragTableSplit_ValueChanged);
             // 
-            // lblDragRpm
+            // lblDragSpeed
             // 
-            this.lblDragRpm.AutoSize = true;
-            this.lblDragRpm.Location = new System.Drawing.Point(77, 138);
-            this.lblDragRpm.Name = "lblDragRpm";
-            this.lblDragRpm.Size = new System.Drawing.Size(20, 24);
-            this.lblDragRpm.TabIndex = 18;
-            this.lblDragRpm.Text = "0";
+            this.lblDragSpeed.AutoSize = true;
+            this.lblDragSpeed.Location = new System.Drawing.Point(77, 138);
+            this.lblDragSpeed.Name = "lblDragSpeed";
+            this.lblDragSpeed.Size = new System.Drawing.Size(66, 24);
+            this.lblDragSpeed.TabIndex = 18;
+            this.lblDragSpeed.Text = "0 km/h";
             // 
             // label64
             // 
             this.label64.AutoSize = true;
             this.label64.Location = new System.Drawing.Point(6, 138);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(56, 24);
+            this.label64.Size = new System.Drawing.Size(71, 24);
             this.label64.TabIndex = 17;
-            this.label64.Text = "RPM:";
+            this.label64.Text = "Speed:";
             // 
             // lblDragTime
             // 
@@ -2077,29 +1931,24 @@
             this.label57.TabIndex = 9;
             this.label57.Text = "To:";
             // 
-            // nudDragRPMTo
+            // nudDragSpeedTo
             // 
-            this.nudDragRPMTo.Increment = new decimal(new int[] {
-            200,
+            this.nudDragSpeedTo.Increment = new decimal(new int[] {
+            5,
             0,
             0,
             0});
-            this.nudDragRPMTo.Location = new System.Drawing.Point(83, 51);
-            this.nudDragRPMTo.Maximum = new decimal(new int[] {
-            10000,
+            this.nudDragSpeedTo.Location = new System.Drawing.Point(83, 51);
+            this.nudDragSpeedTo.Maximum = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.nudDragRPMTo.Minimum = new decimal(new int[] {
+            this.nudDragSpeedTo.Name = "nudDragSpeedTo";
+            this.nudDragSpeedTo.Size = new System.Drawing.Size(114, 29);
+            this.nudDragSpeedTo.TabIndex = 8;
+            this.nudDragSpeedTo.Value = new decimal(new int[] {
             100,
-            0,
-            0,
-            0});
-            this.nudDragRPMTo.Name = "nudDragRPMTo";
-            this.nudDragRPMTo.Size = new System.Drawing.Size(114, 29);
-            this.nudDragRPMTo.TabIndex = 8;
-            this.nudDragRPMTo.Value = new decimal(new int[] {
-            3000,
             0,
             0,
             0});
@@ -2113,32 +1962,22 @@
             this.label58.TabIndex = 7;
             this.label58.Text = "From:";
             // 
-            // nudDragRPMFrom
+            // nudDragSpeedFrom
             // 
-            this.nudDragRPMFrom.Increment = new decimal(new int[] {
-            200,
+            this.nudDragSpeedFrom.Increment = new decimal(new int[] {
+            5,
             0,
             0,
             0});
-            this.nudDragRPMFrom.Location = new System.Drawing.Point(83, 16);
-            this.nudDragRPMFrom.Maximum = new decimal(new int[] {
-            10000,
+            this.nudDragSpeedFrom.Location = new System.Drawing.Point(83, 16);
+            this.nudDragSpeedFrom.Maximum = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.nudDragRPMFrom.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudDragRPMFrom.Name = "nudDragRPMFrom";
-            this.nudDragRPMFrom.Size = new System.Drawing.Size(114, 29);
-            this.nudDragRPMFrom.TabIndex = 6;
-            this.nudDragRPMFrom.Value = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
+            this.nudDragSpeedFrom.Name = "nudDragSpeedFrom";
+            this.nudDragSpeedFrom.Size = new System.Drawing.Size(114, 29);
+            this.nudDragSpeedFrom.TabIndex = 6;
             // 
             // tabControl2
             // 
@@ -2163,39 +2002,39 @@
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage19.Size = new System.Drawing.Size(891, 565);
             this.tabPage19.TabIndex = 0;
-            this.tabPage19.Text = "RPM vs. Time";
+            this.tabPage19.Text = "Speed vs. Time";
             // 
             // chartDragTime
             // 
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 88F;
-            this.chartDragTime.ChartAreas.Add(chartArea2);
+            chartArea5.Name = "ChartArea1";
+            chartArea5.Position.Auto = false;
+            chartArea5.Position.Height = 100F;
+            chartArea5.Position.Width = 88F;
+            this.chartDragTime.ChartAreas.Add(chartArea5);
             this.chartDragTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartDragTime.Legends.Add(legend2);
+            legend5.Name = "Legend1";
+            this.chartDragTime.Legends.Add(legend5);
             this.chartDragTime.Location = new System.Drawing.Point(3, 3);
             this.chartDragTime.Name = "chartDragTime";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Brown;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series2.IsValueShownAsLabel = true;
-            series2.LabelBorderWidth = 0;
-            series2.Legend = "Legend1";
-            series2.MarkerColor = System.Drawing.Color.Black;
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series2.SmartLabelStyle.MaxMovingDistance = 100D;
-            series2.SmartLabelStyle.MinMovingDistance = 10D;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series2.YValuesPerPoint = 2;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragTime.Series.Add(series2);
+            series5.BorderWidth = 3;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.Brown;
+            series5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series5.IsValueShownAsLabel = true;
+            series5.LabelBorderWidth = 0;
+            series5.Legend = "Legend1";
+            series5.MarkerColor = System.Drawing.Color.Black;
+            series5.MarkerSize = 8;
+            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series5.Name = "Series1";
+            series5.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series5.SmartLabelStyle.MaxMovingDistance = 100D;
+            series5.SmartLabelStyle.MinMovingDistance = 10D;
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series5.YValuesPerPoint = 2;
+            series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragTime.Series.Add(series5);
             this.chartDragTime.Size = new System.Drawing.Size(885, 559);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
@@ -2209,39 +2048,39 @@
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage21.Size = new System.Drawing.Size(891, 565);
             this.tabPage21.TabIndex = 2;
-            this.tabPage21.Text = "ΔRPM vs. Time";
+            this.tabPage21.Text = "Accel. vs. Time";
             // 
             // chartDragAccel
             // 
-            chartArea3.Name = "ChartArea1";
-            chartArea3.Position.Auto = false;
-            chartArea3.Position.Height = 100F;
-            chartArea3.Position.Width = 88F;
-            this.chartDragAccel.ChartAreas.Add(chartArea3);
+            chartArea6.Name = "ChartArea1";
+            chartArea6.Position.Auto = false;
+            chartArea6.Position.Height = 100F;
+            chartArea6.Position.Width = 88F;
+            this.chartDragAccel.ChartAreas.Add(chartArea6);
             this.chartDragAccel.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chartDragAccel.Legends.Add(legend3);
+            legend6.Name = "Legend1";
+            this.chartDragAccel.Legends.Add(legend6);
             this.chartDragAccel.Location = new System.Drawing.Point(3, 3);
             this.chartDragAccel.Name = "chartDragAccel";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Brown;
-            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series3.IsValueShownAsLabel = true;
-            series3.LabelBorderWidth = 0;
-            series3.Legend = "Legend1";
-            series3.MarkerColor = System.Drawing.Color.Black;
-            series3.MarkerSize = 8;
-            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series3.Name = "Series1";
-            series3.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series3.SmartLabelStyle.MaxMovingDistance = 100D;
-            series3.SmartLabelStyle.MinMovingDistance = 10D;
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series3.YValuesPerPoint = 2;
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragAccel.Series.Add(series3);
+            series6.BorderWidth = 3;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Color = System.Drawing.Color.Brown;
+            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series6.IsValueShownAsLabel = true;
+            series6.LabelBorderWidth = 0;
+            series6.Legend = "Legend1";
+            series6.MarkerColor = System.Drawing.Color.Black;
+            series6.MarkerSize = 8;
+            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series6.Name = "Series1";
+            series6.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series6.SmartLabelStyle.MaxMovingDistance = 100D;
+            series6.SmartLabelStyle.MinMovingDistance = 10D;
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series6.YValuesPerPoint = 2;
+            series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragAccel.Series.Add(series6);
             this.chartDragAccel.Size = new System.Drawing.Size(885, 559);
             this.chartDragAccel.TabIndex = 6;
             this.chartDragAccel.Text = " ";
@@ -2511,21 +2350,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInitial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsOctane)).EndInit();
             this.tabPage4.ResumeLayout(false);
-            this.tabControl3.ResumeLayout(false);
-            this.tabPage9.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartIgnitions)).EndInit();
             this.tabPage18.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragAccelStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDragTableSplit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragRPMTo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDragRPMFrom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDragSpeedTo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDragSpeedFrom)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage19.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartDragTime)).EndInit();
@@ -2539,7 +2370,6 @@
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2622,7 +2452,6 @@
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabControl tabControl3;
-        private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.TabPage tabPage12;
         private System.Windows.Forms.NumericUpDown nudToolsCurTable;
         private System.Windows.Forms.Label label23;
@@ -2652,8 +2481,6 @@
         private System.Windows.Forms.RadioButton rbParamsValve1;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.RadioButton rbParamsValve0;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartIgnitions;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox cbForceIdle;
         private System.Windows.Forms.Label label53;
@@ -2668,10 +2495,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.NumericUpDown nudDragRPMTo;
+        private System.Windows.Forms.NumericUpDown nudDragSpeedTo;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.NumericUpDown nudDragRPMFrom;
-        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.NumericUpDown nudDragSpeedFrom;
         private System.Windows.Forms.Button btnDragClear;
         private System.Windows.Forms.Button btnDragStop;
         private System.Windows.Forms.Button btnDragStart;
@@ -2684,7 +2510,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Label lblDragRpm;
+        private System.Windows.Forms.Label lblDragSpeed;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label lblDragTime;
         private System.Windows.Forms.Label label62;
@@ -2692,8 +2518,6 @@
         private System.Windows.Forms.NumericUpDown nudDragTableSplit;
         private System.Windows.Forms.TabPage tabPage21;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDragAccel;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.NumericUpDown nudDragAccelStep;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDragTime;
         private System.Windows.Forms.Button btnTableImport;
         private System.Windows.Forms.Button btnTableExport;
@@ -2703,7 +2527,6 @@
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.NumericUpDown nudForceIgnitionAngle;
         private System.Windows.Forms.CheckBox cbForceIgnition;
-        private System.Windows.Forms.TableLayoutPanel tlpIgnitions;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TextBox tbDragName;
     }

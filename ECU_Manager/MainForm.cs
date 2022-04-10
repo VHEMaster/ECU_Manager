@@ -29,21 +29,12 @@ namespace ECU_Manager
         int tlpInfoRow = 0;
         int tlpInfoColumn = 0;
 
-        class DragPoint
-        {
-            public double RPM;
-            public double Pressure;
-            public double Load;
-            public double Ignition;
-            public double Time;
-        }
-
         class DragRun
         {
             public List<DragPoint> Points;
             public int TotalPoints;
-            public float FromRPM;
-            public float ToRPM;
+            public float FromSpeed;
+            public float ToSpeed;
             public double Time;
             public DateTime DateTime;
             public string Name;
@@ -63,8 +54,8 @@ namespace ECU_Manager
         DragRun drCurrentRun = null;
         List<DragRun> lDragRuns = new List<DragRun>();
         DragStatusType eDragStatus = DragStatusType.Ready;
-        float fDragFromRPM = 2000;
-        float fDragToRPM = 3000;
+        float fDragFromSpeed = 2000;
+        float fDragToSpeed = 3000;
         EcuParameters gParameters;
 
         public MainForm(MiddleLayer middleLayer)
@@ -242,10 +233,8 @@ namespace ECU_Manager
 
         private void UpdateDragCharts()
         {
-            const int pointperiod = 50;
-            double FromRPM = fDragFromRPM;
-            double ToRPM = fDragToRPM;
-            int DeltaMs = (int)nudDragAccelStep.Value;
+            double FromSpeed = fDragFromSpeed;
+            double ToSpeed = fDragToSpeed;
             int TableSplit = (int)nudDragTableSplit.Value;
 
             ClearDragCharts();
@@ -253,7 +242,6 @@ namespace ECU_Manager
             //Color min = Color.SpringGreen;
             //Color max = Color.IndianRed;
             double timeMax = 1;
-            double deltaRpmMax = 1;
 
             chartDragTime.Series.Clear();
             chartDragAccel.Series.Clear();
@@ -281,7 +269,7 @@ namespace ECU_Manager
                         //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
                         for (int j = 0; j < lDragRuns[i].Points.Count; j++)
                         {
-                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].RPM);
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Speed);
                         }
                         if (timeMax < lDragRuns[i].Time)
                         {
@@ -298,37 +286,10 @@ namespace ECU_Manager
                         series.Tag = lDragRuns[i];
                         //float trans = (float)i / (float)(lDragRuns.Count - 1);
                         //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-
-                        double rpmPrev = lDragRuns[i].Points[0].RPM;
-                        for (int j = 0, n = 0; j < lDragRuns[i].Points.Count; j += DeltaMs / pointperiod, n++)
+                        
+                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
                         {
-                            double rpm = 0;
-                            double delta = 0.0;
-
-                            for (int k = j; k < j + (DeltaMs / pointperiod); k++)
-                            {
-                                if (k < lDragRuns[i].Points.Count)
-                                {
-                                    rpm = lDragRuns[i].Points[k].RPM;
-                                    delta += rpm - rpmPrev;
-                                    rpmPrev = rpm;
-                                }
-                                else
-                                {
-                                    delta = double.NaN;
-                                }
-                            }
-                            if (!double.IsNaN(delta))
-                            {
-                                delta /= (DeltaMs / pointperiod);
-
-                                series.Points.AddXY(n * pointperiod / 1000.0, delta);
-
-                                if (deltaRpmMax < delta)
-                                {
-                                    deltaRpmMax = delta;
-                                }
-                            }
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
                         }
 
                     }
@@ -337,8 +298,8 @@ namespace ECU_Manager
                 chartDragTime.ChartAreas[0].AxisX.Minimum = 0;
                 //chartDragTime.ChartAreas[0].AxisX.Maximum = timeMax;
 
-                chartDragTime.ChartAreas[0].AxisY.Minimum = FromRPM;
-                chartDragTime.ChartAreas[0].AxisY.Maximum = ToRPM;
+                chartDragTime.ChartAreas[0].AxisY.Minimum = FromSpeed;
+                chartDragTime.ChartAreas[0].AxisY.Maximum = ToSpeed;
                 
                 chartDragAccel.ChartAreas[0].AxisX.Minimum = 0;
                 //chartDragAccel.ChartAreas[0].AxisX.Maximum = timeMax;
@@ -349,15 +310,15 @@ namespace ECU_Manager
 
                 if(TableSplit >= 2)
                 {
-                    double[] rpms = new double[TableSplit + 1];
+                    double[] speeds = new double[TableSplit + 1];
                     for(int i = 0; i <= TableSplit; i++)
                     {
-                        rpms[i] = ((ToRPM - FromRPM) / TableSplit * i) + FromRPM;
+                        speeds[i] = ((ToSpeed - FromSpeed) / TableSplit * i) + FromSpeed;
                     }
 
                     for (int i = 0; i < TableSplit; i++)
                     {
-                        lvDragTable.Columns.Add($"{rpms[i]}-{rpms[i + 1]}");
+                        lvDragTable.Columns.Add($"{speeds[i]}-{speeds[i + 1]}");
                     }
 
                     for (int j = 0; j < lDragRuns.Count; j++)
@@ -372,7 +333,7 @@ namespace ECU_Manager
                             double timemax = double.MinValue;
                             for (int p = 0; p < lDragRuns[j].Points.Count; p++)
                             {
-                                if(lDragRuns[j].Points[p].RPM >= rpms[i] && lDragRuns[j].Points[p].RPM < rpms[i + 1])
+                                if(lDragRuns[j].Points[p].Speed >= speeds[i] && lDragRuns[j].Points[p].Speed < speeds[i + 1])
                                 {
                                     if (lDragRuns[j].Points[p].Time < timemin)
                                     {
@@ -407,8 +368,8 @@ namespace ECU_Manager
 
         private void UpdateDragStatus(PK_DragUpdateResponse dur)
         {
-            lblDragRpm.Text = dur.CurrentRPM.ToString("F0");
-            lblDragTime.Text = (dur.Time / 1000000.0).ToString("F2") + "s";
+            lblDragSpeed.Text = dur.Point.Speed.ToString("F0") + " km/h";
+            lblDragTime.Text = (dur.Point.Time / 1000000.0).ToString("F2") + "s";
             if (eDragStatus == DragStatusType.Set)
             {
                 if (dur.Started > 0)
@@ -424,12 +385,11 @@ namespace ECU_Manager
                     eDragStatus = DragStatusType.Fail;
                     lblDragStatus.Text = "Fail!";
 
-                    nudDragRPMFrom.Enabled = false;
-                    nudDragRPMTo.Enabled = false;
+                    nudDragSpeedFrom.Enabled = false;
+                    nudDragSpeedTo.Enabled = false;
                     btnDragStart.Enabled = true;
                     btnDragClear.Enabled = true;
                     nudDragTableSplit.Enabled = false;
-                    nudDragAccelStep.Enabled = false;
                     btnDragStop.Enabled = false;
                 }
                 else
@@ -441,9 +401,9 @@ namespace ECU_Manager
 
                         drCurrentRun = new DragRun
                         {
-                            FromRPM = dur.FromRPM,
-                            ToRPM = dur.ToRPM,
-                            Time = dur.Time / 1000000.0,
+                            FromSpeed = dur.FromSpeed,
+                            ToSpeed = dur.ToSpeed,
+                            Time = dur.Point.Time / 1000000.0,
                             Points = new List<DragPoint>(),
                             DateTime = DateTime.Now,
                             Name = tbDragName.Text,
@@ -455,18 +415,17 @@ namespace ECU_Manager
 
                         if (drCurrentRun.TotalPoints > drCurrentRun.Points.Count)
                         {
-                            middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromRPM, drCurrentRun.ToRPM, drCurrentRun.Points.Count);
+                            middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
                         }
                         else
                         {
                             lblDragStatus.Text = "Empty...";
 
-                            nudDragRPMFrom.Enabled = false;
-                            nudDragRPMTo.Enabled = false;
+                            nudDragSpeedFrom.Enabled = false;
+                            nudDragSpeedTo.Enabled = false;
                             btnDragStart.Enabled = true;
                             btnDragClear.Enabled = true;
                             nudDragTableSplit.Enabled = false;
-                            nudDragAccelStep.Enabled = false;
                             btnDragStop.Enabled = false;
                         }
                     }
@@ -489,7 +448,7 @@ namespace ECU_Manager
 
                 if (drCurrentRun.TotalPoints > drCurrentRun.Points.Count)
                 {
-                    middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromRPM, drCurrentRun.ToRPM, drCurrentRun.Points.Count);
+                    middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
                 }
                 else
                 {
@@ -497,12 +456,11 @@ namespace ECU_Manager
 
                     lblDragStatus.Text = "Done!";
 
-                    nudDragRPMFrom.Enabled = false;
-                    nudDragRPMTo.Enabled = false;
+                    nudDragSpeedFrom.Enabled = false;
+                    nudDragSpeedTo.Enabled = false;
                     btnDragStart.Enabled = true;
                     btnDragClear.Enabled = true;
                     nudDragTableSplit.Enabled = false;
-                    nudDragAccelStep.Enabled = false;
                     btnDragStop.Enabled = false;
                 }
             }
@@ -510,12 +468,11 @@ namespace ECU_Manager
             {
                 lblDragStatus.Text = "Error code: " + dpr.ErrorCode;
 
-                nudDragRPMFrom.Enabled = false;
-                nudDragRPMTo.Enabled = false;
+                nudDragSpeedFrom.Enabled = false;
+                nudDragSpeedTo.Enabled = false;
                 btnDragStart.Enabled = true;
                 btnDragClear.Enabled = true;
                 nudDragTableSplit.Enabled = false;
-                nudDragAccelStep.Enabled = false;
                 btnDragStop.Enabled = false;
             }
         }
@@ -527,12 +484,11 @@ namespace ECU_Manager
                 eDragStatus = DragStatusType.Set;
                 lblDragStatus.Text = "SET";
 
-                nudDragRPMFrom.Enabled = false;
-                nudDragRPMTo.Enabled = false;
+                nudDragSpeedFrom.Enabled = false;
+                nudDragSpeedTo.Enabled = false;
                 btnDragStart.Enabled = false;
                 btnDragClear.Enabled = false;
                 nudDragTableSplit.Enabled = false;
-                nudDragAccelStep.Enabled = false;
                 btnDragStop.Enabled = true;
             }
         }
@@ -542,89 +498,14 @@ namespace ECU_Manager
             eDragStatus = DragStatusType.Ready;
             lblDragStatus.Text = "Aborted";
 
-            nudDragRPMFrom.Enabled = false;
-            nudDragRPMTo.Enabled = false;
+            nudDragSpeedFrom.Enabled = false;
+            nudDragSpeedTo.Enabled = false;
             btnDragStart.Enabled = true;
             btnDragClear.Enabled = true;
             nudDragTableSplit.Enabled = false;
-            nudDragAccelStep.Enabled = false;
             btnDragStop.Enabled = false;
         }
-
-        private void nudIgnition_ValueChanged(object sender, EventArgs e)
-        {
-            NumericUpDown nud = (NumericUpDown)sender;
-            int index = (int)nud.Tag;
-            int x = index % Consts.TABLE_ROTATES_MAX;
-            int y = index / Consts.TABLE_ROTATES_MAX;
-            float value = (float)nud.Value;
-            Color min = Color.DeepSkyBlue;
-            Color mid = Color.Orange;
-            Color max = Color.Red;
-            Color text = Color.White;
-            float trans = (value + 10.0f) / 70.0f;
-            if (chartIgnitions.Series.Count > y && chartIgnitions.Series[y].Points.Count > x)
-            {
-                chartIgnitions.Series[y].Points[x].YValues = new double[1] { value };
-            }
-            int r = 0;
-            int g = 0;
-            int b = 0;
-
-            if (trans < 0.5f)
-            {
-                trans /= 0.5f;
-                r = (int)(min.R * (1.0f - trans) + mid.R * trans);
-                g = (int)(min.G * (1.0f - trans) + mid.G * trans);
-                b = (int)(min.B * (1.0f - trans) + mid.B * trans);
-            }
-            else if (trans >= 0.5f)
-            {
-                trans -= 0.5f;
-                trans /= 0.5f;
-                r = (int)(mid.R * (1.0f - trans) + max.R * trans);
-                g = (int)(mid.G * (1.0f - trans) + max.G * trans);
-                b = (int)(mid.B * (1.0f - trans) + max.B * trans);
-            }
-
-            Color back = Color.FromArgb(r, g, b);
-            if (!middleLayer.IsSynchronizing)
-            {
-                if (cs.ConfigStruct.tables[iCurrentTable].ignitions[index] != value)
-                {
-                    cs.ConfigStruct.tables[iCurrentTable].ignitions[index] = value;
-                    if (!middleLayer.IsSynchronizing && cbLive.Checked)
-                    {
-                        middleLayer.UpdateTable(iCurrentTable);
-                    }
-                }
-            }
-            nud.ForeColor = text;
-            nud.BackColor = back;
-            nud.Font = new Font(nud.Font, FontStyle.Regular);
-
-            int ignMin = int.MaxValue;
-            int ignMax = int.MinValue;
-            
-            for (int i = 0; i < chartIgnitions.Series.Count; i++)
-            {
-                for (int j = 0; j < chartIgnitions.Series[i].Points.Count; j++)
-                {
-                    value = (float)chartIgnitions.Series[i].Points[j].YValues[0];
-                    if (value > ignMax)
-                        ignMax = (int)value;
-                    if (value < ignMin)
-                        ignMin = (int)value;
-                }
-            }
-            if (ignMin != int.MaxValue && ignMax != int.MinValue)
-            {
-                chartIgnitions.ChartAreas[0].AxisY.Minimum = (float)(ignMin - (ignMin % 10));
-                chartIgnitions.ChartAreas[0].AxisY.Maximum = (float)(ignMax + (10 - (ignMax % 10)));
-            }
-
-
-        }
+        
 
         private void UpdateParameters(EcuParameters parameters)
         {
@@ -648,17 +529,13 @@ namespace ECU_Manager
                 lblSetupIgnition.Text = parameters.IgnitionAngle.ToString("F1") + "°";
                 lblSetupTemperature.Text = parameters.Temperature.ToString("F1") + "°";
             }
-            UpdateIgnitionChartPoint();
             generalStatusReceived = true;
             lastReceivedGeneralStatus = DateTime.Now;
         }
         
         private void tmr1sec_Tick(object sender, EventArgs e)
         {
-            if(cs.ConfigStruct.parameters.isHallLearningMode > 0)
-            {
-                middleLayer.SyncLoad(false);
-            }
+            middleLayer.SyncFast();
         }
 
         private void tmr50ms_Tick(object sender, EventArgs e)
@@ -1168,22 +1045,21 @@ namespace ECU_Manager
 
         private void btnDragStart_Click(object sender, EventArgs e)
         {
-            fDragFromRPM = (float)nudDragRPMFrom.Value;
-            fDragToRPM = (float)nudDragRPMTo.Value;
-            if (fDragFromRPM < fDragToRPM)
+            fDragFromSpeed = (float)nudDragSpeedFrom.Value;
+            fDragToSpeed = (float)nudDragSpeedTo.Value;
+            if (fDragFromSpeed < fDragToSpeed)
             {
-                nudDragRPMFrom.Enabled = false;
-                nudDragRPMTo.Enabled = false;
+                nudDragSpeedFrom.Enabled = false;
+                nudDragSpeedTo.Enabled = false;
                 btnDragStart.Enabled = false;
                 btnDragClear.Enabled = false;
                 nudDragTableSplit.Enabled = false;
-                nudDragAccelStep.Enabled = false;
                 btnDragStop.Enabled = false;
                 eDragStatus = DragStatusType.Ready;
 
                 lblDragStatus.Text = "Wait...";
 
-                middleLayer.PacketHandler.SendDragStartRequest(fDragFromRPM, fDragToRPM);
+                middleLayer.PacketHandler.SendDragStartRequest(fDragFromSpeed, fDragToSpeed);
             }
             else
             {
@@ -1193,16 +1069,15 @@ namespace ECU_Manager
 
         private void btnDragStop_Click(object sender, EventArgs e)
         {
-            nudDragRPMFrom.Enabled = false;
-            nudDragRPMTo.Enabled = false;
+            nudDragSpeedFrom.Enabled = false;
+            nudDragSpeedTo.Enabled = false;
             btnDragStart.Enabled = false;
             btnDragClear.Enabled = false;
             nudDragTableSplit.Enabled = false;
-            nudDragAccelStep.Enabled = false;
             btnDragStop.Enabled = false;
             lblDragStatus.Text = "Aborting...";
 
-            middleLayer.PacketHandler.SendDragStopRequest(fDragFromRPM, fDragToRPM);
+            middleLayer.PacketHandler.SendDragStopRequest(fDragFromSpeed, fDragToSpeed);
         }
 
         private void nudDragTableSplit_ValueChanged(object sender, EventArgs e)
@@ -1210,16 +1085,10 @@ namespace ECU_Manager
             UpdateDragCharts();
         }
 
-        private void nudDragAccelStep_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateDragCharts();
-        }
-
         private void btnDragClear_Click(object sender, EventArgs e)
         {
-            nudDragRPMFrom.Enabled = true;
-            nudDragRPMTo.Enabled = true;
-            nudDragAccelStep.Enabled = true;
+            nudDragSpeedFrom.Enabled = true;
+            nudDragSpeedTo.Enabled = true;
             nudDragTableSplit.Enabled = true;
             lDragRuns.Clear();
             ClearDragCharts();
