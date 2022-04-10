@@ -40,7 +40,7 @@ namespace ECU_Manager
         bool bSyncFlash = false;
         byte[] bSyncArray = null;
 
-        public MiddleLayer(string portname
+        public MiddleLayer(string portname)
         {
 
             eventHandlers = new List<IEcuEventHandler>();

@@ -14,6 +14,11 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ECU_Manager.Controls
 {
+    public enum Editor2DMode
+    {
+        EcuTable = 0,
+        CorrectionsTable
+    }
     public partial class Editor2D : Form
     {
         private string sName;
@@ -46,6 +51,7 @@ namespace ECU_Manager.Controls
         private int iSizeX;
         private int iSizeY;
         private bool bLog10;
+        private Editor2DMode eMode;
 
         private ColorTransience ColorTransience = null;
         private ColorTransience CalibrationColorTransience = null;
@@ -68,7 +74,7 @@ namespace ECU_Manager.Controls
         private int tlpInfoRow = 0;
         private int tlpInfoColumn = 0;
 
-        public Editor2D(ComponentStructure componentStructure, string name, int sizex, int sizey, float min, float max, float step, float mindiffx, float mindiffy, float chartminy, float chartmaxy, float intervalx, float intervaly, int arraysizex, int arraysizey, bool log10 = false)
+        public Editor2D(ComponentStructure componentStructure, Editor2DMode mode, string name, int sizex, int sizey, float min, float max, float step, float mindiffx, float mindiffy, float chartminy, float chartmaxy, float intervalx, float intervaly, int arraysizex, int arraysizey, bool log10 = false)
         {
             InitializeComponent();
 
@@ -84,6 +90,7 @@ namespace ECU_Manager.Controls
             fMinDiffY = mindiffy;
             iArraySizeX = arraysizex;
             iArraySizeY = arraysizey;
+            eMode = mode;
 
             bLog10 = log10;
             lblTitle.Text = sName;
@@ -265,7 +272,12 @@ namespace ECU_Manager.Controls
             {
                 FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
                 if (fieldArray != null)
-                    array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                {
+                    if (eMode == Editor2DMode.EcuTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    else if (eMode == Editor2DMode.CorrectionsTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigDepX))
@@ -460,7 +472,12 @@ namespace ECU_Manager.Controls
             {
                 FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
                 if (fieldArray != null)
-                    array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                {
+                    if (eMode == Editor2DMode.EcuTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    else if (eMode == Editor2DMode.CorrectionsTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigDepX))
@@ -625,7 +642,12 @@ namespace ECU_Manager.Controls
             {
                 FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
                 if (fieldArray != null)
-                    array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                {
+                    if (eMode == Editor2DMode.EcuTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    else if (eMode == Editor2DMode.CorrectionsTable)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
             }
 
             if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
