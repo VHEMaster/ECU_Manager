@@ -33,7 +33,8 @@ namespace ECU_Manager.Controls
         private float needleVal;        //value of where the needle points
         private float dynNumSize;       //size  of numbers displayed
         private float custNumSize;      //custom size of numbers
-        private float valueRange;       //total number of values possible
+        private float valueMinRange;       //total number of values possible
+        private float valueMaxRange;       //total number of values possible
                                         //					from 0 to x
         private bool useCustNumSize;        //turns on/off custom size of num
 
@@ -67,14 +68,15 @@ namespace ECU_Manager.Controls
             maxDeg = 310;
             tickIncrement = 10;
             warnTickStart = 270;
-            needleVal = 0;
             textVal = 0;
             custNumSize = 15;
             dynNumSize = 1;
             useCustNumSize = false;
             degRange = maxDeg - minDeg;
-            valueRange = degRange;
-            degPercent = 1 / (valueRange / degRange);
+            valueMinRange = 0;
+            valueMaxRange = 100;
+            needleVal = 0;
+            degPercent = 1 / ((valueMaxRange - valueMinRange) / degRange);
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.needleValChanged += new UpdateNeedle(WhenNeedleValChanged);
         }
@@ -141,7 +143,7 @@ namespace ECU_Manager.Controls
                 matrix.RotateAt(i, new PointF(halfWidth, halfHeight));
                 g.Transform = matrix;
 
-                if (i >= ((warnTickStart / valueRange) * degRange) + minDeg)
+                if (i >= ((warnTickStart / (valueMaxRange - valueMinRange)) * degRange) + minDeg)
                     g.DrawLine(new Pen(tickWarningColor, 2), halfWidth, halfHeight, halfWidth, drawTo);
                 else
                     g.DrawLine(new Pen(tickColor, 2), halfWidth, halfHeight, halfWidth, drawTo);
@@ -218,7 +220,7 @@ namespace ECU_Manager.Controls
             }
             //draw
             Matrix matrix = new Matrix();
-            matrix.RotateAt((needleVal * degPercent) + minDeg, new PointF(halfWidth, halfHeight));
+            matrix.RotateAt(((needleVal - valueMinRange) * degPercent) + minDeg, new PointF(halfWidth, halfHeight));
             needleGraph.Transform = matrix;
             needleGraph.DrawLine(new Pen(needleColor, 2), halfWidth, halfHeight, halfWidth, drawTo);
 
@@ -282,24 +284,6 @@ namespace ECU_Manager.Controls
         }
 
         #region Properties
-        //value of where the needle points to
-        [Browsable(false)]
-        public float NeedleVal
-        {
-            get
-            { return needleVal; }
-            set
-            {
-                textVal = value;
-                if (value >= valueRange)
-                    needleVal = valueRange;
-                else if (value <= 0)
-                    needleVal = 0;
-                else
-                    needleVal = value;
-                needleValChanged();
-            }
-        }
 
         //sets color of meter face
         [Category("Appearance"),
@@ -407,17 +391,31 @@ namespace ECU_Manager.Controls
             }
         }
 
-        //total number of values possible from 0 to x
+        //total number of values possible from min to max
         [Category("Tick Mark Settings"),
-        Description("total number of values possible from 0 to x")]
-        public float ValueRange
+        Description("total number of values possible from min to max")]
+        public float ValueMinRange
         {
             get
-            { return valueRange; }
+            { return valueMinRange; }
             set
             {
-                valueRange = value;
-                degPercent = 1 / (valueRange / degRange);
+                valueMinRange = value;
+                degPercent = 1 / ((valueMaxRange - valueMinRange) / degRange);
+            }
+        }
+
+        //total number of values possible from min to max
+        [Category("Tick Mark Settings"),
+        Description("total number of values possible from min to max")]
+        public float ValueMaxRange
+        {
+            get
+            { return valueMaxRange; }
+            set
+            {
+                valueMaxRange = value;
+                degPercent = 1 / ((valueMaxRange - valueMinRange) / degRange);
             }
         }
 
@@ -431,6 +429,25 @@ namespace ECU_Manager.Controls
             set
             {
                 tickIncrement = value;
+            }
+        }
+        //value of where the needle points to
+        [Category("Current Status"),
+        Description("current value")]
+        public float NeedleVal
+        {
+            get
+            { return needleVal; }
+            set
+            {
+                textVal = value;
+                if (value >= valueMaxRange)
+                    needleVal = valueMaxRange;
+                else if (value <= valueMinRange)
+                    needleVal = valueMinRange;
+                else
+                    needleVal = value;
+                needleValChanged();
             }
         }
 

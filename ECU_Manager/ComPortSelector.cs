@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace ECU_Manager
 {
@@ -50,11 +51,18 @@ namespace ECU_Manager
                 this.Hide();
                 MiddleLayer middleLayer = new MiddleLayer(portname);
                 MainForm mainForm = new MainForm(middleLayer);
-                DiagForm diagForm = new DiagForm(middleLayer);
                 mainForm.Show();
-                diagForm.Show();
-                diagForm.Location = new Point(mainForm.Location.X + mainForm.Size.Width, mainForm.Location.Y);
-                diagForm.Size = new Size(diagForm.Size.Width, mainForm.Size.Height);
+
+                Thread threadDiag = new Thread(() =>
+                {
+                    DiagForm diagForm = new DiagForm(middleLayer);
+                    diagForm.Show();
+                    diagForm.Location = new Point(mainForm.Location.X + mainForm.Size.Width, mainForm.Location.Y);
+                    diagForm.Size = new Size(diagForm.Size.Width, mainForm.Size.Height);
+                    Application.Run(diagForm);
+                });
+                threadDiag.IsBackground = false;
+                threadDiag.Start();
             }
             else MessageBox.Show($"Port {portname} not available.", "ECU", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

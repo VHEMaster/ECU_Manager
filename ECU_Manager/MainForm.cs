@@ -65,6 +65,8 @@ namespace ECU_Manager
 
             syncForm = new SyncForm();
             syncForm.ShowDialog();
+
+            this.DoubleBuffered = true;
             
         }
 

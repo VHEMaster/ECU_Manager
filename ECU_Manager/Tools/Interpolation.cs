@@ -14,22 +14,6 @@ namespace ECU_Manager.Tools
         internal double input;
         internal double mult;
 
-        private static int math_binary_search(float[] array, int start_index, int end_index, float element)
-        {
-            int iterations = 0;
-            while (start_index <= end_index && ++iterations < 256)
-            {
-                int middle = start_index + ((end_index - start_index) >> 1);
-                if (array[middle] <= element && array[middle + 1] > element)
-                    return middle;
-                if (array[middle + 1] <= element)
-                    start_index = middle + 1;
-                else if (array[middle] >= element)
-                    end_index = middle - 1;
-            }
-            return -1;
-        }
-
         public Interpolation(float value, float[] table, int size)
         {
             int find_index = -1;
@@ -66,7 +50,7 @@ namespace ECU_Manager.Tools
             }
             else
             {
-                find_index = math_binary_search(table, 0, size - 1, value);
+                find_index = BinarySearch<float>.Find(table, 0, size - 1, value);
                 if (find_index >= 0)
                 {
                     this.indexes[0] = find_index;
