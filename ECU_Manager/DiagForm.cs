@@ -410,7 +410,7 @@ namespace ECU_Manager
         {
         }
 
-        public void SynchronizedEvent()
+        public void SynchronizedEvent(int errorCode)
         {
         }
 

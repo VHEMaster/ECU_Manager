@@ -48,8 +48,8 @@ namespace ECU_Manager
         DragRun drCurrentRun = null;
         List<DragRun> lDragRuns = new List<DragRun>();
         DragStatusType eDragStatus = DragStatusType.Ready;
-        float fDragFromSpeed = 2000;
-        float fDragToSpeed = 3000;
+        float fDragFromSpeed = 0;
+        float fDragToSpeed = 100;
         EcuParameters gParameters;
 
         public MainForm(MiddleLayer middleLayer)
@@ -110,19 +110,25 @@ namespace ECU_Manager
             else action.Invoke();
         }
 
-        public void SynchronizedEvent()
+        public void SynchronizedEvent(int errorCode)
         {
-            Action action = new Action(() => { this.SynchronizedEventInternal(); });
+            Action action = new Action(() => { this.SynchronizedEventInternal(errorCode); });
             if (this.InvokeRequired)
                 this.BeginInvoke(action);
             else action.Invoke();
         }
 
-        private void SynchronizedEventInternal()
+        private void SynchronizedEventInternal(int errorCode)
         {
             if (syncForm.InvokeRequired)
                 syncForm.Invoke(new Action(() => syncForm.CloseForm()));
             else syncForm.Close();
+
+            if(errorCode != 0)
+            {
+                MessageBox.Show("Error during sync.\r\n\r\nCode: " + errorCode, "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             rbCutoffMode1.Checked = false;
             rbCutoffMode2.Checked = false;
@@ -928,7 +934,7 @@ namespace ECU_Manager
                     {
                         middleLayer.UpdateTable(cs.CurrentTable);
                     }
-                    SynchronizedEvent();
+                    SynchronizedEvent(0);
                     MessageBox.Show($"Table import success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
