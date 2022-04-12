@@ -70,14 +70,14 @@ namespace ECU_Manager.Structs
         public int HandbrakeSensor;
         public int ChargeSensor;
         public int Rsvd1Sensor;
-        public int Rsvd2Sensor;
+        public int IgnSensor;
 
         public int FuelPumpRelay;
         public int FanRelay;
         public int CheckEngine;
         public int StarterRelay;
         public int Rsvd1Output;
-        public int Rsvd2Output;
+        public int IgnOutput;
 
         public int StartAllowed;
         public int IsRunning;

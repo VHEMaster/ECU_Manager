@@ -200,7 +200,7 @@ namespace ECU_Manager.Packets
             protocolHandler.Send(Channel.etrECU, bytes);
         }
 
-        public void SendForceParametersData(int table, int size, int offset, int stepsize, EcuForceParameters data)
+        public void SendForceParametersData(EcuForceParameters data)
         {
             PK_ForceParametersData packet = new PK_ForceParametersData(0, data);
             StructCopy<PK_ForceParametersData> StructCopy = new StructCopy<PK_ForceParametersData>();

@@ -51,6 +51,8 @@ namespace ECU_Manager
             thread.Name = "MiddleLayer Thread";
             thread.IsBackground = true;
             thread.Start();
+
+            UpdateForceParameters();
         }
 
 
@@ -116,6 +118,11 @@ namespace ECU_Manager
                 iSyncError = 0;
                 return true;
             }
+        }
+
+        public void UpdateForceParameters()
+        {
+            PacketHandler.SendForceParametersData(ComponentStructure.ForceParameters);
         }
 
         public void UpdateConfig()
@@ -734,6 +741,14 @@ namespace ECU_Manager
                             else errorcode = (int)cmd.ErrorCode + 50;
                         }
                         PacketHandler.SendCorrectionsAcknowledge((int)cmd.CorrectionsSize, (int)cmd.Offset, (int)cmd.Size, errorcode);
+                    }
+                    else if (packetobj.GetType() == typeof(PK_ForceParametersDataAcknowledge))
+                    {
+                        PK_ForceParametersDataAcknowledge fpda = (PK_ForceParametersDataAcknowledge)packetobj;
+                        if(fpda.ErrorCode != 0)
+                        {
+
+                        }
                     }
                 }
             }

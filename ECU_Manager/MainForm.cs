@@ -44,7 +44,8 @@ namespace ECU_Manager
             Fail
 
         }
-
+        
+        bool bLiveCheckOld = false;
         DragRun drCurrentRun = null;
         List<DragRun> lDragRuns = new List<DragRun>();
         DragStatusType eDragStatus = DragStatusType.Ready;
@@ -121,7 +122,7 @@ namespace ECU_Manager
         private void SynchronizedEventInternal(int errorCode)
         {
             if (syncForm.InvokeRequired)
-                syncForm.Invoke(new Action(() => syncForm.CloseForm()));
+                syncForm.BeginInvoke(new Action(() => syncForm.CloseForm()));
             else syncForm.Close();
 
             if(errorCode != 0)
@@ -823,8 +824,12 @@ namespace ECU_Manager
 
         private void cbLive_CheckedChanged(object sender, EventArgs e)
         {
-            if (((CheckBox)sender).Checked)
+            bool check = ((CheckBox)sender).Checked;
+            if (check != bLiveCheckOld)
+            {
+                bLiveCheckOld = check;
                 middleLayer.SyncSave(false);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1072,8 +1077,8 @@ namespace ECU_Manager
         {
             cs.ConfigStruct.tables[cs.CurrentTable].voltages_count = (int)((NumericUpDown)sender).Value;
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].voltages_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].rotates[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].rotates[i] + 1;
+                if (cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].voltages[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].voltages[i] + 1;
             UpdateEcuTableValues();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1272,6 +1277,12 @@ namespace ECU_Manager
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            bLiveCheckOld = true;
+            cbLive.Checked = true;
         }
     }
 }

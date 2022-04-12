@@ -2756,8 +2756,6 @@
             // cbLive
             // 
             this.cbLive.AutoSize = true;
-            this.cbLive.Checked = true;
-            this.cbLive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbLive.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbLive.Location = new System.Drawing.Point(511, 3);
             this.cbLive.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -2914,6 +2912,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Engine Control Unit - Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);

@@ -10,11 +10,13 @@ namespace ECU_Manager.Structs
     {
         public ConfigStruct ConfigStruct;
         public EcuParameters EcuParameters;
+        public EcuForceParameters ForceParameters;
         public int CurrentTable;
         public ComponentStructure()
         {
             ConfigStruct = new ConfigStruct(0);
             EcuParameters = new EcuParameters();
+            ForceParameters = new EcuForceParameters();
         }
     }
 }

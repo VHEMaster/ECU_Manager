@@ -18,7 +18,9 @@ using ECU_Manager.Tools;
 namespace ECU_Manager
 {
     public partial class DiagForm : Form, IEcuEventHandler
-    { 
+    {
+        MiddleLayer middleLayer;
+
         [Serializable]
         class PointData
         {
@@ -49,7 +51,6 @@ namespace ECU_Manager
         TimeScaleEnum TimeScale = TimeScaleEnum.TenSeconds;
         List<PointData> points = new List<PointData>(1048576);
         Stopwatch stopwatch = new Stopwatch();
-        FieldInfo[] fieldInfos = typeof(EcuParameters).GetFields();
         bool widthBigPrev = false;
 
         List<Label> lblValues = new List<Label>();
@@ -59,27 +60,106 @@ namespace ECU_Manager
         {
             InitializeComponent();
             middleLayer.RegisterEventHandler(this);
+            this.middleLayer = middleLayer;
 
-            lbAvailable.Items.Clear();
-            lbUsed.Items.Clear();
+            InitParametersList();
 
-            foreach(FieldInfo fieldInfo in fieldInfos)
+            lbParamsAvailable.Items.Clear();
+            lbParamsUsed.Items.Clear();
+
+            foreach (Parameter parameter in ChartParameters)
             {
-                lbAvailable.Items.Add(fieldInfo.Name);
+                lbParamsAvailable.Items.Add(parameter);
             }
 
-            lbUsed.Items.Add("RPM");
-            lbUsed.Items.Add("ManifoldAirPressure");
-            lbUsed.Items.Add("ThrottlePosition");
-            lbUsed.Items.Add("IgnitionAngle");
-            lbUsed.Items.Add("FuelRatio");
-            lbUsed.Items.Add("CyclicAirFlow");
-            lbUsed.Items.Add("InjectionPulse");
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "RPM").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "ManifoldAirPressure").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "ThrottlePosition").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "IgnitionAngle").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "FuelRatio").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "CyclicAirFlow").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "InjectionPulse").First());
 
-            foreach(string item in lbUsed.Items)
+            foreach(Parameter item in lbParamsUsed.Items)
             {
-                lbAvailable.Items.Remove(item);
+                lbParamsAvailable.Items.Remove(item);
             }
+
+            GroupBox gpPrevious = gpForceTemplate;
+            gpPrevious.Location = new Point(gpPrevious.Location.X, gpPrevious.Location.Y - gpPrevious.Size.Height);
+            foreach (Parameter parameter in ForceParameters)
+            {
+                GroupBox groupBox = new GroupBox();
+                groupBox.ForeColor = gpPrevious.ForeColor;
+                groupBox.Size = gpPrevious.Size;
+                groupBox.Location = gpPrevious.Location;
+                groupBox.Font = gpPrevious.Font;
+                groupBox.Anchor = gpPrevious.Anchor;
+                groupBox.Padding = gpPrevious.Padding;
+                groupBox.Margin = gpPrevious.Margin;
+                groupBox.Tag = parameter;
+                groupBox.Name = "groupBoxForce" + parameter.Name;
+                groupBox.Text = parameter.Name;
+                groupBox.Location = new Point(gpPrevious.Location.X, gpPrevious.Location.Y + gpPrevious.Size.Height);
+
+                CheckBox checkBox = new CheckBox();
+                checkBox.AutoSize = cbForceTemplate.AutoSize;
+                checkBox.Location = cbForceTemplate.Location;
+                checkBox.Size = cbForceTemplate.Size;
+                checkBox.Name = "checkBoxForceEnable" + parameter.Name;
+                checkBox.Checked = false;
+                checkBox.Tag = parameter;
+                checkBox.CheckedChanged += CheckBoxForceParam_CheckedChanged;
+
+                TrackBar trackBar = new TrackBar();
+                trackBar.Anchor = tbForceTemplate.Anchor;
+                trackBar.AutoSize = tbForceTemplate.AutoSize;
+                trackBar.Location = tbForceTemplate.Location;
+                trackBar.Size = tbForceTemplate.Size;
+                trackBar.Name = "trackBarForceEnable" + parameter.Name;
+                trackBar.Enabled = checkBox.Checked;
+                trackBar.Minimum = (int)(parameter.Min / parameter.Step);
+                trackBar.Maximum = (int)(parameter.Max / parameter.Step);
+                trackBar.LargeChange = (int)((parameter.Max - parameter.Min) / parameter.Step / 10.0F);
+                trackBar.TickFrequency = trackBar.LargeChange;
+                trackBar.SmallChange = 1;
+                if (parameter.Type == typeof(float))
+                    trackBar.Value = (int)((float)parameter.Value / parameter.Step);
+                else trackBar.Value = (int)((int)parameter.Value / parameter.Step);
+                trackBar.Tag = parameter;
+                trackBar.Scroll += TrackBarForceParam_Scroll;
+
+                NumericUpDown nud = new NumericUpDown();
+                nud.Anchor = nudForceTemplate.Anchor;
+                nud.AutoSize = nudForceTemplate.AutoSize;
+                nud.Location = nudForceTemplate.Location;
+                nud.Size = nudForceTemplate.Size;
+                nud.Name = "nudForceEnable" + parameter.Name;
+                nud.Enabled = checkBox.Checked;
+                nud.Minimum = (decimal)parameter.Min;
+                nud.Maximum = (decimal)parameter.Max;
+                nud.DecimalPlaces = parameter.Step < 1.0F ? (int)Math.Ceiling(0 - Math.Log10(parameter.Step)) : 0 ;
+                nud.Increment = (decimal)parameter.Step;
+                if (parameter.Type == typeof(float))
+                    nud.Value = (decimal)(float)parameter.Value;
+                else nud.Value = (int)parameter.Value;
+                nud.Tag = parameter;
+                nud.ValueChanged += NudForceParam_ValueChanged;
+
+
+                parameter.NumericUpDown = nud;
+                parameter.TrackBar = trackBar;
+
+                groupBox.Controls.Add(checkBox);
+                groupBox.Controls.Add(trackBar);
+                groupBox.Controls.Add(nud);
+                gpForceTemplate.Parent.Controls.Add(groupBox);
+
+                gpPrevious = groupBox;
+
+            }
+
+            gpForceTemplate.Parent.Controls.Remove(gpForceTemplate);
 
             UpdateChartsSetup();
 
@@ -91,53 +171,339 @@ namespace ECU_Manager
 
         }
 
-        private string GetFormat(FieldInfo fieldInfo)
+        private void CheckBoxForceParam_CheckedChanged(object sender, EventArgs e)
         {
-            if (fieldInfo.Name == "AdcKnockVoltage") return "F2"; //&ecu_parameters.AdcKnockVoltage, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcAirTemp") return "F2"; //&ecu_parameters.AdcAirTemp, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcEngineTemp") return "F2"; //&ecu_parameters.AdcEngineTemp, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcPressure") return "F2"; //&ecu_parameters.AdcManifoldAirPressure, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcThrottlePosition") return "F2"; //&ecu_parameters.AdcThrottlePosition, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcPowerVoltage") return "F2"; //&ecu_parameters.AdcPowerVoltage, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcReferenceVoltage") return "F2"; //&ecu_parameters.AdcReferenceVoltage, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcLambdaUR") return "F2"; //&ecu_parameters.AdcLambdaUR, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AdcLambdaUA") return "F2"; //&ecu_parameters.AdcLambdaUA, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "KnockSensor") return "F2"; //&ecu_parameters.KnockSensor, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "KnockSensorFiltered") return "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "AirTemp") return "F1"; //&ecu_parameters.AirTemp, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "EngineTemp") return "F1"; //&ecu_parameters.EngineTemp, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "Pressure") return "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "ThrottlePosition") return "F1"; //&ecu_parameters.ThrottlePosition, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "ReferenceVoltage") return "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "PowerVoltage") return "F2"; //&ecu_parameters.PowerVoltage, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "FuelRatio") return "F2"; //&ecu_parameters.FuelRatio, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "LongTermCorrection") return "F2"; //&ecu_parameters.LongTermCorrection, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "RPM") return "F0"; //&ecu_parameters.RPM, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "Speed") return "F1"; //&ecu_parameters.Speed, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "Acceleration") return "F2"; //&ecu_parameters.Acceleration, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "MassAirFlow") return "F1"; //&ecu_parameters.MassAirFlow, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "CyclicAirFlow") return "F1"; //&ecu_parameters.CyclicAirFlow, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "EffectiveVolume") return "F1"; //&ecu_parameters.EffectiveVolume, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "AirDestiny") return "F3"; //&ecu_parameters.AirDestiny, .title = "%s%0.3f"},
-            if (fieldInfo.Name == "WishFuelRatio") return "F2"; //&ecu_parameters.WishFuelRatio, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "IdleValvePosition") return "F0"; //&ecu_parameters.IdleValvePosition, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "WishIdleRPM") return "F0"; //&ecu_parameters.WishIdleRPM, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "WishIdleMassAirFlow") return "F1"; //&ecu_parameters.WishIdleMassAirFlow, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "WishIdleValvePosition") return "F0"; //&ecu_parameters.WishIdleValvePosition, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "WishIdleIgnitionAngle") return "F0"; //&ecu_parameters.WishIdleIgnitionAngle, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "IgnitionAngle") return "F1"; //&ecu_parameters.IgnitionAngle, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "InjectionPhase") return "F0"; //&ecu_parameters.InjectionPhase, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "InjectionPhaseDuration") return "F0"; //&ecu_parameters.InjectionPhaseDuration, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "InjectionPulse") return "F2"; //&ecu_parameters.InjectionPulse, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "InjectionDutyCycle") return "F2"; //&ecu_parameters.InjectionDutyCycle, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "InjectionEnrichment") return "F2"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "IgnitionPulse") return "F1"; //&ecu_parameters.IgnitionPulse, .title = "%s%0.2f"},
-            if (fieldInfo.Name == "IdleSpeedShift") return "F0"; //&ecu_parameters.IdleSpeedShift, .title = "%s%0.0f"},
-            if (fieldInfo.Name == "DrivenKilometers") return "F2"; //&ecu_parameters.DrivenKilometers, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "FuelConsumed") return "F3"; //&ecu_parameters.FuelConsumed, .title = "%s%0.1f"},
-            if (fieldInfo.Name == "FuelConsumption") return "F1"; //&ecu_parameters.FuelConsumption, .title = "%s%0.1f"},
-            return "F0";
+            Parameter parameter = (Parameter)((Control)sender).Tag;
+            if (parameter != null)
+            {
+                parameter.Enabled = ((CheckBox)sender).Checked;
+                parameter.NumericUpDown.Enabled = parameter.Enabled;
+                parameter.TrackBar.Enabled = parameter.Enabled;
+                UpdateForceElements(middleLayer.ComponentStructure.EcuParameters);
+            }
+        }
 
+        private void NudForceParam_ValueChanged(object sender, EventArgs e)
+        {
+            Parameter parameter = (Parameter)((Control)sender).Tag;
+
+            if (parameter != null)
+            {
+                if (parameter.Type == typeof(float))
+                {
+                    float value = (float)parameter.NumericUpDown.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (float)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (float)parameter.NumericUpDown.Minimum;
+
+                    parameter.Value = value;
+
+                    value /= parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+                else
+                {
+                    int value = (int)parameter.NumericUpDown.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (int)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (int)parameter.NumericUpDown.Minimum;
+
+                    parameter.Value = value;
+
+                    value = (int)((float)value / parameter.Step);
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+            }
+        }
+
+        private void TrackBarForceParam_Scroll(object sender, EventArgs e)
+        {
+            Parameter parameter = (Parameter)((Control)sender).Tag;
+
+            if(parameter != null)
+            {
+                if (parameter.Type == typeof(float))
+                {
+                    float value = (float)parameter.TrackBar.Value * parameter.Step;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (float)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (float)parameter.NumericUpDown.Minimum;
+
+                    parameter.NumericUpDown.Value = (decimal)value;
+                    parameter.Value = value;
+                }
+                else
+                {
+                    float value = (int)((float)parameter.TrackBar.Value * parameter.Step);
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (int)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (int)parameter.NumericUpDown.Minimum;
+
+                    parameter.NumericUpDown.Value = (decimal)value;
+                    parameter.Value = value;
+                }
+            }
+        }
+
+        class Parameter
+        {
+            private MiddleLayer middleLayer;
+            public FieldInfo FieldInfo;
+            public string Name;
+            public string FloatFormat;
+            public Type Type;
+            public float Min;
+            public float Max;
+            public float Step;
+            public FieldInfo DepFieldInfo;
+            public FieldInfo EnableFieldInfo;
+            public NumericUpDown NumericUpDown;
+            public TrackBar TrackBar;
+            public object ValueOld = null;
+            public object Value
+            {
+                get
+                {
+                    if (Enabled)
+                    {
+                        return FieldInfo.GetValue(middleLayer.ComponentStructure.ForceParameters);
+                    }
+                    else
+                    {
+                        if (DepFieldInfo != null)
+                            return DepFieldInfo.GetValue(middleLayer.ComponentStructure.EcuParameters);
+                        else if (this.Type == typeof(float))
+                            return 0.0F;
+                        else return 0;
+                    }
+                }
+                set
+                {
+                    if (Enabled)
+                    {
+                        FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), value);
+                    }
+                }
+            }
+            public bool Enabled
+            {
+                get
+                {
+                    return (byte)EnableFieldInfo.GetValue(middleLayer.ComponentStructure.ForceParameters) > 0;
+                }
+                set
+                {
+                    if(!Enabled)
+                    {
+                        if (DepFieldInfo != null)
+                        {
+                            object val = DepFieldInfo.GetValue(middleLayer.ComponentStructure.EcuParameters);
+                            FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), val);
+                        }
+                    }
+                    EnableFieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), (byte)(value ? 1 : 0));
+                }
+            }
+
+            public Parameter(MiddleLayer middleLayer)
+            {
+                this.middleLayer = middleLayer;
+            }
+
+            public override string ToString()
+            {
+                return this.Name;
+            }
+        }
+
+        private List<Parameter> ChartParameters = new List<Parameter>();
+        private List<Parameter> ForceParameters = new List<Parameter>();
+
+        private void InitParametersList()
+        {
+            FieldInfo[] parametersFields = typeof(EcuParameters).GetFields();
+            FieldInfo[] forceFields = typeof(EcuForceParameters).GetFields();
+
+            foreach (FieldInfo fieldInfo in parametersFields)
+            {
+                Parameter parameter = new Parameter(middleLayer);
+
+                parameter.FieldInfo = fieldInfo;
+                parameter.Name = fieldInfo.Name;
+                parameter.Type = fieldInfo.FieldType;
+
+                if (fieldInfo.Name == "AdcKnockVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcKnockVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcAirTemp") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcAirTemp, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEngineTemp") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEngineTemp, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcPressure") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcManifoldAirPressure, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcThrottlePosition") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcThrottlePosition, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcPowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcPowerVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcReferenceVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcLambdaUR") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcLambdaUR, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcLambdaUA") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcLambdaUA, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "KnockSensor") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensor, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "KnockSensorFiltered") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.AirTemp, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "EngineTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.EngineTemp, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "Pressure") parameter.FloatFormat = "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "ThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottlePosition, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "ReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "PowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.PowerVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "FuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.FuelRatio, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "LongTermCorrection") parameter.FloatFormat = "F2"; //&ecu_parameters.LongTermCorrection, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "RPM") parameter.FloatFormat = "F0"; //&ecu_parameters.RPM, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "Speed") parameter.FloatFormat = "F1"; //&ecu_parameters.Speed, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "Acceleration") parameter.FloatFormat = "F2"; //&ecu_parameters.Acceleration, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "MassAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.MassAirFlow, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "CyclicAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.CyclicAirFlow, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "EffectiveVolume") parameter.FloatFormat = "F1"; //&ecu_parameters.EffectiveVolume, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "AirDestiny") parameter.FloatFormat = "F3"; //&ecu_parameters.AirDestiny, .title = "%s%0.3f"},
+                if (fieldInfo.Name == "WishFuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.WishFuelRatio, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "IdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleValvePosition, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishIdleRPM") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleRPM, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishIdleMassAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.WishIdleMassAirFlow, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "WishIdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleValvePosition, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishIdleIgnitionAngle") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleIgnitionAngle, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "IgnitionAngle") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionAngle, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "InjectionPhase") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhase, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "InjectionPhaseDuration") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhaseDuration, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "InjectionPulse") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionPulse, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "InjectionDutyCycle") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionDutyCycle, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "InjectionEnrichment") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "IgnitionPulse") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionPulse, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "IdleSpeedShift") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleSpeedShift, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "DrivenKilometers") parameter.FloatFormat = "F2"; //&ecu_parameters.DrivenKilometers, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "FuelConsumed") parameter.FloatFormat = "F3"; //&ecu_parameters.FuelConsumed, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "FuelConsumption") parameter.FloatFormat = "F1"; //&ecu_parameters.FuelConsumption, .title = "%s%0.1f"},
+
+                ChartParameters.Add(parameter);
+            }
+
+            foreach (FieldInfo fieldInfo in forceFields)
+            {
+                Parameter parameter = new Parameter(middleLayer);
+
+                parameter.DepFieldInfo = parametersFields.Where(f => f.Name.Equals(fieldInfo.Name)).FirstOrDefault();
+                parameter.EnableFieldInfo = forceFields.Where(f => f.Name.Equals("Enable" + fieldInfo.Name)).FirstOrDefault();
+                
+                parameter.FieldInfo = fieldInfo;
+                parameter.Name = fieldInfo.Name;
+                parameter.Type = fieldInfo.FieldType;
+
+                if (parameter.Type != typeof(byte))
+                {
+                    if (parameter.Name == "IgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
+                    else if (parameter.Name == "InjectionPhase") { parameter.Min = 0; parameter.Max = 720; parameter.Step = 1.0F; }
+                    else if (parameter.Name == "IgnitionOctane") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
+                    else if (parameter.Name == "IgnitionPulse") { parameter.Min = 0; parameter.Max = 10000; parameter.Step = 100F; }
+                    else if (parameter.Name == "InjectionPulse") { parameter.Min = 0; parameter.Max = 100000; parameter.Step = 10F; }
+                    else if (parameter.Name == "WishFuelRatio") { parameter.Min = 1; parameter.Max = 20; parameter.Step = 0.1F; }
+                    else if (parameter.Name == "WishIdleRPM") { parameter.Min = 200; parameter.Max = 5000; parameter.Step = 20.0F; }
+                    else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = 255; parameter.Step = 1.0F; }
+                    else if (parameter.Name == "WishIdleIgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
+                    else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
+                    else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
+                    else if (parameter.Name == "FuelPumpRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
+                    else if (parameter.Name == "CheckEngine") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
+                    else continue;
+
+                    ForceParameters.Add(parameter);
+                }
+            }
+        }
+        private void UpdateForceElements(EcuParameters parameters)
+        {
+            foreach(Parameter parameter in ForceParameters)
+            {
+                if(!parameter.Enabled)
+                {
+                    if (parameter.Type == typeof(float))
+                    {
+                        float value = (float)parameter.Value;
+
+                        if ((decimal)value > parameter.NumericUpDown.Maximum)
+                            value = (float)parameter.NumericUpDown.Maximum;
+                        else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                            value = (float)parameter.NumericUpDown.Minimum;
+                        parameter.NumericUpDown.Value = (decimal)value;
+
+                        value /= parameter.Step;
+                        if (value > parameter.TrackBar.Maximum)
+                            value = parameter.TrackBar.Maximum;
+                        else if (value < parameter.TrackBar.Minimum)
+                            value = parameter.TrackBar.Minimum;
+                        parameter.TrackBar.Value = (int)value;
+                    }
+                    else 
+                    {
+                        int value = (int)parameter.Value;
+
+                        if ((decimal)value > parameter.NumericUpDown.Maximum)
+                            value = (int)parameter.NumericUpDown.Maximum;
+                        else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                            value = (int)parameter.NumericUpDown.Minimum;
+                        parameter.NumericUpDown.Value = (decimal)value;
+
+                        value = (int)((float)value / parameter.Step);
+                        if (value > parameter.TrackBar.Maximum)
+                            value = parameter.TrackBar.Maximum;
+                        else if (value < parameter.TrackBar.Minimum)
+                            value = parameter.TrackBar.Minimum;
+                        parameter.TrackBar.Value = (int)value;
+                    }
+                }
+            }
+        }
+
+        private void SendUpdatedParameters()
+        {
+            int updated = 0;
+            foreach (Parameter parameter in ForceParameters)
+            {
+                if (!parameter.Enabled)
+                {
+                    if (parameter.Type == typeof(float))
+                    {
+                        float value = (float)parameter.NumericUpDown.Value;
+                        parameter.Value = value;
+                        if (parameter.ValueOld == null || (float)parameter.ValueOld != value)
+                        {
+                            parameter.ValueOld = value;
+                            updated++;
+                        }
+                    }
+                    else
+                    {
+                        int value = (int)parameter.NumericUpDown.Value;
+                        parameter.Value = value;
+                        if (parameter.ValueOld == null || (int)parameter.ValueOld != value)
+                        {
+                            parameter.ValueOld = value;
+                            updated++;
+                        }
+                    }
+                }
+            }
+            if(updated > 0)
+            {
+                middleLayer.UpdateForceParameters();
+            }
         }
 
         private void UpdateChartsSetup()
@@ -149,13 +515,13 @@ namespace ECU_Manager
             lblValues.Clear();
             chartValues.Clear();
 
-            foreach (string obj in lbUsed.Items)
+            foreach (Parameter obj in lbParamsUsed.Items)
             {
                 TableLayoutPanel tlp = new TableLayoutPanel();
                 Label labelValue = new Label();
                 Label labelTitle = new Label();
                 Chart chart = new Chart();
-                object tag = fieldInfos.Where(f => f.Name.Equals(obj)).FirstOrDefault();
+                object tag = obj;
 
                 labelTitle.Name = "labelTitle" + obj.ToString();
                 labelTitle.Font = new Font(this.Font.FontFamily, 10, FontStyle.Bold);
@@ -235,7 +601,7 @@ namespace ECU_Manager
 
         private void UpdateCharts()
         {
-            FieldInfo fieldInfo;
+            Parameter parameter;
             float valuef;
             int valuei;
 
@@ -248,15 +614,15 @@ namespace ECU_Manager
                     {
                         if (label.Tag != null)
                         {
-                            fieldInfo = (FieldInfo)label.Tag;
-                            if (fieldInfo.FieldType == typeof(float))
+                            parameter = (Parameter)label.Tag;
+                            if (parameter.Type == typeof(float))
                             {
-                                valuef = (float)fieldInfo.GetValue(current.Parameters);
-                                label.Text = valuef.ToString(GetFormat(fieldInfo));
+                                valuef = (float)parameter.FieldInfo.GetValue(current.Parameters);
+                                label.Text = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
                             }
                             else
                             {
-                                label.Text = fieldInfo.GetValue(current.Parameters).ToString();
+                                label.Text = parameter.FieldInfo.GetValue(current.Parameters).ToString();
                             }
                         }
                     }
@@ -360,16 +726,16 @@ namespace ECU_Manager
                         {
                             if (chart.Tag != null)
                             {
-                                fieldInfo = (FieldInfo)chart.Tag;
+                                parameter = (Parameter)chart.Tag;
 
-                                if (fieldInfo.FieldType == typeof(float))
+                                if (parameter.Type == typeof(float))
                                 {
-                                    valuef = (float)fieldInfo.GetValue(points[i].Parameters);
+                                    valuef = (float)parameter.FieldInfo.GetValue(points[i].Parameters);
                                     chart.Series[0].Points.AddXY(points[i].Seconds, valuef);
                                 }
                                 else
                                 {
-                                    valuei = (int)fieldInfo.GetValue(points[i].Parameters);
+                                    valuei = (int)parameter.FieldInfo.GetValue(points[i].Parameters);
                                     chart.Series[0].Points.AddXY(points[i].Seconds, valuei);
                                 }
                             }
@@ -377,8 +743,19 @@ namespace ECU_Manager
 
 
                     }
-                    double min = Math.Floor(chart.Series[0].Points.Select(p => p.YValues[0]).Min());
-                    double max = Math.Ceiling(chart.Series[0].Points.Select(p => p.YValues[0]).Max());
+
+                    double min = 0;
+                    double max = 0;
+
+                    if (chart.Series[0].Points.Count > 0)
+                    {
+                        IEnumerable<DataPoint> sequence = chart.Series[0].Points.Where(p => p.XValue > posmin && p.XValue < posmax);
+                        if (sequence.Count() > 0)
+                        {
+                            min = Math.Floor(sequence.Select(p => p.YValues[0]).Min());
+                            max = Math.Ceiling(sequence.Select(p => p.YValues[0]).Max());
+                        }
+                    }
 
                     if (min == max)
                     {
@@ -429,10 +806,17 @@ namespace ECU_Manager
         private void UpdateParameters(EcuParameters parameters)
         {
             points.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
+            UpdateForceElements(parameters);
         }
 
         private void DiagForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //TODO: do it synchroniously
+            foreach(Parameter parameter in ForceParameters)
+            {
+                parameter.Enabled = false;
+            }
+            middleLayer.UpdateForceParameters();
             Application.Exit();
         }
 
@@ -480,25 +864,24 @@ namespace ECU_Manager
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            int index = lbUsed.SelectedIndex;
-            string selected = (string)lbAvailable.SelectedItem;
+            int index = lbParamsUsed.SelectedIndex;
+            Parameter selected = (Parameter)lbParamsAvailable.SelectedItem;
             if (index >= 0)
             {
-                lbUsed.Items.RemoveAt(index);
-                lbAvailable.Items.Clear();
-
-                FieldInfo[] fieldInfos = typeof(EcuParameters).GetFields();
-                foreach (FieldInfo fieldInfo in fieldInfos)
+                lbParamsUsed.Items.RemoveAt(index);
+                lbParamsAvailable.Items.Clear();
+                
+                foreach (Parameter param in ChartParameters)
                 {
-                    lbAvailable.Items.Add(fieldInfo.Name);
+                    lbParamsAvailable.Items.Add(param);
                 }
-                foreach (string item in lbUsed.Items)
+                foreach (Parameter item in lbParamsUsed.Items)
                 {
-                    lbAvailable.Items.Remove(item);
+                    lbParamsAvailable.Items.Remove(item);
                 }
-                if(!string.IsNullOrWhiteSpace(selected))
+                if(selected != null && !string.IsNullOrWhiteSpace(selected.Name))
                 {
-                    lbAvailable.SelectedItem = selected;
+                    lbParamsAvailable.SelectedItem = selected;
                 }
                 UpdateChartsSetup();
             }
@@ -506,38 +889,38 @@ namespace ECU_Manager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            int index = lbAvailable.SelectedIndex;
-            string item = (string)lbAvailable.SelectedItem;
+            int index = lbParamsAvailable.SelectedIndex;
+            Parameter item = (Parameter)lbParamsAvailable.SelectedItem;
             if (index >= 0)
             {
-                lbAvailable.Items.RemoveAt(index);
-                lbUsed.Items.Add(item);
+                lbParamsAvailable.Items.RemoveAt(index);
+                lbParamsUsed.Items.Add(item);
                 UpdateChartsSetup();
             }
         }
 
         private void btnUsedMoveUp_Click(object sender, EventArgs e)
         {
-            int index = lbUsed.SelectedIndex;
-            string item = (string)lbUsed.SelectedItem;
+            int index = lbParamsUsed.SelectedIndex;
+            Parameter item = (Parameter)lbParamsUsed.SelectedItem;
             if (index > 0)
             {
-                lbUsed.Items.RemoveAt(index);
-                lbUsed.Items.Insert(index - 1, item);
-                lbUsed.SelectedIndex = index - 1;
+                lbParamsUsed.Items.RemoveAt(index);
+                lbParamsUsed.Items.Insert(index - 1, item);
+                lbParamsUsed.SelectedIndex = index - 1;
                 UpdateChartsSetup();
             }
         }
 
         private void btnUsedMoveDown_Click(object sender, EventArgs e)
         {
-            int index = lbUsed.SelectedIndex;
-            string item = (string)lbUsed.SelectedItem;
-            if (index >= 0 && index < lbUsed.Items.Count - 1)
+            int index = lbParamsUsed.SelectedIndex;
+            Parameter item = (Parameter)lbParamsUsed.SelectedItem;
+            if (index >= 0 && index < lbParamsUsed.Items.Count - 1)
             {
-                lbUsed.Items.RemoveAt(index);
-                lbUsed.Items.Insert(index + 1, item);
-                lbUsed.SelectedIndex = index + 1;
+                lbParamsUsed.Items.RemoveAt(index);
+                lbParamsUsed.Items.Insert(index + 1, item);
+                lbParamsUsed.SelectedIndex = index + 1;
                 UpdateChartsSetup();
             }
         }
@@ -545,6 +928,7 @@ namespace ECU_Manager
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateCharts();
+            SendUpdatedParameters();
         }
 
         private void btnZoomIn_Click(object sender, EventArgs e)

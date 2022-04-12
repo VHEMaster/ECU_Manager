@@ -14,8 +14,8 @@ namespace ECU_Manager.Structs
         public float IgnitionAngle;
         public float InjectionPhase;
         public float IgnitionOctane;
-        public float IgnitionTime;
-        public float InjectionTime;
+        public float IgnitionPulse;
+        public float InjectionPulse;
         public float WishFuelRatio;
         public float WishIdleRPM;
         public float WishIdleValvePosition;
@@ -28,8 +28,8 @@ namespace ECU_Manager.Structs
         public byte EnableIgnitionAngle;
         public byte EnableInjectionPhase;
         public byte EnableIgnitionOctane;
-        public byte EnableIgnitionTime;
-        public byte EnableInjectionTime;
+        public byte EnableIgnitionPulse;
+        public byte EnableInjectionPulse;
         public byte EnableWishFuelRatio;
         public byte EnableWishIdleRPM;
         public byte EnableWishIdleValvePosition;

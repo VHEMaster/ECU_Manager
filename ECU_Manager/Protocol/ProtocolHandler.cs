@@ -76,12 +76,18 @@ namespace ECU_Manager.Protocol
             Thread.Sleep(100);
             try
             {
-                if (sp.IsOpen)
+                try
+                {
                     sp.Close();
+                }
+                catch { }
+                
                 sp.OpenDirect();
+                sp.DiscardInBuffer();
+                sp.DiscardOutBuffer();
                 sp.Flush();
             }
-            catch { }
+            catch (Exception ex) { }
         }
 
         public void Send(Channel dest, byte[] data)
@@ -174,7 +180,7 @@ namespace ECU_Manager.Protocol
                     }
                 }
                 catch (TimeoutException) { }
-                catch (InvalidOperationException) { reopen(); }
+                catch (InvalidOperationException ex) { reopen(); }
                 catch (IOException) { reopen(); }
                 bIsAckRequired = false;
             }
