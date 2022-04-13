@@ -18,21 +18,25 @@ namespace ECU_Manager.Structs
             this.Message = message;
             this.Active = active;
         }
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj.GetType() == this.GetType() && this.ErrorCode == ((CheckDataItem)obj).ErrorCode;
+        }
 
         public override string ToString()
         {
-            return (Active ? "Active" : "Inactive") + $":{ErrorCode.ToString()}:{Message}";
+            return $"{this.ErrorCode.ToString()}({((int)this.ErrorCode).ToString()}) {{{(this.Active ? "Active" : "Inactive")}}}: {this.Message}";
+
         }
     }
 
+
     public static class CheckData
     {
-        public static List<CheckDataItem> CheckDataList { get; private set; } = new List<CheckDataItem>();
 
         public static List<CheckDataItem> GenerateFromBitmap(byte[] check_bitmap_status, byte[] check_bitmap_recorded)
         {
             List<CheckDataItem> checkDataList = new List<CheckDataItem>();
-            CheckDataItem Item;
 
             for (int i = 0; i < Consts.CHECK_ITEMS_MAX; i++)
             {
@@ -40,8 +44,8 @@ namespace ECU_Manager.Structs
                 {
                     try
                     {
-                        Item = new CheckDataItem((ErrorCode)i, ErrorStrings[i], (check_bitmap_status[i >> 3] & (1 << (i & 7))) > 0);
-                        CheckDataList.Add(Item);
+                        CheckDataItem Item = new CheckDataItem((ErrorCode)i, ErrorStrings[i], (check_bitmap_status[i >> 3] & (1 << (i & 7))) > 0);
+                        checkDataList.Add(Item);
                     }
                     catch
                     {
@@ -50,11 +54,10 @@ namespace ECU_Manager.Structs
                 }
             }
 
-            CheckDataList = checkDataList;
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[74]
+        private static readonly string[] ErrorStrings = new string[75]
         {
             "Invalid",
             "Flash: Load failure",
@@ -120,6 +123,7 @@ namespace ECU_Manager.Structs
             "IdleValve: Failure",
             "IdleValve: Driver failure",
             "Injection: Fuel underflow",
+            "ADC: Communication Failure",
 
             "Lambda: Communication failure",
             "Lambda: VM ShortToBat",
@@ -141,7 +145,7 @@ namespace ECU_Manager.Structs
 
         public static string GetStringForCode(ErrorCode errorCode)
         {
-            if(errorCode < ErrorCode.Count)
+            if (errorCode < ErrorCode.Count)
             {
                 return ErrorStrings[(int)errorCode];
             }
@@ -209,6 +213,7 @@ namespace ECU_Manager.Structs
         IdleValveFailure,
         IdleValveDriverFailure,
         InjectionUnderflow,
+        AdcFailure,
         LambdaCommunicationFailure,
         LambdaVMShortToBat,
         LambdaVMLowBattery,

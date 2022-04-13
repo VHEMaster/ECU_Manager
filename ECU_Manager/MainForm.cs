@@ -68,7 +68,14 @@ namespace ECU_Manager
             syncForm.ShowDialog();
 
             this.DoubleBuffered = true;
-            
+
+        }
+        public void UpdateStatusEvent(IEnumerable<CheckDataItem> checkDataList)
+        {
+            Action action = new Action(() => { this.UpdateStatus(checkDataList); });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
         }
 
         public void UpdateParametersEvent(EcuParameters parameters)
@@ -525,7 +532,18 @@ namespace ECU_Manager
             nudDragTableSplit.Enabled = false;
             btnDragStop.Enabled = false;
         }
-        
+
+        private void UpdateStatus(IEnumerable<CheckDataItem> checkDataList)
+        {
+            CheckDataItem selected = (CheckDataItem)lbFailureCodes.SelectedItem;
+            lbFailureCodes.SuspendLayout();
+            lbFailureCodes.Items.Clear();
+            foreach (CheckDataItem item in checkDataList)
+                lbFailureCodes.Items.Add(item);
+            if (selected != null && lbFailureCodes.Items.Count > 0 && lbFailureCodes.Items.Contains(selected))
+                lbFailureCodes.SelectedItem = selected;
+            lbFailureCodes.ResumeLayout();
+        }
 
         private void UpdateParameters(EcuParameters parameters)
         {
@@ -546,9 +564,13 @@ namespace ECU_Manager
             lastReceivedarameters = DateTime.Now;
         }
         
-        private void tmr1sec_Tick(object sender, EventArgs e)
+        private void tmrSync_Tick(object sender, EventArgs e)
         {
             middleLayer.SyncFast();
+            middleLayer.PacketHandler.SendStatusRequest();
+            if (middleLayer.ComponentStructure.EcuParameters.IsCheckEngine > 0)
+                pbCheckEngine.Visible = !pbCheckEngine.Visible;
+            else pbCheckEngine.Visible = false;
         }
 
         private void tmr50ms_Tick(object sender, EventArgs e)
@@ -1283,6 +1305,11 @@ namespace ECU_Manager
         {
             bLiveCheckOld = true;
             cbLive.Checked = true;
+        }
+
+        private void btnResetFailures_Click(object sender, EventArgs e)
+        {
+            middleLayer.PacketHandler.SendResetStatusRequest();
         }
     }
 }

@@ -745,9 +745,27 @@ namespace ECU_Manager
                     else if (packetobj.GetType() == typeof(PK_ForceParametersDataAcknowledge))
                     {
                         PK_ForceParametersDataAcknowledge fpda = (PK_ForceParametersDataAcknowledge)packetobj;
-                        if(fpda.ErrorCode != 0)
+                        if (fpda.ErrorCode != 0)
                         {
 
+                        }
+                    }
+                    else if (packetobj.GetType() == typeof(PK_ResetStatusResponse))
+                    {
+                        PK_ResetStatusResponse rsr = (PK_ResetStatusResponse)packetobj;
+                        if (rsr.ErrorCode != 0)
+                        {
+
+                        }
+                    }
+                    else if (packetobj.GetType() == typeof(PK_StatusResponse))
+                    {
+                        PK_StatusResponse sr = (PK_StatusResponse)packetobj;
+                        lock (eventHandlers)
+                        {
+                            List<CheckDataItem> list = CheckData.GenerateFromBitmap(sr.CheckBitmap.bytes, sr.CheckBitmapRecorded.bytes);
+                            foreach (IEcuEventHandler handler in eventHandlers)
+                                handler.UpdateStatusEvent(list);
                         }
                     }
                 }

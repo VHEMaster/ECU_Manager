@@ -16,5 +16,6 @@ namespace ECU_Manager
         void UpdateDragPointEvent(PK_DragPointResponse dpr);
         void DragStartAckEvent(PK_DragStartAcknowledge dsaa);
         void DragStopAckEvent(PK_DragStopAcknowledge dsta);
+        void UpdateStatusEvent(IEnumerable<CheckDataItem> checkDataList);
     }
 }

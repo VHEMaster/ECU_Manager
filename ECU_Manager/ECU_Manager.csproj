@@ -200,5 +200,8 @@
   <ItemGroup>
     <Compile Include="Packets\Enums.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="checkengine.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

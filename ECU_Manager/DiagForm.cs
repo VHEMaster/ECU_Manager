@@ -746,10 +746,11 @@ namespace ECU_Manager
 
                     double min = 0;
                     double max = 0;
-
+                    int count = 0;
                     if (chart.Series[0].Points.Count > 0)
                     {
                         IEnumerable<DataPoint> sequence = chart.Series[0].Points.Where(p => p.XValue > posmin && p.XValue < posmax);
+                        count = sequence.Count();
                         if (sequence.Count() > 0)
                         {
                             min = Math.Floor(sequence.Select(p => p.YValues[0]).Min());
@@ -767,7 +768,7 @@ namespace ECU_Manager
                     chart.ChartAreas[0].AxisY.Minimum = min;
                     chart.ChartAreas[0].AxisY.Maximum = max;
 
-                    if (chart.Series[0].Points.Count > chart.Width / 34)
+                    if (count > chart.Width / 34)
                         chart.Series[0].ChartType = SeriesChartType.FastLine;
                     else chart.Series[0].ChartType = SeriesChartType.Line;
                     chart.ResumeLayout();
@@ -781,6 +782,11 @@ namespace ECU_Manager
             if (this.InvokeRequired)
                 this.BeginInvoke(action);
             else action.Invoke();
+        }
+
+        public void UpdateStatusEvent(IEnumerable<CheckDataItem> checkDataList)
+        {
+
         }
 
         public void DragStartAckEvent(PK_DragStartAcknowledge dsaa)

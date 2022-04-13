@@ -311,6 +311,7 @@ namespace ECU_Manager.Packets
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }
+        
 
     }
 }

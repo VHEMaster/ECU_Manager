@@ -87,7 +87,7 @@ namespace ECU_Manager.Protocol
                 sp.DiscardOutBuffer();
                 sp.Flush();
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         public void Send(Channel dest, byte[] data)
@@ -180,7 +180,7 @@ namespace ECU_Manager.Protocol
                     }
                 }
                 catch (TimeoutException) { }
-                catch (InvalidOperationException ex) { reopen(); }
+                catch (InvalidOperationException) { reopen(); }
                 catch (IOException) { reopen(); }
                 bIsAckRequired = false;
             }

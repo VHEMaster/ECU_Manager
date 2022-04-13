@@ -211,14 +211,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.cbLive = new System.Windows.Forms.CheckBox();
+            this.pbCheckEngine = new System.Windows.Forms.PictureBox();
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
-            this.tmr1sec = new System.Windows.Forms.Timer(this.components);
+            this.tmrSync = new System.Windows.Forms.Timer(this.components);
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.mGenFuelUsage = new ECU_Manager.Controls.Meter();
             this.mGenTemp = new ECU_Manager.Controls.Meter();
             this.mGenPress = new ECU_Manager.Controls.Meter();
             this.mGenRPM = new ECU_Manager.Controls.Meter();
             this.mGenIgn = new ECU_Manager.Controls.Meter();
+            this.btnResetFailures = new System.Windows.Forms.Button();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbFailureCodes = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -289,6 +294,9 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -304,6 +312,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage18);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(2, 36);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
@@ -1127,7 +1136,7 @@
             this.tabControl111.Name = "tabControl111";
             this.tabControl111.Padding = new System.Drawing.Point(12, 5);
             this.tabControl111.SelectedIndex = 0;
-            this.tabControl111.Size = new System.Drawing.Size(1093, 610);
+            this.tabControl111.Size = new System.Drawing.Size(1093, 599);
             this.tabControl111.TabIndex = 1;
             // 
             // tabPage12
@@ -1141,7 +1150,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 40);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1085, 566);
+            this.tabPage12.Size = new System.Drawing.Size(1085, 555);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
             // 
@@ -2258,7 +2267,7 @@
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 616F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 616);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 605);
             this.tableLayoutPanel13.TabIndex = 6;
             // 
             // panel10
@@ -2284,7 +2293,7 @@
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 616);
+            this.panel10.Size = new System.Drawing.Size(200, 605);
             this.panel10.TabIndex = 6;
             // 
             // label63
@@ -2484,7 +2493,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(899, 616);
+            this.tabControl2.Size = new System.Drawing.Size(899, 605);
             this.tabControl2.TabIndex = 7;
             // 
             // tabPage19
@@ -2494,7 +2503,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 36);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(891, 576);
+            this.tabPage19.Size = new System.Drawing.Size(891, 565);
             this.tabPage19.TabIndex = 0;
             this.tabPage19.Text = "Speed vs. Time";
             // 
@@ -2529,7 +2538,7 @@
             series1.YValuesPerPoint = 2;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragTime.Series.Add(series1);
-            this.chartDragTime.Size = new System.Drawing.Size(885, 570);
+            this.chartDragTime.Size = new System.Drawing.Size(885, 559);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
             // 
@@ -2575,7 +2584,7 @@
             series2.YValuesPerPoint = 2;
             series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragAccel.Series.Add(series2);
-            this.chartDragAccel.Size = new System.Drawing.Size(885, 581);
+            this.chartDragAccel.Size = new System.Drawing.Size(885, 570);
             this.chartDragAccel.TabIndex = 6;
             this.chartDragAccel.Text = " ";
             // 
@@ -2602,7 +2611,7 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 587);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 576);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // lvDragTable
@@ -2621,7 +2630,7 @@
             this.lvDragTable.Margin = new System.Windows.Forms.Padding(0);
             this.lvDragTable.MultiSelect = false;
             this.lvDragTable.Name = "lvDragTable";
-            this.lvDragTable.Size = new System.Drawing.Size(891, 587);
+            this.lvDragTable.Size = new System.Drawing.Size(891, 576);
             this.lvDragTable.TabIndex = 0;
             this.lvDragTable.UseCompatibleStateImageBehavior = false;
             this.lvDragTable.View = System.Windows.Forms.View.Details;
@@ -2680,27 +2689,25 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 5;
+            this.tableLayoutPanel4.ColumnCount = 6;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel4.Controls.Add(this.button3, 4, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button2, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button3, 5, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button1, 3, 0);
-            this.tableLayoutPanel4.Controls.Add(this.cbLive, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button1, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.cbLive, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.pbCheckEngine, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1111, 34);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
@@ -2736,7 +2743,7 @@
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
-            this.label1.Size = new System.Drawing.Size(495, 34);
+            this.label1.Size = new System.Drawing.Size(447, 34);
             this.label1.TabIndex = 1;
             this.label1.Text = "ENGINE CONTROL UNIT";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2766,6 +2773,18 @@
             this.cbLive.UseVisualStyleBackColor = true;
             this.cbLive.CheckedChanged += new System.EventHandler(this.cbLive_CheckedChanged);
             // 
+            // pbCheckEngine
+            // 
+            this.pbCheckEngine.Image = global::ECU_Manager.Properties.Resources.checkengine;
+            this.pbCheckEngine.Location = new System.Drawing.Point(453, 0);
+            this.pbCheckEngine.Margin = new System.Windows.Forms.Padding(0);
+            this.pbCheckEngine.Name = "pbCheckEngine";
+            this.pbCheckEngine.Size = new System.Drawing.Size(48, 34);
+            this.pbCheckEngine.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCheckEngine.TabIndex = 6;
+            this.pbCheckEngine.TabStop = false;
+            this.pbCheckEngine.Visible = false;
+            // 
             // dlgExport
             // 
             this.dlgExport.DefaultExt = "xml";
@@ -2778,11 +2797,22 @@
             this.dlgImport.Filter = "XML Ignition Config|*.xml";
             this.dlgImport.RestoreDirectory = true;
             // 
-            // tmr1sec
+            // tmrSync
             // 
-            this.tmr1sec.Enabled = true;
-            this.tmr1sec.Interval = 1000;
-            this.tmr1sec.Tick += new System.EventHandler(this.tmr1sec_Tick);
+            this.tmrSync.Enabled = true;
+            this.tmrSync.Interval = 500;
+            this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.White;
+            this.tabPage5.Controls.Add(this.tableLayoutPanel5);
+            this.tabPage5.Location = new System.Drawing.Point(4, 44);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Failure Codes";
             // 
             // mGenFuelUsage
             // 
@@ -2899,6 +2929,44 @@
             this.mGenIgn.ValueMinRange = -10F;
             this.mGenIgn.WarnTickStart = 30F;
             // 
+            // btnResetFailures
+            // 
+            this.btnResetFailures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnResetFailures.Location = new System.Drawing.Point(3, 3);
+            this.btnResetFailures.Name = "btnResetFailures";
+            this.btnResetFailures.Size = new System.Drawing.Size(214, 44);
+            this.btnResetFailures.TabIndex = 0;
+            this.btnResetFailures.Text = "Reset Failure Codes";
+            this.btnResetFailures.UseVisualStyleBackColor = true;
+            this.btnResetFailures.Click += new System.EventHandler(this.btnResetFailures_Click);
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.lbFailureCodes, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.btnResetFailures, 0, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 599);
+            this.tableLayoutPanel5.TabIndex = 1;
+            // 
+            // lbFailureCodes
+            // 
+            this.tableLayoutPanel5.SetColumnSpan(this.lbFailureCodes, 2);
+            this.lbFailureCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFailureCodes.FormattingEnabled = true;
+            this.lbFailureCodes.ItemHeight = 24;
+            this.lbFailureCodes.Location = new System.Drawing.Point(3, 53);
+            this.lbFailureCodes.Name = "lbFailureCodes";
+            this.lbFailureCodes.Size = new System.Drawing.Size(1087, 543);
+            this.lbFailureCodes.TabIndex = 2;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -2995,6 +3063,9 @@
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3128,7 +3199,7 @@
         private System.Windows.Forms.Button btnTableExport;
         private System.Windows.Forms.SaveFileDialog dlgExport;
         private System.Windows.Forms.OpenFileDialog dlgImport;
-        private System.Windows.Forms.Timer tmr1sec;
+        private System.Windows.Forms.Timer tmrSync;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TextBox tbDragName;
         private System.Windows.Forms.Label lblCutoffMixture;
@@ -3185,5 +3256,10 @@
         private System.Windows.Forms.NumericUpDown nudParamsIdleIgnDevMin;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.NumericUpDown nudParamsIdleIgnFanCorr;
+        private System.Windows.Forms.PictureBox pbCheckEngine;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button btnResetFailures;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.ListBox lbFailureCodes;
     }
 }
