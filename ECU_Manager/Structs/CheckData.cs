@@ -18,6 +18,12 @@ namespace ECU_Manager.Structs
             this.Message = message;
             this.Active = active;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             return obj != null && obj.GetType() == this.GetType() && this.ErrorCode == ((CheckDataItem)obj).ErrorCode;

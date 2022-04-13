@@ -201,6 +201,9 @@
             this.lvDragTable = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnResetFailures = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -215,15 +218,16 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.lvFailureCodes = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mGenFuelUsage = new ECU_Manager.Controls.Meter();
             this.mGenTemp = new ECU_Manager.Controls.Meter();
             this.mGenPress = new ECU_Manager.Controls.Meter();
             this.mGenRPM = new ECU_Manager.Controls.Meter();
             this.mGenIgn = new ECU_Manager.Controls.Meter();
-            this.btnResetFailures = new System.Windows.Forms.Button();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbFailureCodes = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -291,12 +295,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartDragAccel)).BeginInit();
             this.tabPage20.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -2645,6 +2649,44 @@
             this.columnHeader2.Text = "Time";
             this.columnHeader2.Width = 80;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.White;
+            this.tabPage5.Controls.Add(this.tableLayoutPanel5);
+            this.tabPage5.Location = new System.Drawing.Point(4, 44);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Failure Codes";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.btnResetFailures, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.lvFailureCodes, 0, 1);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 599);
+            this.tableLayoutPanel5.TabIndex = 1;
+            // 
+            // btnResetFailures
+            // 
+            this.btnResetFailures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnResetFailures.Location = new System.Drawing.Point(3, 3);
+            this.btnResetFailures.Name = "btnResetFailures";
+            this.btnResetFailures.Size = new System.Drawing.Size(214, 44);
+            this.btnResetFailures.TabIndex = 0;
+            this.btnResetFailures.Text = "Reset Failure Codes";
+            this.btnResetFailures.UseVisualStyleBackColor = true;
+            this.btnResetFailures.Click += new System.EventHandler(this.btnResetFailures_Click);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -2803,16 +2845,43 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // tabPage5
+            // lvFailureCodes
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.White;
-            this.tabPage5.Controls.Add(this.tableLayoutPanel5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 44);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1099, 605);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Failure Codes";
+            this.lvFailureCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader6,
+            this.columnHeader5});
+            this.tableLayoutPanel5.SetColumnSpan(this.lvFailureCodes, 2);
+            this.lvFailureCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvFailureCodes.FullRowSelect = true;
+            this.lvFailureCodes.GridLines = true;
+            this.lvFailureCodes.Location = new System.Drawing.Point(3, 53);
+            this.lvFailureCodes.MultiSelect = false;
+            this.lvFailureCodes.Name = "lvFailureCodes";
+            this.lvFailureCodes.Size = new System.Drawing.Size(1087, 543);
+            this.lvFailureCodes.TabIndex = 1;
+            this.lvFailureCodes.UseCompatibleStateImageBehavior = false;
+            this.lvFailureCodes.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Code";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Active";
+            this.columnHeader4.Width = 100;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Description";
+            this.columnHeader5.Width = 600;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "ShortDesc";
+            this.columnHeader6.Width = 300;
             // 
             // mGenFuelUsage
             // 
@@ -2929,44 +2998,6 @@
             this.mGenIgn.ValueMinRange = -10F;
             this.mGenIgn.WarnTickStart = 30F;
             // 
-            // btnResetFailures
-            // 
-            this.btnResetFailures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnResetFailures.Location = new System.Drawing.Point(3, 3);
-            this.btnResetFailures.Name = "btnResetFailures";
-            this.btnResetFailures.Size = new System.Drawing.Size(214, 44);
-            this.btnResetFailures.TabIndex = 0;
-            this.btnResetFailures.Text = "Reset Failure Codes";
-            this.btnResetFailures.UseVisualStyleBackColor = true;
-            this.btnResetFailures.Click += new System.EventHandler(this.btnResetFailures_Click);
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.lbFailureCodes, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.btnResetFailures, 0, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 599);
-            this.tableLayoutPanel5.TabIndex = 1;
-            // 
-            // lbFailureCodes
-            // 
-            this.tableLayoutPanel5.SetColumnSpan(this.lbFailureCodes, 2);
-            this.lbFailureCodes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFailureCodes.FormattingEnabled = true;
-            this.lbFailureCodes.ItemHeight = 24;
-            this.lbFailureCodes.Location = new System.Drawing.Point(3, 53);
-            this.lbFailureCodes.Name = "lbFailureCodes";
-            this.lbFailureCodes.Size = new System.Drawing.Size(1087, 543);
-            this.lbFailureCodes.TabIndex = 2;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -3057,6 +3088,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartDragAccel)).EndInit();
             this.tabPage20.ResumeLayout(false);
             this.tableLayoutPanel14.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -3064,8 +3097,6 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3260,6 +3291,10 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button btnResetFailures;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.ListBox lbFailureCodes;
+        private System.Windows.Forms.ListView lvFailureCodes;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

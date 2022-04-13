@@ -535,14 +535,23 @@ namespace ECU_Manager
 
         private void UpdateStatus(IEnumerable<CheckDataItem> checkDataList)
         {
-            CheckDataItem selected = (CheckDataItem)lbFailureCodes.SelectedItem;
-            lbFailureCodes.SuspendLayout();
-            lbFailureCodes.Items.Clear();
+            ListViewItem selected = lvFailureCodes.SelectedItems.Count > 0 ? lvFailureCodes.SelectedItems[0] : null;
+            lvFailureCodes.SuspendLayout();
+            lvFailureCodes.Items.Clear();
             foreach (CheckDataItem item in checkDataList)
-                lbFailureCodes.Items.Add(item);
-            if (selected != null && lbFailureCodes.Items.Count > 0 && lbFailureCodes.Items.Contains(selected))
-                lbFailureCodes.SelectedItem = selected;
-            lbFailureCodes.ResumeLayout();
+            {
+                ListViewItem lvitem = lvFailureCodes.Items.Add(((int)item.ErrorCode).ToString());
+                lvitem.SubItems.Add(item.Active ? "Active" : "Inactive");
+                lvitem.SubItems.Add(item.ErrorCode.ToString());
+                lvitem.SubItems.Add(item.Message);
+                lvitem.Tag = item;
+            }
+            if (selected != null && lvFailureCodes.Items.Count > 0 && lvFailureCodes.Items.ContainsKey(selected.Name))
+            {
+                lvFailureCodes.Items[selected.Name].Selected = true;
+            }
+            lvFailureCodes.ResumeLayout();
+
         }
 
         private void UpdateParameters(EcuParameters parameters)

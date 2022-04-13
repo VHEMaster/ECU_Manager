@@ -248,7 +248,7 @@ namespace ECU_Manager
                 }
                 else
                 {
-                    float value = (int)((float)parameter.TrackBar.Value * parameter.Step);
+                    int value = (int)((float)parameter.TrackBar.Value * parameter.Step);
 
                     if ((decimal)value > parameter.NumericUpDown.Maximum)
                         value = (int)parameter.NumericUpDown.Maximum;
