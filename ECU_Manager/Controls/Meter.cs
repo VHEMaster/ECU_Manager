@@ -219,10 +219,14 @@ namespace ECU_Manager.Controls
                     drawTo = Height;
             }
             //draw
-            Matrix matrix = new Matrix();
-            matrix.RotateAt(((needleVal - valueMinRange) * degPercent) + minDeg, new PointF(halfWidth, halfHeight));
-            needleGraph.Transform = matrix;
-            needleGraph.DrawLine(new Pen(needleColor, 2), halfWidth, halfHeight, halfWidth, drawTo);
+            if (!float.IsNaN(needleVal))
+            {
+                Matrix matrix = new Matrix();
+                matrix.RotateAt(((needleVal - valueMinRange) * degPercent) + minDeg, new PointF(halfWidth, halfHeight));
+
+                needleGraph.Transform = matrix;
+                needleGraph.DrawLine(new Pen(needleColor, 2), halfWidth, halfHeight, halfWidth, drawTo);
+            }
 
             //clean up
             needleGraph.Dispose();

@@ -134,7 +134,7 @@ namespace ECU_Manager
 
             if(errorCode != 0)
             {
-                MessageBox.Show("Error during sync.\r\n\r\nCode: " + errorCode, "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error during sync.\r\n\r\nCode: " + (errorCode == -1 ? "Timeout occired" : errorCode.ToString()), "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
