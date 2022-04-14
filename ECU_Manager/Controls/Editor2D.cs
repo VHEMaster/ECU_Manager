@@ -19,9 +19,8 @@ namespace ECU_Manager.Controls
         EcuTable = 0,
         CorrectionsTable
     }
-    public partial class Editor2D : Form
+    public partial class Editor2D : UserControl
     {
-        private string sName;
         private int iArraySizeX;
         private int iArraySizeY;
         private string sConfigSizeX;
@@ -39,15 +38,15 @@ namespace ECU_Manager.Controls
         private string sFormatStatusD;
         private string sArrayName;
         private string sCalibrationTable;
-        private float fStepSize;
-        private float fIntervalX;
-        private float fIntervalY;
-        private float fChartMinY;
-        private float fChartMaxY;
-        private float fMinDiffX;
-        private float fMinDiffY;
-        private float fMinY;
-        private float fMaxY;
+        private double dStepSize;
+        private double dIntervalX;
+        private double dIntervalY;
+        private double dChartMinY;
+        private double dChartMaxY;
+        private double dMinDiffX;
+        private double dMinDiffY;
+        private double dMinY;
+        private double dMaxY;
         private int iSizeX;
         private int iSizeY;
         private bool bLog10;
@@ -73,27 +72,58 @@ namespace ECU_Manager.Controls
         List<int> tlpColumns = new List<int>();
         private int tlpInfoRow = 0;
         private int tlpInfoColumn = 0;
-
-        public Editor2D(ComponentStructure componentStructure, Editor2DMode mode, string name, int sizex, int sizey, float min, float max, float step, float mindiffx, float mindiffy, float chartminy, float chartmaxy, float intervalx, float intervaly, int arraysizex, int arraysizey, bool log10 = false)
+    
+        public Editor2D()
         {
             InitializeComponent();
+            chart2DChart.Series.Clear();
+            chart2DChart.ChartAreas.Clear();
+            chart2DChart.Legends.Clear();
+            chart2DChart.Titles.Clear();
+            chart2DChart.Annotations.Clear();
+        }
+        
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category("Chart"),
+        Description("The 2D chart for this control")]
+        public Chart Chart
+        {
+            get
+            {
+                return chart2DChart;
+            }
+        }
 
-            sName = name;
-            fMinY = min;
-            fMaxY = max;
-            fStepSize = step;
-            fIntervalX = intervalx;
-            fIntervalY = intervaly;
-            fChartMinY = chartminy;
-            fChartMaxY = chartmaxy;
-            fMinDiffX = mindiffx;
-            fMinDiffY = mindiffy;
+        [Category("Chart"),
+        Description("The title for this control")]
+        public string LabelTitle
+        {
+            get
+            {
+                return lblTitle.Text;
+            }
+            set
+            {
+                lblTitle.Text = value;
+            }
+        }
+
+        public void Initialize(ComponentStructure componentStructure, Editor2DMode mode, int sizex, int sizey, double min, double max, double step, double mindiffx, double mindiffy, double chartminy, double chartmaxy, double intervalx, double intervaly, int arraysizex, int arraysizey, int decplaces, bool log10 = false)
+        {
+            dMinY = min;
+            dMaxY = max;
+            dStepSize = step;
+            dIntervalX = intervalx;
+            dIntervalY = intervaly;
+            dChartMinY = chartminy;
+            dChartMaxY = chartmaxy;
+            dMinDiffX = mindiffx;
+            dMinDiffY = mindiffy;
             iArraySizeX = arraysizex;
             iArraySizeY = arraysizey;
             eMode = mode;
 
             bLog10 = log10;
-            lblTitle.Text = sName;
 
             cs = componentStructure;
             forcePositions = new List<ForcePosition>();
@@ -126,12 +156,12 @@ namespace ECU_Manager.Controls
                     {
                         NumericUpDown nud = new NumericUpDown();
                         nud.Margin = new Padding(0);
-                        nud.Minimum = (decimal)fMinY;
-                        nud.Maximum = (decimal)fMaxY;
-                        nud.DecimalPlaces = 1;
-                        nud.Increment = (decimal)fStepSize;
+                        nud.Minimum = (decimal)dMinY;
+                        nud.Maximum = (decimal)dMaxY;
+                        nud.DecimalPlaces = decplaces;
+                        nud.Increment = (decimal)dStepSize;
                         nud.Tag = y * iArraySizeX + x;
-                        nud.Value = 0;
+                        nud.Value = (decimal)((dMaxY - dMinY) / 2);
                         nud.ValueChanged += nudTableItem_ValueChanged;
                         nud.Location = new Point(0, 0);
                         nud.Dock = DockStyle.Fill;
@@ -256,16 +286,16 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
-                FieldInfo fieldSizeX = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeX);
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
                 if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.parameters);
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeY))
             {
-                FieldInfo fieldSizeY = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeY);
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
                 if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.parameters);
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
@@ -336,107 +366,135 @@ namespace ECU_Manager.Controls
                         lblParams.Text += "  ";
                     if (!string.IsNullOrWhiteSpace(sTitleStatusD))
                         lblParams.Text += $"{sTitleStatusD}: ";
-                    lblParams.Text += $"{paramx.ToString(sFormatStatusD)}";
+                    lblParams.Text += $"{paramd.ToString(sFormatStatusD)}";
                 }
             }
 
-
-            tlp2DTable.SuspendLayout();
-            tlp2DTable.RowStyles[tlpInfoRow] = new RowStyle(SizeType.AutoSize);
-            tlp2DTable.ColumnStyles[tlpInfoColumn] = new ColumnStyle(SizeType.AutoSize);
-
-            for (int y = 0; y < sizey; y++)
-                tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.AutoSize);
-            for (int y = sizey; y < iArraySizeY; y++)
-                tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Absolute, 0.0f);
-            for (int x = 0; x < sizex; x++)
-                tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Percent, 10.0f);
-            for (int x = sizex; x < iArraySizeX; x++)
-                tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Absolute, 0.0f);
-
-            foreach (Control control in tlp2DTable.Controls)
+            if (depx != null && depy != null)
             {
-                if (control.Tag != null)
+
+                tlp2DTable.SuspendLayout();
+                tlp2DTable.RowStyles[tlpInfoRow] = new RowStyle(SizeType.AutoSize);
+                tlp2DTable.ColumnStyles[tlpInfoColumn] = new ColumnStyle(SizeType.AutoSize);
+
+                for (int y = 0; y < sizey; y++)
+                    tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Percent, 10F);
+                for (int y = sizey; y < iArraySizeY; y++)
+                    tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Absolute, 0.0f);
+                for (int x = 0; x < sizex; x++)
+                    tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Percent, 10.0f);
+                for (int x = sizex; x < iArraySizeX; x++)
+                    tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Absolute, 0.0f);
+
+                foreach (Control control in tlp2DTable.Controls)
                 {
-
-                    if (control.GetType() == typeof(NumericUpDown))
+                    if (control.Tag != null)
                     {
-                        int x = ((int)control.Tag) % (iArraySizeX);
-                        int y = ((int)control.Tag) / (iArraySizeX);
-                        control.Visible = x < sizex && y < sizey;
 
-                        NumericUpDown nud = (NumericUpDown)control;
-                        nud.Value = (decimal)array2d[(int)nud.Tag];
+                        if (control.GetType() == typeof(NumericUpDown))
+                        {
+                            int x = ((int)control.Tag) % (iArraySizeX);
+                            int y = ((int)control.Tag) / (iArraySizeX);
+                            control.Visible = x < sizex && y < sizey;
+
+                            NumericUpDown nud = (NumericUpDown)control;
+                            nud.Value = (decimal)array2d[(int)nud.Tag];
+                        }
+                        else if (control.GetType() == typeof(Label))
+                        {
+                            int x = ((int)control.Tag) % (iArraySizeX + 1);
+                            int y = ((int)control.Tag) / (iArraySizeX + 1);
+                            control.Visible = (x - 1) < sizex && (y - 1) < sizey;
+
+                            Label lbl = (Label)control;
+                            if (x == 0 && y != 0) lbl.Text = depy[y - 1].ToString(sFormatStatusD);
+                            else if (y == 0 && x != 0) lbl.Text = depx[x - 1].ToString(sFormatStatusX);
+                        }
                     }
-                    else if (control.GetType() == typeof(Label))
+                }
+
+                tlp2DTable.ResumeLayout();
+
+                Color min = Color.SpringGreen;
+                Color max = Color.IndianRed;
+
+                double chartMin = dChartMinY;
+                double chartMax = dChartMaxY;
+                double chartMaxX = double.MinValue;
+
+                chart2DChart.Series.Clear();
+                chart2DChart.ChartAreas[0].AxisX.Minimum = depx[0] - (depx[0] % dMinDiffX);
+                chart2DChart.ChartAreas[0].AxisX.Maximum = depx[sizex - 1] + (dMinDiffX - (depx[sizex - 1] % dMinDiffX));
+
+                chart2DChart.ChartAreas[0].AxisY.Minimum = chartMin;
+                chart2DChart.ChartAreas[0].AxisY.Maximum = chartMax;
+
+                chart2DChart.ChartAreas[0].AxisX.Interval = dIntervalX;
+                chart2DChart.ChartAreas[0].AxisY.Interval = dIntervalY;
+
+                chart2DChart.ChartAreas[0].AxisX.MajorGrid.Interval = dIntervalX;
+                chart2DChart.ChartAreas[0].AxisY.MajorGrid.Interval = dIntervalY;
+
+                chart2DChart.ChartAreas[0].AxisX.LabelStyle.Interval = dIntervalX;
+                chart2DChart.ChartAreas[0].AxisY.LabelStyle.Interval = dIntervalY;
+
+                chart2DChart.ChartAreas[0].AxisX.MajorTickMark.Interval = dIntervalX;
+                chart2DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
+
+                if (sizey > 0 && sizex > 0)
+                {
+                    for (int i = 0; i < sizey; i++)
                     {
-                        int x = ((int)control.Tag) % (iArraySizeX + 1);
-                        int y = ((int)control.Tag) / (iArraySizeX + 1);
-                        control.Visible = (x - 1) < sizex && (y - 1) < sizey;
-
-                        Label lbl = (Label)control;
-                        if (x == 0 && y != 0) lbl.Text = depy[y - 1].ToString(sFormatStatusD);
-                        else if (y == 0 && x != 0) lbl.Text = depx[x - 1].ToString(sFormatStatusX);
+                        series = chart2DChart.Series.Add(depy[i].ToString(sFormatStatusD));
+                        series.Tag = i;
+                        series.ChartType = SeriesChartType.Line;
+                        series.XAxisType = AxisType.Primary;
+                        series.XValueType = ChartValueType.Single;
+                        series.YAxisType = AxisType.Primary;
+                        series.YValueType = ChartValueType.Single;
+                        series.BorderWidth = 2;
+                        float trans = (float)i / (float)(sizey - 1);
+                        series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
+                        for (int j = 0; j < sizex; j++)
+                        {
+                            float value = array2d[i * iArraySizeX + j];
+                            if (chartMaxX < depx[j])
+                                chartMaxX = depx[j];
+                            int point = series.Points.AddXY(depx[j], value);
+                            series.Points[point].Tag = j;
+                            if (value > chartMax)
+                                chartMax = value;
+                            if (value < chartMin)
+                                chartMin = value;
+                        }
                     }
+                    chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
+                    chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
+                    
+
+                }
+
+                series = chart2DChart.Series.Add("Current");
+                series.ChartType = SeriesChartType.Point;
+                series.XAxisType = AxisType.Primary;
+                series.XValueType = ChartValueType.Single;
+                series.YAxisType = AxisType.Primary;
+                series.YValueType = ChartValueType.Single;
+                series.MarkerSize = 8;
+                series.Color = Color.Red;
+                series.MarkerStyle = MarkerStyle.Circle;
+                series.Points.AddXY(paramx, paramy);
+                
+                if(chartMaxX != double.MinValue)
+                {
+                    chart2DChart.ChartAreas[0].AxisX.IsLogarithmic = bLog10;
+                    chart2DChart.ChartAreas[0].AxisX.LogarithmBase = 10;
+                }
+                else
+                {
+                    chart2DChart.ChartAreas[0].AxisX.IsLogarithmic = bLog10;
                 }
             }
-
-            tlp2DTable.ResumeLayout();
-
-            Color min = Color.SpringGreen;
-            Color max = Color.IndianRed;
-
-            int chartMin = (int)Math.Round(fMinY);
-            int chartMax = (int)Math.Round(fMaxY);
-
-            chart2DChart.Series.Clear();
-            chart2DChart.ChartAreas[0].AxisX.Minimum = depx[0] - (depx[0] % (int)Math.Round(fMinDiffX));
-            chart2DChart.ChartAreas[0].AxisX.Maximum = depx[sizex - 1] + ((int)Math.Round(fMinDiffX) - (depx[sizex - 1] % (int)Math.Round(fMinDiffX)));
-
-            if (sizey > 0 && sizex > 0)
-            {
-                for (int i = 0; i < sizey; i++)
-                {
-                    series = chart2DChart.Series.Add(depy[i].ToString(sFormatStatusD));
-                    series.Tag = i;
-                    series.ChartType = SeriesChartType.Line;
-                    series.XAxisType = AxisType.Primary;
-                    series.XValueType = ChartValueType.Single;
-                    series.YAxisType = AxisType.Primary;
-                    series.YValueType = ChartValueType.Single;
-                    series.BorderWidth = 2;
-                    float trans = (float)i / (float)(sizey - 1);
-                    series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-                    for (int j = 0; j < sizex; j++)
-                    {
-                        float value = array2d[i * iArraySizeX + j];
-                        int point = series.Points.AddXY(depx[j], value);
-                        series.Points[point].Tag = j;
-                        if (value > chartMax)
-                            chartMax = (int)value;
-                        if (value < chartMin)
-                            chartMin = (int)value;
-                    }
-                }
-                if (chartMin != (int)Math.Round(fMinY) && chartMax != (int)Math.Round(fMaxY))
-                {
-                    chart2DChart.ChartAreas[0].AxisY.Minimum = (float)(chartMin - (chartMin % (int)Math.Round(fMinDiffY)));
-                    chart2DChart.ChartAreas[0].AxisY.Maximum = (float)(chartMax + ((int)Math.Round(fMinDiffY) - (chartMax % (int)Math.Round(fMinDiffY))));
-                }
-
-            }
-
-            series = chart2DChart.Series.Add("Current");
-            series.ChartType = SeriesChartType.Point;
-            series.XAxisType = AxisType.Primary;
-            series.XValueType = ChartValueType.Single;
-            series.YAxisType = AxisType.Primary;
-            series.YValueType = ChartValueType.Single;
-            series.BorderWidth = 8;
-            series.Color = Color.Red;
-            series.MarkerStyle = MarkerStyle.Circle;
-            series.Points.AddXY(paramx, paramy);
-
         }
 
         public void UpdateChart()
@@ -456,16 +514,16 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
-                FieldInfo fieldSizeX = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeX);
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
                 if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.parameters);
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeY))
             {
-                FieldInfo fieldSizeY = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeY);
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
                 if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.parameters);
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
@@ -536,7 +594,7 @@ namespace ECU_Manager.Controls
                         lblParams.Text += "  ";
                     if (!string.IsNullOrWhiteSpace(sTitleStatusD))
                         lblParams.Text += $"{sTitleStatusD}: ";
-                    lblParams.Text += $"{paramx.ToString(sFormatStatusD)}";
+                    lblParams.Text += $"{paramd.ToString(sFormatStatusD)}";
                 }
             }
 
@@ -547,80 +605,95 @@ namespace ECU_Manager.Controls
                 chart2DChart.Series[seriescount - 1].Points[0].YValues[0] = paramy;
             }
 
-            Interpolation interpolationX = new Interpolation(paramx, depx, iArraySizeX);
-            Interpolation interpolationY = new Interpolation(paramy, depy, iArraySizeY);
-            
-
-            if (sizex > 0 && sizey > 0)
+            if (depx != null && depy != null)
             {
-                if (!string.IsNullOrWhiteSpace(sCalibrationTable))
-                {
-                    FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
-                    if (calibrationTable != null)
-                        arraycalib = (float[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
-                }
+                Interpolation interpolationX = new Interpolation(paramx, depx, iArraySizeX);
+                Interpolation interpolationY = new Interpolation(paramd, depy, iArraySizeY);
 
-                for (int i = 0; i < tlp2DTable.Controls.Count; i++)
+
+                if (sizex > 0 && sizey > 0)
                 {
-                    if (tlp2DTable.Controls[i] is NumericUpDown)
+                    if (!string.IsNullOrWhiteSpace(sCalibrationTable))
                     {
-                        NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
+                        FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
+                        if (calibrationTable != null)
+                            arraycalib = (float[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+                    }
 
-                        int r, g, b;
-                        int index = (int)nud.Tag;
-                        Color color;
-                        Color original;
-                        double mult;
-                        bool handled = false;
-
-                        if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+                    for (int i = 0; i < tlp2DTable.Controls.Count; i++)
+                    {
+                        if (tlp2DTable.Controls[i] is NumericUpDown)
                         {
-                            if (arraycalib == null)
+                            NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
+
+                            int r, g, b;
+                            int index = (int)nud.Tag;
+                            Color color;
+                            Color original;
+                            double[] mult = new double[4];
+                            bool handled = false;
+
+                            if (!string.IsNullOrWhiteSpace(sCalibrationTable))
                             {
-                                original = Color.DarkGray;
+                                if (arraycalib == null)
+                                {
+                                    original = Color.DarkGray;
+                                }
+                                else
+                                {
+                                    original = CalibrationColorTransience.Get(arraycalib[index]);
+                                }
                             }
                             else
                             {
-                                original = CalibrationColorTransience.Get(arraycalib[index]);
+                                original = ColorTransience.Get((float)nud.Value);
                             }
-                        }
-                        else
-                        {
-                            original = ColorTransience.Get((float)nud.Value);
-                        }
 
-                        for (int y = 0; y < 2; y++)
-                        {
-                            for (int x = 0; x < 2; x++)
+                            for (int y = 0; y < 2; y++)
                             {
-                                if (index == interpolationX.indexes[x] * iArraySizeX + interpolationY.indexes[y])
+                                for (int x = 0; x < 2; x++)
                                 {
-                                    color = Color.DarkGray;
+                                    double value;
                                     if (x == 0 && y == 0)
-                                        mult = (1.0 - interpolationX.mult) * 1.0f - (interpolationY.mult);
+                                        value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
                                     else if (x == 0 && y != 0)
-                                        mult = (1.0 - interpolationX.mult) * interpolationY.mult;
+                                        value = (1.0 - interpolationX.mult) * interpolationY.mult;
                                     else if (x != 0 && y == 0)
-                                        mult = interpolationX.mult * (1.0f - interpolationY.mult);
+                                        value = interpolationX.mult * (1.0f - interpolationY.mult);
                                     else
-                                        mult = interpolationX.mult * interpolationY.mult;
-
-                                    r = (int)((color.R - original.R) * mult + original.R);
-                                    g = (int)((color.G - original.G) * mult + original.G);
-                                    b = (int)((color.B - original.B) * mult + original.B);
-
-                                    nud.BackColor = Color.FromArgb(r, g, b);
-                                    nud.ForeColor = Color.White;
-                                    nud.Font = new Font(nud.Font, FontStyle.Bold);
-                                    handled = true;
+                                        value = interpolationX.mult * interpolationY.mult;
+                                    mult[y * 2 + x] = value;
                                 }
                             }
+
+                            for (int y = 0; y < 2; y++)
+                            {
+                                for (int x = 0; x < 2; x++)
+                                {
+                                    if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
+                                    {
+                                        color = Color.DarkGray;
+
+                                        r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
+                                        g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
+                                        b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
+
+                                        nud.BackColor = Color.FromArgb(r, g, b);
+                                        nud.ForeColor = Color.White;
+                                        if(mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
+                                            nud.Font = new Font(nud.Font, FontStyle.Bold);
+                                        else
+                                            nud.Font = new Font(nud.Font, FontStyle.Regular);
+                                        handled = true;
+                                    }
+                                }
+                            }
+                            if (!handled && nud.BackColor != original)
+                            {
+                                nudTableItem_ValueChanged(nud, new EventArgs());
+                            }
+
                         }
-                        if (!handled && nud.BackColor != original)
-                        {
-                            nudTableItem_ValueChanged(nud, new EventArgs());
-                        }
-                        
                     }
                 }
             }
@@ -673,25 +746,25 @@ namespace ECU_Manager.Controls
             nud.BackColor = back;
             nud.Font = new Font(nud.Font, FontStyle.Regular);
 
-            int chartMin = (int)Math.Round(fMinY);
-            int chartMax = (int)Math.Round(fMaxY);
+            double chartMin = dChartMinY;
+            double chartMax = dChartMaxY;
 
             for (int i = 0; i < chart2DChart.Series.Count; i++)
             {
                 for (int j = 0; j < chart2DChart.Series[i].Points.Count; j++)
                 {
-                    value = (float)Math.Round(chart2DChart.Series[i].Points[j].YValues[0]);
+                    value = (float)chart2DChart.Series[i].Points[j].YValues[0];
                     if (value > chartMax)
-                        chartMax = (int)value;
+                        chartMax = value;
                     if (value < chartMin)
-                        chartMin = (int)value;
+                        chartMin = value;
                 }
             }
 
-            if (chartMin != (int)Math.Round(fMinY) && chartMax != (int)Math.Round(fMaxY))
+            if (chartMin != dMinY && chartMax != dMaxY)
             {
-                chart2DChart.ChartAreas[0].AxisY.Minimum = (float)(chartMin - (chartMin % (int)Math.Round(fMinDiffY)));
-                chart2DChart.ChartAreas[0].AxisY.Maximum = (float)(chartMax + ((int)Math.Round(fMinDiffY) - (chartMax % (int)Math.Round(fMinDiffY))));
+                chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
+                chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
             }
         }
 

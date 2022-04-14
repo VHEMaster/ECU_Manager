@@ -166,18 +166,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 578);
-            this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Editor2D";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.Text = "Editor2D";
+            this.Size = new System.Drawing.Size(979, 578);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -193,9 +186,9 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tlp2DTable;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2DChart;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblParams;
         private System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.DataVisualization.Charting.Chart chart2DChart;
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using ECU_Manager.Controls;
 using ECU_Manager.Packets;
 using ECU_Manager.Structs;
 using ECU_Manager.Tools;
@@ -70,6 +71,7 @@ namespace ECU_Manager
 
         public MainForm(MiddleLayer middleLayer)
         {
+            ColorTransience colorTransience;
             InitializeComponent();
             middleLayer.RegisterEventHandler(this);
 
@@ -85,8 +87,119 @@ namespace ECU_Manager
             pbCheckEngine.Image = MakeImageColored(pbCheckEngine.Image, Color.FromArgb(255, 255, 0));
 
             this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            eCyclicFilling.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].pressures_count,
+                0.0D, 2.0D, 0.01D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 2);
+
+            eCyclicFilling.SetConfig("fill_by_map", "rotates_count", "pressures_count", "rotates", "pressures");
+            eCyclicFilling.SetX("RPM", "RPM", "F0");
+            eCyclicFilling.SetY("RelativeFilling", "Fill", "F2");
+            eCyclicFilling.SetD("ManifoldAirPressure", "MAP", "F0");
+            eCyclicFilling.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.5F);
+            colorTransience.Add(Color.Blue, 0.7F);
+            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.75F);
+            colorTransience.Add(Color.Green, 1.0F);
+            colorTransience.Add(Color.FromArgb(128, 96, 0), 1.05F);
+            colorTransience.Add(Color.DarkRed, 1.12F);
+            colorTransience.Add(Color.Black, 1.5F);
+
+            eCyclicFilling.SetTableColorTrans(colorTransience);
+            eCyclicFilling.SynchronizeChart();
+
+
+            eFuelMixtures.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
+                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 17.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+            
+            eFuelMixtures.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
+            eFuelMixtures.SetX("RPM", "RPM", "F0");
+            eFuelMixtures.SetY("WishFuelRatio", "FuelRatio", "F1");
+            eFuelMixtures.SetD("CyclicAirFlow", "Filling", "F1");
+            eFuelMixtures.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(5.0F, 20.0F, Color.Gray);
+            colorTransience.Add(Color.Black, 5.0F);
+            colorTransience.Add(Color.Red, 12.0F);
+            colorTransience.Add(Color.FromArgb(128, 128, 0), 13.7F);
+            colorTransience.Add(Color.Green, 14.7F);
+            colorTransience.Add(Color.FromArgb(0, 72, 180), 15.6F);
+            colorTransience.Add(Color.Blue, 18.0F);
+            colorTransience.Add(Color.DeepSkyBlue, 20.0F);
+
+            eFuelMixtures.SetTableColorTrans(colorTransience);
+            eFuelMixtures.SynchronizeChart();
+
+
+            eInjectionPhase.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
+                0.0D, 720.0, 1.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
+
+            eInjectionPhase.SetConfig("injection_phase", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionPhase.SetX("RPM", "RPM", "F0");
+            eInjectionPhase.SetY("InjectionPhase", "Phase", "F0");
+            eInjectionPhase.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, 100);
+            colorTransience.Add(Color.Blue, 170);
+            colorTransience.Add(Color.FromArgb(0, 72, 180), 200);
+            colorTransience.Add(Color.Green, 250);
+            colorTransience.Add(Color.FromArgb(128, 128, 0), 280);
+            colorTransience.Add(Color.Red, 350);
+            colorTransience.Add(Color.Black, 600);
+
+            eInjectionPhase.SetTableColorTrans(colorTransience);
+            eInjectionPhase.SynchronizeChart();
+
+
+            eIgnition.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
+                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+
+
+            eIgnition.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnition.SetX("RPM", "RPM", "F0");
+            eIgnition.SetY("IgnitionAngle", "Ignition", "F1");
+            eIgnition.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnition.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(-15, 45, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -15);
+            colorTransience.Add(Color.Orange, 15);
+            colorTransience.Add(Color.Red, 45);
+
+            eIgnition.SetTableColorTrans(colorTransience);
+            eIgnition.SynchronizeChart();
+
+
+            eInjectorLag.Initialize(middleLayer.ComponentStructure, 0, 10, 0.01D, 0.1D, 0, 2, 1, 0.2, 2);
+            eInjectorLag.SetConfig("injector_lag", "voltages_count", "voltages");
+            eInjectorLag.SetX("PowerVoltage", "Voltage", "F1");
+            eInjectorLag.SetY("InjectionLag", "Lag", "F2");
+            eInjectorLag.UpdateChart();
+            eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
+
 
         }
+
+        private void ChartUpdateEvent(object sender, EventArgs e)
+        {
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
         public void UpdateStatusEvent(IEnumerable<CheckDataItem> checkDataList)
         {
             Action action = new Action(() => { this.UpdateStatus(checkDataList); });
@@ -135,82 +248,91 @@ namespace ECU_Manager
             else action.Invoke();
         }
 
-        public void SynchronizedEvent(int errorCode)
+        public void SynchronizedEvent(int errorCode, bool fast)
         {
-            Action action = new Action(() => { this.SynchronizedEventInternal(errorCode); });
+            Action action = new Action(() => { this.SynchronizedEventInternal(errorCode, fast); });
             if (this.InvokeRequired)
                 this.BeginInvoke(action);
             else action.Invoke();
         }
 
-        private void SynchronizedEventInternal(int errorCode)
+        private void SynchronizedEventInternal(int errorCode, bool fast)
         {
             if (syncForm.InvokeRequired)
                 syncForm.BeginInvoke(new Action(() => syncForm.CloseForm()));
             else syncForm.Close();
 
-            if(errorCode != 0)
+            if (!fast)
             {
-                MessageBox.Show("Error during sync.\r\n\r\nCode: " + (errorCode == -1 ? "Timeout occired" : errorCode.ToString()), "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                if (errorCode != 0)
+                {
+                    MessageBox.Show("Error during sync.\r\n\r\nCode: " + (errorCode == -1 ? "Timeout occired" : errorCode.ToString()), "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            rbCutoffMode1.Checked = false;
-            rbCutoffMode2.Checked = false;
-            rbCutoffMode3.Checked = false;
-            rbCutoffMode4.Checked = false;
-            rbCutoffMode5.Checked = false;
-            rbCutoffMode6.Checked = false;
-            rbCutoffMode7.Checked = false;
-            rbCutoffMode8.Checked = false;
-            
-            switch (cs.ConfigStruct.parameters.cutoffMode)
-            {
-                case 0: rbCutoffMode1.Checked = true; break;
-                case 1: rbCutoffMode2.Checked = true; break;
-                case 2: rbCutoffMode3.Checked = true; break;
-                case 3: rbCutoffMode4.Checked = true; break;
-                case 4: rbCutoffMode5.Checked = true; break;
-                case 5: rbCutoffMode6.Checked = true; break;
-                case 6: rbCutoffMode7.Checked = true; break;
-                case 7: rbCutoffMode8.Checked = true; break;
-                default: break;
-            }
+                rbCutoffMode1.Checked = false;
+                rbCutoffMode2.Checked = false;
+                rbCutoffMode3.Checked = false;
+                rbCutoffMode4.Checked = false;
+                rbCutoffMode5.Checked = false;
+                rbCutoffMode6.Checked = false;
+                rbCutoffMode7.Checked = false;
+                rbCutoffMode8.Checked = false;
 
-            lblCutoffRPM.Text = cs.ConfigStruct.parameters.cutoffRPM.ToString("F0");
-            tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffRPM);
+                switch (cs.ConfigStruct.parameters.cutoffMode)
+                {
+                    case 0: rbCutoffMode1.Checked = true; break;
+                    case 1: rbCutoffMode2.Checked = true; break;
+                    case 2: rbCutoffMode3.Checked = true; break;
+                    case 3: rbCutoffMode4.Checked = true; break;
+                    case 4: rbCutoffMode5.Checked = true; break;
+                    case 5: rbCutoffMode6.Checked = true; break;
+                    case 6: rbCutoffMode7.Checked = true; break;
+                    case 7: rbCutoffMode8.Checked = true; break;
+                    default: break;
+                }
 
-            lblCutoffAngle.Text = cs.ConfigStruct.parameters.cutoffAngle.ToString("F1");
-            tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAngle * 10.0f);
+                lblCutoffRPM.Text = cs.ConfigStruct.parameters.cutoffRPM.ToString("F0");
+                tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffRPM);
 
-            lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
-            tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
+                lblCutoffAngle.Text = cs.ConfigStruct.parameters.cutoffAngle.ToString("F1");
+                tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAngle * 10.0f);
 
-            nudSwPos1.Value = cs.ConfigStruct.parameters.switchPos1Table + 1;
-            nudSwPos0.Value = cs.ConfigStruct.parameters.switchPos0Table + 1;
-            nudSwPos2.Value = cs.ConfigStruct.parameters.switchPos2Table + 1;
-            nudFuelForce.Value = cs.ConfigStruct.parameters.forceTable + 1;
-            nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
-            nudSpeedCorr.Value = (decimal)cs.ConfigStruct.parameters.speedCorrection;
+                lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
+                tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
 
-            cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
-            cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
-            cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
-            cbPerformCorrs.Checked = cs.ConfigStruct.parameters.performAdaptation > 0;
-            cbFuelForce.Checked = cs.ConfigStruct.parameters.isForceTable > 0;
-            cbFuelExtSw.Checked = cs.ConfigStruct.parameters.isSwitchByExternal > 0;
+                nudSwPos1.Value = cs.ConfigStruct.parameters.switchPos1Table + 1;
+                nudSwPos0.Value = cs.ConfigStruct.parameters.switchPos0Table + 1;
+                nudSwPos2.Value = cs.ConfigStruct.parameters.switchPos2Table + 1;
+                nudFuelForce.Value = cs.ConfigStruct.parameters.forceTable + 1;
+                nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
+                nudSpeedCorr.Value = (decimal)cs.ConfigStruct.parameters.speedCorrection;
 
-            nudToolsCurTable.Minimum = 1;
-            nudToolsCurTable.Maximum = Consts.TABLE_SETUPS_MAX;
-            nudToolsCurTable.Value = cs.CurrentTable + 1;
+                cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
+                cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
+                cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbPerformCorrs.Checked = cs.ConfigStruct.parameters.performAdaptation > 0;
+                cbFuelForce.Checked = cs.ConfigStruct.parameters.isForceTable > 0;
+                cbFuelExtSw.Checked = cs.ConfigStruct.parameters.isSwitchByExternal > 0;
 
-            UpdateEcuTableValues();
+                nudToolsCurTable.Minimum = 1;
+                nudToolsCurTable.Maximum = Consts.TABLE_SETUPS_MAX;
+                nudToolsCurTable.Value = cs.CurrentTable + 1;
 
-            if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
-            {
-                parametersReceived = false;
-                lastReceivedarameters = DateTime.Now;
-                middleLayer.PacketHandler.SendParametersRequest();
+                UpdateEcuTableValues();
+
+                if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
+                {
+                    parametersReceived = false;
+                    lastReceivedarameters = DateTime.Now;
+                    middleLayer.PacketHandler.SendParametersRequest();  
+                }
+
+                eCyclicFilling.SynchronizeChart();
+                eFuelMixtures.SynchronizeChart();
+                eInjectionPhase.SynchronizeChart();
+                eIgnition.SynchronizeChart();
+                eCyclicFilling.UpdateChart();
             }
         }
 
@@ -234,6 +356,7 @@ namespace ECU_Manager
             nudParamsCntVoltages.Maximum = Consts.TABLE_VOLTAGES_MAX;
             nudParamsCntFillings.Maximum = Consts.TABLE_FILLING_MAX;
             nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
+            nudParamsCntSpeeds.Maximum = Consts.TABLE_SPEEDS_MAX;
 
             nudParamsCntPress.Value = cs.ConfigStruct.tables[cs.CurrentTable].pressures_count;
             nudParamsCntRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].rotates_count;
@@ -241,6 +364,7 @@ namespace ECU_Manager
             nudParamsCntVoltages.Value = cs.ConfigStruct.tables[cs.CurrentTable].voltages_count;
             nudParamsCntFillings.Value = cs.ConfigStruct.tables[cs.CurrentTable].fillings_count;
             nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
+            nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
             nudParamsInitialIgnition.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].ignition_initial;
@@ -592,6 +716,12 @@ namespace ECU_Manager
             }
             parametersReceived = true;
             lastReceivedarameters = DateTime.Now;
+
+            eCyclicFilling.UpdateChart();
+            eFuelMixtures.UpdateChart();
+            eInjectionPhase.UpdateChart();
+            eIgnition.UpdateChart();
+            eInjectorLag.UpdateChart();
         }
         
         private void tmrSync_Tick(object sender, EventArgs e)
@@ -991,7 +1121,7 @@ namespace ECU_Manager
                     {
                         middleLayer.UpdateTable(cs.CurrentTable);
                     }
-                    SynchronizedEvent(0);
+                    SynchronizedEvent(0, false);
                     MessageBox.Show($"Table import success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -1157,6 +1287,19 @@ namespace ECU_Manager
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i] + 10;
+            UpdateEcuTableValues();
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsCntSpeeds_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 5;
             UpdateEcuTableValues();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {

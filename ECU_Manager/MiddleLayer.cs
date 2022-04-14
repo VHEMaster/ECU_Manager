@@ -226,13 +226,11 @@ namespace ECU_Manager
                             }
                             else
                             {
-
                                 if (iSyncError > 0)
                                 {
                                     iSyncStep = 0;
                                     bSyncLoad = false;
                                     bSyncSave = false;
-                                    bSyncFastSync = false;
                                     bSyncFlash = false;
                                     bSyncRequired = false;
                                     stopwatch.Reset();
@@ -240,8 +238,9 @@ namespace ECU_Manager
                                     lock (eventHandlers)
                                     {
                                         foreach (IEcuEventHandler handler in eventHandlers)
-                                            handler.SynchronizedEvent(iSyncError);
+                                            handler.SynchronizedEvent(iSyncError, bSyncFastSync);
                                     }
+                                    bSyncFastSync = false;
                                 }
                                 else
                                 {
@@ -488,7 +487,6 @@ namespace ECU_Manager
                                         iSyncStep = 0;
                                         bSyncLoad = false;
                                         bSyncSave = false;
-                                        bSyncFastSync = false;
                                         bSyncFlash = false;
                                         bSyncRequired = false;
                                         stopwatch.Reset();
@@ -496,8 +494,9 @@ namespace ECU_Manager
                                         lock (eventHandlers)
                                         {
                                             foreach (IEcuEventHandler handler in eventHandlers)
-                                                handler.SynchronizedEvent(iSyncError);
+                                                handler.SynchronizedEvent(iSyncError, bSyncFastSync);
                                         }
+                                        bSyncFastSync = false;
                                     }
                                 }
                             }
@@ -513,7 +512,6 @@ namespace ECU_Manager
                                     iSyncStep = 0;
                                     bSyncLoad = false;
                                     bSyncSave = false;
-                                    bSyncFastSync = false;
                                     bSyncFlash = false;
                                     bSyncRequired = false;
                                     iSyncError = -1;
@@ -522,8 +520,9 @@ namespace ECU_Manager
                                     lock (eventHandlers)
                                     {
                                         foreach (IEcuEventHandler handler in eventHandlers)
-                                            handler.SynchronizedEvent(iSyncError);
+                                            handler.SynchronizedEvent(iSyncError, bSyncFastSync);
                                     }
+                                    bSyncFastSync = false;
                                 }
                             }
                         }

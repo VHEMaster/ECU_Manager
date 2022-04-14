@@ -14,10 +14,8 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ECU_Manager.Controls
 {
-    public partial class Editor1D : Form
+    public partial class Editor1D : UserControl
     {
-        private string sName;
-        private int sArraySizeX;
         private string sConfigSizeX;
         private string sConfigDepX;
         private string sParamsStatusX;
@@ -27,40 +25,70 @@ namespace ECU_Manager.Controls
         private string sFormatStatusX;
         private string sFormatStatusY;
         private string sArrayName;
-        private float fMinY;
-        private float fMaxY;
-        private float fStepSize;
-        private float fIntervalX;
-        private float fIntervalY;
-        private float fChartMinY;
-        private float fChartMaxY;
-        private float fMinDiff;
+        private double dMinY;
+        private double dMaxY;
+        private double dStepSize;
+        private double dIntervalX;
+        private double dIntervalY;
+        private double dChartMinY;
+        private double dChartMaxY;
+        private double dMinDiff;
         private bool bLog10;
         private EventHandler UpdateTableEvent = null;
 
         private ComponentStructure cs;
 
-        public Editor1D(ComponentStructure componentStructure, string name, float min, float max, float step, float mindiff, float chartminy, float chartmaxy, float intervalx, float intervaly, int arraysizex, bool log10 = false)
+        public Editor1D()
         {
             InitializeComponent();
+            chart1DChart.Series.Clear();
+            chart1DChart.ChartAreas.Clear();
+            chart1DChart.Legends.Clear();
+            chart1DChart.Titles.Clear();
+            chart1DChart.Annotations.Clear();
+        }
 
-            sName = name;
-            fMinY = min;
-            fMaxY = max;
-            fStepSize = step;
-            fIntervalX = intervalx;
-            fIntervalY = intervaly;
-            fChartMinY = chartminy;
-            fChartMaxY = chartmaxy;
-            fMinDiff = mindiff;
-            sArraySizeX = arraysizex;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category("Chart"),
+        Description("The 1D chart for this control")]
+        public Chart Chart
+        {
+            get
+            {
+                return chart1DChart;
+            }
+        }
+
+        [Category("Chart"),
+        Description("The title for this control")]
+        public string LabelTitle
+        {
+            get
+            {
+                return lblTitle.Text;
+            }
+            set
+            {
+                lblTitle.Text = value;
+            }
+        }
+
+        public void Initialize(ComponentStructure componentStructure, double min, double max, double step, double mindiff, double chartminy, double chartmaxy, double intervalx, double intervaly, int decplaces, bool log10 = false)
+        {
+            dMinY = min;
+            dMaxY = max;
+            dStepSize = step;
+            dIntervalX = intervalx;
+            dIntervalY = intervaly;
+            dChartMinY = chartminy;
+            dChartMaxY = chartmaxy;
+            dMinDiff = mindiff;
 
             bLog10 = log10;
-            lblTitle.Text = sName;
+
+            nudValue.DecimalPlaces = decplaces;
 
             cs = componentStructure;
-
-
         }
 
         public void SetTableEventHandler(EventHandler eventHandler)
@@ -94,13 +122,16 @@ namespace ECU_Manager.Controls
             float[] array1d = null;
             float[] dep1d = null;
             int size = 0;
-            float min, max;
+            double min, max;
+
+            double chartMin = dChartMinY;
+            double chartMax = dChartMaxY;
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
-                FieldInfo fieldSize = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeX);
+                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
                 if (fieldSize != null)
-                    size = (int)fieldSize.GetValue(cs.ConfigStruct.parameters);
+                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigDepX))
@@ -123,33 +154,43 @@ namespace ECU_Manager.Controls
             chart1DChart.Series.Clear();
             if (array1d != null)
             {
+                chart1DChart.Series.Add("Config");
                 chart1DChart.Series[0].XAxisType = AxisType.Primary;
                 chart1DChart.Series[0].YAxisType = AxisType.Primary;
                 chart1DChart.Series[0].YValueType = ChartValueType.Single;
                 chart1DChart.Series[0].MarkerSize = 8;
-                chart1DChart.Series[0].MarkerColor = Color.Black;
+                chart1DChart.Series[0].BorderWidth = 3;
+                chart1DChart.Series[0].MarkerColor = Color.White;
                 chart1DChart.Series[0].MarkerStyle = MarkerStyle.Circle;
                 chart1DChart.Series[0].ChartType = SeriesChartType.Line;
 
                 min = array1d.Take(size).Min();
                 max = array1d.Take(size).Max();
 
-                if (min > fChartMinY)
-                    min = fChartMinY;
+                if (min > dChartMinY)
+                    min = dChartMinY;
 
-                if (max < fChartMaxY)
-                    max = fChartMaxY;
+                if (max < dChartMaxY)
+                    max = dChartMaxY;
 
-                chart1DChart.ChartAreas[0].AxisY.Minimum = min;
-                chart1DChart.ChartAreas[0].AxisY.Maximum = max;
-                chart1DChart.ChartAreas[0].AxisY.Interval = fIntervalY;
+                chart1DChart.ChartAreas[0].AxisX.Interval = dIntervalX;
+                chart1DChart.ChartAreas[0].AxisY.Interval = dIntervalY;
+
+                chart1DChart.ChartAreas[0].AxisX.MajorGrid.Interval = dIntervalX;
+                chart1DChart.ChartAreas[0].AxisY.MajorGrid.Interval = dIntervalY;
+
+                chart1DChart.ChartAreas[0].AxisX.LabelStyle.Interval = dIntervalX;
+                chart1DChart.ChartAreas[0].AxisY.LabelStyle.Interval = dIntervalY;
+
+                chart1DChart.ChartAreas[0].AxisX.MajorTickMark.Interval = dIntervalX;
+                chart1DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
 
                 nudItem.Minimum = 1;
-                nudItem.Maximum = sArraySizeX;
+                nudItem.Maximum = size;
 
-                nudValue.Minimum = (decimal)fMinY;
-                nudValue.Maximum = (decimal)fMaxY;
-                nudValue.Increment = (decimal)fStepSize;
+                nudValue.Minimum = (decimal)dMinY;
+                nudValue.Maximum = (decimal)dMaxY;
+                nudValue.Increment = (decimal)dStepSize;
                 nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
 
 
@@ -158,10 +199,16 @@ namespace ECU_Manager.Controls
                     chart1DChart.Series[0].XValueType = ChartValueType.Int32;
                     chart1DChart.ChartAreas[0].AxisX.Minimum = 1;
                     chart1DChart.ChartAreas[0].AxisX.Maximum = size;
-                    chart1DChart.ChartAreas[0].AxisX.Interval = 1;
 
                     for (int i = 0; i < size; i++)
+                    {
                         chart1DChart.Series[0].Points[chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i])].Tag = i;
+
+                        if (array1d[i] > chartMax)
+                            chartMax = array1d[i];
+                        if (array1d[i] < chartMin)
+                            chartMin = array1d[i];
+                    }
                 }
                 else
                 {
@@ -171,21 +218,36 @@ namespace ECU_Manager.Controls
                     }
 
                     chart1DChart.Series[0].XValueType = ChartValueType.Single;
-                    chart1DChart.ChartAreas[0].AxisX.Interval = fIntervalX;
                     chart1DChart.ChartAreas[0].AxisX.Minimum = dep1d[0];
                     chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[size - 1];
                     for (int i = 0; i < size; i++)
+                    {
                         chart1DChart.Series[0].Points[chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i])].Tag = i;
+
+                        if (array1d[i] > chartMax)
+                            chartMax = array1d[i];
+                        if (array1d[i] < chartMin)
+                            chartMin = array1d[i];
+                    }
                 }
+                
+                chart1DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiff));
+                chart1DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiff - (chartMax % dMinDiff)));
+                
 
 
                 if (!string.IsNullOrWhiteSpace(sParamsStatusX) || !string.IsNullOrWhiteSpace(sParamsStatusY))
                 {
 
-                    FieldInfo fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
-                    FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
+                    FieldInfo fieldParamX = null;
+                    FieldInfo fieldParamY = null;
 
-                    if (fieldParamX != null && !string.IsNullOrWhiteSpace(sFormatStatusX))
+                    if (!string.IsNullOrWhiteSpace(sParamsStatusX))
+                        fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
+                    if (!string.IsNullOrWhiteSpace(sParamsStatusY))
+                        fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
+
+                    if (fieldParamX != null)
                     {
                         if (!string.IsNullOrWhiteSpace(lblParams.Text))
                             lblParams.Text += "   ";
@@ -193,7 +255,7 @@ namespace ECU_Manager.Controls
                             lblParams.Text += $"{sTitleStatusX}: ";
                         lblParams.Text += $"{((float)fieldParamX.GetValue(cs.EcuParameters)).ToString(sFormatStatusX)}";
                     }
-                    if (fieldParamY != null && !string.IsNullOrWhiteSpace(sFormatStatusY))
+                    if (fieldParamY != null)
                     {
                         if (!string.IsNullOrWhiteSpace(lblParams.Text))
                             lblParams.Text += "   ";
@@ -208,7 +270,7 @@ namespace ECU_Manager.Controls
                     series.XValueType = ChartValueType.Single;
                     series.YAxisType = AxisType.Primary;
                     series.YValueType = ChartValueType.Single;
-                    series.BorderWidth = 8;
+                    series.MarkerSize = 11;
                     series.Color = Color.Red;
                     series.MarkerStyle = MarkerStyle.Circle;
 
@@ -257,7 +319,7 @@ namespace ECU_Manager.Controls
                     array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
-            nudItem.Value = (decimal)array1d[(int)((NumericUpDown)sender).Value - 1];
+            nudValue.Value = (decimal)array1d[(int)((NumericUpDown)sender).Value - 1];
 
             lblItemValue.Text = string.Empty;
             if (dep1d != null && !string.IsNullOrWhiteSpace(sTitleStatusX))
@@ -274,9 +336,9 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
-                FieldInfo fieldSize = cs.ConfigStruct.parameters.GetType().GetField(sConfigSizeX);
+                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
                 if (fieldSize != null)
-                    size = (int)fieldSize.GetValue(cs.ConfigStruct.parameters);
+                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
@@ -290,20 +352,24 @@ namespace ECU_Manager.Controls
             {
                 float value = (float)((NumericUpDown)sender).Value;
                 int index = (int)nudItem.Value - 1;
-                if (index > 0 && value - fMinDiff < array1d[index - 1])
+
+                if (string.IsNullOrWhiteSpace(sParamsStatusX))
                 {
-                    value = array1d[index - 1] + fMinDiff;
-                    ((NumericUpDown)sender).Value = (decimal)value;
-                }
-                else if (index < size - 1 && value + fMinDiff > array1d[index + 1])
-                {
-                    value = array1d[index + 1] - fMinDiff;
-                    ((NumericUpDown)sender).Value = (decimal)value;
+                    if (index > 0 && value - dMinDiff < array1d[index - 1])
+                    {
+                        value = (float)(array1d[index - 1] + dMinDiff);
+                    }
+                    else if (index < size - 1 && value + dMinDiff > array1d[index + 1])
+                    {
+                        value = (float)(array1d[index + 1] - dMinDiff);
+                    }
                 }
 
                 if (array1d[index] != value)
                 {
                     array1d[index] = value;
+
+                    ((NumericUpDown)sender).Value = (decimal)value;
 
                     //TODO: check if need to check if IsSynchronizing
                     UpdateTableEvent?.Invoke(sender, new EventArgs());

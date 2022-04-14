@@ -63,13 +63,13 @@
       <DependentUpon>ComPortSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Editor1D.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Editor1D.Designer.cs">
       <DependentUpon>Editor1D.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Editor2D.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Editor2D.Designer.cs">
       <DependentUpon>Editor2D.cs</DependentUpon>

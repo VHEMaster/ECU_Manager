@@ -46,6 +46,7 @@ namespace ECU_Manager.Structs
         public float CyclicAirFlow;
         public float EffectiveVolume;
         public float AirDestiny;
+        public float RelativeFilling;
         public float WishFuelRatio;
         public float IdleValvePosition;
         public float WishIdleRPM;
@@ -58,6 +59,7 @@ namespace ECU_Manager.Structs
         public float InjectionPulse;
         public float InjectionDutyCycle;
         public float InjectionEnrichment;
+        public float InjectionLag;
         public float IgnitionPulse;
         public float IdleSpeedShift;
 

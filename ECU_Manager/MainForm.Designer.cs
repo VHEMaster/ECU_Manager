@@ -32,18 +32,44 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(600D, 0.5D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(6000D, 0.7D);
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(600D, 0.5D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(6000D, 0.7D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(600D, 0.5D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(6000D, 0.7D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(600D, 0.5D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(6000D, 0.7D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tmr50ms = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label56 = new System.Windows.Forms.Label();
+            this.mGenFuelUsage = new ECU_Manager.Controls.Meter();
             this.label5 = new System.Windows.Forms.Label();
+            this.mGenTemp = new ECU_Manager.Controls.Meter();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.mGenPress = new ECU_Manager.Controls.Meter();
+            this.mGenRPM = new ECU_Manager.Controls.Meter();
+            this.mGenIgn = new ECU_Manager.Controls.Meter();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label20 = new System.Windows.Forms.Label();
@@ -109,6 +135,8 @@
             this.nudToolsCurTable = new System.Windows.Forms.NumericUpDown();
             this.label23 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label60 = new System.Windows.Forms.Label();
+            this.nudParamsCntSpeeds = new System.Windows.Forms.NumericUpDown();
             this.label50 = new System.Windows.Forms.Label();
             this.nudParamsCorrIgnCy4 = new System.Windows.Forms.NumericUpDown();
             this.label52 = new System.Windows.Forms.Label();
@@ -171,6 +199,63 @@
             this.label44 = new System.Windows.Forms.Label();
             this.tbParamsName = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabControl8 = new System.Windows.Forms.TabControl();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.tabPage37 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.tabPage16 = new System.Windows.Forms.TabPage();
+            this.tabPage42 = new System.Windows.Forms.TabPage();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.eCyclicFilling = new ECU_Manager.Controls.Editor2D();
+            this.tabPage17 = new System.Windows.Forms.TabPage();
+            this.tabControl5 = new System.Windows.Forms.TabControl();
+            this.tabPage34 = new System.Windows.Forms.TabPage();
+            this.tabPage23 = new System.Windows.Forms.TabPage();
+            this.tabPage28 = new System.Windows.Forms.TabPage();
+            this.tabPage29 = new System.Windows.Forms.TabPage();
+            this.tabPage22 = new System.Windows.Forms.TabPage();
+            this.tabControl6 = new System.Windows.Forms.TabControl();
+            this.tabPage30 = new System.Windows.Forms.TabPage();
+            this.eIgnition = new ECU_Manager.Controls.Editor2D();
+            this.tabPage31 = new System.Windows.Forms.TabPage();
+            this.tabPage32 = new System.Windows.Forms.TabPage();
+            this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.tabControl7 = new System.Windows.Forms.TabControl();
+            this.tabPage33 = new System.Windows.Forms.TabPage();
+            this.eFuelMixtures = new ECU_Manager.Controls.Editor2D();
+            this.tabPage36 = new System.Windows.Forms.TabPage();
+            this.eInjectionPhase = new ECU_Manager.Controls.Editor2D();
+            this.tabPage35 = new System.Windows.Forms.TabPage();
+            this.eInjectorLag = new ECU_Manager.Controls.Editor1D();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
+            this.tabControl9 = new System.Windows.Forms.TabControl();
+            this.tabPage38 = new System.Windows.Forms.TabPage();
+            this.tabPage41 = new System.Windows.Forms.TabPage();
+            this.tabPage39 = new System.Windows.Forms.TabPage();
+            this.tabPage40 = new System.Windows.Forms.TabPage();
+            this.tabPage43 = new System.Windows.Forms.TabPage();
+            this.tabPage26 = new System.Windows.Forms.TabPage();
+            this.tabControl11 = new System.Windows.Forms.TabControl();
+            this.tabPage44 = new System.Windows.Forms.TabPage();
+            this.tabPage45 = new System.Windows.Forms.TabPage();
+            this.tabPage46 = new System.Windows.Forms.TabPage();
+            this.tabPage27 = new System.Windows.Forms.TabPage();
+            this.tabControl10 = new System.Windows.Forms.TabControl();
+            this.tabPage47 = new System.Windows.Forms.TabPage();
+            this.tabPage48 = new System.Windows.Forms.TabPage();
+            this.tabPage49 = new System.Windows.Forms.TabPage();
+            this.tabControl12 = new System.Windows.Forms.TabControl();
+            this.tabPage50 = new System.Windows.Forms.TabPage();
+            this.tabPage51 = new System.Windows.Forms.TabPage();
+            this.tabPage53 = new System.Windows.Forms.TabPage();
+            this.tabPage52 = new System.Windows.Forms.TabPage();
             this.tabPage18 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -223,11 +308,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.mGenFuelUsage = new ECU_Manager.Controls.Meter();
-            this.mGenTemp = new ECU_Manager.Controls.Meter();
-            this.mGenPress = new ECU_Manager.Controls.Meter();
-            this.mGenRPM = new ECU_Manager.Controls.Meter();
-            this.mGenIgn = new ECU_Manager.Controls.Meter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -254,6 +334,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntSpeeds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).BeginInit();
@@ -282,6 +363,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntRPMs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntPress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInitialIgnition)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabControl8.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            this.tabControl4.SuspendLayout();
+            this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eCyclicFilling.Chart)).BeginInit();
+            this.tabPage17.SuspendLayout();
+            this.tabControl5.SuspendLayout();
+            this.tabPage22.SuspendLayout();
+            this.tabControl6.SuspendLayout();
+            this.tabPage30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eIgnition.Chart)).BeginInit();
+            this.tabPage24.SuspendLayout();
+            this.tabControl7.SuspendLayout();
+            this.tabPage33.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eFuelMixtures.Chart)).BeginInit();
+            this.tabPage36.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eInjectionPhase.Chart)).BeginInit();
+            this.tabPage35.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eInjectorLag.Chart)).BeginInit();
+            this.tabPage25.SuspendLayout();
+            this.tabControl9.SuspendLayout();
+            this.tabPage26.SuspendLayout();
+            this.tabControl11.SuspendLayout();
+            this.tabPage27.SuspendLayout();
+            this.tabControl10.SuspendLayout();
+            this.tabPage49.SuspendLayout();
+            this.tabControl12.SuspendLayout();
             this.tabPage18.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -320,7 +431,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 36);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(18, 7);
+            this.tabControl1.Padding = new System.Drawing.Point(25, 9);
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1107, 653);
             this.tabControl1.TabIndex = 1;
@@ -329,10 +440,10 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
             this.tabPage1.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 41);
+            this.tabPage1.Location = new System.Drawing.Point(4, 45);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1099, 608);
+            this.tabPage1.Size = new System.Drawing.Size(1099, 604);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Status";
             // 
@@ -349,7 +460,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 602);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 598);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -377,7 +488,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1087, 234);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1087, 233);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label56
@@ -385,31 +496,77 @@
             this.label56.AutoSize = true;
             this.label56.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label56.Location = new System.Drawing.Point(871, 184);
+            this.label56.Location = new System.Drawing.Point(871, 183);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(213, 50);
             this.label56.TabIndex = 9;
             this.label56.Text = "Fuel Usage (l/h)";
             this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // mGenFuelUsage
+            // 
+            this.mGenFuelUsage.CustNumSize = 20F;
+            this.mGenFuelUsage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mGenFuelUsage.DynNumSize = 26F;
+            this.mGenFuelUsage.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.mGenFuelUsage.Location = new System.Drawing.Point(871, 3);
+            this.mGenFuelUsage.MaxDeg = 320F;
+            this.mGenFuelUsage.MinDeg = 40F;
+            this.mGenFuelUsage.Name = "mGenFuelUsage";
+            this.mGenFuelUsage.NeedleColor = System.Drawing.Color.Yellow;
+            this.mGenFuelUsage.NeedleVal = 0F;
+            this.mGenFuelUsage.NumColor = System.Drawing.Color.White;
+            this.mGenFuelUsage.Size = new System.Drawing.Size(213, 177);
+            this.mGenFuelUsage.TabIndex = 8;
+            this.mGenFuelUsage.TickColor = System.Drawing.Color.White;
+            this.mGenFuelUsage.TickIncrement = 2F;
+            this.mGenFuelUsage.TickWarningColor = System.Drawing.Color.Orange;
+            this.mGenFuelUsage.UseCustNumSize = true;
+            this.mGenFuelUsage.ValueMaxRange = 50F;
+            this.mGenFuelUsage.ValueMinRange = 0F;
+            this.mGenFuelUsage.WarnTickStart = 25F;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(654, 184);
+            this.label5.Location = new System.Drawing.Point(654, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(211, 50);
             this.label5.TabIndex = 7;
             this.label5.Text = "Eng.Temp. (°C)";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // mGenTemp
+            // 
+            this.mGenTemp.CustNumSize = 20F;
+            this.mGenTemp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mGenTemp.DynNumSize = 26F;
+            this.mGenTemp.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.mGenTemp.Location = new System.Drawing.Point(654, 3);
+            this.mGenTemp.MaxDeg = 320F;
+            this.mGenTemp.MinDeg = 40F;
+            this.mGenTemp.Name = "mGenTemp";
+            this.mGenTemp.NeedleColor = System.Drawing.Color.Yellow;
+            this.mGenTemp.NeedleVal = 0F;
+            this.mGenTemp.NumColor = System.Drawing.Color.White;
+            this.mGenTemp.Size = new System.Drawing.Size(211, 177);
+            this.mGenTemp.TabIndex = 6;
+            this.mGenTemp.TickColor = System.Drawing.Color.White;
+            this.mGenTemp.TickIncrement = 10F;
+            this.mGenTemp.TickWarningColor = System.Drawing.Color.Orange;
+            this.mGenTemp.UseCustNumSize = true;
+            this.mGenTemp.ValueMaxRange = 150F;
+            this.mGenTemp.ValueMinRange = 0F;
+            this.mGenTemp.WarnTickStart = 100F;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(437, 184);
+            this.label4.Location = new System.Drawing.Point(437, 183);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(211, 50);
             this.label4.TabIndex = 5;
@@ -421,19 +578,88 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(3, 184);
+            this.label3.Location = new System.Drawing.Point(3, 183);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(211, 50);
             this.label3.TabIndex = 4;
             this.label3.Text = "RPM";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // mGenPress
+            // 
+            this.mGenPress.CustNumSize = 20F;
+            this.mGenPress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mGenPress.DynNumSize = 26F;
+            this.mGenPress.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.mGenPress.Location = new System.Drawing.Point(437, 3);
+            this.mGenPress.MaxDeg = 320F;
+            this.mGenPress.MinDeg = 40F;
+            this.mGenPress.Name = "mGenPress";
+            this.mGenPress.NeedleColor = System.Drawing.Color.Yellow;
+            this.mGenPress.NeedleVal = 0F;
+            this.mGenPress.NumColor = System.Drawing.Color.White;
+            this.mGenPress.Size = new System.Drawing.Size(211, 177);
+            this.mGenPress.TabIndex = 2;
+            this.mGenPress.TickColor = System.Drawing.Color.White;
+            this.mGenPress.TickIncrement = 10000F;
+            this.mGenPress.TickWarningColor = System.Drawing.Color.Orange;
+            this.mGenPress.UseCustNumSize = true;
+            this.mGenPress.ValueMaxRange = 110000F;
+            this.mGenPress.ValueMinRange = 0F;
+            this.mGenPress.WarnTickStart = 95000F;
+            // 
+            // mGenRPM
+            // 
+            this.mGenRPM.CustNumSize = 20F;
+            this.mGenRPM.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mGenRPM.DynNumSize = 26F;
+            this.mGenRPM.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.mGenRPM.Location = new System.Drawing.Point(3, 3);
+            this.mGenRPM.MaxDeg = 320F;
+            this.mGenRPM.MinDeg = 40F;
+            this.mGenRPM.Name = "mGenRPM";
+            this.mGenRPM.NeedleColor = System.Drawing.Color.Yellow;
+            this.mGenRPM.NeedleVal = 0F;
+            this.mGenRPM.NumColor = System.Drawing.Color.White;
+            this.mGenRPM.Size = new System.Drawing.Size(211, 177);
+            this.mGenRPM.TabIndex = 1;
+            this.mGenRPM.TickColor = System.Drawing.Color.White;
+            this.mGenRPM.TickIncrement = 500F;
+            this.mGenRPM.TickWarningColor = System.Drawing.Color.Red;
+            this.mGenRPM.UseCustNumSize = true;
+            this.mGenRPM.ValueMaxRange = 8000F;
+            this.mGenRPM.ValueMinRange = 0F;
+            this.mGenRPM.WarnTickStart = 6000F;
+            // 
+            // mGenIgn
+            // 
+            this.mGenIgn.CustNumSize = 20F;
+            this.mGenIgn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mGenIgn.DynNumSize = 26F;
+            this.mGenIgn.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.mGenIgn.Location = new System.Drawing.Point(220, 3);
+            this.mGenIgn.MaxDeg = 320F;
+            this.mGenIgn.MinDeg = 40F;
+            this.mGenIgn.Name = "mGenIgn";
+            this.mGenIgn.NeedleColor = System.Drawing.Color.Yellow;
+            this.mGenIgn.NeedleVal = 0F;
+            this.mGenIgn.NumColor = System.Drawing.Color.White;
+            this.mGenIgn.Size = new System.Drawing.Size(211, 177);
+            this.mGenIgn.TabIndex = 0;
+            this.mGenIgn.TickColor = System.Drawing.Color.White;
+            this.mGenIgn.TickIncrement = 5F;
+            this.mGenIgn.TickWarningColor = System.Drawing.Color.White;
+            this.mGenIgn.UseCustNumSize = true;
+            this.mGenIgn.ValueMaxRange = 45F;
+            this.mGenIgn.ValueMinRange = -10F;
+            this.mGenIgn.WarnTickStart = 30F;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(220, 184);
+            this.label2.Location = new System.Drawing.Point(220, 183);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(211, 50);
             this.label2.TabIndex = 3;
@@ -452,9 +678,9 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 243);
+            this.panel1.Location = new System.Drawing.Point(3, 242);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1087, 356);
+            this.panel1.Size = new System.Drawing.Size(1087, 353);
             this.panel1.TabIndex = 1;
             // 
             // label20
@@ -544,10 +770,10 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 41);
+            this.tabPage2.Location = new System.Drawing.Point(4, 45);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1099, 608);
+            this.tabPage2.Size = new System.Drawing.Size(1099, 604);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -1119,28 +1345,29 @@
             // tabPage3
             // 
             this.tabPage3.AutoScroll = true;
-            this.tabPage3.BackColor = System.Drawing.Color.White;
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage3.Controls.Add(this.tabControl111);
-            this.tabPage3.Location = new System.Drawing.Point(4, 41);
+            this.tabPage3.Location = new System.Drawing.Point(4, 45);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1099, 608);
+            this.tabPage3.Size = new System.Drawing.Size(1099, 604);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Ignition Setup";
+            this.tabPage3.Text = "ECU Setup";
             // 
             // tabControl111
             // 
-            this.tabControl111.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl111.Controls.Add(this.tabPage12);
             this.tabControl111.Controls.Add(this.tabPage8);
             this.tabControl111.Controls.Add(this.tabPage4);
+            this.tabControl111.Controls.Add(this.tabPage9);
+            this.tabControl111.Controls.Add(this.tabPage49);
             this.tabControl111.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl111.Location = new System.Drawing.Point(3, 3);
             this.tabControl111.Margin = new System.Windows.Forms.Padding(1);
             this.tabControl111.Name = "tabControl111";
-            this.tabControl111.Padding = new System.Drawing.Point(12, 5);
+            this.tabControl111.Padding = new System.Drawing.Point(20, 6);
             this.tabControl111.SelectedIndex = 0;
-            this.tabControl111.Size = new System.Drawing.Size(1093, 602);
+            this.tabControl111.Size = new System.Drawing.Size(1093, 598);
             this.tabControl111.TabIndex = 1;
             // 
             // tabPage12
@@ -1151,10 +1378,10 @@
             this.tabPage12.Controls.Add(this.groupBox5);
             this.tabPage12.Controls.Add(this.nudToolsCurTable);
             this.tabPage12.Controls.Add(this.label23);
-            this.tabPage12.Location = new System.Drawing.Point(4, 40);
+            this.tabPage12.Location = new System.Drawing.Point(4, 39);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1085, 558);
+            this.tabPage12.Size = new System.Drawing.Size(1085, 555);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
             // 
@@ -1293,6 +1520,8 @@
             // tabPage8
             // 
             this.tabPage8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage8.Controls.Add(this.label60);
+            this.tabPage8.Controls.Add(this.nudParamsCntSpeeds);
             this.tabPage8.Controls.Add(this.label50);
             this.tabPage8.Controls.Add(this.nudParamsCorrIgnCy4);
             this.tabPage8.Controls.Add(this.label52);
@@ -1354,12 +1583,34 @@
             this.tabPage8.Controls.Add(this.label45);
             this.tabPage8.Controls.Add(this.label44);
             this.tabPage8.Controls.Add(this.tbParamsName);
-            this.tabPage8.Location = new System.Drawing.Point(4, 40);
+            this.tabPage8.Location = new System.Drawing.Point(4, 39);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1085, 569);
+            this.tabPage8.Size = new System.Drawing.Size(1085, 555);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(17, 383);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(135, 24);
+            this.label60.TabIndex = 73;
+            this.label60.Text = "Speeds Count:";
+            // 
+            // nudParamsCntSpeeds
+            // 
+            this.nudParamsCntSpeeds.Location = new System.Drawing.Point(182, 381);
+            this.nudParamsCntSpeeds.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.nudParamsCntSpeeds.Name = "nudParamsCntSpeeds";
+            this.nudParamsCntSpeeds.Size = new System.Drawing.Size(75, 29);
+            this.nudParamsCntSpeeds.TabIndex = 72;
+            this.nudParamsCntSpeeds.ValueChanged += new System.EventHandler(this.nudParamsCntSpeeds_ValueChanged);
             // 
             // label50
             // 
@@ -2248,19 +2499,990 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
-            this.tabPage4.Location = new System.Drawing.Point(4, 40);
+            this.tabPage4.Controls.Add(this.tabControl3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 39);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1085, 569);
+            this.tabPage4.Size = new System.Drawing.Size(1085, 555);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Setup";
+            this.tabPage4.Text = "Basic Setup";
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage6);
+            this.tabControl3.Controls.Add(this.tabPage7);
+            this.tabControl3.Controls.Add(this.tabPage13);
+            this.tabControl3.Controls.Add(this.tabPage14);
+            this.tabControl3.Controls.Add(this.tabPage15);
+            this.tabControl3.Controls.Add(this.tabPage16);
+            this.tabControl3.Controls.Add(this.tabPage42);
+            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl3.Location = new System.Drawing.Point(0, 0);
+            this.tabControl3.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl3.Multiline = true;
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(1085, 555);
+            this.tabControl3.TabIndex = 0;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage6.Controls.Add(this.tabControl8);
+            this.tabPage6.Location = new System.Drawing.Point(4, 37);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1077, 514);
+            this.tabPage6.TabIndex = 0;
+            this.tabPage6.Text = "Pressures";
+            // 
+            // tabControl8
+            // 
+            this.tabControl8.Controls.Add(this.tabPage11);
+            this.tabControl8.Controls.Add(this.tabPage37);
+            this.tabControl8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl8.Location = new System.Drawing.Point(0, 0);
+            this.tabControl8.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl8.Multiline = true;
+            this.tabControl8.Name = "tabControl8";
+            this.tabControl8.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl8.SelectedIndex = 0;
+            this.tabControl8.Size = new System.Drawing.Size(1077, 514);
+            this.tabControl8.TabIndex = 4;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage11.Location = new System.Drawing.Point(4, 37);
+            this.tabPage11.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage11.TabIndex = 8;
+            this.tabPage11.Text = "MAP Sensor";
+            // 
+            // tabPage37
+            // 
+            this.tabPage37.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage37.Location = new System.Drawing.Point(4, 37);
+            this.tabPage37.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage37.Name = "tabPage37";
+            this.tabPage37.Size = new System.Drawing.Size(1069, 495);
+            this.tabPage37.TabIndex = 10;
+            this.tabPage37.Text = "RPM vs. TPS";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage7.Location = new System.Drawing.Point(4, 37);
+            this.tabPage7.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage7.TabIndex = 1;
+            this.tabPage7.Text = "Rotates";
+            // 
+            // tabPage13
+            // 
+            this.tabPage13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage13.Location = new System.Drawing.Point(4, 37);
+            this.tabPage13.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage13.TabIndex = 2;
+            this.tabPage13.Text = "Throttles";
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage14.Location = new System.Drawing.Point(4, 37);
+            this.tabPage14.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage14.TabIndex = 3;
+            this.tabPage14.Text = "Voltages";
+            // 
+            // tabPage15
+            // 
+            this.tabPage15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage15.Location = new System.Drawing.Point(4, 37);
+            this.tabPage15.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage15.TabIndex = 4;
+            this.tabPage15.Text = "Fillings";
+            // 
+            // tabPage16
+            // 
+            this.tabPage16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage16.Location = new System.Drawing.Point(4, 37);
+            this.tabPage16.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage16.Name = "tabPage16";
+            this.tabPage16.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage16.TabIndex = 5;
+            this.tabPage16.Text = "Engine Temperatures";
+            // 
+            // tabPage42
+            // 
+            this.tabPage42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage42.Location = new System.Drawing.Point(4, 37);
+            this.tabPage42.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage42.Name = "tabPage42";
+            this.tabPage42.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage42.TabIndex = 6;
+            this.tabPage42.Text = "Speeds";
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage9.Controls.Add(this.tabControl4);
+            this.tabPage9.Location = new System.Drawing.Point(4, 39);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Size = new System.Drawing.Size(1085, 555);
+            this.tabPage9.TabIndex = 6;
+            this.tabPage9.Text = "Setup";
+            // 
+            // tabControl4
+            // 
+            this.tabControl4.Controls.Add(this.tabPage10);
+            this.tabControl4.Controls.Add(this.tabPage17);
+            this.tabControl4.Controls.Add(this.tabPage22);
+            this.tabControl4.Controls.Add(this.tabPage24);
+            this.tabControl4.Controls.Add(this.tabPage25);
+            this.tabControl4.Controls.Add(this.tabPage26);
+            this.tabControl4.Controls.Add(this.tabPage27);
+            this.tabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl4.Location = new System.Drawing.Point(0, 0);
+            this.tabControl4.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl4.Multiline = true;
+            this.tabControl4.Name = "tabControl4";
+            this.tabControl4.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl4.SelectedIndex = 0;
+            this.tabControl4.Size = new System.Drawing.Size(1085, 555);
+            this.tabControl4.TabIndex = 0;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage10.Controls.Add(this.eCyclicFilling);
+            this.tabPage10.Location = new System.Drawing.Point(4, 37);
+            this.tabPage10.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Size = new System.Drawing.Size(1077, 514);
+            this.tabPage10.TabIndex = 0;
+            this.tabPage10.Text = "Cyclic Filling";
+            // 
+            // eCyclicFilling
+            // 
+            // 
+            // 
+            // 
+            this.eCyclicFilling.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eCyclicFilling.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eCyclicFilling.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.eCyclicFilling.Chart.BorderlineColor = System.Drawing.Color.Black;
+            chartArea1.AxisX.IsLogarithmic = true;
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LabelStyle.Interval = 2000D;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.MajorGrid.Interval = 2000D;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.MajorTickMark.Interval = 2000D;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.Maximum = 8000D;
+            chartArea1.AxisX.Minimum = 600D;
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.LabelStyle.Interval = 1D;
+            chartArea1.AxisX2.MajorGrid.Interval = 1D;
+            chartArea1.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea1.AxisX2.Maximum = 1D;
+            chartArea1.AxisX2.Minimum = 0D;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LabelStyle.Interval = 5D;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.MajorGrid.Interval = 0.2D;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.MajorTickMark.Interval = 0.2D;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.Maximum = 0.8D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.LabelStyle.Interval = 5D;
+            chartArea1.AxisY2.MajorGrid.Interval = 5D;
+            chartArea1.AxisY2.MajorTickMark.Interval = 5D;
+            chartArea1.AxisY2.Maximum = 20D;
+            chartArea1.AxisY2.Minimum = 0D;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderColor = System.Drawing.Color.White;
+            chartArea1.Name = "ChartArea1";
+            this.eCyclicFilling.Chart.ChartAreas.Add(chartArea1);
+            this.eCyclicFilling.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.BackColor = System.Drawing.Color.Transparent;
+            legend1.ForeColor = System.Drawing.Color.White;
+            legend1.Name = "Legend1";
+            this.eCyclicFilling.Chart.Legends.Add(legend1);
+            this.eCyclicFilling.Chart.Location = new System.Drawing.Point(0, 3);
+            this.eCyclicFilling.Chart.Name = "chart2DChart";
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Brown;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelBorderWidth = 0;
+            series1.Legend = "Legend1";
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series1.SmartLabelStyle.MaxMovingDistance = 100D;
+            series1.SmartLabelStyle.MinMovingDistance = 10D;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.eCyclicFilling.Chart.Series.Add(series1);
+            this.eCyclicFilling.Chart.Size = new System.Drawing.Size(1073, 190);
+            this.eCyclicFilling.Chart.TabIndex = 4;
+            this.eCyclicFilling.Chart.Text = " ";
+            this.eCyclicFilling.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eCyclicFilling.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eCyclicFilling.LabelTitle = "Cyclic Filling";
+            this.eCyclicFilling.Location = new System.Drawing.Point(0, 0);
+            this.eCyclicFilling.Margin = new System.Windows.Forms.Padding(6);
+            this.eCyclicFilling.Name = "eCyclicFilling";
+            this.eCyclicFilling.Size = new System.Drawing.Size(1077, 514);
+            this.eCyclicFilling.TabIndex = 0;
+            // 
+            // tabPage17
+            // 
+            this.tabPage17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage17.Controls.Add(this.tabControl5);
+            this.tabPage17.Location = new System.Drawing.Point(4, 37);
+            this.tabPage17.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage17.Name = "tabPage17";
+            this.tabPage17.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage17.TabIndex = 2;
+            this.tabPage17.Text = "Enrichment";
+            // 
+            // tabControl5
+            // 
+            this.tabControl5.Controls.Add(this.tabPage34);
+            this.tabControl5.Controls.Add(this.tabPage23);
+            this.tabControl5.Controls.Add(this.tabPage28);
+            this.tabControl5.Controls.Add(this.tabPage29);
+            this.tabControl5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl5.Location = new System.Drawing.Point(0, 0);
+            this.tabControl5.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl5.Multiline = true;
+            this.tabControl5.Name = "tabControl5";
+            this.tabControl5.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl5.SelectedIndex = 0;
+            this.tabControl5.Size = new System.Drawing.Size(1077, 525);
+            this.tabControl5.TabIndex = 1;
+            // 
+            // tabPage34
+            // 
+            this.tabPage34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage34.Location = new System.Drawing.Point(4, 37);
+            this.tabPage34.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage34.Name = "tabPage34";
+            this.tabPage34.Size = new System.Drawing.Size(1069, 484);
+            this.tabPage34.TabIndex = 8;
+            this.tabPage34.Text = "By MAP";
+            // 
+            // tabPage23
+            // 
+            this.tabPage23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage23.Location = new System.Drawing.Point(4, 136);
+            this.tabPage23.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage23.Name = "tabPage23";
+            this.tabPage23.Size = new System.Drawing.Size(184, 0);
+            this.tabPage23.TabIndex = 9;
+            this.tabPage23.Text = "MAP HPF";
+            // 
+            // tabPage28
+            // 
+            this.tabPage28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage28.Location = new System.Drawing.Point(4, 136);
+            this.tabPage28.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage28.Name = "tabPage28";
+            this.tabPage28.Size = new System.Drawing.Size(184, 0);
+            this.tabPage28.TabIndex = 10;
+            this.tabPage28.Text = "By TPS";
+            // 
+            // tabPage29
+            // 
+            this.tabPage29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage29.Location = new System.Drawing.Point(4, 136);
+            this.tabPage29.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage29.Name = "tabPage29";
+            this.tabPage29.Size = new System.Drawing.Size(184, 0);
+            this.tabPage29.TabIndex = 11;
+            this.tabPage29.Text = "TPS HPF";
+            // 
+            // tabPage22
+            // 
+            this.tabPage22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage22.Controls.Add(this.tabControl6);
+            this.tabPage22.Location = new System.Drawing.Point(4, 37);
+            this.tabPage22.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage22.Name = "tabPage22";
+            this.tabPage22.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage22.TabIndex = 3;
+            this.tabPage22.Text = "Ignition";
+            // 
+            // tabControl6
+            // 
+            this.tabControl6.Controls.Add(this.tabPage30);
+            this.tabControl6.Controls.Add(this.tabPage31);
+            this.tabControl6.Controls.Add(this.tabPage32);
+            this.tabControl6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl6.Location = new System.Drawing.Point(0, 0);
+            this.tabControl6.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl6.Multiline = true;
+            this.tabControl6.Name = "tabControl6";
+            this.tabControl6.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl6.SelectedIndex = 0;
+            this.tabControl6.Size = new System.Drawing.Size(1077, 525);
+            this.tabControl6.TabIndex = 2;
+            // 
+            // tabPage30
+            // 
+            this.tabPage30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage30.Controls.Add(this.eIgnition);
+            this.tabPage30.Location = new System.Drawing.Point(4, 37);
+            this.tabPage30.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage30.Name = "tabPage30";
+            this.tabPage30.Size = new System.Drawing.Size(1069, 484);
+            this.tabPage30.TabIndex = 8;
+            this.tabPage30.Text = "Setup";
+            // 
+            // eIgnition
+            // 
+            // 
+            // 
+            // 
+            this.eIgnition.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eIgnition.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eIgnition.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.eIgnition.Chart.BorderlineColor = System.Drawing.Color.Black;
+            chartArea2.AxisX.IsLogarithmic = true;
+            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX.LabelStyle.Interval = 2000D;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisX.MajorGrid.Interval = 2000D;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisX.MajorTickMark.Interval = 2000D;
+            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisX.Maximum = 8000D;
+            chartArea2.AxisX.Minimum = 600D;
+            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.LabelStyle.Interval = 1D;
+            chartArea2.AxisX2.MajorGrid.Interval = 1D;
+            chartArea2.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea2.AxisX2.Maximum = 1D;
+            chartArea2.AxisX2.Minimum = 0D;
+            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LabelStyle.Interval = 5D;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisY.MajorGrid.Interval = 0.2D;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisY.MajorTickMark.Interval = 0.2D;
+            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisY.Maximum = 0.8D;
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.LabelStyle.Interval = 5D;
+            chartArea2.AxisY2.MajorGrid.Interval = 5D;
+            chartArea2.AxisY2.MajorTickMark.Interval = 5D;
+            chartArea2.AxisY2.Maximum = 20D;
+            chartArea2.AxisY2.Minimum = 0D;
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderColor = System.Drawing.Color.White;
+            chartArea2.Name = "ChartArea1";
+            this.eIgnition.Chart.ChartAreas.Add(chartArea2);
+            this.eIgnition.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.BackColor = System.Drawing.Color.Transparent;
+            legend2.ForeColor = System.Drawing.Color.White;
+            legend2.Name = "Legend1";
+            this.eIgnition.Chart.Legends.Add(legend2);
+            this.eIgnition.Chart.Location = new System.Drawing.Point(0, 3);
+            this.eIgnition.Chart.Name = "chart2DChart";
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.Brown;
+            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series2.IsValueShownAsLabel = true;
+            series2.LabelBorderWidth = 0;
+            series2.Legend = "Legend1";
+            series2.MarkerColor = System.Drawing.Color.Black;
+            series2.MarkerSize = 8;
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series1";
+            series2.Points.Add(dataPoint3);
+            series2.Points.Add(dataPoint4);
+            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series2.SmartLabelStyle.MaxMovingDistance = 100D;
+            series2.SmartLabelStyle.MinMovingDistance = 10D;
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.eIgnition.Chart.Series.Add(series2);
+            this.eIgnition.Chart.Size = new System.Drawing.Size(1065, 178);
+            this.eIgnition.Chart.TabIndex = 4;
+            this.eIgnition.Chart.Text = " ";
+            this.eIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eIgnition.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eIgnition.LabelTitle = "Ignition Angle";
+            this.eIgnition.Location = new System.Drawing.Point(0, 0);
+            this.eIgnition.Margin = new System.Windows.Forms.Padding(6);
+            this.eIgnition.Name = "eIgnition";
+            this.eIgnition.Size = new System.Drawing.Size(1069, 484);
+            this.eIgnition.TabIndex = 2;
+            // 
+            // tabPage31
+            // 
+            this.tabPage31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage31.Location = new System.Drawing.Point(4, 103);
+            this.tabPage31.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage31.Name = "tabPage31";
+            this.tabPage31.Size = new System.Drawing.Size(184, 0);
+            this.tabPage31.TabIndex = 9;
+            this.tabPage31.Text = "Saturation Pulse";
+            // 
+            // tabPage32
+            // 
+            this.tabPage32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage32.Location = new System.Drawing.Point(4, 103);
+            this.tabPage32.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage32.Name = "tabPage32";
+            this.tabPage32.Size = new System.Drawing.Size(184, 0);
+            this.tabPage32.TabIndex = 10;
+            this.tabPage32.Text = "Sat. by RPM";
+            // 
+            // tabPage24
+            // 
+            this.tabPage24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage24.Controls.Add(this.tabControl7);
+            this.tabPage24.Location = new System.Drawing.Point(4, 37);
+            this.tabPage24.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage24.Name = "tabPage24";
+            this.tabPage24.Size = new System.Drawing.Size(1077, 514);
+            this.tabPage24.TabIndex = 5;
+            this.tabPage24.Text = "Injection";
+            // 
+            // tabControl7
+            // 
+            this.tabControl7.Controls.Add(this.tabPage33);
+            this.tabControl7.Controls.Add(this.tabPage36);
+            this.tabControl7.Controls.Add(this.tabPage35);
+            this.tabControl7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl7.Location = new System.Drawing.Point(0, 0);
+            this.tabControl7.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl7.Multiline = true;
+            this.tabControl7.Name = "tabControl7";
+            this.tabControl7.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl7.SelectedIndex = 0;
+            this.tabControl7.Size = new System.Drawing.Size(1077, 514);
+            this.tabControl7.TabIndex = 3;
+            // 
+            // tabPage33
+            // 
+            this.tabPage33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage33.Controls.Add(this.eFuelMixtures);
+            this.tabPage33.Location = new System.Drawing.Point(4, 37);
+            this.tabPage33.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage33.Name = "tabPage33";
+            this.tabPage33.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage33.TabIndex = 8;
+            this.tabPage33.Text = "Setup";
+            // 
+            // eFuelMixtures
+            // 
+            // 
+            // 
+            // 
+            this.eFuelMixtures.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eFuelMixtures.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eFuelMixtures.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.eFuelMixtures.Chart.BorderlineColor = System.Drawing.Color.Black;
+            chartArea3.AxisX.IsLogarithmic = true;
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisX.LabelStyle.Interval = 2000D;
+            chartArea3.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisX.MajorGrid.Interval = 2000D;
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisX.MajorTickMark.Interval = 2000D;
+            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisX.Maximum = 8000D;
+            chartArea3.AxisX.Minimum = 600D;
+            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisX2.LabelStyle.Interval = 1D;
+            chartArea3.AxisX2.MajorGrid.Interval = 1D;
+            chartArea3.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea3.AxisX2.Maximum = 1D;
+            chartArea3.AxisX2.Minimum = 0D;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LabelStyle.Interval = 5D;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisY.MajorGrid.Interval = 0.2D;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisY.MajorTickMark.Interval = 0.2D;
+            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea3.AxisY.Maximum = 0.8D;
+            chartArea3.AxisY.Minimum = 0D;
+            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY2.LabelStyle.Interval = 5D;
+            chartArea3.AxisY2.MajorGrid.Interval = 5D;
+            chartArea3.AxisY2.MajorTickMark.Interval = 5D;
+            chartArea3.AxisY2.Maximum = 20D;
+            chartArea3.AxisY2.Minimum = 0D;
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderColor = System.Drawing.Color.White;
+            chartArea3.Name = "ChartArea1";
+            this.eFuelMixtures.Chart.ChartAreas.Add(chartArea3);
+            this.eFuelMixtures.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend3.BackColor = System.Drawing.Color.Transparent;
+            legend3.ForeColor = System.Drawing.Color.White;
+            legend3.Name = "Legend1";
+            this.eFuelMixtures.Chart.Legends.Add(legend3);
+            this.eFuelMixtures.Chart.Location = new System.Drawing.Point(0, 3);
+            this.eFuelMixtures.Chart.Name = "chart2DChart";
+            series3.BorderWidth = 3;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Brown;
+            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series3.IsValueShownAsLabel = true;
+            series3.LabelBorderWidth = 0;
+            series3.Legend = "Legend1";
+            series3.MarkerColor = System.Drawing.Color.Black;
+            series3.MarkerSize = 8;
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Name = "Series1";
+            series3.Points.Add(dataPoint5);
+            series3.Points.Add(dataPoint6);
+            series3.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series3.SmartLabelStyle.MaxMovingDistance = 100D;
+            series3.SmartLabelStyle.MinMovingDistance = 10D;
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.eFuelMixtures.Chart.Series.Add(series3);
+            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1065, 173);
+            this.eFuelMixtures.Chart.TabIndex = 4;
+            this.eFuelMixtures.Chart.Text = " ";
+            this.eFuelMixtures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eFuelMixtures.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eFuelMixtures.LabelTitle = "Fuel Mixtures";
+            this.eFuelMixtures.Location = new System.Drawing.Point(0, 0);
+            this.eFuelMixtures.Margin = new System.Windows.Forms.Padding(6);
+            this.eFuelMixtures.Name = "eFuelMixtures";
+            this.eFuelMixtures.Size = new System.Drawing.Size(1069, 473);
+            this.eFuelMixtures.TabIndex = 1;
+            // 
+            // tabPage36
+            // 
+            this.tabPage36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage36.Controls.Add(this.eInjectionPhase);
+            this.tabPage36.Location = new System.Drawing.Point(4, 37);
+            this.tabPage36.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage36.Name = "tabPage36";
+            this.tabPage36.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage36.TabIndex = 10;
+            this.tabPage36.Text = "Phase";
+            // 
+            // eInjectionPhase
+            // 
+            // 
+            // 
+            // 
+            this.eInjectionPhase.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eInjectionPhase.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eInjectionPhase.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.eInjectionPhase.Chart.BorderlineColor = System.Drawing.Color.Black;
+            chartArea4.AxisX.IsLogarithmic = true;
+            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisX.LabelStyle.Interval = 2000D;
+            chartArea4.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisX.MajorGrid.Interval = 2000D;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisX.MajorTickMark.Interval = 2000D;
+            chartArea4.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisX.Maximum = 8000D;
+            chartArea4.AxisX.Minimum = 600D;
+            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.AxisX2.LabelStyle.Interval = 1D;
+            chartArea4.AxisX2.MajorGrid.Interval = 1D;
+            chartArea4.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea4.AxisX2.Maximum = 1D;
+            chartArea4.AxisX2.Minimum = 0D;
+            chartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY.LabelStyle.Interval = 5D;
+            chartArea4.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisY.MajorGrid.Interval = 0.2D;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisY.MajorTickMark.Interval = 0.2D;
+            chartArea4.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea4.AxisY.Maximum = 0.8D;
+            chartArea4.AxisY.Minimum = 0D;
+            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY2.LabelStyle.Interval = 5D;
+            chartArea4.AxisY2.MajorGrid.Interval = 5D;
+            chartArea4.AxisY2.MajorTickMark.Interval = 5D;
+            chartArea4.AxisY2.Maximum = 20D;
+            chartArea4.AxisY2.Minimum = 0D;
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderColor = System.Drawing.Color.White;
+            chartArea4.Name = "ChartArea1";
+            this.eInjectionPhase.Chart.ChartAreas.Add(chartArea4);
+            this.eInjectionPhase.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend4.BackColor = System.Drawing.Color.Transparent;
+            legend4.ForeColor = System.Drawing.Color.White;
+            legend4.Name = "Legend1";
+            this.eInjectionPhase.Chart.Legends.Add(legend4);
+            this.eInjectionPhase.Chart.Location = new System.Drawing.Point(0, 3);
+            this.eInjectionPhase.Chart.Name = "chart2DChart";
+            series4.BorderWidth = 3;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Color = System.Drawing.Color.Brown;
+            series4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series4.IsValueShownAsLabel = true;
+            series4.LabelBorderWidth = 0;
+            series4.Legend = "Legend1";
+            series4.MarkerColor = System.Drawing.Color.Black;
+            series4.MarkerSize = 8;
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series4.Name = "Series1";
+            series4.Points.Add(dataPoint7);
+            series4.Points.Add(dataPoint8);
+            series4.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series4.SmartLabelStyle.MaxMovingDistance = 100D;
+            series4.SmartLabelStyle.MinMovingDistance = 10D;
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.eInjectionPhase.Chart.Series.Add(series4);
+            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1065, 173);
+            this.eInjectionPhase.Chart.TabIndex = 4;
+            this.eInjectionPhase.Chart.Text = " ";
+            this.eInjectionPhase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eInjectionPhase.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eInjectionPhase.LabelTitle = "Injection Phase";
+            this.eInjectionPhase.Location = new System.Drawing.Point(0, 0);
+            this.eInjectionPhase.Margin = new System.Windows.Forms.Padding(6);
+            this.eInjectionPhase.Name = "eInjectionPhase";
+            this.eInjectionPhase.Size = new System.Drawing.Size(1069, 473);
+            this.eInjectionPhase.TabIndex = 3;
+            // 
+            // tabPage35
+            // 
+            this.tabPage35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage35.Controls.Add(this.eInjectorLag);
+            this.tabPage35.Location = new System.Drawing.Point(4, 37);
+            this.tabPage35.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage35.Name = "tabPage35";
+            this.tabPage35.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage35.TabIndex = 9;
+            this.tabPage35.Text = "Injector Lag";
+            // 
+            // eInjectorLag
+            // 
+            // 
+            // 
+            // 
+            this.eInjectorLag.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eInjectorLag.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eInjectorLag.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(96)))));
+            chartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea5.AxisX.LabelStyle.Interval = 1D;
+            chartArea5.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisX.MajorGrid.Interval = 1D;
+            chartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisX.MajorTickMark.Interval = 1D;
+            chartArea5.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisX.Maximum = 1D;
+            chartArea5.AxisX.Minimum = 0D;
+            chartArea5.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea5.AxisX2.LabelStyle.Interval = 1D;
+            chartArea5.AxisX2.MajorGrid.Interval = 1D;
+            chartArea5.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea5.AxisX2.Maximum = 1D;
+            chartArea5.AxisX2.Minimum = 0D;
+            chartArea5.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea5.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea5.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea5.BackColor = System.Drawing.Color.Transparent;
+            chartArea5.Name = "ChartArea1";
+            this.eInjectorLag.Chart.ChartAreas.Add(chartArea5);
+            this.eInjectorLag.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eInjectorLag.Chart.Location = new System.Drawing.Point(3, 33);
+            this.eInjectorLag.Chart.Name = "chart1DChart";
+            this.eInjectorLag.Chart.Size = new System.Drawing.Size(1063, 399);
+            this.eInjectorLag.Chart.TabIndex = 2;
+            this.eInjectorLag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eInjectorLag.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eInjectorLag.LabelTitle = "Injector Lag";
+            this.eInjectorLag.Location = new System.Drawing.Point(0, 0);
+            this.eInjectorLag.Margin = new System.Windows.Forms.Padding(6);
+            this.eInjectorLag.Name = "eInjectorLag";
+            this.eInjectorLag.Size = new System.Drawing.Size(1069, 473);
+            this.eInjectorLag.TabIndex = 0;
+            // 
+            // tabPage25
+            // 
+            this.tabPage25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage25.Controls.Add(this.tabControl9);
+            this.tabPage25.Location = new System.Drawing.Point(4, 37);
+            this.tabPage25.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage25.TabIndex = 6;
+            this.tabPage25.Text = "Idle Mode";
+            // 
+            // tabControl9
+            // 
+            this.tabControl9.Controls.Add(this.tabPage38);
+            this.tabControl9.Controls.Add(this.tabPage41);
+            this.tabControl9.Controls.Add(this.tabPage39);
+            this.tabControl9.Controls.Add(this.tabPage40);
+            this.tabControl9.Controls.Add(this.tabPage43);
+            this.tabControl9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl9.Location = new System.Drawing.Point(0, 0);
+            this.tabControl9.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl9.Multiline = true;
+            this.tabControl9.Name = "tabControl9";
+            this.tabControl9.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl9.SelectedIndex = 0;
+            this.tabControl9.Size = new System.Drawing.Size(1077, 525);
+            this.tabControl9.TabIndex = 4;
+            // 
+            // tabPage38
+            // 
+            this.tabPage38.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage38.Location = new System.Drawing.Point(4, 37);
+            this.tabPage38.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage38.Name = "tabPage38";
+            this.tabPage38.Size = new System.Drawing.Size(1069, 484);
+            this.tabPage38.TabIndex = 8;
+            this.tabPage38.Text = "Wish RPM";
+            // 
+            // tabPage41
+            // 
+            this.tabPage41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage41.Location = new System.Drawing.Point(4, 169);
+            this.tabPage41.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage41.Name = "tabPage41";
+            this.tabPage41.Size = new System.Drawing.Size(184, 0);
+            this.tabPage41.TabIndex = 11;
+            this.tabPage41.Text = "Valve vs. RPM";
+            // 
+            // tabPage39
+            // 
+            this.tabPage39.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage39.Location = new System.Drawing.Point(4, 169);
+            this.tabPage39.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage39.Name = "tabPage39";
+            this.tabPage39.Size = new System.Drawing.Size(184, 0);
+            this.tabPage39.TabIndex = 10;
+            this.tabPage39.Text = "Mass air flow";
+            // 
+            // tabPage40
+            // 
+            this.tabPage40.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage40.Location = new System.Drawing.Point(4, 169);
+            this.tabPage40.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage40.Name = "tabPage40";
+            this.tabPage40.Size = new System.Drawing.Size(184, 0);
+            this.tabPage40.TabIndex = 9;
+            this.tabPage40.Text = "Ignition";
+            // 
+            // tabPage43
+            // 
+            this.tabPage43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage43.Location = new System.Drawing.Point(4, 169);
+            this.tabPage43.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage43.Name = "tabPage43";
+            this.tabPage43.Size = new System.Drawing.Size(184, 0);
+            this.tabPage43.TabIndex = 13;
+            this.tabPage43.Text = "RPM on Speed Shift";
+            // 
+            // tabPage26
+            // 
+            this.tabPage26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage26.Controls.Add(this.tabControl11);
+            this.tabPage26.Location = new System.Drawing.Point(4, 37);
+            this.tabPage26.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage26.Name = "tabPage26";
+            this.tabPage26.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage26.TabIndex = 7;
+            this.tabPage26.Text = "Start & Warmup";
+            // 
+            // tabControl11
+            // 
+            this.tabControl11.Controls.Add(this.tabPage44);
+            this.tabControl11.Controls.Add(this.tabPage45);
+            this.tabControl11.Controls.Add(this.tabPage46);
+            this.tabControl11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl11.Location = new System.Drawing.Point(0, 0);
+            this.tabControl11.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl11.Multiline = true;
+            this.tabControl11.Name = "tabControl11";
+            this.tabControl11.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl11.SelectedIndex = 0;
+            this.tabControl11.Size = new System.Drawing.Size(1077, 525);
+            this.tabControl11.TabIndex = 6;
+            // 
+            // tabPage44
+            // 
+            this.tabPage44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage44.Location = new System.Drawing.Point(4, 37);
+            this.tabPage44.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage44.Name = "tabPage44";
+            this.tabPage44.Size = new System.Drawing.Size(1069, 484);
+            this.tabPage44.TabIndex = 9;
+            this.tabPage44.Text = "Startup Mixture";
+            // 
+            // tabPage45
+            // 
+            this.tabPage45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage45.Location = new System.Drawing.Point(4, 103);
+            this.tabPage45.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage45.Name = "tabPage45";
+            this.tabPage45.Size = new System.Drawing.Size(184, 0);
+            this.tabPage45.TabIndex = 13;
+            this.tabPage45.Text = "Warmup Mixture";
+            // 
+            // tabPage46
+            // 
+            this.tabPage46.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage46.Location = new System.Drawing.Point(4, 103);
+            this.tabPage46.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage46.Name = "tabPage46";
+            this.tabPage46.Size = new System.Drawing.Size(184, 0);
+            this.tabPage46.TabIndex = 14;
+            this.tabPage46.Text = "Warmup Mix Koffs";
+            // 
+            // tabPage27
+            // 
+            this.tabPage27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage27.Controls.Add(this.tabControl10);
+            this.tabPage27.Location = new System.Drawing.Point(4, 37);
+            this.tabPage27.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage27.Name = "tabPage27";
+            this.tabPage27.Size = new System.Drawing.Size(1077, 525);
+            this.tabPage27.TabIndex = 8;
+            this.tabPage27.Text = "Knock";
+            // 
+            // tabControl10
+            // 
+            this.tabControl10.Controls.Add(this.tabPage47);
+            this.tabControl10.Controls.Add(this.tabPage48);
+            this.tabControl10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl10.Location = new System.Drawing.Point(0, 0);
+            this.tabControl10.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl10.Multiline = true;
+            this.tabControl10.Name = "tabControl10";
+            this.tabControl10.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl10.SelectedIndex = 0;
+            this.tabControl10.Size = new System.Drawing.Size(1077, 525);
+            this.tabControl10.TabIndex = 5;
+            // 
+            // tabPage47
+            // 
+            this.tabPage47.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage47.Location = new System.Drawing.Point(4, 37);
+            this.tabPage47.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage47.Name = "tabPage47";
+            this.tabPage47.Size = new System.Drawing.Size(1069, 484);
+            this.tabPage47.TabIndex = 9;
+            this.tabPage47.Text = "Noise Level";
+            // 
+            // tabPage48
+            // 
+            this.tabPage48.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage48.Location = new System.Drawing.Point(4, 70);
+            this.tabPage48.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage48.Name = "tabPage48";
+            this.tabPage48.Size = new System.Drawing.Size(184, 0);
+            this.tabPage48.TabIndex = 13;
+            this.tabPage48.Text = "Threshold";
+            // 
+            // tabPage49
+            // 
+            this.tabPage49.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage49.Controls.Add(this.tabControl12);
+            this.tabPage49.Location = new System.Drawing.Point(4, 39);
+            this.tabPage49.Name = "tabPage49";
+            this.tabPage49.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage49.Size = new System.Drawing.Size(1085, 555);
+            this.tabPage49.TabIndex = 7;
+            this.tabPage49.Text = "Corrections";
+            // 
+            // tabControl12
+            // 
+            this.tabControl12.Controls.Add(this.tabPage50);
+            this.tabControl12.Controls.Add(this.tabPage51);
+            this.tabControl12.Controls.Add(this.tabPage53);
+            this.tabControl12.Controls.Add(this.tabPage52);
+            this.tabControl12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl12.Location = new System.Drawing.Point(3, 3);
+            this.tabControl12.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl12.Multiline = true;
+            this.tabControl12.Name = "tabControl12";
+            this.tabControl12.Padding = new System.Drawing.Point(20, 5);
+            this.tabControl12.SelectedIndex = 0;
+            this.tabControl12.Size = new System.Drawing.Size(1079, 549);
+            this.tabControl12.TabIndex = 7;
+            // 
+            // tabPage50
+            // 
+            this.tabPage50.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage50.Location = new System.Drawing.Point(4, 37);
+            this.tabPage50.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage50.Name = "tabPage50";
+            this.tabPage50.Size = new System.Drawing.Size(1071, 508);
+            this.tabPage50.TabIndex = 9;
+            this.tabPage50.Text = "ignitions";
+            // 
+            // tabPage51
+            // 
+            this.tabPage51.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage51.Location = new System.Drawing.Point(4, 37);
+            this.tabPage51.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage51.Name = "tabPage51";
+            this.tabPage51.Size = new System.Drawing.Size(1071, 519);
+            this.tabPage51.TabIndex = 13;
+            this.tabPage51.Text = "Filling by MAP";
+            // 
+            // tabPage53
+            // 
+            this.tabPage53.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage53.Location = new System.Drawing.Point(4, 37);
+            this.tabPage53.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage53.Name = "tabPage53";
+            this.tabPage53.Size = new System.Drawing.Size(1071, 519);
+            this.tabPage53.TabIndex = 15;
+            this.tabPage53.Text = "MAP by TPS";
+            // 
+            // tabPage52
+            // 
+            this.tabPage52.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage52.Location = new System.Drawing.Point(4, 37);
+            this.tabPage52.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage52.Name = "tabPage52";
+            this.tabPage52.Size = new System.Drawing.Size(1071, 519);
+            this.tabPage52.TabIndex = 14;
+            this.tabPage52.Text = "Idle Valve to RPM";
             // 
             // tabPage18
             // 
             this.tabPage18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage18.Controls.Add(this.tableLayoutPanel13);
-            this.tabPage18.Location = new System.Drawing.Point(4, 41);
+            this.tabPage18.Location = new System.Drawing.Point(4, 45);
             this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Size = new System.Drawing.Size(1099, 608);
+            this.tabPage18.Size = new System.Drawing.Size(1099, 604);
             this.tabPage18.TabIndex = 3;
             this.tabPage18.Text = "Drag Measure";
             // 
@@ -2277,8 +3499,8 @@
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 619F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 608);
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 604F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 604);
             this.tableLayoutPanel13.TabIndex = 6;
             // 
             // panel10
@@ -2304,7 +3526,7 @@
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 608);
+            this.panel10.Size = new System.Drawing.Size(200, 604);
             this.panel10.TabIndex = 6;
             // 
             // label63
@@ -2509,7 +3731,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(899, 608);
+            this.tabControl2.Size = new System.Drawing.Size(899, 604);
             this.tabControl2.TabIndex = 7;
             // 
             // tabPage19
@@ -2519,7 +3741,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 33);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(891, 571);
+            this.tabPage19.Size = new System.Drawing.Size(891, 567);
             this.tabPage19.TabIndex = 0;
             this.tabPage19.Text = "Speed vs. Time";
             // 
@@ -2529,48 +3751,48 @@
             this.chartDragTime.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
             this.chartDragTime.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(96)))));
             this.chartDragTime.BorderlineColor = System.Drawing.Color.Empty;
-            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 88F;
-            this.chartDragTime.ChartAreas.Add(chartArea1);
+            chartArea6.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea6.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea6.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea6.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea6.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea6.BackColor = System.Drawing.Color.Transparent;
+            chartArea6.Name = "ChartArea1";
+            chartArea6.Position.Auto = false;
+            chartArea6.Position.Height = 100F;
+            chartArea6.Position.Width = 88F;
+            this.chartDragTime.ChartAreas.Add(chartArea6);
             this.chartDragTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.BackColor = System.Drawing.Color.Transparent;
-            legend1.ForeColor = System.Drawing.Color.White;
-            legend1.Name = "Legend1";
-            this.chartDragTime.Legends.Add(legend1);
+            legend5.BackColor = System.Drawing.Color.Transparent;
+            legend5.ForeColor = System.Drawing.Color.White;
+            legend5.Name = "Legend1";
+            this.chartDragTime.Legends.Add(legend5);
             this.chartDragTime.Location = new System.Drawing.Point(3, 3);
             this.chartDragTime.Name = "chartDragTime";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Brown;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series1.IsValueShownAsLabel = true;
-            series1.LabelBorderWidth = 0;
-            series1.LabelForeColor = System.Drawing.Color.White;
-            series1.Legend = "Legend1";
-            series1.MarkerColor = System.Drawing.Color.White;
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Series1";
-            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series1.SmartLabelStyle.MaxMovingDistance = 100D;
-            series1.SmartLabelStyle.MinMovingDistance = 10D;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series1.YValuesPerPoint = 2;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragTime.Series.Add(series1);
-            this.chartDragTime.Size = new System.Drawing.Size(885, 565);
+            series5.BorderWidth = 3;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.Brown;
+            series5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series5.IsValueShownAsLabel = true;
+            series5.LabelBorderWidth = 0;
+            series5.LabelForeColor = System.Drawing.Color.White;
+            series5.Legend = "Legend1";
+            series5.MarkerColor = System.Drawing.Color.White;
+            series5.MarkerSize = 8;
+            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series5.Name = "Series1";
+            series5.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series5.SmartLabelStyle.MaxMovingDistance = 100D;
+            series5.SmartLabelStyle.MinMovingDistance = 10D;
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series5.YValuesPerPoint = 2;
+            series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragTime.Series.Add(series5);
+            this.chartDragTime.Size = new System.Drawing.Size(885, 561);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
             // 
@@ -2581,7 +3803,7 @@
             this.tabPage21.Location = new System.Drawing.Point(4, 33);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(891, 582);
+            this.tabPage21.Size = new System.Drawing.Size(891, 567);
             this.tabPage21.TabIndex = 2;
             this.tabPage21.Text = "Accel. vs. Time";
             // 
@@ -2591,48 +3813,48 @@
             this.chartDragAccel.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
             this.chartDragAccel.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.chartDragAccel.BorderlineColor = System.Drawing.Color.Empty;
-            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 88F;
-            this.chartDragAccel.ChartAreas.Add(chartArea2);
+            chartArea7.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea7.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea7.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea7.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea7.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea7.BackColor = System.Drawing.Color.Transparent;
+            chartArea7.Name = "ChartArea1";
+            chartArea7.Position.Auto = false;
+            chartArea7.Position.Height = 100F;
+            chartArea7.Position.Width = 88F;
+            this.chartDragAccel.ChartAreas.Add(chartArea7);
             this.chartDragAccel.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.BackColor = System.Drawing.Color.Transparent;
-            legend2.ForeColor = System.Drawing.Color.White;
-            legend2.Name = "Legend1";
-            this.chartDragAccel.Legends.Add(legend2);
+            legend6.BackColor = System.Drawing.Color.Transparent;
+            legend6.ForeColor = System.Drawing.Color.White;
+            legend6.Name = "Legend1";
+            this.chartDragAccel.Legends.Add(legend6);
             this.chartDragAccel.Location = new System.Drawing.Point(3, 3);
             this.chartDragAccel.Name = "chartDragAccel";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Brown;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series2.IsValueShownAsLabel = true;
-            series2.LabelBorderWidth = 0;
-            series2.LabelForeColor = System.Drawing.Color.White;
-            series2.Legend = "Legend1";
-            series2.MarkerColor = System.Drawing.Color.White;
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series2.SmartLabelStyle.MaxMovingDistance = 100D;
-            series2.SmartLabelStyle.MinMovingDistance = 10D;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series2.YValuesPerPoint = 2;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chartDragAccel.Series.Add(series2);
-            this.chartDragAccel.Size = new System.Drawing.Size(885, 587);
+            series6.BorderWidth = 3;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Color = System.Drawing.Color.Brown;
+            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series6.IsValueShownAsLabel = true;
+            series6.LabelBorderWidth = 0;
+            series6.LabelForeColor = System.Drawing.Color.White;
+            series6.Legend = "Legend1";
+            series6.MarkerColor = System.Drawing.Color.White;
+            series6.MarkerSize = 8;
+            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series6.Name = "Series1";
+            series6.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series6.SmartLabelStyle.MaxMovingDistance = 100D;
+            series6.SmartLabelStyle.MinMovingDistance = 10D;
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series6.YValuesPerPoint = 2;
+            series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chartDragAccel.Series.Add(series6);
+            this.chartDragAccel.Size = new System.Drawing.Size(885, 561);
             this.chartDragAccel.TabIndex = 8;
             this.chartDragAccel.Text = " ";
             // 
@@ -2643,7 +3865,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 33);
             this.tabPage20.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(891, 582);
+            this.tabPage20.Size = new System.Drawing.Size(891, 567);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Table View";
             // 
@@ -2659,7 +3881,7 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 593);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 567);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // lvDragTable
@@ -2679,7 +3901,7 @@
             this.lvDragTable.Margin = new System.Windows.Forms.Padding(0);
             this.lvDragTable.MultiSelect = false;
             this.lvDragTable.Name = "lvDragTable";
-            this.lvDragTable.Size = new System.Drawing.Size(891, 593);
+            this.lvDragTable.Size = new System.Drawing.Size(891, 567);
             this.lvDragTable.TabIndex = 0;
             this.lvDragTable.UseCompatibleStateImageBehavior = false;
             this.lvDragTable.View = System.Windows.Forms.View.Details;
@@ -2698,10 +3920,10 @@
             // 
             this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage5.Controls.Add(this.tableLayoutPanel5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 41);
+            this.tabPage5.Location = new System.Drawing.Point(4, 45);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1099, 608);
+            this.tabPage5.Size = new System.Drawing.Size(1099, 604);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Failure Codes";
             // 
@@ -2718,7 +3940,7 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 602);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 598);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // btnResetFailures
@@ -2750,7 +3972,7 @@
             this.lvFailureCodes.Location = new System.Drawing.Point(3, 53);
             this.lvFailureCodes.MultiSelect = false;
             this.lvFailureCodes.Name = "lvFailureCodes";
-            this.lvFailureCodes.Size = new System.Drawing.Size(1087, 546);
+            this.lvFailureCodes.Size = new System.Drawing.Size(1087, 542);
             this.lvFailureCodes.TabIndex = 1;
             this.lvFailureCodes.UseCompatibleStateImageBehavior = false;
             this.lvFailureCodes.View = System.Windows.Forms.View.Details;
@@ -2939,121 +4161,6 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // mGenFuelUsage
-            // 
-            this.mGenFuelUsage.CustNumSize = 20F;
-            this.mGenFuelUsage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mGenFuelUsage.DynNumSize = 26F;
-            this.mGenFuelUsage.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.mGenFuelUsage.Location = new System.Drawing.Point(871, 3);
-            this.mGenFuelUsage.MaxDeg = 320F;
-            this.mGenFuelUsage.MinDeg = 40F;
-            this.mGenFuelUsage.Name = "mGenFuelUsage";
-            this.mGenFuelUsage.NeedleColor = System.Drawing.Color.Yellow;
-            this.mGenFuelUsage.NeedleVal = 0F;
-            this.mGenFuelUsage.NumColor = System.Drawing.Color.White;
-            this.mGenFuelUsage.Size = new System.Drawing.Size(213, 178);
-            this.mGenFuelUsage.TabIndex = 8;
-            this.mGenFuelUsage.TickColor = System.Drawing.Color.White;
-            this.mGenFuelUsage.TickIncrement = 2F;
-            this.mGenFuelUsage.TickWarningColor = System.Drawing.Color.Orange;
-            this.mGenFuelUsage.UseCustNumSize = true;
-            this.mGenFuelUsage.ValueMaxRange = 50F;
-            this.mGenFuelUsage.ValueMinRange = 0F;
-            this.mGenFuelUsage.WarnTickStart = 25F;
-            // 
-            // mGenTemp
-            // 
-            this.mGenTemp.CustNumSize = 20F;
-            this.mGenTemp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mGenTemp.DynNumSize = 26F;
-            this.mGenTemp.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.mGenTemp.Location = new System.Drawing.Point(654, 3);
-            this.mGenTemp.MaxDeg = 320F;
-            this.mGenTemp.MinDeg = 40F;
-            this.mGenTemp.Name = "mGenTemp";
-            this.mGenTemp.NeedleColor = System.Drawing.Color.Yellow;
-            this.mGenTemp.NeedleVal = 0F;
-            this.mGenTemp.NumColor = System.Drawing.Color.White;
-            this.mGenTemp.Size = new System.Drawing.Size(211, 178);
-            this.mGenTemp.TabIndex = 6;
-            this.mGenTemp.TickColor = System.Drawing.Color.White;
-            this.mGenTemp.TickIncrement = 10F;
-            this.mGenTemp.TickWarningColor = System.Drawing.Color.Orange;
-            this.mGenTemp.UseCustNumSize = true;
-            this.mGenTemp.ValueMaxRange = 150F;
-            this.mGenTemp.ValueMinRange = 0F;
-            this.mGenTemp.WarnTickStart = 100F;
-            // 
-            // mGenPress
-            // 
-            this.mGenPress.CustNumSize = 20F;
-            this.mGenPress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mGenPress.DynNumSize = 26F;
-            this.mGenPress.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.mGenPress.Location = new System.Drawing.Point(437, 3);
-            this.mGenPress.MaxDeg = 320F;
-            this.mGenPress.MinDeg = 40F;
-            this.mGenPress.Name = "mGenPress";
-            this.mGenPress.NeedleColor = System.Drawing.Color.Yellow;
-            this.mGenPress.NeedleVal = 0F;
-            this.mGenPress.NumColor = System.Drawing.Color.White;
-            this.mGenPress.Size = new System.Drawing.Size(211, 178);
-            this.mGenPress.TabIndex = 2;
-            this.mGenPress.TickColor = System.Drawing.Color.White;
-            this.mGenPress.TickIncrement = 10000F;
-            this.mGenPress.TickWarningColor = System.Drawing.Color.Orange;
-            this.mGenPress.UseCustNumSize = true;
-            this.mGenPress.ValueMaxRange = 110000F;
-            this.mGenPress.ValueMinRange = 0F;
-            this.mGenPress.WarnTickStart = 95000F;
-            // 
-            // mGenRPM
-            // 
-            this.mGenRPM.CustNumSize = 20F;
-            this.mGenRPM.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mGenRPM.DynNumSize = 26F;
-            this.mGenRPM.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.mGenRPM.Location = new System.Drawing.Point(3, 3);
-            this.mGenRPM.MaxDeg = 320F;
-            this.mGenRPM.MinDeg = 40F;
-            this.mGenRPM.Name = "mGenRPM";
-            this.mGenRPM.NeedleColor = System.Drawing.Color.Yellow;
-            this.mGenRPM.NeedleVal = 0F;
-            this.mGenRPM.NumColor = System.Drawing.Color.White;
-            this.mGenRPM.Size = new System.Drawing.Size(211, 178);
-            this.mGenRPM.TabIndex = 1;
-            this.mGenRPM.TickColor = System.Drawing.Color.White;
-            this.mGenRPM.TickIncrement = 500F;
-            this.mGenRPM.TickWarningColor = System.Drawing.Color.Red;
-            this.mGenRPM.UseCustNumSize = true;
-            this.mGenRPM.ValueMaxRange = 8000F;
-            this.mGenRPM.ValueMinRange = 0F;
-            this.mGenRPM.WarnTickStart = 6000F;
-            // 
-            // mGenIgn
-            // 
-            this.mGenIgn.CustNumSize = 20F;
-            this.mGenIgn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mGenIgn.DynNumSize = 26F;
-            this.mGenIgn.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.mGenIgn.Location = new System.Drawing.Point(220, 3);
-            this.mGenIgn.MaxDeg = 320F;
-            this.mGenIgn.MinDeg = 40F;
-            this.mGenIgn.Name = "mGenIgn";
-            this.mGenIgn.NeedleColor = System.Drawing.Color.Yellow;
-            this.mGenIgn.NeedleVal = 0F;
-            this.mGenIgn.NumColor = System.Drawing.Color.White;
-            this.mGenIgn.Size = new System.Drawing.Size(211, 178);
-            this.mGenIgn.TabIndex = 0;
-            this.mGenIgn.TickColor = System.Drawing.Color.White;
-            this.mGenIgn.TickIncrement = 5F;
-            this.mGenIgn.TickWarningColor = System.Drawing.Color.White;
-            this.mGenIgn.UseCustNumSize = true;
-            this.mGenIgn.ValueMaxRange = 45F;
-            this.mGenIgn.ValueMinRange = -10F;
-            this.mGenIgn.WarnTickStart = 30F;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -3104,6 +4211,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntSpeeds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCorrIgnCy2)).EndInit();
@@ -3132,6 +4240,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntRPMs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntPress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInitialIgnition)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.tabControl8.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.tabControl4.ResumeLayout(false);
+            this.tabPage10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eCyclicFilling.Chart)).EndInit();
+            this.tabPage17.ResumeLayout(false);
+            this.tabControl5.ResumeLayout(false);
+            this.tabPage22.ResumeLayout(false);
+            this.tabControl6.ResumeLayout(false);
+            this.tabPage30.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eIgnition.Chart)).EndInit();
+            this.tabPage24.ResumeLayout(false);
+            this.tabControl7.ResumeLayout(false);
+            this.tabPage33.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eFuelMixtures.Chart)).EndInit();
+            this.tabPage36.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eInjectionPhase.Chart)).EndInit();
+            this.tabPage35.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eInjectorLag.Chart)).EndInit();
+            this.tabPage25.ResumeLayout(false);
+            this.tabControl9.ResumeLayout(false);
+            this.tabPage26.ResumeLayout(false);
+            this.tabControl11.ResumeLayout(false);
+            this.tabPage27.ResumeLayout(false);
+            this.tabControl10.ResumeLayout(false);
+            this.tabPage49.ResumeLayout(false);
+            this.tabControl12.ResumeLayout(false);
             this.tabPage18.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
@@ -3354,5 +4492,64 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDragAccel;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.TabPage tabPage15;
+        private System.Windows.Forms.TabPage tabPage16;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.TabControl tabControl4;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.TabPage tabPage17;
+        private System.Windows.Forms.TabControl tabControl5;
+        private System.Windows.Forms.TabPage tabPage34;
+        private System.Windows.Forms.TabPage tabPage23;
+        private System.Windows.Forms.TabPage tabPage28;
+        private System.Windows.Forms.TabPage tabPage29;
+        private System.Windows.Forms.TabPage tabPage22;
+        private System.Windows.Forms.TabControl tabControl6;
+        private System.Windows.Forms.TabPage tabPage30;
+        private System.Windows.Forms.TabPage tabPage31;
+        private System.Windows.Forms.TabPage tabPage32;
+        private System.Windows.Forms.TabPage tabPage24;
+        private System.Windows.Forms.TabControl tabControl7;
+        private System.Windows.Forms.TabPage tabPage33;
+        private System.Windows.Forms.TabPage tabPage35;
+        private System.Windows.Forms.TabPage tabPage36;
+        private System.Windows.Forms.TabPage tabPage25;
+        private System.Windows.Forms.TabPage tabPage26;
+        private System.Windows.Forms.TabPage tabPage27;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.NumericUpDown nudParamsCntSpeeds;
+        private System.Windows.Forms.TabControl tabControl8;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage tabPage37;
+        private System.Windows.Forms.TabControl tabControl9;
+        private System.Windows.Forms.TabPage tabPage38;
+        private System.Windows.Forms.TabPage tabPage41;
+        private System.Windows.Forms.TabPage tabPage39;
+        private System.Windows.Forms.TabPage tabPage40;
+        private System.Windows.Forms.TabPage tabPage43;
+        private System.Windows.Forms.TabPage tabPage42;
+        private Controls.Editor2D eCyclicFilling;
+        private System.Windows.Forms.TabControl tabControl11;
+        private System.Windows.Forms.TabPage tabPage44;
+        private System.Windows.Forms.TabPage tabPage45;
+        private System.Windows.Forms.TabPage tabPage46;
+        private System.Windows.Forms.TabControl tabControl10;
+        private System.Windows.Forms.TabPage tabPage47;
+        private System.Windows.Forms.TabPage tabPage48;
+        private System.Windows.Forms.TabPage tabPage49;
+        private System.Windows.Forms.TabControl tabControl12;
+        private System.Windows.Forms.TabPage tabPage50;
+        private System.Windows.Forms.TabPage tabPage51;
+        private System.Windows.Forms.TabPage tabPage53;
+        private System.Windows.Forms.TabPage tabPage52;
+        private Controls.Editor1D eInjectorLag;
+        private Controls.Editor2D eFuelMixtures;
+        private Controls.Editor2D eIgnition;
+        private Controls.Editor2D eInjectionPhase;
     }
 }

@@ -10,7 +10,7 @@ namespace ECU_Manager
 {
     public interface IEcuEventHandler
     {
-        void SynchronizedEvent(int errorCode);
+        void SynchronizedEvent(int errorCode, bool fast);
         void UpdateParametersEvent(EcuParameters parameters);
         void UpdateDragStatusEvent(PK_DragUpdateResponse dur);
         void UpdateDragPointEvent(PK_DragPointResponse dpr);

@@ -374,6 +374,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "CyclicAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.CyclicAirFlow, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "EffectiveVolume") parameter.FloatFormat = "F1"; //&ecu_parameters.EffectiveVolume, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "AirDestiny") parameter.FloatFormat = "F3"; //&ecu_parameters.AirDestiny, .title = "%s%0.3f"},
+                if (fieldInfo.Name == "RelativeFilling") parameter.FloatFormat = "F2"; //&ecu_parameters.RelativeFilling, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "WishFuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.WishFuelRatio, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "IdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleValvePosition, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "WishIdleRPM") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleRPM, .title = "%s%0.0f"},
@@ -793,7 +794,7 @@ namespace ECU_Manager
         {
         }
 
-        public void SynchronizedEvent(int errorCode)
+        public void SynchronizedEvent(int errorCode, bool fast)
         {
         }
 
