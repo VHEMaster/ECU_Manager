@@ -204,6 +204,11 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnResetFailures = new System.Windows.Forms.Button();
+            this.lvFailureCodes = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -218,11 +223,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.lvFailureCodes = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mGenFuelUsage = new ECU_Manager.Controls.Meter();
             this.mGenTemp = new ECU_Manager.Controls.Meter();
             this.mGenPress = new ECU_Manager.Controls.Meter();
@@ -311,7 +311,6 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -330,16 +329,16 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
             this.tabPage1.Controls.Add(this.tableLayoutPanel3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 44);
+            this.tabPage1.Location = new System.Drawing.Point(4, 41);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage1.Size = new System.Drawing.Size(1099, 608);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Status";
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.White;
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel2, 0, 0);
@@ -350,7 +349,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 599);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1093, 602);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -378,7 +377,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1087, 233);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1087, 234);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label56
@@ -386,7 +385,7 @@
             this.label56.AutoSize = true;
             this.label56.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label56.Location = new System.Drawing.Point(871, 183);
+            this.label56.Location = new System.Drawing.Point(871, 184);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(213, 50);
             this.label56.TabIndex = 9;
@@ -398,7 +397,7 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(654, 183);
+            this.label5.Location = new System.Drawing.Point(654, 184);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(211, 50);
             this.label5.TabIndex = 7;
@@ -410,7 +409,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(437, 183);
+            this.label4.Location = new System.Drawing.Point(437, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(211, 50);
             this.label4.TabIndex = 5;
@@ -422,7 +421,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(3, 183);
+            this.label3.Location = new System.Drawing.Point(3, 184);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(211, 50);
             this.label3.TabIndex = 4;
@@ -434,7 +433,7 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(220, 183);
+            this.label2.Location = new System.Drawing.Point(220, 184);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(211, 50);
             this.label2.TabIndex = 3;
@@ -443,6 +442,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.label19);
             this.panel1.Controls.Add(this.label18);
@@ -452,9 +452,9 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 242);
+            this.panel1.Location = new System.Drawing.Point(3, 243);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1087, 354);
+            this.panel1.Size = new System.Drawing.Size(1087, 356);
             this.panel1.TabIndex = 1;
             // 
             // label20
@@ -540,14 +540,14 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
-            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 44);
+            this.tabPage2.Location = new System.Drawing.Point(4, 41);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage2.Size = new System.Drawing.Size(1099, 608);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -563,6 +563,7 @@
             this.groupBox4.Controls.Add(this.cbUseLambda);
             this.groupBox4.Controls.Add(this.cbUseKnock);
             this.groupBox4.Controls.Add(this.cbUseTSPS);
+            this.groupBox4.ForeColor = System.Drawing.Color.White;
             this.groupBox4.Location = new System.Drawing.Point(444, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(225, 326);
@@ -722,6 +723,7 @@
             this.groupBox3.Controls.Add(this.cbFuelExtSw);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.nudSwPos1);
+            this.groupBox3.ForeColor = System.Drawing.Color.White;
             this.groupBox3.Location = new System.Drawing.Point(225, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(213, 225);
@@ -898,6 +900,7 @@
             this.groupBox1.Controls.Add(this.rbCutoffMode3);
             this.groupBox1.Controls.Add(this.rbCutoffMode2);
             this.groupBox1.Controls.Add(this.rbCutoffMode1);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(213, 478);
@@ -927,7 +930,6 @@
             // 
             // tbCutoffMixture
             // 
-            this.tbCutoffMixture.BackColor = System.Drawing.Color.White;
             this.tbCutoffMixture.LargeChange = 10;
             this.tbCutoffMixture.Location = new System.Drawing.Point(1, 430);
             this.tbCutoffMixture.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
@@ -942,7 +944,6 @@
             // 
             // tbCutoffAngle
             // 
-            this.tbCutoffAngle.BackColor = System.Drawing.Color.White;
             this.tbCutoffAngle.LargeChange = 50;
             this.tbCutoffAngle.Location = new System.Drawing.Point(1, 358);
             this.tbCutoffAngle.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
@@ -988,7 +989,6 @@
             // 
             // tbCutoffRPM
             // 
-            this.tbCutoffRPM.BackColor = System.Drawing.Color.White;
             this.tbCutoffRPM.LargeChange = 500;
             this.tbCutoffRPM.Location = new System.Drawing.Point(1, 286);
             this.tbCutoffRPM.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
@@ -1121,10 +1121,10 @@
             this.tabPage3.AutoScroll = true;
             this.tabPage3.BackColor = System.Drawing.Color.White;
             this.tabPage3.Controls.Add(this.tabControl111);
-            this.tabPage3.Location = new System.Drawing.Point(4, 44);
+            this.tabPage3.Location = new System.Drawing.Point(4, 41);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage3.Size = new System.Drawing.Size(1099, 608);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Ignition Setup";
             // 
@@ -1140,12 +1140,12 @@
             this.tabControl111.Name = "tabControl111";
             this.tabControl111.Padding = new System.Drawing.Point(12, 5);
             this.tabControl111.SelectedIndex = 0;
-            this.tabControl111.Size = new System.Drawing.Size(1093, 599);
+            this.tabControl111.Size = new System.Drawing.Size(1093, 602);
             this.tabControl111.TabIndex = 1;
             // 
             // tabPage12
             // 
-            this.tabPage12.BackColor = System.Drawing.Color.White;
+            this.tabPage12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage12.Controls.Add(this.btnTableImport);
             this.tabPage12.Controls.Add(this.btnTableExport);
             this.tabPage12.Controls.Add(this.groupBox5);
@@ -1154,28 +1154,32 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 40);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1085, 555);
+            this.tabPage12.Size = new System.Drawing.Size(1085, 558);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
             // 
             // btnTableImport
             // 
+            this.btnTableImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnTableImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTableImport.Location = new System.Drawing.Point(268, 10);
             this.btnTableImport.Name = "btnTableImport";
             this.btnTableImport.Size = new System.Drawing.Size(100, 31);
             this.btnTableImport.TabIndex = 5;
             this.btnTableImport.Text = "Import";
-            this.btnTableImport.UseVisualStyleBackColor = true;
+            this.btnTableImport.UseVisualStyleBackColor = false;
             this.btnTableImport.Click += new System.EventHandler(this.btnTableImport_Click);
             // 
             // btnTableExport
             // 
+            this.btnTableExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnTableExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTableExport.Location = new System.Drawing.Point(374, 10);
             this.btnTableExport.Name = "btnTableExport";
             this.btnTableExport.Size = new System.Drawing.Size(100, 31);
             this.btnTableExport.TabIndex = 4;
             this.btnTableExport.Text = "Export";
-            this.btnTableExport.UseVisualStyleBackColor = true;
+            this.btnTableExport.UseVisualStyleBackColor = false;
             this.btnTableExport.Click += new System.EventHandler(this.btnTableExport_Click);
             // 
             // groupBox5
@@ -1185,6 +1189,7 @@
             this.groupBox5.Controls.Add(this.label43);
             this.groupBox5.Controls.Add(this.nudToolsCopyFrom);
             this.groupBox5.Controls.Add(this.label42);
+            this.groupBox5.ForeColor = System.Drawing.Color.White;
             this.groupBox5.Location = new System.Drawing.Point(10, 72);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(274, 142);
@@ -1194,12 +1199,14 @@
             // 
             // btnToolsCopy
             // 
+            this.btnToolsCopy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnToolsCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToolsCopy.Location = new System.Drawing.Point(10, 96);
             this.btnToolsCopy.Name = "btnToolsCopy";
             this.btnToolsCopy.Size = new System.Drawing.Size(242, 32);
             this.btnToolsCopy.TabIndex = 7;
             this.btnToolsCopy.Text = "Copy";
-            this.btnToolsCopy.UseVisualStyleBackColor = true;
+            this.btnToolsCopy.UseVisualStyleBackColor = false;
             this.btnToolsCopy.Click += new System.EventHandler(this.btnToolsCopy_Click);
             // 
             // nudToolsCopyTo
@@ -1285,7 +1292,7 @@
             // 
             // tabPage8
             // 
-            this.tabPage8.BackColor = System.Drawing.Color.White;
+            this.tabPage8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage8.Controls.Add(this.label50);
             this.tabPage8.Controls.Add(this.nudParamsCorrIgnCy4);
             this.tabPage8.Controls.Add(this.label52);
@@ -1350,7 +1357,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 40);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1085, 566);
+            this.tabPage8.Size = new System.Drawing.Size(1085, 569);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
             // 
@@ -2240,20 +2247,20 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.BackColor = System.Drawing.Color.White;
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage4.Location = new System.Drawing.Point(4, 40);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1085, 566);
+            this.tabPage4.Size = new System.Drawing.Size(1085, 569);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Setup";
             // 
             // tabPage18
             // 
-            this.tabPage18.BackColor = System.Drawing.Color.White;
+            this.tabPage18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage18.Controls.Add(this.tableLayoutPanel13);
-            this.tabPage18.Location = new System.Drawing.Point(4, 44);
+            this.tabPage18.Location = new System.Drawing.Point(4, 41);
             this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage18.Size = new System.Drawing.Size(1099, 608);
             this.tabPage18.TabIndex = 3;
             this.tabPage18.Text = "Drag Measure";
             // 
@@ -2270,8 +2277,8 @@
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 616F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 605);
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 619F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(1099, 608);
             this.tableLayoutPanel13.TabIndex = 6;
             // 
             // panel10
@@ -2297,7 +2304,7 @@
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 605);
+            this.panel10.Size = new System.Drawing.Size(200, 608);
             this.panel10.TabIndex = 6;
             // 
             // label63
@@ -2382,33 +2389,39 @@
             // 
             // btnDragClear
             // 
+            this.btnDragClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnDragClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDragClear.Location = new System.Drawing.Point(6, 247);
             this.btnDragClear.Name = "btnDragClear";
             this.btnDragClear.Size = new System.Drawing.Size(191, 35);
             this.btnDragClear.TabIndex = 14;
             this.btnDragClear.Text = "Clear";
-            this.btnDragClear.UseVisualStyleBackColor = true;
+            this.btnDragClear.UseVisualStyleBackColor = false;
             this.btnDragClear.Click += new System.EventHandler(this.btnDragClear_Click);
             // 
             // btnDragStop
             // 
+            this.btnDragStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.btnDragStop.Enabled = false;
+            this.btnDragStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDragStop.Location = new System.Drawing.Point(6, 206);
             this.btnDragStop.Name = "btnDragStop";
             this.btnDragStop.Size = new System.Drawing.Size(191, 35);
             this.btnDragStop.TabIndex = 13;
             this.btnDragStop.Text = "Stop";
-            this.btnDragStop.UseVisualStyleBackColor = true;
+            this.btnDragStop.UseVisualStyleBackColor = false;
             this.btnDragStop.Click += new System.EventHandler(this.btnDragStop_Click);
             // 
             // btnDragStart
             // 
+            this.btnDragStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnDragStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDragStart.Location = new System.Drawing.Point(6, 165);
             this.btnDragStart.Name = "btnDragStart";
             this.btnDragStart.Size = new System.Drawing.Size(191, 35);
             this.btnDragStart.TabIndex = 12;
             this.btnDragStart.Text = "Start";
-            this.btnDragStart.UseVisualStyleBackColor = true;
+            this.btnDragStart.UseVisualStyleBackColor = false;
             this.btnDragStart.Click += new System.EventHandler(this.btnDragStart_Click);
             // 
             // lblDragStatus
@@ -2488,7 +2501,6 @@
             // 
             // tabControl2
             // 
-            this.tabControl2.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl2.Controls.Add(this.tabPage19);
             this.tabControl2.Controls.Add(this.tabPage21);
             this.tabControl2.Controls.Add(this.tabPage20);
@@ -2497,28 +2509,43 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(899, 605);
+            this.tabControl2.Size = new System.Drawing.Size(899, 608);
             this.tabControl2.TabIndex = 7;
             // 
             // tabPage19
             // 
-            this.tabPage19.BackColor = System.Drawing.Color.White;
+            this.tabPage19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage19.Controls.Add(this.chartDragTime);
-            this.tabPage19.Location = new System.Drawing.Point(4, 36);
+            this.tabPage19.Location = new System.Drawing.Point(4, 33);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(891, 565);
+            this.tabPage19.Size = new System.Drawing.Size(891, 571);
             this.tabPage19.TabIndex = 0;
             this.tabPage19.Text = "Speed vs. Time";
             // 
             // chartDragTime
             // 
+            this.chartDragTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.chartDragTime.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.chartDragTime.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(96)))));
+            this.chartDragTime.BorderlineColor = System.Drawing.Color.Empty;
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             chartArea1.Position.Auto = false;
             chartArea1.Position.Height = 100F;
             chartArea1.Position.Width = 88F;
             this.chartDragTime.ChartAreas.Add(chartArea1);
             this.chartDragTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.BackColor = System.Drawing.Color.Transparent;
+            legend1.ForeColor = System.Drawing.Color.White;
             legend1.Name = "Legend1";
             this.chartDragTime.Legends.Add(legend1);
             this.chartDragTime.Location = new System.Drawing.Point(3, 3);
@@ -2530,8 +2557,9 @@
             series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             series1.IsValueShownAsLabel = true;
             series1.LabelBorderWidth = 0;
+            series1.LabelForeColor = System.Drawing.Color.White;
             series1.Legend = "Legend1";
-            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerColor = System.Drawing.Color.White;
             series1.MarkerSize = 8;
             series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series1.Name = "Series1";
@@ -2542,29 +2570,44 @@
             series1.YValuesPerPoint = 2;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragTime.Series.Add(series1);
-            this.chartDragTime.Size = new System.Drawing.Size(885, 559);
+            this.chartDragTime.Size = new System.Drawing.Size(885, 565);
             this.chartDragTime.TabIndex = 7;
             this.chartDragTime.Text = " ";
             // 
             // tabPage21
             // 
-            this.tabPage21.BackColor = System.Drawing.Color.White;
+            this.tabPage21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage21.Controls.Add(this.chartDragAccel);
-            this.tabPage21.Location = new System.Drawing.Point(4, 36);
+            this.tabPage21.Location = new System.Drawing.Point(4, 33);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(891, 576);
+            this.tabPage21.Size = new System.Drawing.Size(891, 582);
             this.tabPage21.TabIndex = 2;
             this.tabPage21.Text = "Accel. vs. Time";
             // 
             // chartDragAccel
             // 
+            this.chartDragAccel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.chartDragAccel.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.chartDragAccel.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.chartDragAccel.BorderlineColor = System.Drawing.Color.Empty;
+            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.Name = "ChartArea1";
             chartArea2.Position.Auto = false;
             chartArea2.Position.Height = 100F;
             chartArea2.Position.Width = 88F;
             this.chartDragAccel.ChartAreas.Add(chartArea2);
             this.chartDragAccel.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.BackColor = System.Drawing.Color.Transparent;
+            legend2.ForeColor = System.Drawing.Color.White;
             legend2.Name = "Legend1";
             this.chartDragAccel.Legends.Add(legend2);
             this.chartDragAccel.Location = new System.Drawing.Point(3, 3);
@@ -2576,8 +2619,9 @@
             series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             series2.IsValueShownAsLabel = true;
             series2.LabelBorderWidth = 0;
+            series2.LabelForeColor = System.Drawing.Color.White;
             series2.Legend = "Legend1";
-            series2.MarkerColor = System.Drawing.Color.Black;
+            series2.MarkerColor = System.Drawing.Color.White;
             series2.MarkerSize = 8;
             series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series2.Name = "Series1";
@@ -2588,18 +2632,18 @@
             series2.YValuesPerPoint = 2;
             series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragAccel.Series.Add(series2);
-            this.chartDragAccel.Size = new System.Drawing.Size(885, 570);
-            this.chartDragAccel.TabIndex = 6;
+            this.chartDragAccel.Size = new System.Drawing.Size(885, 587);
+            this.chartDragAccel.TabIndex = 8;
             this.chartDragAccel.Text = " ";
             // 
             // tabPage20
             // 
-            this.tabPage20.BackColor = System.Drawing.Color.White;
+            this.tabPage20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage20.Controls.Add(this.tableLayoutPanel14);
-            this.tabPage20.Location = new System.Drawing.Point(4, 36);
+            this.tabPage20.Location = new System.Drawing.Point(4, 33);
             this.tabPage20.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(891, 576);
+            this.tabPage20.Size = new System.Drawing.Size(891, 582);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Table View";
             // 
@@ -2615,18 +2659,19 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 576);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(891, 593);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // lvDragTable
             // 
             this.lvDragTable.AutoArrange = false;
+            this.lvDragTable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(32)))), ((int)(((byte)(0)))));
             this.lvDragTable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
             this.lvDragTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvDragTable.ForeColor = System.Drawing.Color.White;
             this.lvDragTable.FullRowSelect = true;
-            this.lvDragTable.GridLines = true;
             this.lvDragTable.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvDragTable.HideSelection = false;
             this.lvDragTable.LabelWrap = false;
@@ -2634,7 +2679,7 @@
             this.lvDragTable.Margin = new System.Windows.Forms.Padding(0);
             this.lvDragTable.MultiSelect = false;
             this.lvDragTable.Name = "lvDragTable";
-            this.lvDragTable.Size = new System.Drawing.Size(891, 576);
+            this.lvDragTable.Size = new System.Drawing.Size(891, 593);
             this.lvDragTable.TabIndex = 0;
             this.lvDragTable.UseCompatibleStateImageBehavior = false;
             this.lvDragTable.View = System.Windows.Forms.View.Details;
@@ -2651,12 +2696,12 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.White;
+            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage5.Controls.Add(this.tableLayoutPanel5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 44);
+            this.tabPage5.Location = new System.Drawing.Point(4, 41);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1099, 605);
+            this.tabPage5.Size = new System.Drawing.Size(1099, 608);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Failure Codes";
             // 
@@ -2673,19 +2718,61 @@
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 599);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1093, 602);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // btnResetFailures
             // 
+            this.btnResetFailures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.btnResetFailures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnResetFailures.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetFailures.Location = new System.Drawing.Point(3, 3);
             this.btnResetFailures.Name = "btnResetFailures";
             this.btnResetFailures.Size = new System.Drawing.Size(214, 44);
             this.btnResetFailures.TabIndex = 0;
             this.btnResetFailures.Text = "Reset Failure Codes";
-            this.btnResetFailures.UseVisualStyleBackColor = true;
+            this.btnResetFailures.UseVisualStyleBackColor = false;
             this.btnResetFailures.Click += new System.EventHandler(this.btnResetFailures_Click);
+            // 
+            // lvFailureCodes
+            // 
+            this.lvFailureCodes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(0)))));
+            this.lvFailureCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader6,
+            this.columnHeader5});
+            this.tableLayoutPanel5.SetColumnSpan(this.lvFailureCodes, 2);
+            this.lvFailureCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvFailureCodes.ForeColor = System.Drawing.Color.White;
+            this.lvFailureCodes.FullRowSelect = true;
+            this.lvFailureCodes.HideSelection = false;
+            this.lvFailureCodes.Location = new System.Drawing.Point(3, 53);
+            this.lvFailureCodes.MultiSelect = false;
+            this.lvFailureCodes.Name = "lvFailureCodes";
+            this.lvFailureCodes.Size = new System.Drawing.Size(1087, 546);
+            this.lvFailureCodes.TabIndex = 1;
+            this.lvFailureCodes.UseCompatibleStateImageBehavior = false;
+            this.lvFailureCodes.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Code";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Active";
+            this.columnHeader4.Width = 100;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "ShortDesc";
+            this.columnHeader6.Width = 300;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Description";
+            this.columnHeader5.Width = 600;
             // 
             // tableLayoutPanel1
             // 
@@ -2706,6 +2793,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Black;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
@@ -2755,26 +2843,30 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Location = new System.Drawing.Point(961, 0);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(150, 34);
             this.button3.TabIndex = 5;
             this.button3.Text = "Redownload";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(661, 0);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(150, 34);
             this.button2.TabIndex = 3;
             this.button2.Text = "Save Flash";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
@@ -2792,14 +2884,16 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(811, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 34);
             this.button1.TabIndex = 2;
             this.button1.Text = "Restore Flash";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // cbLive
@@ -2845,50 +2939,12 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // lvFailureCodes
-            // 
-            this.lvFailureCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader6,
-            this.columnHeader5});
-            this.tableLayoutPanel5.SetColumnSpan(this.lvFailureCodes, 2);
-            this.lvFailureCodes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvFailureCodes.FullRowSelect = true;
-            this.lvFailureCodes.GridLines = true;
-            this.lvFailureCodes.Location = new System.Drawing.Point(3, 53);
-            this.lvFailureCodes.MultiSelect = false;
-            this.lvFailureCodes.Name = "lvFailureCodes";
-            this.lvFailureCodes.Size = new System.Drawing.Size(1087, 543);
-            this.lvFailureCodes.TabIndex = 1;
-            this.lvFailureCodes.UseCompatibleStateImageBehavior = false;
-            this.lvFailureCodes.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Code";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Active";
-            this.columnHeader4.Width = 100;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Description";
-            this.columnHeader5.Width = 600;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "ShortDesc";
-            this.columnHeader6.Width = 300;
-            // 
             // mGenFuelUsage
             // 
             this.mGenFuelUsage.CustNumSize = 20F;
             this.mGenFuelUsage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mGenFuelUsage.DynNumSize = 26F;
-            this.mGenFuelUsage.FaceColor = System.Drawing.Color.Black;
+            this.mGenFuelUsage.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.mGenFuelUsage.Location = new System.Drawing.Point(871, 3);
             this.mGenFuelUsage.MaxDeg = 320F;
             this.mGenFuelUsage.MinDeg = 40F;
@@ -2896,7 +2952,7 @@
             this.mGenFuelUsage.NeedleColor = System.Drawing.Color.Yellow;
             this.mGenFuelUsage.NeedleVal = 0F;
             this.mGenFuelUsage.NumColor = System.Drawing.Color.White;
-            this.mGenFuelUsage.Size = new System.Drawing.Size(213, 177);
+            this.mGenFuelUsage.Size = new System.Drawing.Size(213, 178);
             this.mGenFuelUsage.TabIndex = 8;
             this.mGenFuelUsage.TickColor = System.Drawing.Color.White;
             this.mGenFuelUsage.TickIncrement = 2F;
@@ -2911,7 +2967,7 @@
             this.mGenTemp.CustNumSize = 20F;
             this.mGenTemp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mGenTemp.DynNumSize = 26F;
-            this.mGenTemp.FaceColor = System.Drawing.Color.Black;
+            this.mGenTemp.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.mGenTemp.Location = new System.Drawing.Point(654, 3);
             this.mGenTemp.MaxDeg = 320F;
             this.mGenTemp.MinDeg = 40F;
@@ -2919,7 +2975,7 @@
             this.mGenTemp.NeedleColor = System.Drawing.Color.Yellow;
             this.mGenTemp.NeedleVal = 0F;
             this.mGenTemp.NumColor = System.Drawing.Color.White;
-            this.mGenTemp.Size = new System.Drawing.Size(211, 177);
+            this.mGenTemp.Size = new System.Drawing.Size(211, 178);
             this.mGenTemp.TabIndex = 6;
             this.mGenTemp.TickColor = System.Drawing.Color.White;
             this.mGenTemp.TickIncrement = 10F;
@@ -2934,7 +2990,7 @@
             this.mGenPress.CustNumSize = 20F;
             this.mGenPress.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mGenPress.DynNumSize = 26F;
-            this.mGenPress.FaceColor = System.Drawing.Color.Black;
+            this.mGenPress.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.mGenPress.Location = new System.Drawing.Point(437, 3);
             this.mGenPress.MaxDeg = 320F;
             this.mGenPress.MinDeg = 40F;
@@ -2942,7 +2998,7 @@
             this.mGenPress.NeedleColor = System.Drawing.Color.Yellow;
             this.mGenPress.NeedleVal = 0F;
             this.mGenPress.NumColor = System.Drawing.Color.White;
-            this.mGenPress.Size = new System.Drawing.Size(211, 177);
+            this.mGenPress.Size = new System.Drawing.Size(211, 178);
             this.mGenPress.TabIndex = 2;
             this.mGenPress.TickColor = System.Drawing.Color.White;
             this.mGenPress.TickIncrement = 10000F;
@@ -2957,7 +3013,7 @@
             this.mGenRPM.CustNumSize = 20F;
             this.mGenRPM.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mGenRPM.DynNumSize = 26F;
-            this.mGenRPM.FaceColor = System.Drawing.Color.Black;
+            this.mGenRPM.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.mGenRPM.Location = new System.Drawing.Point(3, 3);
             this.mGenRPM.MaxDeg = 320F;
             this.mGenRPM.MinDeg = 40F;
@@ -2965,7 +3021,7 @@
             this.mGenRPM.NeedleColor = System.Drawing.Color.Yellow;
             this.mGenRPM.NeedleVal = 0F;
             this.mGenRPM.NumColor = System.Drawing.Color.White;
-            this.mGenRPM.Size = new System.Drawing.Size(211, 177);
+            this.mGenRPM.Size = new System.Drawing.Size(211, 178);
             this.mGenRPM.TabIndex = 1;
             this.mGenRPM.TickColor = System.Drawing.Color.White;
             this.mGenRPM.TickIncrement = 500F;
@@ -2980,7 +3036,7 @@
             this.mGenIgn.CustNumSize = 20F;
             this.mGenIgn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mGenIgn.DynNumSize = 26F;
-            this.mGenIgn.FaceColor = System.Drawing.Color.Black;
+            this.mGenIgn.FaceColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.mGenIgn.Location = new System.Drawing.Point(220, 3);
             this.mGenIgn.MaxDeg = 320F;
             this.mGenIgn.MinDeg = 40F;
@@ -2988,7 +3044,7 @@
             this.mGenIgn.NeedleColor = System.Drawing.Color.Yellow;
             this.mGenIgn.NeedleVal = 0F;
             this.mGenIgn.NumColor = System.Drawing.Color.White;
-            this.mGenIgn.Size = new System.Drawing.Size(211, 177);
+            this.mGenIgn.Size = new System.Drawing.Size(211, 178);
             this.mGenIgn.TabIndex = 0;
             this.mGenIgn.TickColor = System.Drawing.Color.White;
             this.mGenIgn.TickIncrement = 5F;
@@ -3002,9 +3058,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(1111, 711);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MinimumSize = new System.Drawing.Size(854, 480);
             this.Name = "MainForm";
@@ -3224,7 +3282,6 @@
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.NumericUpDown nudDragTableSplit;
         private System.Windows.Forms.TabPage tabPage21;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDragAccel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDragTime;
         private System.Windows.Forms.Button btnTableImport;
         private System.Windows.Forms.Button btnTableExport;
@@ -3296,5 +3353,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartDragAccel;
     }
 }

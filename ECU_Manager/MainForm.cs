@@ -53,6 +53,21 @@ namespace ECU_Manager
         float fDragToSpeed = 100;
         EcuParameters gParameters;
 
+        private static Image MakeImageColored(Image bitmap, Color color)
+        {
+            Bitmap pic = new Bitmap(bitmap);
+            for (int y = 0; (y <= (pic.Height - 1)); y++)
+            {
+                for (int x = 0; (x <= (pic.Width - 1)); x++)
+                {
+                    Color inv = pic.GetPixel(x, y);
+                    inv = Color.FromArgb(inv.A, color.R, color.G, color.B);
+                    pic.SetPixel(x, y, inv);
+                }
+            }
+            return pic;
+        }
+
         public MainForm(MiddleLayer middleLayer)
         {
             InitializeComponent();
@@ -66,6 +81,8 @@ namespace ECU_Manager
 
             syncForm = new SyncForm();
             syncForm.ShowDialog();
+
+            pbCheckEngine.Image = MakeImageColored(pbCheckEngine.Image, Color.FromArgb(255, 255, 0));
 
             this.DoubleBuffered = true;
 
@@ -297,6 +314,8 @@ namespace ECU_Manager
                         series.XValueType = ChartValueType.Single;
                         series.YAxisType = AxisType.Primary;
                         series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
                         series.BorderWidth = 2;
                         series.Tag = lDragRuns[i];
                         //float trans = (float)i / (float)(lDragRuns.Count - 1);
@@ -316,6 +335,8 @@ namespace ECU_Manager
                         series.XValueType = ChartValueType.Single;
                         series.YAxisType = AxisType.Primary;
                         series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
                         series.BorderWidth = 2;
                         series.Tag = lDragRuns[i];
                         //float trans = (float)i / (float)(lDragRuns.Count - 1);
@@ -540,15 +561,15 @@ namespace ECU_Manager
             lvFailureCodes.Items.Clear();
             foreach (CheckDataItem item in checkDataList)
             {
-                ListViewItem lvitem = lvFailureCodes.Items.Add(((int)item.ErrorCode).ToString());
+                ListViewItem lvitem = lvFailureCodes.Items.Add(((int)item.ErrorCode).ToString(), ((int)item.ErrorCode).ToString(), string.Empty);
                 lvitem.SubItems.Add(item.Active ? "Active" : "Inactive");
                 lvitem.SubItems.Add(item.ErrorCode.ToString());
                 lvitem.SubItems.Add(item.Message);
                 lvitem.Tag = item;
             }
-            if (selected != null && lvFailureCodes.Items.Count > 0 && lvFailureCodes.Items.ContainsKey(selected.Name))
+            if (selected != null && lvFailureCodes.Items.Count > 0 && lvFailureCodes.Items.ContainsKey(selected.Text))
             {
-                lvFailureCodes.Items[selected.Name].Selected = true;
+                lvFailureCodes.Items[selected.Text].Selected = true;
             }
             lvFailureCodes.ResumeLayout();
 
