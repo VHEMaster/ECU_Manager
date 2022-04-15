@@ -625,21 +625,6 @@ namespace ECU_Manager.Controls
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(sParamsStatusY))
-            {
-                FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
-                if (fieldParamY != null)
-                {
-                    paramy = (float)fieldParamY.GetValue(cs.EcuParameters);
-
-                    if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                        lblParams.Text += "  ";
-                    if (!string.IsNullOrWhiteSpace(sTitleStatusY))
-                        lblParams.Text += $"{sTitleStatusY}: ";
-                    lblParams.Text += $"{paramy.ToString(sFormatStatusY)}";
-                }
-            }
-
             if (!string.IsNullOrWhiteSpace(sParamsStatusD))
             {
                 FieldInfo fieldParamD = cs.EcuParameters.GetType().GetField(sParamsStatusD);
@@ -652,6 +637,21 @@ namespace ECU_Manager.Controls
                     if (!string.IsNullOrWhiteSpace(sTitleStatusD))
                         lblParams.Text += $"{sTitleStatusD}: ";
                     lblParams.Text += $"{paramd.ToString(sFormatStatusD)}";
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(sParamsStatusY))
+            {
+                FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
+                if (fieldParamY != null)
+                {
+                    paramy = (float)fieldParamY.GetValue(cs.EcuParameters);
+
+                    if (!string.IsNullOrWhiteSpace(lblParams.Text))
+                        lblParams.Text += "  ";
+                    if (!string.IsNullOrWhiteSpace(sTitleStatusY))
+                        lblParams.Text += $"{sTitleStatusY}: ";
+                    lblParams.Text += $"{paramy.ToString(sFormatStatusY)}";
                 }
             }
 

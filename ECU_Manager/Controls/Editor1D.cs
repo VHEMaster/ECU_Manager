@@ -190,11 +190,11 @@ namespace ECU_Manager.Controls
 
                 nudItem.Minimum = 1;
                 nudItem.Maximum = size;
-
+                
+                nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
                 nudValue.Minimum = (decimal)dMinY;
                 nudValue.Maximum = (decimal)dMaxY;
                 nudValue.Increment = (decimal)dStepSize;
-                nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
 
 
                 if (dep1d == null)
@@ -303,7 +303,7 @@ namespace ECU_Manager.Controls
                     else if (fieldParamY != null)
                     {
                         Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(cs.EcuParameters), array1d, size);
-                        series.Points.AddXY((float)(interpolate.indexes[0] + interpolate.mult), (float)fieldParamY.GetValue(cs.EcuParameters));
+                        series.Points.AddXY((float)(interpolate.indexes[0] + interpolate.mult) + 1, (float)fieldParamY.GetValue(cs.EcuParameters));
                     }
                 }
 

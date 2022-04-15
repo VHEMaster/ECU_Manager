@@ -34,10 +34,10 @@
             this.lblParams = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblItemValue = new System.Windows.Forms.Label();
-            this.nudValue = new NumericUpDownOneWheel();
+            this.nudValue = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label22 = new System.Windows.Forms.Label();
             this.btnPressApply = new System.Windows.Forms.Button();
-            this.nudItem = new NumericUpDownOneWheel();
+            this.nudItem = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label21 = new System.Windows.Forms.Label();
             this.chart1DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -113,10 +113,15 @@
             0});
             this.nudValue.Location = new System.Drawing.Point(463, 3);
             this.nudValue.Maximum = new decimal(new int[] {
-            115000,
+            100000000,
             0,
             0,
             0});
+            this.nudValue.Minimum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            -2147483648});
             this.nudValue.Name = "nudValue";
             this.nudValue.Size = new System.Drawing.Size(138, 29);
             this.nudValue.TabIndex = 4;
@@ -245,14 +250,14 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.NumericUpDown nudValue;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnPressApply;
-        private System.Windows.Forms.NumericUpDown nudItem;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1DChart;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblParams;
         private System.Windows.Forms.Label lblItemValue;
+        private NumericUpDownOneWheel nudValue;
+        private NumericUpDownOneWheel nudItem;
     }
 }
