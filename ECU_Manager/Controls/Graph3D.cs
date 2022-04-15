@@ -275,7 +275,7 @@ namespace ECU_Manager.Controls
 
         #region cMinMax3D
 
-        private class cMinMax3D
+        public class cMinMax3D
         {
             public double md_MinX = double.PositiveInfinity;
             public double md_MaxX = double.NegativeInfinity;
@@ -288,13 +288,24 @@ namespace ECU_Manager.Controls
             public cPoint3D mi_Center3D = new cPoint3D();
 
             // Constructor
+            public cMinMax3D(double d_MinX, double d_MaxX, double d_MinY, double d_MaxY, double d_MinZ, double d_MaxZ)
+            {
+                this.md_MinX = d_MinX;
+                this.md_MaxX = d_MaxX;
+                this.md_MinY = d_MinY;
+                this.md_MaxY = d_MaxY;
+                this.md_MinZ = d_MinZ;
+                this.md_MaxZ = d_MaxZ;
+            }
+
+            // Constructor
             public cMinMax3D(cPoint3D[,] i_Points3D)
             {
                 for (int X = 0; X < i_Points3D.GetLength(0); X++)
                 {
                     for (int Y = 0; Y < i_Points3D.GetLength(1); Y++)
                     {
-                        cPoint3D i_Point3D = i_Points3D[X,Y];
+                        cPoint3D i_Point3D = i_Points3D[X, Y];
 
                         md_MinX = Math.Min(md_MinX, i_Point3D.md_X);
                         md_MaxX = Math.Max(md_MaxX, i_Point3D.md_X);
@@ -618,7 +629,7 @@ namespace ECU_Manager.Controls
         // A movement of mouse by approx 1000 pixels on the screen results in getting from Min to Max or vice versa.
         //
         //                                                      MIN     MAX   DEFAULT  MOUSE FACTOR
-        static readonly double[] VALUES_RHO   = new double[] {  300,   1800,  1350,    2    };
+        static readonly double[] VALUES_RHO   = new double[] {  300,   3600,  1800,    2    };
         static readonly double[] VALUES_THETA = new double[] {   10,    170,    70,    0.25 }; // degree
         static readonly double[] VALUES_PHI   = new double[] {    0,    360,   230,    0.4  }; // degree  (continuous rotation)
 
@@ -877,11 +888,22 @@ namespace ECU_Manager.Controls
         public void SetSurfacePoints(cPoint3D[,] i_Points3D, eNormalize e_Normalize)
         {
             Debug.Assert(!InvokeRequired); // Do not call from other threads or use Invoke()
+            mi_MinMax = new cMinMax3D(i_Points3D);
+            this.SetSurfacePoints(i_Points3D, mi_MinMax, e_Normalize);
+        }
+
+        /// <summary>
+        /// Here you can assign an Array of 3d points.
+        /// Use either SetFunction() or SetSurfacePoints() or SetScatterPoints() or SetScatterLines()
+        /// </summary>
+        public void SetSurfacePoints(cPoint3D[,] i_Points3D, cMinMax3D i_MinMax, eNormalize e_Normalize)
+        {
+            Debug.Assert(!InvokeRequired); // Do not call from other threads or use Invoke()
 
             mi_ScatterArr = null;
-            mi_PolyArr    = i_Points3D;
-            ms32_Points   = i_Points3D.Length;
-            mi_MinMax     = new cMinMax3D(i_Points3D);
+            mi_PolyArr = i_Points3D;
+            ms32_Points = i_Points3D.Length;
+            mi_MinMax = new cMinMax3D(i_Points3D);
             if (ms32_Points < 4)
                 throw new Exception("Insufficient 3D points specified");
 
@@ -1543,7 +1565,7 @@ namespace ECU_Manager.Controls
         {
             base.OnMouseWheel(e);
 
-            if (mi_Mouse.OnMouseWheel(e.Delta))
+            if (mi_Mouse.OnMouseWheel(-e.Delta))
             {
                 mi_Transform.SetCoeficients(mi_Mouse);
 

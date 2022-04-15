@@ -2765,11 +2765,31 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCyclicFilling.Chart.Series.Add(series1);
-            this.eCyclicFilling.Chart.Size = new System.Drawing.Size(1073, 190);
+            this.eCyclicFilling.Chart.Size = new System.Drawing.Size(1073, 191);
             this.eCyclicFilling.Chart.TabIndex = 4;
             this.eCyclicFilling.Chart.Text = " ";
             this.eCyclicFilling.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eCyclicFilling.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            // 
+            // 
+            // 
+            this.eCyclicFilling.Graph3D.AxisX_Color = System.Drawing.Color.Blue;
+            this.eCyclicFilling.Graph3D.AxisX_Legend = null;
+            this.eCyclicFilling.Graph3D.AxisY_Color = System.Drawing.Color.Green;
+            this.eCyclicFilling.Graph3D.AxisY_Legend = null;
+            this.eCyclicFilling.Graph3D.AxisZ_Color = System.Drawing.Color.Red;
+            this.eCyclicFilling.Graph3D.AxisZ_Legend = null;
+            this.eCyclicFilling.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.eCyclicFilling.Graph3D.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eCyclicFilling.Graph3D.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.eCyclicFilling.Graph3D.Location = new System.Drawing.Point(0, 0);
+            this.eCyclicFilling.Graph3D.Margin = new System.Windows.Forms.Padding(0);
+            this.eCyclicFilling.Graph3D.Name = "graph3D";
+            this.eCyclicFilling.Graph3D.PolygonLineColor = System.Drawing.Color.White;
+            this.eCyclicFilling.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.eCyclicFilling.Graph3D.Size = new System.Drawing.Size(535, 275);
+            this.eCyclicFilling.Graph3D.TabIndex = 0;
+            this.eCyclicFilling.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCyclicFilling.LabelTitle = "Cyclic Filling";
             this.eCyclicFilling.Location = new System.Drawing.Point(0, 0);
             this.eCyclicFilling.Margin = new System.Windows.Forms.Padding(6);
@@ -2784,7 +2804,7 @@
             this.tabPage17.Location = new System.Drawing.Point(4, 37);
             this.tabPage17.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(1077, 514);
+            this.tabPage17.Size = new System.Drawing.Size(1077, 525);
             this.tabPage17.TabIndex = 2;
             this.tabPage17.Text = "Enrichment";
             // 
@@ -2801,7 +2821,7 @@
             this.tabControl5.Name = "tabControl5";
             this.tabControl5.Padding = new System.Drawing.Point(20, 5);
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(1077, 514);
+            this.tabControl5.Size = new System.Drawing.Size(1077, 525);
             this.tabControl5.TabIndex = 1;
             // 
             // tabPage34
@@ -2811,7 +2831,7 @@
             this.tabPage34.Location = new System.Drawing.Point(4, 37);
             this.tabPage34.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage34.Name = "tabPage34";
-            this.tabPage34.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage34.Size = new System.Drawing.Size(1069, 484);
             this.tabPage34.TabIndex = 8;
             this.tabPage34.Text = "By MAP";
             // 
@@ -2849,7 +2869,7 @@
             this.eEnrichmentByMAP.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eEnrichmentByMAP.Chart.Location = new System.Drawing.Point(3, 33);
             this.eEnrichmentByMAP.Chart.Name = "chart1DChart";
-            this.eEnrichmentByMAP.Chart.Size = new System.Drawing.Size(1063, 399);
+            this.eEnrichmentByMAP.Chart.Size = new System.Drawing.Size(1063, 410);
             this.eEnrichmentByMAP.Chart.TabIndex = 2;
             this.eEnrichmentByMAP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eEnrichmentByMAP.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -2857,7 +2877,7 @@
             this.eEnrichmentByMAP.Location = new System.Drawing.Point(0, 0);
             this.eEnrichmentByMAP.Margin = new System.Windows.Forms.Padding(6);
             this.eEnrichmentByMAP.Name = "eEnrichmentByMAP";
-            this.eEnrichmentByMAP.Size = new System.Drawing.Size(1069, 473);
+            this.eEnrichmentByMAP.Size = new System.Drawing.Size(1069, 484);
             this.eEnrichmentByMAP.TabIndex = 3;
             // 
             // tabPage23
@@ -2976,10 +2996,10 @@
             // 
             this.tabPage29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage29.Controls.Add(this.eEnrichmentTPSHPF);
-            this.tabPage29.Location = new System.Drawing.Point(4, 37);
+            this.tabPage29.Location = new System.Drawing.Point(4, 136);
             this.tabPage29.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage29.Name = "tabPage29";
-            this.tabPage29.Size = new System.Drawing.Size(1069, 473);
+            this.tabPage29.Size = new System.Drawing.Size(184, 0);
             this.tabPage29.TabIndex = 11;
             this.tabPage29.Text = "TPS HPF";
             // 
@@ -3017,7 +3037,7 @@
             this.eEnrichmentTPSHPF.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eEnrichmentTPSHPF.Chart.Location = new System.Drawing.Point(3, 33);
             this.eEnrichmentTPSHPF.Chart.Name = "chart1DChart";
-            this.eEnrichmentTPSHPF.Chart.Size = new System.Drawing.Size(1063, 399);
+            this.eEnrichmentTPSHPF.Chart.Size = new System.Drawing.Size(178, 1);
             this.eEnrichmentTPSHPF.Chart.TabIndex = 2;
             this.eEnrichmentTPSHPF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eEnrichmentTPSHPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -3025,7 +3045,7 @@
             this.eEnrichmentTPSHPF.Location = new System.Drawing.Point(0, 0);
             this.eEnrichmentTPSHPF.Margin = new System.Windows.Forms.Padding(6);
             this.eEnrichmentTPSHPF.Name = "eEnrichmentTPSHPF";
-            this.eEnrichmentTPSHPF.Size = new System.Drawing.Size(1069, 473);
+            this.eEnrichmentTPSHPF.Size = new System.Drawing.Size(184, 0);
             this.eEnrichmentTPSHPF.TabIndex = 5;
             // 
             // tabPage22
@@ -3141,6 +3161,22 @@
             this.eIgnition.Chart.Text = " ";
             this.eIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eIgnition.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            // 
+            // 
+            // 
+            this.eIgnition.Graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.eIgnition.Graph3D.AxisX_Legend = null;
+            this.eIgnition.Graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.eIgnition.Graph3D.AxisY_Legend = null;
+            this.eIgnition.Graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.eIgnition.Graph3D.AxisZ_Legend = null;
+            this.eIgnition.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.eIgnition.Graph3D.Location = new System.Drawing.Point(0, 0);
+            this.eIgnition.Graph3D.Name = "graph3D";
+            this.eIgnition.Graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.eIgnition.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.eIgnition.Graph3D.TabIndex = 0;
+            this.eIgnition.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eIgnition.LabelTitle = "Ignition Angle";
             this.eIgnition.Location = new System.Drawing.Point(0, 0);
             this.eIgnition.Margin = new System.Windows.Forms.Padding(6);
@@ -3373,6 +3409,22 @@
             this.eFuelMixtures.Chart.Text = " ";
             this.eFuelMixtures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eFuelMixtures.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            // 
+            // 
+            // 
+            this.eFuelMixtures.Graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.eFuelMixtures.Graph3D.AxisX_Legend = null;
+            this.eFuelMixtures.Graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.eFuelMixtures.Graph3D.AxisY_Legend = null;
+            this.eFuelMixtures.Graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.eFuelMixtures.Graph3D.AxisZ_Legend = null;
+            this.eFuelMixtures.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.eFuelMixtures.Graph3D.Location = new System.Drawing.Point(0, 0);
+            this.eFuelMixtures.Graph3D.Name = "graph3D";
+            this.eFuelMixtures.Graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.eFuelMixtures.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.eFuelMixtures.Graph3D.TabIndex = 0;
+            this.eFuelMixtures.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eFuelMixtures.LabelTitle = "Fuel Mixtures";
             this.eFuelMixtures.Location = new System.Drawing.Point(0, 0);
             this.eFuelMixtures.Margin = new System.Windows.Forms.Padding(6);
@@ -3467,6 +3519,22 @@
             this.eInjectionPhase.Chart.Text = " ";
             this.eInjectionPhase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eInjectionPhase.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            // 
+            // 
+            // 
+            this.eInjectionPhase.Graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.eInjectionPhase.Graph3D.AxisX_Legend = null;
+            this.eInjectionPhase.Graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.eInjectionPhase.Graph3D.AxisY_Legend = null;
+            this.eInjectionPhase.Graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.eInjectionPhase.Graph3D.AxisZ_Legend = null;
+            this.eInjectionPhase.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.eInjectionPhase.Graph3D.Location = new System.Drawing.Point(0, 0);
+            this.eInjectionPhase.Graph3D.Name = "graph3D";
+            this.eInjectionPhase.Graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.eInjectionPhase.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.eInjectionPhase.Graph3D.TabIndex = 0;
+            this.eInjectionPhase.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eInjectionPhase.LabelTitle = "Injection Phase";
             this.eInjectionPhase.Location = new System.Drawing.Point(0, 0);
             this.eInjectionPhase.Margin = new System.Windows.Forms.Padding(6);

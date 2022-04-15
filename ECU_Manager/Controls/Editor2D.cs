@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
+
+using delRendererFunction = ECU_Manager.Controls.Graph3D.delRendererFunction;
+using cPoint3D = ECU_Manager.Controls.Graph3D.cPoint3D;
+using eRaster = ECU_Manager.Controls.Graph3D.eRaster;
+using cScatter = ECU_Manager.Controls.Graph3D.cScatter;
+using eNormalize = ECU_Manager.Controls.Graph3D.eNormalize;
+using cMinMax3D = ECU_Manager.Controls.Graph3D.cMinMax3D;
+
 namespace ECU_Manager.Controls
 {
     public enum Editor2DMode
@@ -82,7 +90,18 @@ namespace ECU_Manager.Controls
             chart2DChart.Titles.Clear();
             chart2DChart.Annotations.Clear();
         }
-        
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category("Chart"),
+        Description("The 3D chart for this control")]
+        public Graph3D Graph3D
+        {
+            get
+            {
+                return graph3D;
+            }
+        }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category("Chart"),
         Description("The 2D chart for this control")]
@@ -494,6 +513,29 @@ namespace ECU_Manager.Controls
                 {
                     chart2DChart.ChartAreas[0].AxisX.IsLogarithmic = bLog10;
                 }
+                
+                graph3D.AxisX_Color = Color.Red;
+                graph3D.AxisY_Color = Color.Green;
+                graph3D.AxisZ_Color = Color.Blue;
+
+                graph3D.AxisX_Legend = sTitleStatusX;
+                graph3D.AxisY_Legend = sTitleStatusD;
+                graph3D.AxisZ_Legend = sTitleStatusY;
+                graph3D.Raster = eRaster.Labels;
+
+                cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+
+                for (int y = 0; y < sizey; y++)
+                {
+                    for (int x = 0; x < sizex; x++)
+                    {
+                        i_Points3D[x, y] = new cPoint3D(depx[x], depy[y], array2d[y * sizex + x]);
+                    }
+                }
+                cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
+                    chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
+                graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
+
             }
         }
 
@@ -695,6 +737,20 @@ namespace ECU_Manager.Controls
 
                         }
                     }
+
+
+                    cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+
+                    for (int y = 0; y < sizey; y++)
+                    {
+                        for (int x = 0; x < sizex; x++)
+                        {
+                            i_Points3D[x, y] = new cPoint3D(depx[x], depy[y], array2d[y * sizex + x]);
+                        }
+                    }
+                    cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
+                        chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
+                    graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
                 }
             }
         }
