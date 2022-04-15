@@ -74,7 +74,13 @@
     <Compile Include="Controls\Editor2D.Designer.cs">
       <DependentUpon>Editor2D.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Graph3D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\Meter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\NumericUpDownOneWheel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DiagForm.cs">

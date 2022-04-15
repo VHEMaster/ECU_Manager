@@ -163,6 +163,9 @@ namespace ECU_Manager.Controls
                 chart1DChart.Series[0].MarkerColor = Color.White;
                 chart1DChart.Series[0].MarkerStyle = MarkerStyle.Circle;
                 chart1DChart.Series[0].ChartType = SeriesChartType.Line;
+                chart1DChart.Series[0].IsValueShownAsLabel = true;
+                chart1DChart.Series[0].LabelFormat = $"F{nudValue.DecimalPlaces}";
+                chart1DChart.Series[0].LabelForeColor = Color.White;
 
                 min = array1d.Take(size).Min();
                 max = array1d.Take(size).Max();
@@ -202,12 +205,19 @@ namespace ECU_Manager.Controls
 
                     for (int i = 0; i < size; i++)
                     {
-                        chart1DChart.Series[0].Points[chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i])].Tag = i;
+                        int point = chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i]);
+                        chart1DChart.Series[0].Points[point].Tag = i;
 
                         if (array1d[i] > chartMax)
                             chartMax = array1d[i];
                         if (array1d[i] < chartMin)
                             chartMin = array1d[i];
+
+                        if(i == nudItem.Value - 1)
+                        {
+                            chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
+                            chart1DChart.Series[0].Points[point].MarkerSize = 15;
+                        }
                     }
                 }
                 else
@@ -222,12 +232,19 @@ namespace ECU_Manager.Controls
                     chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[size - 1];
                     for (int i = 0; i < size; i++)
                     {
-                        chart1DChart.Series[0].Points[chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i])].Tag = i;
+                        int point = chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i]);
+                        chart1DChart.Series[0].Points[point].Tag = i;
 
                         if (array1d[i] > chartMax)
                             chartMax = array1d[i];
                         if (array1d[i] < chartMin)
                             chartMin = array1d[i];
+
+                        if (i == nudItem.Value - 1)
+                        {
+                            chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
+                            chart1DChart.Series[0].Points[point].MarkerSize = 15;
+                        }
                     }
                 }
                 
@@ -318,6 +335,15 @@ namespace ECU_Manager.Controls
                 if (fieldArrayX != null)
                     array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
+
+            foreach(DataPoint point in chart1DChart.Series[0].Points)
+            {
+                point.MarkerStyle = MarkerStyle.Circle;
+                point.MarkerSize = 8;
+            }
+
+            chart1DChart.Series[0].Points[(int)((NumericUpDown)sender).Value - 1].MarkerStyle = MarkerStyle.Cross;
+            chart1DChart.Series[0].Points[(int)((NumericUpDown)sender).Value - 1].MarkerSize = 15;
 
             nudValue.Value = (decimal)array1d[(int)((NumericUpDown)sender).Value - 1];
 

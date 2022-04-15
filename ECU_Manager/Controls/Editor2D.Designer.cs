@@ -37,12 +37,18 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.graph3D = new ECU_Manager.Controls.Graph3D();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -57,7 +63,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tlp2DTable);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.splitContainer1.Panel1MinSize = 128;
             // 
@@ -66,8 +72,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.chart2DChart);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.splitContainer1.Panel2MinSize = 128;
-            this.splitContainer1.Size = new System.Drawing.Size(979, 548);
-            this.splitContainer1.SplitterDistance = 321;
+            this.splitContainer1.Size = new System.Drawing.Size(1050, 592);
+            this.splitContainer1.SplitterDistance = 346;
             this.splitContainer1.TabIndex = 2;
             // 
             // tlp2DTable
@@ -84,7 +90,7 @@
             this.tlp2DTable.RowCount = 2;
             this.tlp2DTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlp2DTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp2DTable.Size = new System.Drawing.Size(975, 314);
+            this.tlp2DTable.Size = new System.Drawing.Size(521, 339);
             this.tlp2DTable.TabIndex = 0;
             // 
             // chart2DChart
@@ -119,7 +125,7 @@
             series1.YValuesPerPoint = 2;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chart2DChart.Series.Add(series1);
-            this.chart2DChart.Size = new System.Drawing.Size(975, 216);
+            this.chart2DChart.Size = new System.Drawing.Size(1046, 235);
             this.chart2DChart.TabIndex = 4;
             this.chart2DChart.Text = " ";
             // 
@@ -137,16 +143,16 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(979, 578);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1050, 622);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // lblParams
             // 
             this.lblParams.AutoSize = true;
             this.lblParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblParams.Location = new System.Drawing.Point(492, 0);
+            this.lblParams.Location = new System.Drawing.Point(528, 0);
             this.lblParams.Name = "lblParams";
-            this.lblParams.Size = new System.Drawing.Size(484, 30);
+            this.lblParams.Size = new System.Drawing.Size(519, 30);
             this.lblParams.TabIndex = 6;
             this.lblParams.Text = "Parameters";
             this.lblParams.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,10 +163,47 @@
             this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitle.Location = new System.Drawing.Point(3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(483, 30);
+            this.lblTitle.Size = new System.Drawing.Size(519, 30);
             this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tlp2DTable);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.graph3D);
+            this.splitContainer2.Size = new System.Drawing.Size(1046, 339);
+            this.splitContainer2.SplitterDistance = 521;
+            this.splitContainer2.TabIndex = 1;
+            // 
+            // graph3D
+            // 
+            this.graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.graph3D.AxisX_Legend = null;
+            this.graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.graph3D.AxisY_Legend = null;
+            this.graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.graph3D.AxisZ_Legend = null;
+            this.graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.graph3D.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graph3D.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.graph3D.Location = new System.Drawing.Point(0, 0);
+            this.graph3D.Name = "graph3D";
+            this.graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.graph3D.Size = new System.Drawing.Size(521, 339);
+            this.graph3D.TabIndex = 0;
+            this.graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             // 
             // Editor2D
             // 
@@ -170,7 +213,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Editor2D";
-            this.Size = new System.Drawing.Size(979, 578);
+            this.Size = new System.Drawing.Size(1050, 622);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -178,6 +221,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -190,5 +237,7 @@
         private System.Windows.Forms.Label lblParams;
         private System.Windows.Forms.Label lblTitle;
         public System.Windows.Forms.DataVisualization.Charting.Chart chart2DChart;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private Graph3D graph3D;
     }
 }

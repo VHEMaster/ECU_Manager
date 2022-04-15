@@ -52,7 +52,7 @@
             this.panelSetup = new System.Windows.Forms.Panel();
             this.gpForceTemplate = new System.Windows.Forms.GroupBox();
             this.tbForceTemplate = new System.Windows.Forms.TrackBar();
-            this.nudForceTemplate = new System.Windows.Forms.NumericUpDown();
+            this.nudForceTemplate = new Controls.NumericUpDownOneWheel();
             this.cbForceTemplate = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnUsedMoveUp = new System.Windows.Forms.Button();

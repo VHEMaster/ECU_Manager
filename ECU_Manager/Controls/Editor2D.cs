@@ -154,7 +154,7 @@ namespace ECU_Manager.Controls
                 {
                     if (x >= 0 && y >= 0)
                     {
-                        NumericUpDown nud = new NumericUpDown();
+                        NumericUpDown nud = new NumericUpDownOneWheel();
                         nud.Margin = new Padding(0);
                         nud.Minimum = (decimal)dMinY;
                         nud.Maximum = (decimal)dMaxY;
@@ -391,7 +391,7 @@ namespace ECU_Manager.Controls
                     if (control.Tag != null)
                     {
 
-                        if (control.GetType() == typeof(NumericUpDown))
+                        if (control.GetType().IsSubclassOf(typeof(NumericUpDown)))
                         {
                             int x = ((int)control.Tag) % (iArraySizeX);
                             int y = ((int)control.Tag) / (iArraySizeX);
@@ -622,7 +622,7 @@ namespace ECU_Manager.Controls
 
                     for (int i = 0; i < tlp2DTable.Controls.Count; i++)
                     {
-                        if (tlp2DTable.Controls[i] is NumericUpDown)
+                        if (tlp2DTable.Controls[i].GetType().IsSubclassOf(typeof(NumericUpDown)))
                         {
                             NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
 

@@ -34,10 +34,10 @@
             this.lblParams = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblItemValue = new System.Windows.Forms.Label();
-            this.nudValue = new System.Windows.Forms.NumericUpDown();
+            this.nudValue = new NumericUpDownOneWheel();
             this.label22 = new System.Windows.Forms.Label();
             this.btnPressApply = new System.Windows.Forms.Button();
-            this.nudItem = new System.Windows.Forms.NumericUpDown();
+            this.nudItem = new NumericUpDownOneWheel();
             this.label21 = new System.Windows.Forms.Label();
             this.chart1DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblTitle = new System.Windows.Forms.Label();

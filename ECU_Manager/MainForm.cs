@@ -134,7 +134,6 @@ namespace ECU_Manager
             colorTransience.Add(Color.DeepSkyBlue, 20.0F);
 
             eFuelMixtures.SetTableColorTrans(colorTransience);
-            eFuelMixtures.SynchronizeChart();
 
 
             eInjectionPhase.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
@@ -158,7 +157,6 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 600);
 
             eInjectionPhase.SetTableColorTrans(colorTransience);
-            eInjectionPhase.SynchronizeChart();
 
 
             eIgnition.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
@@ -179,17 +177,71 @@ namespace ECU_Manager
             colorTransience.Add(Color.Red, 45);
 
             eIgnition.SetTableColorTrans(colorTransience);
-            eIgnition.SynchronizeChart();
 
+            eSaturationPulse.Initialize(middleLayer.ComponentStructure, 0, 10000, 100, 500, 0, 5000, 1, 500, 0);
+            eSaturationPulse.SetConfig("ignition_time", "voltages_count", "voltages");
+            eSaturationPulse.SetX("PowerVoltage", "Voltage", "F1");
+            eSaturationPulse.SetY("IgnitionPulse", "Pulse", "F0");
+            eSaturationPulse.SetTableEventHandler(ChartUpdateEvent);
+
+            eSatByRPM.Initialize(middleLayer.ComponentStructure, 0.1D, 10D, 0.1D, 0.2D, 0.2D, 2.0F, 500, 0.2D, 1);
+            eSatByRPM.SetConfig("ignition_time_rpm_mult", "rotates_count", "rotates");
+            eSatByRPM.SetX("RPM", "RPM", "F0");
+            eSatByRPM.SetTableEventHandler(ChartUpdateEvent);
 
             eInjectorLag.Initialize(middleLayer.ComponentStructure, 0, 10, 0.01D, 0.1D, 0, 2, 1, 0.2, 2);
             eInjectorLag.SetConfig("injector_lag", "voltages_count", "voltages");
             eInjectorLag.SetX("PowerVoltage", "Voltage", "F1");
             eInjectorLag.SetY("InjectionLag", "Lag", "F2");
-            eInjectorLag.UpdateChart();
             eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
 
+            eEnrichmentByMAP.Initialize(middleLayer.ComponentStructure, 0, 5, 0.001D, 0.1D, 0D, 1.0F, 5000, 0.1D, 3);
+            eEnrichmentByMAP.SetConfig("enrichment_by_map_sens", "pressures_count", "pressures");
+            eEnrichmentByMAP.SetX("ManifoldAirPressure", "MAP", "F0");
+            eEnrichmentByMAP.SetY("InjectionEnrichment", "Enr.", "F3");
+            eEnrichmentByMAP.SetTableEventHandler(ChartUpdateEvent);
 
+            eEnrichmentByTPS.Initialize(middleLayer.ComponentStructure, 0, 5, 0.001D, 0.1D, 0D, 1.0F, 5, 0.1D, 3);
+            eEnrichmentByTPS.SetConfig("enrichment_by_thr_sens", "throttles_count", "throttles");
+            eEnrichmentByTPS.SetX("ThrottlePosition", "TPS", "F0");
+            eEnrichmentByTPS.SetY("InjectionEnrichment", "Enr.", "F3");
+            eEnrichmentByTPS.SetTableEventHandler(ChartUpdateEvent);
+
+            eEnrichmentMAPHPF.Initialize(middleLayer.ComponentStructure, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            eEnrichmentMAPHPF.SetConfig("enrichment_by_map_hpf", "rotates_count", "rotates");
+            eEnrichmentMAPHPF.SetX("RPM", "RPM", "F0");
+            eEnrichmentMAPHPF.SetTableEventHandler(ChartUpdateEvent);
+
+            eEnrichmentTPSHPF.Initialize(middleLayer.ComponentStructure, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            eEnrichmentTPSHPF.SetConfig("enrichment_by_thr_hpf", "rotates_count", "rotates");
+            eEnrichmentTPSHPF.SetX("RPM", "RPM", "F0");
+            eEnrichmentTPSHPF.SetTableEventHandler(ChartUpdateEvent);
+
+
+            SynchronizeCharts();
+        }
+
+        private void SynchronizeCharts()
+        {
+            eCyclicFilling.SynchronizeChart();
+            eFuelMixtures.SynchronizeChart();
+            eInjectionPhase.SynchronizeChart();
+            eIgnition.SynchronizeChart();
+            UpdateCharts();
+        }
+        private void UpdateCharts()
+        {
+            eCyclicFilling.UpdateChart();
+            eFuelMixtures.UpdateChart();
+            eInjectionPhase.UpdateChart();
+            eIgnition.UpdateChart();
+            eSatByRPM.UpdateChart();
+            eInjectorLag.UpdateChart();
+            eSaturationPulse.UpdateChart();
+            eEnrichmentByMAP.UpdateChart();
+            eEnrichmentByTPS.UpdateChart();
+            eEnrichmentMAPHPF.UpdateChart();
+            eEnrichmentTPSHPF.UpdateChart();
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -328,11 +380,7 @@ namespace ECU_Manager
                     middleLayer.PacketHandler.SendParametersRequest();  
                 }
 
-                eCyclicFilling.SynchronizeChart();
-                eFuelMixtures.SynchronizeChart();
-                eInjectionPhase.SynchronizeChart();
-                eIgnition.SynchronizeChart();
-                eCyclicFilling.UpdateChart();
+                SynchronizeCharts();
             }
         }
 
@@ -717,11 +765,8 @@ namespace ECU_Manager
             parametersReceived = true;
             lastReceivedarameters = DateTime.Now;
 
-            eCyclicFilling.UpdateChart();
-            eFuelMixtures.UpdateChart();
-            eInjectionPhase.UpdateChart();
-            eIgnition.UpdateChart();
-            eInjectorLag.UpdateChart();
+            UpdateCharts();
+
         }
         
         private void tmrSync_Tick(object sender, EventArgs e)
