@@ -18,6 +18,11 @@ namespace ECU_Manager.Structs
         List<float> lfValues;
         object mutex = new object();
 
+        public Color[] GetColors()
+        {
+            return lcColors.ToArray();
+        }
+
         public ColorTransience(float rangeFrom, float rangeTo, Color colorDefault)
         {
             fColorTransMin = rangeFrom;

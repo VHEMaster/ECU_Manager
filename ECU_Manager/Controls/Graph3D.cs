@@ -634,7 +634,7 @@ namespace ECU_Manager.Controls
         static readonly double[] VALUES_PHI   = new double[] {    0,    360,   230,    0.4  }; // degree  (continuous rotation)
 
         // The axis are 10% longer than the highest X,Y,Z value
-        const double AXIS_EXCESS = 1.1;
+        const double AXIS_EXCESS = 1.0;
 
         // For any strange reason the graph is not centerd vertically
         const int VERT_OFFSET = -30;
@@ -903,7 +903,7 @@ namespace ECU_Manager.Controls
             mi_ScatterArr = null;
             mi_PolyArr = i_Points3D;
             ms32_Points = i_Points3D.Length;
-            mi_MinMax = new cMinMax3D(i_Points3D);
+            mi_MinMax = i_MinMax;
             if (ms32_Points < 4)
                 throw new Exception("Insufficient 3D points specified");
 
@@ -1042,32 +1042,38 @@ namespace ECU_Manager.Controls
 
                 switch ((eCoord)A)
                 {
-                    case eCoord.X: // Blue
-                        i_Axis.mi_Points3D[0].md_X = Math.Min(0.0, mi_MinMax.md_MinX * AXIS_EXCESS);
-                        i_Axis.mi_Points3D[1].md_X = Math.Max(0.0, mi_MinMax.md_MaxX * AXIS_EXCESS);
+                    case eCoord.X: // Red
+                        i_Axis.mi_Points3D[0].md_X = (mi_MinMax.md_MinX * (1.0 / AXIS_EXCESS));
+                        i_Axis.mi_Points3D[1].md_X = (mi_MinMax.md_MaxX * AXIS_EXCESS);
                         // ---------------------------
-                        i_Axis.mi_Points3D[0].md_Y = Math.Min(0.0, mi_MinMax.md_MinY * AXIS_EXCESS); // X axis at minimum Y position
-                        i_Axis.mi_Points3D[1].md_Y = Math.Min(0.0, mi_MinMax.md_MinY * AXIS_EXCESS); // X axis at minimum Y position
+                        i_Axis.mi_Points3D[0].md_Y = (mi_MinMax.md_MinY * (1.0 / AXIS_EXCESS)); // X axis at minimum Y position
+                        i_Axis.mi_Points3D[1].md_Y = (mi_MinMax.md_MinY * (1.0 / AXIS_EXCESS)); // X axis at minimum Y position
+                        // ---------------------------
+                        i_Axis.mi_Points3D[0].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
+                        i_Axis.mi_Points3D[1].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
                         i_Axis.me_Line   = eCoord.X;
                         i_Axis.me_Offset = eCoord.X; // Hide zero label at X axis (X,X invalid)
                         break;
                     case eCoord.Y: // Green
-                        i_Axis.mi_Points3D[0].md_Y = Math.Min(0.0, mi_MinMax.md_MinY * AXIS_EXCESS);
-                        i_Axis.mi_Points3D[1].md_Y = Math.Max(0.0, mi_MinMax.md_MaxY * AXIS_EXCESS);
+                        i_Axis.mi_Points3D[0].md_Y = (mi_MinMax.md_MinY * (1.0 / AXIS_EXCESS));
+                        i_Axis.mi_Points3D[1].md_Y = (mi_MinMax.md_MaxY * AXIS_EXCESS);
                         // ---------------------------
-                        i_Axis.mi_Points3D[0].md_X = Math.Min(0.0, mi_MinMax.md_MinX * AXIS_EXCESS); // Y axis at minimum X position
-                        i_Axis.mi_Points3D[1].md_X = Math.Min(0.0, mi_MinMax.md_MinX * AXIS_EXCESS); // Y axis at minimum X position
+                        i_Axis.mi_Points3D[0].md_X = (mi_MinMax.md_MinX * (1.0 / AXIS_EXCESS)); // Y axis at minimum X position
+                        i_Axis.mi_Points3D[1].md_X = (mi_MinMax.md_MinX * (1.0 / AXIS_EXCESS)); // Y axis at minimum X position
+                        // ---------------------------
+                        i_Axis.mi_Points3D[0].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
+                        i_Axis.mi_Points3D[1].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
                         i_Axis.me_Line   = eCoord.Y;
                         i_Axis.me_Offset = eCoord.Z; // Show zero label at Y axis
                         break;
-                    case eCoord.Z: // Red
-                        i_Axis.mi_Points3D[0].md_Z = Math.Min(0.0, mi_MinMax.md_MinZ * AXIS_EXCESS);
-                        i_Axis.mi_Points3D[1].md_Z = Math.Max(0.0, mi_MinMax.md_MaxZ * AXIS_EXCESS);
+                    case eCoord.Z: // Blue
+                        i_Axis.mi_Points3D[0].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
+                        i_Axis.mi_Points3D[1].md_Z = (mi_MinMax.md_MaxZ * AXIS_EXCESS);
                         // ---------------------------
-                        i_Axis.mi_Points3D[0].md_X = Math.Min(0.0, mi_MinMax.md_MinX * AXIS_EXCESS); // Z axis start at minimum X position
-                        i_Axis.mi_Points3D[1].md_X = Math.Min(0.0, mi_MinMax.md_MinX * AXIS_EXCESS); // Z axis start at minimum X position
-                        i_Axis.mi_Points3D[0].md_Y = Math.Min(0.0, mi_MinMax.md_MinY * AXIS_EXCESS); // Z axis start at minimum Y position
-                        i_Axis.mi_Points3D[1].md_Y = Math.Min(0.0, mi_MinMax.md_MinY * AXIS_EXCESS); // Z axis start at minimum Y position
+                        i_Axis.mi_Points3D[0].md_X = (mi_MinMax.md_MinX * (1.0 / AXIS_EXCESS)); // Z axis start at minimum X position
+                        i_Axis.mi_Points3D[1].md_X = (mi_MinMax.md_MinX * (1.0 / AXIS_EXCESS)); // Z axis start at minimum X position
+                        i_Axis.mi_Points3D[0].md_Y = (mi_MinMax.md_MinY * (1.0 / AXIS_EXCESS)); // Z axis start at minimum Y position
+                        i_Axis.mi_Points3D[1].md_Y = (mi_MinMax.md_MinY * (1.0 / AXIS_EXCESS)); // Z axis start at minimum Y position
                         i_Axis.me_Line   = eCoord.Z;
                         i_Axis.me_Offset = eCoord.Z; // Hide zero label at Z axis (Z,Z invalid)
                         break;
@@ -1105,11 +1111,10 @@ namespace ECU_Manager.Controls
 
                         for (int L=-11; L<11; L++) // iterate raster line
                         {
-                            double d_Offset = d_Interval * L;
-
-                            if (d_Offset < d_SecndStart || d_Offset > d_SecndEnd) 
+                            double d_Offset = (d_SecndEnd - d_SecndStart / 2) + (d_Interval * L);
+                            if (d_Offset < d_SecndStart || d_Offset > d_SecndEnd)
                                 continue;
-                                
+
                             cLine i_Raster = new cLine();
                             i_Raster.mi_Pen         = mi_RasterPens[(int)e_Second];
                             i_Raster.me_Line        = e_First;
@@ -1127,7 +1132,7 @@ namespace ECU_Manager.Controls
                                 i_Raster.CoordEquals(i_Lines[(int)eCoord.Z]))
                                 continue;
 
-                            if ((e_First == eCoord.X && e_Second == eCoord.Z) || // Blue
+                            if ((e_First == eCoord.X && e_Second == eCoord.Z) || // Red
                                 (e_First == eCoord.Z && e_Second == eCoord.X))
                             {
                                 i_Raster.md_Sort = mi_Quadrant.md_SortXZ;
@@ -1137,7 +1142,7 @@ namespace ECU_Manager.Controls
                             {
                                 i_Raster.md_Sort = mi_Quadrant.md_SortYZ;
                             }
-                            else // X + Y Red
+                            else // X + Y Blue
                             {
                                 i_Raster.md_Sort = mi_Quadrant.md_SortXY;
 

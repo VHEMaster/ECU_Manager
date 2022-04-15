@@ -75,7 +75,8 @@ namespace ECU_Manager.Controls
         private List<ForcePosition> forcePositions = null;
 
         private ComponentStructure cs;
-        
+
+        Color[] ColorScheme;
         List<int> tlpRows = new List<int>();
         List<int> tlpColumns = new List<int>();
         private int tlpInfoRow = 0;
@@ -89,6 +90,8 @@ namespace ECU_Manager.Controls
             chart2DChart.Legends.Clear();
             chart2DChart.Titles.Clear();
             chart2DChart.Annotations.Clear();
+
+            
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -127,7 +130,7 @@ namespace ECU_Manager.Controls
             }
         }
 
-        public void Initialize(ComponentStructure componentStructure, Editor2DMode mode, int sizex, int sizey, double min, double max, double step, double mindiffx, double mindiffy, double chartminy, double chartmaxy, double intervalx, double intervaly, int arraysizex, int arraysizey, int decplaces, bool log10 = false)
+        public void Initialize(ComponentStructure componentStructure, Editor2DMode mode, int sizex, int sizey, double min, double max, double step, double mindiffx, double mindiffy, double chartminy, double chartmaxy, double intervalx, double intervaly, int arraysizex, int arraysizey, int decplaces, bool reverseColorSchema = false, bool log10 = false)
         {
             dMinY = min;
             dMaxY = max;
@@ -217,6 +220,17 @@ namespace ECU_Manager.Controls
                         }
                     }
                 }
+            }
+
+            byte[,] u8_RGB = new byte[,] { { 0, 0, 143 }, { 0, 0, 159 }, { 0, 0, 175 }, { 0, 0, 191 }, { 0, 0, 207 }, { 0, 0, 223 }, { 0, 0, 239 }, { 0, 0, 255 }, { 0, 16, 255 }, { 0, 32, 255 }, { 0, 48, 255 }, { 0, 64, 255 }, { 0, 80, 255 }, { 0, 96, 255 }, { 0, 112, 255 }, { 0, 128, 255 }, { 0, 143, 255 }, { 0, 159, 255 }, { 0, 175, 255 }, { 0, 191, 255 }, { 0, 207, 255 }, { 0, 223, 255 }, { 0, 239, 255 }, { 0, 255, 255 }, { 16, 255, 239 }, { 32, 255, 223 }, { 48, 255, 207 }, { 64, 255, 191 }, { 80, 255, 175 }, { 96, 255, 159 }, { 112, 255, 143 }, { 128, 255, 128 }, { 143, 255, 112 }, { 159, 255, 96 }, { 175, 255, 80 }, { 191, 255, 64 }, { 207, 255, 48 }, { 223, 255, 32 }, { 239, 255, 16 }, { 255, 255, 0 }, { 255, 239, 0 }, { 255, 223, 0 }, { 255, 207, 0 }, { 255, 191, 0 }, { 255, 175, 0 }, { 255, 159, 0 }, { 255, 143, 0 }, { 255, 128, 0 }, { 255, 112, 0 }, { 255, 96, 0 }, { 255, 80, 0 }, { 255, 64, 0 }, { 255, 48, 0 }, { 255, 32, 0 }, { 255, 16, 0 }, { 255, 0, 0 }, { 239, 0, 0 }, { 223, 0, 0 }, { 207, 0, 0 }, { 191, 0, 0 }, { 175, 0, 0 }, { 159, 0, 0 }, { 143, 0, 0 }, { 128, 0, 0 } };
+
+            ColorScheme = new Color[u8_RGB.GetLength(0)];
+            for (int i = 0; i < ColorScheme.Length; i++)
+            {
+                int ptr = i;
+                if (reverseColorSchema)
+                    ptr = ColorScheme.Length - i - 1;
+                ColorScheme[i] = Color.FromArgb(u8_RGB[ptr, 0], u8_RGB[ptr, 1], u8_RGB[ptr, 2]);
             }
         }
 
@@ -535,6 +549,7 @@ namespace ECU_Manager.Controls
                 cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
                     chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                 graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
+                graph3D.SetColorScheme(ColorScheme, 3.0F);
 
             }
         }
@@ -751,6 +766,7 @@ namespace ECU_Manager.Controls
                     cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
                         chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                     graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
+                    graph3D.SetColorScheme(ColorScheme, 3.0F);
                 }
             }
         }

@@ -116,7 +116,7 @@ namespace ECU_Manager
             eFuelMixtures.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
-                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 17.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 17.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
             
             eFuelMixtures.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
             eFuelMixtures.SetX("RPM", "RPM", "F0");
