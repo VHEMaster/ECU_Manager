@@ -139,7 +139,7 @@ namespace ECU_Manager
             eInjectionPhase.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
-                0.0D, 720.0, 1.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
+                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
 
             eInjectionPhase.SetConfig("injection_phase", "rotates_count", "fillings_count", "rotates", "fillings");
             eInjectionPhase.SetX("RPM", "RPM", "F0");

@@ -503,7 +503,7 @@ namespace ECU_Manager.Controls
                     }
                     chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
                     chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
-                    
+
 
                 }
 
@@ -517,8 +517,8 @@ namespace ECU_Manager.Controls
                 series.Color = Color.Red;
                 series.MarkerStyle = MarkerStyle.Circle;
                 series.Points.AddXY(paramx, paramy);
-                
-                if(chartMaxX != double.MinValue)
+
+                if (chartMaxX != double.MinValue)
                 {
                     chart2DChart.ChartAreas[0].AxisX.IsLogarithmic = bLog10;
                     chart2DChart.ChartAreas[0].AxisX.LogarithmBase = 10;
@@ -527,7 +527,7 @@ namespace ECU_Manager.Controls
                 {
                     chart2DChart.ChartAreas[0].AxisX.IsLogarithmic = bLog10;
                 }
-                
+
                 graph3D.AxisX_Color = Color.Red;
                 graph3D.AxisY_Color = Color.Green;
                 graph3D.AxisZ_Color = Color.Blue;
@@ -543,10 +543,10 @@ namespace ECU_Manager.Controls
                 {
                     for (int x = 0; x < sizex; x++)
                     {
-                        i_Points3D[x, y] = new cPoint3D(depx[x], depy[y], array2d[y * sizex + x]);
+                        i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
                     }
                 }
-                cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
+                cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
                     chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                 graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
                 graph3D.SetColorScheme(ColorScheme, 3.0F);
@@ -760,10 +760,10 @@ namespace ECU_Manager.Controls
                     {
                         for (int x = 0; x < sizex; x++)
                         {
-                            i_Points3D[x, y] = new cPoint3D(depx[x], depy[y], array2d[y * sizex + x]);
+                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
                         }
                     }
-                    cMinMax3D cMinMax3D = new cMinMax3D(depx[0], depx[sizex - 1], depy[0], depy[sizey - 1],
+                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
                         chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                     graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
                     graph3D.SetColorScheme(ColorScheme, 3.0F);

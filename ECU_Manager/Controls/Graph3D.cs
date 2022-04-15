@@ -836,12 +836,9 @@ namespace ECU_Manager.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint,  true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            // Load the default colors
-            BackColor = Color.White;
-
-            SetAxisColor(eCoord.X, Color.DarkBlue);
-            SetAxisColor(eCoord.Y, Color.DarkGreen);
-            SetAxisColor(eCoord.Z, Color.DarkRed);
+            SetAxisColor(eCoord.X, Color.Red);
+            SetAxisColor(eCoord.Y, Color.Green);
+            SetAxisColor(eCoord.Z, Color.Blue);
 
             mi_PolyLinePen    = new Pen       (Color.Black, 1);
             mi_BorderPen      = new Pen       (Color.FromArgb(255,180,180,180), 1); // bright gray
@@ -1002,11 +999,8 @@ namespace ECU_Manager.Controls
 
             mi_MinMax.mi_Center3D.md_X = (mi_MinMax.md_MaxX + mi_MinMax.md_MinX) / 2.0;
             mi_MinMax.mi_Center3D.md_Y = (mi_MinMax.md_MaxY + mi_MinMax.md_MinY) / 2.0;
-
-            if (me_Raster == eRaster.Off)
-                mi_MinMax.mi_Center3D.md_Z = (mi_MinMax.md_MaxZ + mi_MinMax.md_MinZ) / 2.0;
-            else
-                mi_MinMax.mi_Center3D.md_Z = (Math.Max(0, mi_MinMax.md_MaxZ) + Math.Min(0, mi_MinMax.md_MinZ)) / 2.0;
+            
+            mi_MinMax.mi_Center3D.md_Z = (mi_MinMax.md_MaxZ + mi_MinMax.md_MinZ) / 2.0;
         }
 
         public void SetCoefficients(double d_Rho, double d_Theta, double d_Phi)
@@ -1065,6 +1059,8 @@ namespace ECU_Manager.Controls
                         i_Axis.mi_Points3D[1].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
                         i_Axis.me_Line   = eCoord.Y;
                         i_Axis.me_Offset = eCoord.Z; // Show zero label at Y axis
+
+                        i_Axis.md_Label = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS)); // Show Z min value on Z axis
                         break;
                     case eCoord.Z: // Blue
                         i_Axis.mi_Points3D[0].md_Z = (mi_MinMax.md_MinZ * (1.0 / AXIS_EXCESS));
@@ -1505,6 +1501,8 @@ namespace ECU_Manager.Controls
                 Rectangle r_Border = ClientRectangle;
                 i_Graph.DrawRectangle(mi_BorderPen, r_Border.X, r_Border.Y, r_Border.Width - 1, r_Border.Height - 1);
             }
+
+            i_Graph.TranslateClip(0, -50);
         }
 
         // ============================================================================
