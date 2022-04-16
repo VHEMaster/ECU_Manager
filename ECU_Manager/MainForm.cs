@@ -45,7 +45,7 @@ namespace ECU_Manager
             Fail
 
         }
-        
+
         bool bLiveCheckOld = false;
         DragRun drCurrentRun = null;
         List<DragRun> lDragRuns = new List<DragRun>();
@@ -117,7 +117,7 @@ namespace ECU_Manager
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
                 1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
-            
+
             eFuelMixtures.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
             eFuelMixtures.SetX("RPM", "RPM", "F0");
             eFuelMixtures.SetY("WishFuelRatio", "FuelRatio", "F1");
@@ -252,7 +252,7 @@ namespace ECU_Manager
             eSpeeds.SetY("Speed", "Speed", "F1");
             eSpeeds.SetTableEventHandler(ChartUpdateEvent);
 
-            
+
             ePressureByRPMvsTPS.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].throttles_count,
@@ -289,13 +289,13 @@ namespace ECU_Manager
             eIdleWishMassAirFlow.SetX("EngineTemp", "Temp.", "F1");
             eIdleWishMassAirFlow.SetY("MassAirFlow", "Mass Air Flow", "F1");
             eIdleWishMassAirFlow.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eIdleWishIgnition.Initialize(middleLayer.ComponentStructure, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
             eIdleWishIgnition.SetConfig("idle_wish_ignition", "rotates_count", "rotates");
             eIdleWishIgnition.SetX("RPM", "RPM", "F0");
             eIdleWishIgnition.SetY("IgnitionAngle", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eIdleSpeedShift.Initialize(middleLayer.ComponentStructure, 0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
             eIdleSpeedShift.SetConfig("idle_rpm_shift", "idle_speeds_shift_count", "idle_rpm_shift_speeds");
             eIdleSpeedShift.SetX("Speed", "Speed", "F1");
@@ -409,7 +409,7 @@ namespace ECU_Manager
 
             eCorrsIdleValveToRPM.SetTableColorTrans(colorTransience);
             eCorrsIdleValveToRPM.SynchronizeChart();
-            
+
             colorTransience = new ColorTransience(-10.0F, 10.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -10.0F);
             colorTransience.Add(Color.Blue, -5.0F);
@@ -505,6 +505,11 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.SetCalibrationTable("progress_idle_valve_to_rpm");
             eCorrsIgnition.SetCalibrationTable("progress_ignitions");
             eCorrsPressureByTPS.SetCalibrationTable("progress_map_by_thr");
+
+            btnCorrAppendFillingByMAP.Enabled = false;
+            btnCorrAppendIdleValve.Enabled = false;
+            btnCorrAppendIgnitions.Enabled = false;
+            btnCorrAppendPressureByTPS.Enabled = false;
         }
 
         private void CorrStop()
@@ -517,6 +522,11 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.ClearCalibrationTable();
             eCorrsIgnition.ClearCalibrationTable();
             eCorrsPressureByTPS.ClearCalibrationTable();
+
+            btnCorrAppendFillingByMAP.Enabled = true;
+            btnCorrAppendIdleValve.Enabled = true;
+            btnCorrAppendIgnitions.Enabled = true;
+            btnCorrAppendPressureByTPS.Enabled = true;
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -597,8 +607,52 @@ namespace ECU_Manager
                 syncForm.BeginInvoke(new Action(() => syncForm.CloseForm()));
             else syncForm.Close();
 
+            if (middleLayer.ComponentStructure.ConfigStruct.parameters.performAdaptation > 0)
+            {
+                string text = string.Empty;
+
+                int count = 4;
+                byte[][] array = new byte[count][];
+                double[] stats = new double[count];
+                int size;
+                double total = 0;
+
+                array[0] = middleLayer.ComponentStructure.ConfigStruct.corrections.progress_fill_by_map;
+                array[1] = middleLayer.ComponentStructure.ConfigStruct.corrections.progress_idle_valve_to_rpm;
+                array[2] = middleLayer.ComponentStructure.ConfigStruct.corrections.progress_ignitions;
+                array[3] = middleLayer.ComponentStructure.ConfigStruct.corrections.progress_map_by_thr;
+
+
+                for (int i = 0; i < count; i++)
+                {
+                    stats[i] = 0;
+                    size = array[i].Length;
+                    for (int j = 0; j < size; j++)
+                    {
+                        stats[i] += array[i][j];
+                    }
+                    stats[i] /= 255.0D;
+                    stats[i] /= size;
+                    stats[i] *= 100.0D;
+                    total += stats[i];
+                }
+                total /= count;
+
+
+                text += $"Fill by MAP: {stats[0].ToString("F2")}%\r\n";
+                text += $"Idle Valve: {stats[1].ToString("F2")}%\r\n";
+                text += $"Ignitions: {stats[2].ToString("F2")}%\r\n";
+                text += $"Press.by TPS: {stats[3].ToString("F2")}%\r\n";
+
+                text += $"\r\nTotal: {total.ToString("F2")}%\r\n";
+
+
+                lblCorrStats.Text = text;
+            }
+
             if (!fast)
             {
+
                 if (errorCode != 0)
                 {
                     MessageBox.Show("Error during sync.\r\n\r\nCode: " + (errorCode == -1 ? "Timeout occired" : errorCode.ToString()), "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -665,7 +719,7 @@ namespace ECU_Manager
                 {
                     parametersReceived = false;
                     lastReceivedarameters = DateTime.Now;
-                    middleLayer.PacketHandler.SendParametersRequest();  
+                    middleLayer.PacketHandler.SendParametersRequest();
                 }
 
                 SynchronizeCharts();
@@ -679,7 +733,7 @@ namespace ECU_Manager
             rbInjCh1.Checked = false;
             rbInjCh2.Checked = false;
 
-            switch(cs.ConfigStruct.tables[cs.CurrentTable].inj_channel)
+            switch (cs.ConfigStruct.tables[cs.CurrentTable].inj_channel)
             {
                 case 0: rbInjCh1.Checked = true; break;
                 case 1: rbInjCh2.Checked = true; break;
@@ -713,7 +767,7 @@ namespace ECU_Manager
             nudParamsPidIdleIgnP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_p;
             nudParamsPidIdleIgnI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_i;
             nudParamsPidIdleIgnD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d;
-            
+
             nudParamsEnrPMapTps.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr;
             nudParamsIdleIgnDevMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min;
             nudParamsIdleIgnDevMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max;
@@ -730,7 +784,7 @@ namespace ECU_Manager
             nudParamsCorrIgnCy4.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[3];
 
         }
-        
+
         private void ClearDragCharts()
         {
             chartDragTime.Series.Clear();
@@ -757,7 +811,7 @@ namespace ECU_Manager
             chartDragTime.Series.Clear();
             chartDragAccel.Series.Clear();
             lvDragTable.Items.Clear();
-            for(int i = lvDragTable.Columns.Count - 1; i >= 2; i--)
+            for (int i = lvDragTable.Columns.Count - 1; i >= 2; i--)
             {
                 lvDragTable.Columns.RemoveAt(i);
             }
@@ -801,7 +855,7 @@ namespace ECU_Manager
                         series.Tag = lDragRuns[i];
                         //float trans = (float)i / (float)(lDragRuns.Count - 1);
                         //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-                        
+
                         for (int j = 0; j < lDragRuns[i].Points.Count; j++)
                         {
                             series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
@@ -809,13 +863,13 @@ namespace ECU_Manager
 
                     }
                 }
-                
+
                 chartDragTime.ChartAreas[0].AxisX.Minimum = 0;
                 //chartDragTime.ChartAreas[0].AxisX.Maximum = timeMax;
 
                 chartDragTime.ChartAreas[0].AxisY.Minimum = FromSpeed;
                 chartDragTime.ChartAreas[0].AxisY.Maximum = ToSpeed;
-                
+
                 chartDragAccel.ChartAreas[0].AxisX.Minimum = 0;
                 //chartDragAccel.ChartAreas[0].AxisX.Maximum = timeMax;
 
@@ -823,10 +877,10 @@ namespace ECU_Manager
                 //chartDragAccel.ChartAreas[0].AxisY.Maximum = deltaRpmMax;
 
 
-                if(TableSplit >= 2)
+                if (TableSplit >= 2)
                 {
                     double[] speeds = new double[TableSplit + 1];
-                    for(int i = 0; i <= TableSplit; i++)
+                    for (int i = 0; i <= TableSplit; i++)
                     {
                         speeds[i] = ((ToSpeed - FromSpeed) / TableSplit * i) + FromSpeed;
                     }
@@ -848,7 +902,7 @@ namespace ECU_Manager
                             double timemax = double.MinValue;
                             for (int p = 0; p < lDragRuns[j].Points.Count; p++)
                             {
-                                if(lDragRuns[j].Points[p].Speed >= speeds[i] && lDragRuns[j].Points[p].Speed < speeds[i + 1])
+                                if (lDragRuns[j].Points[p].Speed >= speeds[i] && lDragRuns[j].Points[p].Speed < speeds[i + 1])
                                 {
                                     if (lDragRuns[j].Points[p].Time < timemin)
                                     {
@@ -893,9 +947,9 @@ namespace ECU_Manager
                     lblDragStatus.Text = "GO!";
                 }
             }
-            if(eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
+            if (eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
             {
-                if(dur.ErrorCode > 0)
+                if (dur.ErrorCode > 0)
                 {
                     eDragStatus = DragStatusType.Fail;
                     lblDragStatus.Text = "Fail!";
@@ -909,7 +963,7 @@ namespace ECU_Manager
                 }
                 else
                 {
-                    if(dur.Completed > 0)
+                    if (dur.Completed > 0)
                     {
                         eDragStatus = DragStatusType.Done;
                         lblDragStatus.Text = "Wait...";
@@ -987,7 +1041,7 @@ namespace ECU_Manager
 
         private void DragStartAck(PK_DragStartAcknowledge dsaa)
         {
-            if(eDragStatus == DragStatusType.Ready)
+            if (eDragStatus == DragStatusType.Ready)
             {
                 eDragStatus = DragStatusType.Set;
                 lblDragStatus.Text = "SET";
@@ -1056,10 +1110,11 @@ namespace ECU_Manager
             UpdateCharts();
 
         }
-        
+
         private void tmrSync_Tick(object sender, EventArgs e)
         {
-            middleLayer.SyncFast();
+            if (middleLayer.ComponentStructure.ConfigStruct.parameters.performAdaptation > 0)
+                middleLayer.SyncFast();
             middleLayer.PacketHandler.SendStatusRequest();
             if (middleLayer.ComponentStructure.EcuParameters.IsCheckEngine > 0)
                 pbCheckEngine.Visible = !pbCheckEngine.Visible;
@@ -1076,7 +1131,7 @@ namespace ECU_Manager
                 lastReceivedarameters = DateTime.Now;
                 middleLayer.PacketHandler.SendParametersRequest();
             }
-            if((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
+            if ((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
             {
                 middleLayer.PacketHandler.SendDragUpdateRequest();
             }
@@ -1310,7 +1365,7 @@ namespace ECU_Manager
 
         private void btnCorrStart_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Previous calibration result will be lost!\r\nAre you sure you want to perform calibration?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            DialogResult dialogResult = MessageBox.Show("Previous calibration result will be lost!\r\nAre you sure you want to perform calibration?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
                 if (!middleLayer.IsSynchronizing)
@@ -1362,17 +1417,17 @@ namespace ECU_Manager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            while (!middleLayer.SyncSave(true));
+            while (!middleLayer.SyncSave(true)) ;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            while(!middleLayer.SyncLoad(true));
+            while (!middleLayer.SyncLoad(true)) ;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            while (!middleLayer.SyncLoad(false));
+            while (!middleLayer.SyncLoad(false)) ;
         }
 
         private void nudToolsCurTable_ValueChanged(object sender, EventArgs e)
@@ -1479,7 +1534,7 @@ namespace ECU_Manager
 
         private void btnTableExport_Click(object sender, EventArgs e)
         {
-            if(dlgExport.ShowDialog() == DialogResult.OK)
+            if (dlgExport.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
@@ -1488,7 +1543,7 @@ namespace ECU_Manager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Table export failed.\r\n{ex.Message}","ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Table export failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1829,6 +1884,83 @@ namespace ECU_Manager
         private void btnResetFailures_Click(object sender, EventArgs e)
         {
             middleLayer.PacketHandler.SendResetStatusRequest();
+        }
+
+        private void btnCorrAppendFillingByMAP_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Filling by MAP?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fill_by_map;
+                float[] corrs2d = middleLayer.ComponentStructure.ConfigStruct.corrections.fill_by_map;
+                int size = array2d.Length;
+
+                for(int i = 0; i < size; i++)
+                {
+                    array2d[i] *= corrs2d[i] + 1.0F;
+                    corrs2d[i] = 0.0F;
+                }
+
+                middleLayer.SyncSave(false);
+            }
+        }
+            
+
+        private void btnCorrAppendIdleValve_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Idle Valve to RPM?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].idle_valve_to_rpm;
+                float[] corrs2d = middleLayer.ComponentStructure.ConfigStruct.corrections.idle_valve_to_rpm;
+                int size = array2d.Length;
+
+                for (int i = 0; i < size; i++)
+                {
+                    array2d[i] *= corrs2d[i] + 1.0F;
+                    corrs2d[i] = 0.0F;
+                }
+
+                middleLayer.SyncSave(false);
+            }
+        }
+
+        private void btnCorrAppendIgnitions_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].ignitions;
+                float[] corrs2d = middleLayer.ComponentStructure.ConfigStruct.corrections.ignitions;
+                int size = array2d.Length;
+
+                for (int i = 0; i < size; i++)
+                {
+                    array2d[i] += corrs2d[i];
+                    corrs2d[i] = 0.0F;
+                }
+
+                middleLayer.SyncSave(false);
+            }
+        }
+
+        private void btnCorrAppendPressureByTPS_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Pressure by TPS?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].map_by_thr;
+                float[] corrs2d = middleLayer.ComponentStructure.ConfigStruct.corrections.map_by_thr;
+                int size = array2d.Length;
+
+                for (int i = 0; i < size; i++)
+                {
+                    array2d[i] *= corrs2d[i] + 1.0F;
+                    corrs2d[i] = 0.0F;
+                }
+
+                middleLayer.SyncSave(false);
+            }
         }
     }
 }
