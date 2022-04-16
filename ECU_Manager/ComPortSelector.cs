@@ -48,6 +48,8 @@ namespace ECU_Manager
             string portname = comboBox1.SelectedItem.ToString();
             if (SerialPort.GetPortNames().Contains(portname))
             {
+                Properties.Settings.Default.ComPortName = portname;
+                Properties.Settings.Default.Save();
                 this.Hide();
                 MiddleLayer middleLayer = new MiddleLayer(portname);
                 MainForm mainForm = new MainForm(middleLayer);

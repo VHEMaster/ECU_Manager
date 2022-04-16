@@ -92,7 +92,7 @@ namespace ECU_Manager
             eCyclicFilling.Initialize(middleLayer.ComponentStructure, Editor2DMode.EcuTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].pressures_count,
-                0.0D, 2.0D, 0.01D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 2);
+                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
 
             eCyclicFilling.SetConfig("fill_by_map", "rotates_count", "pressures_count", "rotates", "pressures");
             eCyclicFilling.SetX("RPM", "RPM", "F0");
@@ -278,7 +278,7 @@ namespace ECU_Manager
 
             ePressureByRPMvsTPS.SetTableColorTrans(colorTransience);
 
-            eIdleWishRPM.Initialize(middleLayer.ComponentStructure, 100D, 10000D, 20D, 50D, 500D, 2000D, 10D, 100D, 0);
+            eIdleWishRPM.Initialize(middleLayer.ComponentStructure, 100D, 10000D, 20D, 100D, 500D, 2000D, 10D, 100D, 0);
             eIdleWishRPM.SetConfig("idle_wish_rotates", "engine_temp_count", "engine_temps");
             eIdleWishRPM.SetX("EngineTemp", "Temp.", "F1");
             eIdleWishRPM.SetY("RPM", "RPM", "F0");
@@ -293,7 +293,7 @@ namespace ECU_Manager
             eIdleWishIgnition.Initialize(middleLayer.ComponentStructure, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
             eIdleWishIgnition.SetConfig("idle_wish_ignition", "rotates_count", "rotates");
             eIdleWishIgnition.SetX("RPM", "RPM", "F0");
-            eIdleWishIgnition.SetY("IgnitionAngle", "Wh Ignition", "F1");
+            eIdleWishIgnition.SetY("IgnitionAngle", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
             
             eIdleSpeedShift.Initialize(middleLayer.ComponentStructure, 0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
@@ -353,6 +353,88 @@ namespace ECU_Manager
             eKnockThreshold.SetTableEventHandler(ChartUpdateEvent);
 
 
+
+            colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -1.0F);
+            colorTransience.Add(Color.Blue, -0.5F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -0.1F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 0.1F);
+            colorTransience.Add(Color.Red, 0.5F);
+            colorTransience.Add(Color.DarkRed, 1.0F);
+
+            eCorrsFillByMAP.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].pressures_count,
+                -1.0D, 1.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
+
+            eCorrsFillByMAP.SetConfig("fill_by_map", "rotates_count", "pressures_count", "rotates", "pressures");
+            eCorrsFillByMAP.SetX("RPM", "RPM", "F0");
+            eCorrsFillByMAP.SetY(string.Empty, "Correction", "F3");
+            eCorrsFillByMAP.SetD("ManifoldAirPressure", "MAP", "F1");
+            eCorrsFillByMAP.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsFillByMAP.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsFillByMAP.scHorisontal.Width * 0.75);
+
+            eCorrsFillByMAP.SetTableColorTrans(colorTransience);
+            eCorrsFillByMAP.SynchronizeChart();
+
+
+            eCorrsPressureByTPS.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].throttles_count,
+                -1.0D, 1.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_THROTTLES_MAX, 3);
+
+            eCorrsPressureByTPS.SetConfig("map_by_thr", "rotates_count", "throttles_count", "rotates", "throttles");
+            eCorrsPressureByTPS.SetX("RPM", "RPM", "F0");
+            eCorrsPressureByTPS.SetY(string.Empty, "Correction", "F3");
+            eCorrsPressureByTPS.SetD("ThrottlePosition", "TPS", "F1");
+            eCorrsPressureByTPS.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsPressureByTPS.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsPressureByTPS.scHorisontal.Width * 0.75);
+
+            eCorrsPressureByTPS.SetTableColorTrans(colorTransience);
+            eCorrsPressureByTPS.SynchronizeChart();
+
+
+            eCorrsIdleValveToRPM.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].engine_temp_count,
+                -1.0D, 1.0D, 0.02D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
+
+            eCorrsIdleValveToRPM.SetConfig("idle_valve_to_rpm", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
+            eCorrsIdleValveToRPM.SetX("RPM", "RPM", "F0");
+            eCorrsIdleValveToRPM.SetY(string.Empty, "Correction", "F3");
+            eCorrsIdleValveToRPM.SetD("EngineTemp", "Temperature", "F1");
+            eCorrsIdleValveToRPM.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIdleValveToRPM.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIdleValveToRPM.scHorisontal.Width * 0.75);
+
+            eCorrsIdleValveToRPM.SetTableColorTrans(colorTransience);
+            eCorrsIdleValveToRPM.SynchronizeChart();
+            
+            colorTransience = new ColorTransience(-10.0F, 10.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -10.0F);
+            colorTransience.Add(Color.Blue, -5.0F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -2.0F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
+            colorTransience.Add(Color.Red, 3.0F);
+            colorTransience.Add(Color.DarkRed, 5.0F);
+            colorTransience.Add(Color.Black, 10.0F);
+
+            eCorrsIgnition.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
+                middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eCorrsIgnition.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnition.SetX("RPM", "RPM", "F0");
+            eCorrsIgnition.SetY(string.Empty, "Ignition Correction", "F2");
+            eCorrsIgnition.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsIgnition.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIgnition.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnition.scHorisontal.Width * 0.7);
+
+            eCorrsIgnition.SetTableColorTrans(colorTransience);
+            eCorrsIgnition.SynchronizeChart();
+
             SynchronizeCharts();
         }
 
@@ -364,6 +446,10 @@ namespace ECU_Manager
             eIgnition.SynchronizeChart();
             ePressureByRPMvsTPS.SynchronizeChart();
             eIdleValveVsRpm.SynchronizeChart();
+            eCorrsFillByMAP.SynchronizeChart();
+            eCorrsIdleValveToRPM.SynchronizeChart();
+            eCorrsIgnition.SynchronizeChart();
+            eCorrsPressureByTPS.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -401,6 +487,11 @@ namespace ECU_Manager
 
             eKnockThreshold.UpdateChart();
             eKnockNoiseLevel.UpdateChart();
+
+            eCorrsFillByMAP.UpdateChart();
+            eCorrsIdleValveToRPM.UpdateChart();
+            eCorrsIgnition.UpdateChart();
+            eCorrsPressureByTPS.UpdateChart();
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -408,6 +499,14 @@ namespace ECU_Manager
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void ChartCorrectionEvent(object sender, EventArgs e)
+        {
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateCorrections();
             }
         }
 
@@ -522,7 +621,12 @@ namespace ECU_Manager
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
-                cbPerformCorrs.Checked = cs.ConfigStruct.parameters.performAdaptation > 0;
+                btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
+                btnCorrStart.Enabled = !btnCorrStop.Enabled;
+                if (cs.ConfigStruct.parameters.performAdaptation > 0)
+                    lblCorrStatus.Text = "Status: Learning";
+                else
+                    lblCorrStatus.Text = "Status: Idle";
                 cbFuelForce.Checked = cs.ConfigStruct.parameters.isForceTable > 0;
                 cbFuelExtSw.Checked = cs.ConfigStruct.parameters.isSwitchByExternal > 0;
 
@@ -1178,16 +1282,30 @@ namespace ECU_Manager
                 middleLayer.UpdateConfig();
             }
         }
-
-        private void cbPerformCorrs_CheckedChanged(object sender, EventArgs e)
+        
+        private void btnCorrStart_Click(object sender, EventArgs e)
         {
-            bool learningmode = ((CheckBox)sender).Checked;
-            cs.ConfigStruct.parameters.performAdaptation = learningmode ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (!middleLayer.IsSynchronizing)
             {
+                cs.ConfigStruct.parameters.performAdaptation = 1;
+                btnCorrStart.Enabled = false;
+                btnCorrStop.Enabled = !btnCorrStart.Enabled;
+                lblCorrStatus.Text = "Status: Learning";
+                lblCorrStats.Text = string.Empty;
                 middleLayer.UpdateConfig();
             }
+        }
 
+        private void btnCorrStop_Click(object sender, EventArgs e)
+        {
+            if (!middleLayer.IsSynchronizing)
+            {
+                cs.ConfigStruct.parameters.performAdaptation = 0;
+                btnCorrStart.Enabled = true;
+                btnCorrStop.Enabled = !btnCorrStart.Enabled;
+                lblCorrStatus.Text = "Status: Idle";
+                middleLayer.UpdateConfig();
+            }
         }
 
         private void cbIsIndivCoils_CheckedChanged(object sender, EventArgs e)

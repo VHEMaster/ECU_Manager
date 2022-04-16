@@ -195,6 +195,41 @@ namespace ECU_Manager
             }
         }
 
+        public void UpdateCorrections()
+        {
+            byte[] senddata;
+            int size = 4;
+            int offset;
+            bool equals;
+            StructCopy<EcuCorrections> structCopy = new StructCopy<EcuCorrections>();
+            while (true)
+            {
+                equals = true;
+                byte[] current = structCopy.GetBytes(ComponentStructure.ConfigStruct.corrections);
+                byte[] previous = structCopy.GetBytes(oldconfig.corrections);
+                for (int i = 0; i < Marshal.SizeOf(typeof(EcuCorrections)); i++)
+                {
+
+                    if (current[i] != previous[i])
+                    {
+                        equals = false;
+                        offset = i - (i % 4);
+                        i += 4 - (i % 4);
+                        senddata = new byte[size];
+                        for (int j = 0; j < size; j++)
+                        {
+                            senddata[j] = current[j + offset];
+                            previous[j + offset] = current[j + offset];
+                        }
+                        oldconfig.corrections = structCopy.FromBytes(previous);
+                        PacketHandler.SendCorrectionsData(Marshal.SizeOf(typeof(EcuCorrections)), offset, size, senddata);
+
+                    }
+                }
+                if (equals) break;
+            }
+        }
+
         private void BackgroundThread()
         {
             Stopwatch stopwatch = new Stopwatch();

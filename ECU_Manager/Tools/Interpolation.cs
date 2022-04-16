@@ -81,7 +81,7 @@ namespace ECU_Manager.Tools
             return result;
         }
 
-        public static float Interpolate2D(Interpolation input_x, Interpolation input_y, float[] table, int y_size)
+        public static float Interpolate2D(Interpolation input_x, Interpolation input_y, float[] table, int x_size)
         {
             float result = 0.0f;
             double[] output_1d = new double[2];
@@ -90,10 +90,10 @@ namespace ECU_Manager.Tools
             if (double.IsNaN(input_x.mult) || double.IsNaN(input_y.mult))
                 return 0;
 
-            input_2d[0][0] = table[input_y.indexes[0] * y_size + input_x.indexes[0]];
-            input_2d[0][1] = table[input_y.indexes[0] * y_size + input_x.indexes[1]];
-            input_2d[1][0] = table[input_y.indexes[1] * y_size + input_x.indexes[0]];
-            input_2d[1][1] = table[input_y.indexes[1] * y_size + input_x.indexes[1]];
+            input_2d[0][0] = table[input_y.indexes[0] * x_size + input_x.indexes[0]];
+            input_2d[0][1] = table[input_y.indexes[0] * x_size + input_x.indexes[1]];
+            input_2d[1][0] = table[input_y.indexes[1] * x_size + input_x.indexes[0]];
+            input_2d[1][1] = table[input_y.indexes[1] * x_size + input_x.indexes[1]];
 
             output_1d[0] = (input_2d[0][1] - input_2d[0][0]) * input_x.mult + input_2d[0][0];
             output_1d[1] = (input_2d[1][1] - input_2d[1][0]) * input_x.mult + input_2d[1][0];
@@ -123,14 +123,14 @@ namespace ECU_Manager.Tools
             return result;
         }
 
-        public float Interpolate2DAsX(Interpolation input_y, float[] table, int y_size)
+        public float Interpolate2DAsX(Interpolation input_y, float[] table, int x_size)
         {
-            return Interpolate2D(this, input_y, table, y_size);
+            return Interpolate2D(this, input_y, table, x_size);
         }
 
-        public float Interpolate2DAsY(Interpolation input_x, float[] table, int y_size)
+        public float Interpolate2DAsY(Interpolation input_x, float[] table, int x_size)
         {
-            return Interpolate2D(input_x, this, table, y_size);
+            return Interpolate2D(input_x, this, table, x_size);
         }
 
         public float Interpolate2DAsX(Interpolation input_y, float[][] table)
