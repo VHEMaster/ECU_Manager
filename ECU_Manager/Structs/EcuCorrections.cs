@@ -31,6 +31,26 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("value")]
         public float[] idle_valve_to_rpm;
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("progress_ignitions")]
+        [XmlArrayItem("angle")]
+        public byte[] progress_ignitions;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("progress_fill_by_map")]
+        [XmlArrayItem("value")]
+        public byte[] progress_fill_by_map;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("progress_map_by_thr")]
+        [XmlArrayItem("value")]
+        public byte[] progress_map_by_thr;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("progress_idle_valve_to_rpm")]
+        [XmlArrayItem("value")]
+        public byte[] progress_idle_valve_to_rpm;
+
         public float long_term_correction;
     }
 }

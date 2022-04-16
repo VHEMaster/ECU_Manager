@@ -366,7 +366,7 @@ namespace ECU_Manager
             eCorrsFillByMAP.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].pressures_count,
-                -1.0D, 1.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
 
             eCorrsFillByMAP.SetConfig("fill_by_map", "rotates_count", "pressures_count", "rotates", "pressures");
             eCorrsFillByMAP.SetX("RPM", "RPM", "F0");
@@ -382,7 +382,7 @@ namespace ECU_Manager
             eCorrsPressureByTPS.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].throttles_count,
-                -1.0D, 1.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_THROTTLES_MAX, 3);
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_THROTTLES_MAX, 3);
 
             eCorrsPressureByTPS.SetConfig("map_by_thr", "rotates_count", "throttles_count", "rotates", "throttles");
             eCorrsPressureByTPS.SetX("RPM", "RPM", "F0");
@@ -398,7 +398,7 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.Initialize(middleLayer.ComponentStructure, Editor2DMode.CorrectionsTable,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].rotates_count,
                 middleLayer.ComponentStructure.ConfigStruct.tables[middleLayer.ComponentStructure.CurrentTable].engine_temp_count,
-                -1.0D, 1.0D, 0.02D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
+                -10.0D, 10.0D, 0.02D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
 
             eCorrsIdleValveToRPM.SetConfig("idle_valve_to_rpm", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
             eCorrsIdleValveToRPM.SetX("RPM", "RPM", "F0");
@@ -492,6 +492,31 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.UpdateChart();
             eCorrsIgnition.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
+        }
+
+        private void CorrStart()
+        {
+            btnCorrStart.Enabled = false;
+            btnCorrStop.Enabled = true;
+            lblCorrStatus.Text = "Status: Learning";
+            lblCorrStats.Text = string.Empty;
+
+            eCorrsFillByMAP.SetCalibrationTable("progress_fill_by_map");
+            eCorrsIdleValveToRPM.SetCalibrationTable("progress_idle_valve_to_rpm");
+            eCorrsIgnition.SetCalibrationTable("progress_ignitions");
+            eCorrsPressureByTPS.SetCalibrationTable("progress_map_by_thr");
+        }
+
+        private void CorrStop()
+        {
+            btnCorrStart.Enabled = true;
+            btnCorrStop.Enabled = false;
+            lblCorrStatus.Text = "Status: Idle";
+
+            eCorrsFillByMAP.ClearCalibrationTable();
+            eCorrsIdleValveToRPM.ClearCalibrationTable();
+            eCorrsIgnition.ClearCalibrationTable();
+            eCorrsPressureByTPS.ClearCalibrationTable();
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -622,11 +647,11 @@ namespace ECU_Manager
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
                 btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
-                btnCorrStart.Enabled = !btnCorrStop.Enabled;
+                btnCorrStart.Enabled = cs.ConfigStruct.parameters.performAdaptation == 0;
                 if (cs.ConfigStruct.parameters.performAdaptation > 0)
-                    lblCorrStatus.Text = "Status: Learning";
+                    CorrStart();
                 else
-                    lblCorrStatus.Text = "Status: Idle";
+                    CorrStop();
                 cbFuelForce.Checked = cs.ConfigStruct.parameters.isForceTable > 0;
                 cbFuelExtSw.Checked = cs.ConfigStruct.parameters.isSwitchByExternal > 0;
 
@@ -1282,17 +1307,18 @@ namespace ECU_Manager
                 middleLayer.UpdateConfig();
             }
         }
-        
+
         private void btnCorrStart_Click(object sender, EventArgs e)
         {
-            if (!middleLayer.IsSynchronizing)
+            DialogResult dialogResult = MessageBox.Show("Previous calibration result will be lost!\r\nAre you sure you want to perform calibration?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            if (dialogResult == DialogResult.Yes)
             {
-                cs.ConfigStruct.parameters.performAdaptation = 1;
-                btnCorrStart.Enabled = false;
-                btnCorrStop.Enabled = !btnCorrStart.Enabled;
-                lblCorrStatus.Text = "Status: Learning";
-                lblCorrStats.Text = string.Empty;
-                middleLayer.UpdateConfig();
+                if (!middleLayer.IsSynchronizing)
+                {
+                    cs.ConfigStruct.parameters.performAdaptation = 1;
+                    CorrStart();
+                    middleLayer.UpdateConfig();
+                }
             }
         }
 
@@ -1301,9 +1327,7 @@ namespace ECU_Manager
             if (!middleLayer.IsSynchronizing)
             {
                 cs.ConfigStruct.parameters.performAdaptation = 0;
-                btnCorrStart.Enabled = true;
-                btnCorrStop.Enabled = !btnCorrStart.Enabled;
-                lblCorrStatus.Text = "Status: Idle";
+                CorrStop();
                 middleLayer.UpdateConfig();
             }
         }

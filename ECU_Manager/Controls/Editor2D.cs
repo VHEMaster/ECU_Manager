@@ -168,8 +168,11 @@ namespace ECU_Manager.Controls
             tlp2DTable.RowCount = iArraySizeY + 1;
 
             CalibrationColorTransience = new ColorTransience(0.0f, 1.0f, Color.Black);
-            CalibrationColorTransience.Add(Color.FromArgb(255, 0, 0), 0.0f);
-            CalibrationColorTransience.Add(Color.FromArgb(0, 192, 0), 1.0f);
+            CalibrationColorTransience.Add(Color.FromArgb(128, 0, 0), 0.0f);
+            CalibrationColorTransience.Add(Color.FromArgb(255, 128, 0), 0.5f);
+            CalibrationColorTransience.Add(Color.FromArgb(192, 192, 0), 0.8f);
+            CalibrationColorTransience.Add(Color.FromArgb(192, 192, 0), 0.9f);
+            CalibrationColorTransience.Add(Color.FromArgb(0, 128, 0), 1.0f);
 
 
             for (int y = -1; y < iArraySizeY; y++)
@@ -574,7 +577,7 @@ namespace ECU_Manager.Controls
             float[] depx = null;
             float[] depy = null;
             float[] array2d = null;
-            float[] arraycalib = null;
+            byte[] arraycalib = null;
 
             float paramx = 0;
             float paramy = 0;
@@ -707,7 +710,7 @@ namespace ECU_Manager.Controls
                     {
                         FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
                         if (calibrationTable != null)
-                            arraycalib = (float[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+                            arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
                     }
 
                     for (int i = 0; i < tlp2DTable.Controls.Count; i++)
@@ -721,7 +724,7 @@ namespace ECU_Manager.Controls
                             int xpos = index % sizex;
                             int ypos = index / sizex;
                             Color color;
-                            Color original = Color.DarkGray; ;
+                            Color original = Color.DarkGray;
                             double[] mult = new double[4];
                             bool handled = false;
 
@@ -738,7 +741,7 @@ namespace ECU_Manager.Controls
                                 }
                                 else if(CalibrationColorTransience != null)
                                 {
-                                    original = CalibrationColorTransience.Get(arraycalib[index]);
+                                    original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
                                 }
                             }
                             else if(ColorTransience != null)
@@ -790,6 +793,7 @@ namespace ECU_Manager.Controls
                                 }
                                 if (!handled && nud.BackColor != original)
                                 {
+                                    nud.BackColor = original;
                                     nudTableItem_ValueChanged(nud, new EventArgs());
                                 }
                             }
@@ -823,7 +827,7 @@ namespace ECU_Manager.Controls
             int y = index / iArraySizeX;
             float value = (float)nud.Value;
             Color text = Color.Black;
-            Color back = Color.White;
+            Color back = nud.BackColor;
 
             float[] array2d = null;
             
