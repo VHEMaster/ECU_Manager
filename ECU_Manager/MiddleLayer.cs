@@ -539,20 +539,20 @@ namespace ECU_Manager
                         }
                         else
                         {
-                            if (bSyncFastSync)
+                            if (!stopwatch.IsRunning)
+                                stopwatch.Restart();
+                            if ((bSyncFlash && stopwatch.Elapsed.TotalSeconds > 10) || (!bSyncFlash && stopwatch.Elapsed.TotalSeconds > 3))
                             {
-                                if (!stopwatch.IsRunning)
-                                    stopwatch.Restart();
-                                if ((bSyncFlash && stopwatch.Elapsed.TotalSeconds > 10) || (!bSyncFlash && stopwatch.Elapsed.TotalSeconds > 3))
-                                {
-                                    iSyncStep = 0;
-                                    bSyncLoad = false;
-                                    bSyncSave = false;
-                                    bSyncFlash = false;
-                                    bSyncRequired = false;
-                                    iSyncError = -1;
-                                    stopwatch.Reset();
+                                iSyncStep = 0;
+                                bSyncLoad = false;
+                                bSyncSave = false;
+                                bSyncFlash = false;
+                                bSyncRequired = false;
+                                iSyncError = -1;
+                                stopwatch.Reset();
 
+                                if (!bSyncFastSync)
+                                {
                                     lock (eventHandlers)
                                     {
                                         foreach (IEcuEventHandler handler in eventHandlers)
