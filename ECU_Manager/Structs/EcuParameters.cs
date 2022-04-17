@@ -71,7 +71,7 @@ namespace ECU_Manager.Structs
         public int StarterSensor;
         public int HandbrakeSensor;
         public int ChargeSensor;
-        public int Rsvd1Sensor;
+        public int ClutchSensor;
         public int IgnSensor;
 
         public int FuelPumpRelay;
