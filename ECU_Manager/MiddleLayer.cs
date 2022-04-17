@@ -399,7 +399,6 @@ namespace ECU_Manager
                                         }
                                         iSyncLeft = iSyncSize;
                                         iSyncOffset = 0;
-                                        iSyncNum = 0;
                                     }
                                     if (iSyncStep == 5)
                                     {
@@ -439,6 +438,7 @@ namespace ECU_Manager
                                         else
                                         {
                                             iSyncStep++;
+                                            iSyncNum = 0;
                                             iSyncSize = Marshal.SizeOf(typeof(EcuTable));
                                             if (bSyncLoad)
                                             {
@@ -502,6 +502,7 @@ namespace ECU_Manager
                                                 StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
                                                 bSyncArray = structTableSaveCopy.GetBytes(ComponentStructure.ConfigStruct.tables[iSyncNum]);
                                             }
+                                            iSyncStep--;
                                         }
                                         else
                                         {
