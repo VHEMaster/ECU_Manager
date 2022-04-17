@@ -681,6 +681,27 @@ namespace ECU_Manager
                     default: break;
                 }
 
+                rbIndividualCoils.Checked = false;
+                rbIgnitionModule.Checked = false;
+                rbSingleCoil.Checked = false;
+
+                if (cs.ConfigStruct.parameters.isSingleCoil > 0 && cs.ConfigStruct.parameters.isIndividualCoils == 0)
+                {
+                    rbSingleCoil.Checked = true;
+                }
+                else if (cs.ConfigStruct.parameters.isSingleCoil == 0 && cs.ConfigStruct.parameters.isIndividualCoils > 0)
+                {
+                    rbIndividualCoils.Checked = true;
+                }
+                else if (cs.ConfigStruct.parameters.isSingleCoil == 0 && cs.ConfigStruct.parameters.isIndividualCoils == 0)
+                {
+                    rbIgnitionModule.Checked = true;
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Coils configuration!", "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 lblCutoffRPM.Text = cs.ConfigStruct.parameters.cutoffRPM.ToString("F0");
                 tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffRPM);
 
@@ -1386,21 +1407,48 @@ namespace ECU_Manager
             }
         }
 
-        private void cbIsIndivCoils_CheckedChanged(object sender, EventArgs e)
+        private void rbIndividualCoils_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.parameters.isIndividualCoils = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (((RadioButton)sender).Checked)
             {
-                middleLayer.UpdateConfig();
+                rbSingleCoil.Checked = false;
+                rbIgnitionModule.Checked = false;
+                cs.ConfigStruct.parameters.isIndividualCoils = 1;
+                cs.ConfigStruct.parameters.isSingleCoil = 0;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
             }
         }
 
-        private void cbIsSingleCoil_CheckedChanged(object sender, EventArgs e)
+        private void rbIgnitionModule_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.parameters.isSingleCoil = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (((RadioButton)sender).Checked)
             {
-                middleLayer.UpdateConfig();
+                rbSingleCoil.Checked = false;
+                rbIndividualCoils.Checked = false;
+                cs.ConfigStruct.parameters.isIndividualCoils = 0;
+                cs.ConfigStruct.parameters.isSingleCoil = 0;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbSingleCoil_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                rbIgnitionModule.Checked = false;
+                rbIndividualCoils.Checked = false;
+                cs.ConfigStruct.parameters.isIndividualCoils = 0;
+                cs.ConfigStruct.parameters.isSingleCoil = 1;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
             }
         }
 
