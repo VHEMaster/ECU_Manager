@@ -681,6 +681,22 @@ namespace ECU_Manager
                     default: break;
                 }
 
+                rbShiftMode0.Checked = false;
+                rbShiftMode1.Checked = false;
+                rbShiftMode2.Checked = false;
+                rbShiftMode3.Checked = false;
+                rbShiftMode4.Checked = false;
+
+                switch (cs.ConfigStruct.parameters.shiftMode)
+                {
+                    case 0: rbShiftMode0.Checked = true; break;
+                    case 1: rbShiftMode1.Checked = true; break;
+                    case 2: rbShiftMode2.Checked = true; break;
+                    case 3: rbShiftMode3.Checked = true; break;
+                    case 4: rbShiftMode4.Checked = true; break;
+                    default: break;
+                }
+
                 rbIndividualCoils.Checked = false;
                 rbIgnitionModule.Checked = false;
                 rbSingleCoil.Checked = false;
@@ -710,6 +726,21 @@ namespace ECU_Manager
 
                 lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
                 tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
+
+                lblShiftThrThr.Text = cs.ConfigStruct.parameters.shiftThrThr.ToString("F0");
+                tbShiftThrThr.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftThrThr);
+
+                lblShiftRpmThr.Text = cs.ConfigStruct.parameters.shiftRpmThr.ToString("F0");
+                tbShiftRpmThr.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftRpmThr);
+
+                lblShiftRpmTill.Text = cs.ConfigStruct.parameters.shiftRpmTill.ToString("F0");
+                tbShiftRpmTill.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftRpmTill);
+
+                lblShiftAngle.Text = cs.ConfigStruct.parameters.shiftAngle.ToString("F1");
+                tbShiftAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftAngle * 10.0f);
+
+                lblShiftMixture.Text = cs.ConfigStruct.parameters.shiftMixture.ToString("F1");
+                tbShiftMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftMixture * 10.0f);
 
                 nudSwPos1.Value = cs.ConfigStruct.parameters.switchPos1Table + 1;
                 nudSwPos0.Value = cs.ConfigStruct.parameters.switchPos0Table + 1;
@@ -1253,9 +1284,73 @@ namespace ECU_Manager
             }
         }
 
+        private void rbShiftMode0_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.parameters.shiftMode = 0;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbShiftMode1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.parameters.shiftMode = 1;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbShiftMode2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.parameters.shiftMode = 2;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbShiftMode3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.parameters.shiftMode = 3;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbShiftMode4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.parameters.shiftMode = 4;
+                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
         private void tbCutoffRPM_Scroll(object sender, EventArgs e)
         {
-            ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 100;
+            if (cs.ConfigStruct.parameters.cutoffRPM > ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+            else if (cs.ConfigStruct.parameters.cutoffRPM < ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
             lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.cutoffRPM = ((TrackBar)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
@@ -1278,6 +1373,66 @@ namespace ECU_Manager
         {
             lblCutoffMixture.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
             cs.ConfigStruct.parameters.cutoffMixture = ((float)((TrackBar)sender).Value / 10.0f);
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void tbShiftThrThr_Scroll(object sender, EventArgs e)
+        {
+            lblShiftThrThr.Text = ((TrackBar)sender).Value.ToString();
+            cs.ConfigStruct.parameters.shiftThrThr = ((TrackBar)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void tbShiftRpmThr_Scroll(object sender, EventArgs e)
+        {
+            if(cs.ConfigStruct.parameters.shiftRpmThr > ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+            else if (cs.ConfigStruct.parameters.shiftRpmThr < ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
+            lblShiftRpmThr.Text = ((TrackBar)sender).Value.ToString();
+            cs.ConfigStruct.parameters.shiftRpmThr = ((TrackBar)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void tbShiftRpmTill_Scroll(object sender, EventArgs e)
+        {
+            if (cs.ConfigStruct.parameters.shiftRpmTill > ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+            else if (cs.ConfigStruct.parameters.shiftRpmTill < ((TrackBar)sender).Value)
+                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
+            lblShiftRpmTill.Text = ((TrackBar)sender).Value.ToString();
+            cs.ConfigStruct.parameters.shiftRpmTill = ((TrackBar)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void tbShiftAngle_Scroll(object sender, EventArgs e)
+        {
+            lblShiftAngle.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
+            cs.ConfigStruct.parameters.shiftAngle = ((float)((TrackBar)sender).Value / 10.0f);
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void tbShiftMixture_Scroll(object sender, EventArgs e)
+        {
+            lblShiftMixture.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
+            cs.ConfigStruct.parameters.shiftMixture = ((float)((TrackBar)sender).Value / 10.0f);
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();

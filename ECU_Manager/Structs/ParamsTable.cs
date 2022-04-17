@@ -21,8 +21,8 @@ namespace ECU_Manager.Structs
         public int switchPos2Table;
         public int forceTable;
 
-        public float cutoffRPM;
         public int cutoffMode;
+        public float cutoffRPM;
         public float cutoffAngle;
         public float cutoffMixture;
 
@@ -43,7 +43,14 @@ namespace ECU_Manager.Structs
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Consts.TABLE_STRING_MAX)]
         public string bluetoothName;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 995)]
+        public int shiftMode;
+        public float shiftThrThr;
+        public float shiftRpmThr;
+        public float shiftRpmTill;
+        public float shiftAngle;
+        public float shiftMixture;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 989)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
