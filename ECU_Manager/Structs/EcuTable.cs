@@ -133,7 +133,7 @@ namespace ECU_Manager.Structs
         public float[] idle_wish_ignition;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_rpm")]
-        [XmlArrayItem("rotate")]
+        [XmlArrayItem("valve")]
         public float[] idle_valve_to_rpm;
 
         public float idle_valve_to_massair_pid_p;
