@@ -811,6 +811,7 @@ namespace ECU_Manager
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
             nudParamsFuelKgL.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc;
 
+            nudParamsIdleRegThr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_pid_act;
             nudParamsPidIdleValveP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_p;
             nudParamsPidIdleValveI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_i;
             nudParamsPidIdleValveD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_d;
@@ -1904,6 +1905,15 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 5;
             UpdateEcuTableValues();
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleRegThr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_pid_act = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

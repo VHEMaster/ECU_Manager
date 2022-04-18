@@ -136,6 +136,8 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("valve")]
         public float[] idle_valve_to_rpm;
 
+        public float idle_rpm_pid_act;
+
         public float idle_valve_to_massair_pid_p;
         public float idle_valve_to_massair_pid_i;
         public float idle_valve_to_massair_pid_d;
@@ -191,7 +193,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1131)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1130)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
