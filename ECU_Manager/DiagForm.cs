@@ -124,8 +124,23 @@ namespace ECU_Manager
                 trackBar.TickFrequency = trackBar.LargeChange;
                 trackBar.SmallChange = 1;
                 if (parameter.Type == typeof(float))
-                    trackBar.Value = (int)((float)parameter.Value / parameter.Step);
-                else trackBar.Value = (int)((int)parameter.Value / parameter.Step);
+                {
+                    if ((float)parameter.Value / parameter.Step > trackBar.Maximum)
+                        trackBar.Value = trackBar.Maximum;
+                    else if ((float)parameter.Value / parameter.Step < trackBar.Minimum)
+                        trackBar.Value = trackBar.Minimum;
+                    else
+                        trackBar.Value = (int)((float)parameter.Value / parameter.Step);
+                }
+                else
+                {
+                    if ((int)((int)parameter.Value / parameter.Step) > trackBar.Maximum)
+                        trackBar.Value = trackBar.Maximum;
+                    else if ((int)((int)parameter.Value / parameter.Step) < trackBar.Minimum)
+                        trackBar.Value = trackBar.Minimum;
+                    else
+                        trackBar.Value = (int)((int)parameter.Value / parameter.Step);
+                }
                 trackBar.Tag = parameter;
                 trackBar.Scroll += TrackBarForceParam_Scroll;
 
@@ -141,8 +156,23 @@ namespace ECU_Manager
                 nud.DecimalPlaces = parameter.Step < 1.0F ? (int)Math.Ceiling(0 - Math.Log10(parameter.Step)) : 0 ;
                 nud.Increment = (decimal)parameter.Step;
                 if (parameter.Type == typeof(float))
-                    nud.Value = (decimal)(float)parameter.Value;
-                else nud.Value = (int)parameter.Value;
+                {
+                    if ((decimal)(float)parameter.Value > nud.Maximum)
+                        nud.Value = nud.Maximum;
+                    else if ((decimal)(float)parameter.Value < nud.Minimum)
+                        nud.Value = nud.Minimum;
+                    else
+                        nud.Value = (decimal)(float)parameter.Value;
+                }
+                else
+                {
+                    if ((decimal)(int)parameter.Value > nud.Maximum)
+                        nud.Value = nud.Maximum;
+                    else if ((decimal)(int)parameter.Value < nud.Minimum)
+                        nud.Value = nud.Minimum;
+                    else
+                        nud.Value = (decimal)(int)parameter.Value;
+                }
                 nud.Tag = parameter;
                 nud.ValueChanged += NudForceParam_ValueChanged;
 
