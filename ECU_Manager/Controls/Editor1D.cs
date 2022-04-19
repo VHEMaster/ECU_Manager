@@ -148,9 +148,8 @@ namespace ECU_Manager.Controls
                     array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
             }
 
-
+            string str = string.Empty;
             lblParams.Text = string.Empty;
-            lblItemValue.Text = string.Empty;
             chart1DChart.Series.Clear();
             if (array1d != null)
             {
@@ -223,8 +222,8 @@ namespace ECU_Manager.Controls
                 else
                 {
                     if (!string.IsNullOrWhiteSpace(sTitleStatusX)) {
-                        lblItemValue.Text = $"{sTitleStatusX}: ";
-                        lblItemValue.Text += $"{dep1d[(int)nudItem.Value - 1].ToString(sFormatStatusX)}";
+                        str = $"{sTitleStatusX}: ";
+                        str += $"{dep1d[(int)nudItem.Value - 1].ToString(sFormatStatusX)}";
                     }
 
                     chart1DChart.Series[0].XValueType = ChartValueType.Single;
@@ -309,6 +308,8 @@ namespace ECU_Manager.Controls
 
                 nudValue.Enabled = true;
                 nudItem.Enabled = true;
+
+                lblItemValue.Text = str;
             }
             else
             {
@@ -347,12 +348,13 @@ namespace ECU_Manager.Controls
 
             nudValue.Value = (decimal)array1d[(int)((NumericUpDown)sender).Value - 1];
 
-            lblItemValue.Text = string.Empty;
+            string str = string.Empty;
             if (dep1d != null && !string.IsNullOrWhiteSpace(sTitleStatusX))
             {
-                lblItemValue.Text = $"{sTitleStatusX}: ";
-                lblItemValue.Text += $"{dep1d[(int)((NumericUpDown)sender).Value - 1].ToString(sFormatStatusX)}";
+                str = $"{sTitleStatusX}: ";
+                str += $"{dep1d[(int)((NumericUpDown)sender).Value - 1].ToString(sFormatStatusX)}";
             }
+            lblItemValue.Text = str;
         }
 
         private void nudValue_ValueChanged(object sender, EventArgs e)
