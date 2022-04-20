@@ -37,6 +37,7 @@ namespace ECU_Manager.Structs
         public float PowerVoltage;
         public float FuelRatio;
         public float LongTermCorrection;
+        public float IdleCorrection;
 
         public int IdleFlag;
         public float RPM;

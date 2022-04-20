@@ -52,5 +52,6 @@ namespace ECU_Manager.Structs
         public byte[] progress_idle_valve_to_rpm;
 
         public float long_term_correction;
+        public float idle_correction;
     }
 }
