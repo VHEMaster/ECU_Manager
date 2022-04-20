@@ -147,6 +147,8 @@ namespace ECU_Manager.Structs
 
             "Knock: Detonation Found",
             "Knock: Low Noise Level",
+
+            "CPU: HardFault Exception",
         };
 
         public static string GetStringForCode(ErrorCode errorCode)
@@ -235,6 +237,7 @@ namespace ECU_Manager.Structs
         LambdaDIAHGDShortToGND,
         KnockDetonationFound,
         KnockLowNoiseLevel,
+        HardFaultException,
         Count,
     };
 }
