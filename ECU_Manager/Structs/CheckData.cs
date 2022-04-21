@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[75]
+        private static readonly string[] ErrorStrings = new string[77]
         {
             "Invalid",
             "Flash: Load failure",
@@ -148,6 +148,7 @@ namespace ECU_Manager.Structs
             "Knock: Detonation Found",
             "Knock: Low Noise Level",
 
+            "TSPS: Phase Desynchronized",
             "CPU: HardFault Exception",
         };
 
@@ -237,6 +238,7 @@ namespace ECU_Manager.Structs
         LambdaDIAHGDShortToGND,
         KnockDetonationFound,
         KnockLowNoiseLevel,
+        TspsDesynchronized,
         HardFaultException,
         Count,
     };

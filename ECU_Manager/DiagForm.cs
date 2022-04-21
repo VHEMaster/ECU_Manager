@@ -422,6 +422,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "DrivenKilometers") parameter.FloatFormat = "F2"; //&ecu_parameters.DrivenKilometers, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "FuelConsumed") parameter.FloatFormat = "F3"; //&ecu_parameters.FuelConsumed, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "FuelConsumption") parameter.FloatFormat = "F1"; //&ecu_parameters.FuelConsumption, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "TspsRelativePosition") parameter.FloatFormat = "F2"; //&ecu_parameters.TspsRelativePosition, .title = "%s%0.2f"},
 
                 ChartParameters.Add(parameter);
             }

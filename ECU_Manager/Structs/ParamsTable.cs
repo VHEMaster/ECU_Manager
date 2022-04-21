@@ -50,7 +50,10 @@ namespace ECU_Manager.Structs
         public float shiftAngle;
         public float shiftMixture;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 989)]
+        public float tspsRelPos;
+        public float tspsDesyncThr;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 987)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

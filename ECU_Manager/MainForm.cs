@@ -748,6 +748,8 @@ namespace ECU_Manager
                 nudFuelForce.Value = cs.ConfigStruct.parameters.forceTable + 1;
                 nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
                 nudSpeedCorr.Value = (decimal)cs.ConfigStruct.parameters.speedCorrection;
+                nudTspsRelPos.Value = (decimal)cs.ConfigStruct.parameters.tspsRelPos;
+                nudTspsDsThr.Value = (decimal)cs.ConfigStruct.parameters.tspsDesyncThr;
 
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
@@ -1470,6 +1472,24 @@ namespace ECU_Manager
         private void nudSpeedCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.speedCorrection = (float)((NumericUpDown)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudTspsRelPos_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.tspsRelPos = (float)((NumericUpDown)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudTspsDsThr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.tspsDesyncThr = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
