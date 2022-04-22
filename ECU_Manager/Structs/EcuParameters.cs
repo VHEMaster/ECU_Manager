@@ -69,6 +69,8 @@ namespace ECU_Manager.Structs
         public float FuelConsumption;
         public float TspsRelativePosition;
 
+        public int LambdaValid;
+
         public int OilSensor;
         public int StarterSensor;
         public int HandbrakeSensor;
