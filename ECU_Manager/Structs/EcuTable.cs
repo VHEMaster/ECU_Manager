@@ -20,6 +20,7 @@ namespace ECU_Manager.Structs
         public float injector_performance;
         public float fuel_pressure;
         public float fuel_mass_per_cc;
+        public float fuel_afr;
 
         public int voltages_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_VOLTAGES_MAX)]

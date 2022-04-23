@@ -396,6 +396,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "ReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "PowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.PowerVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "FuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.FuelRatio, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "Lambda") parameter.FloatFormat = "F2"; //&ecu_parameters.Lambda, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "LongTermCorrection") parameter.FloatFormat = "F2"; //&ecu_parameters.LongTermCorrection, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "RPM") parameter.FloatFormat = "F0"; //&ecu_parameters.RPM, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "Speed") parameter.FloatFormat = "F1"; //&ecu_parameters.Speed, .title = "%s%0.1f"},
