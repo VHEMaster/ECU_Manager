@@ -446,7 +446,8 @@ namespace ECU_Manager.Controls
                             control.Visible = x < sizex && y < sizey;
 
                             NumericUpDown nud = (NumericUpDown)control;
-                            nud.Value = (decimal)array2d[(int)nud.Tag];
+                            if(!nud.Focused && nud.Value != (decimal)array2d[(int)nud.Tag])
+                                nud.Value = (decimal)array2d[(int)nud.Tag];
                         }
                         else if (control.GetType() == typeof(Label))
                         {
@@ -730,7 +731,7 @@ namespace ECU_Manager.Controls
 
                             if (chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
                                 chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
-                            if (nud.Value != (decimal)array2d[index])
+                            if (!nud.Focused && nud.Value != (decimal)array2d[index])
                                 nud.Value = (decimal)array2d[index];
 
                             if (!string.IsNullOrWhiteSpace(sCalibrationTable))
@@ -794,7 +795,8 @@ namespace ECU_Manager.Controls
                                 if (!handled && nud.BackColor != original)
                                 {
                                     nud.BackColor = original;
-                                    nudTableItem_ValueChanged(nud, new EventArgs());
+                                    if(!nud.Focused)
+                                        nudTableItem_ValueChanged(nud, new EventArgs());
                                 }
                             }
 
