@@ -484,29 +484,31 @@ namespace ECU_Manager
                                         {
                                             iSyncStep++;
                                         }
-
-                                        if (bSyncLoad)
-                                        {
-                                            StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
-                                            ComponentStructure.ConfigStruct.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
-                                        }
-
-
-                                        if (++iSyncNum < iSyncNumimit)
-                                        {
-                                            iSyncLeft = iSyncSize;
-                                            iSyncOffset = 0;
-
-                                            if (bSyncSave)
-                                            {
-                                                StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
-                                                bSyncArray = structTableSaveCopy.GetBytes(ComponentStructure.ConfigStruct.tables[iSyncNum]);
-                                            }
-                                            iSyncStep--;
-                                        }
                                         else
                                         {
-                                            iSyncStep++;
+                                            if (bSyncLoad)
+                                            {
+                                                StructCopy<EcuTable> structTablesCopy = new StructCopy<EcuTable>();
+                                                ComponentStructure.ConfigStruct.tables[iSyncNum] = structTablesCopy.FromBytes(bSyncArray);
+                                            }
+
+
+                                            if (++iSyncNum < iSyncNumimit)
+                                            {
+                                                iSyncLeft = iSyncSize;
+                                                iSyncOffset = 0;
+
+                                                if (bSyncSave)
+                                                {
+                                                    StructCopy<EcuTable> structTableSaveCopy = new StructCopy<EcuTable>();
+                                                    bSyncArray = structTableSaveCopy.GetBytes(ComponentStructure.ConfigStruct.tables[iSyncNum]);
+                                                }
+                                                iSyncStep--;
+                                            }
+                                            else
+                                            {
+                                                iSyncStep++;
+                                            }
                                         }
                                     }
                                     if (iSyncStep == 9)
