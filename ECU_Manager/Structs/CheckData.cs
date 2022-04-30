@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[77]
+        private static readonly string[] ErrorStrings = new string[82]
         {
             "Invalid",
             "Flash: Load failure",
@@ -150,6 +150,12 @@ namespace ECU_Manager.Structs
 
             "TSPS: Phase Desynchronized",
             "CPU: HardFault Exception",
+
+            "Sensor: MAP/TPS Mismatch",
+            "Sensor: Lean Mixture",
+            "Sensor: Rich Mixture",
+            "Sensor: Lean Idle Mixture",
+            "Sensor: Rich Idle Mixture",
         };
 
         public static string GetStringForCode(ErrorCode errorCode)
@@ -240,6 +246,11 @@ namespace ECU_Manager.Structs
         KnockLowNoiseLevel,
         TspsDesynchronized,
         HardFaultException,
+        SensorMapTpsMismatch,
+        EngineLeanMixture,
+        EngineRichMixture,
+        EngineLeanIdleMixture,
+        EngineRichIdleMixture,
         Count,
     };
 }
