@@ -778,6 +778,11 @@ namespace ECU_Manager.Controls
                                         {
                                             color = Color.DarkGray;
 
+                                            if (mult[y * 2 + x] > 1.0)
+                                                mult[y * 2 + x] = 1.0;
+                                            else if(mult[y * 2 + x] < 0.0)
+                                                mult[y * 2 + x] = 0.0;
+
                                             r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
                                             g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
                                             b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
