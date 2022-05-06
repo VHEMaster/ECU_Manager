@@ -38,6 +38,7 @@ namespace ECU_Manager.Structs
         public float FuelRatio;
         public float LambdaValue;
         public float LambdaTemperature;
+        public float ShortTermCorrection;
         public float LongTermCorrection;
         public float IdleCorrection;
 

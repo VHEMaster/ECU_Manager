@@ -821,6 +821,9 @@ namespace ECU_Manager
             nudParamsPidIdleIgnP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_p;
             nudParamsPidIdleIgnI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_i;
             nudParamsPidIdleIgnD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d;
+            nudParamsPidShortCorrP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p;
+            nudParamsPidShortCorrI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i;
+            nudParamsPidShortCorrD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d;
 
             nudParamsEnrPMapTps.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr;
             nudParamsIdleIgnDevMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min;
@@ -1998,6 +2001,33 @@ namespace ECU_Manager
         private void nudParamsPidIdleIgnD_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d = (float)((NumericUpDown)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsPidShortCorrP_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p = (float)((NumericUpDown)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsPidShortCorrI_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i = (float)((NumericUpDown)sender).Value;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsPidShortCorrD_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d = (float)((NumericUpDown)sender).Value;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

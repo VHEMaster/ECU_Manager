@@ -147,6 +147,10 @@ namespace ECU_Manager.Structs
         public float idle_ign_to_rpm_pid_i;
         public float idle_ign_to_rpm_pid_d;
 
+        public float short_term_corr_pid_p;
+        public float short_term_corr_pid_i;
+        public float short_term_corr_pid_d;
+
         public float idle_ign_deviation_max;
         public float idle_ign_deviation_min;
 
