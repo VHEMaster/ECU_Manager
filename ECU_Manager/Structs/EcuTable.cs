@@ -164,6 +164,10 @@ namespace ECU_Manager.Structs
         [XmlArray("warmup_mix_koffs")]
         [XmlArrayItem("koff")]
         public float[] warmup_mix_koffs;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("warmup_mix_corrs")]
+        [XmlArrayItem("corr")]
+        public float[] warmup_mix_corrs;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("start_mixtures")]
@@ -198,7 +202,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1130)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1103)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
