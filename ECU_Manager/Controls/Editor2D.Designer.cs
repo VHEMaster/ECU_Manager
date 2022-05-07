@@ -28,17 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.scVertical = new System.Windows.Forms.SplitContainer();
             this.scHorisontal = new System.Windows.Forms.SplitContainer();
             this.tlp2DTable = new System.Windows.Forms.TableLayoutPanel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tpGraph = new System.Windows.Forms.TabPage();
+            this.graph3D = new ECU_Manager.Controls.Graph3D();
+            this.tpInterpolation = new System.Windows.Forms.TabPage();
+            this.btnInterpolate = new System.Windows.Forms.Button();
+            this.nudInterpolationRadius = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.nudInterpolationAmount = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudInterpolationKoff = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.chart2DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.graph3D = new ECU_Manager.Controls.Graph3D();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -47,6 +57,12 @@
             this.scHorisontal.Panel1.SuspendLayout();
             this.scHorisontal.Panel2.SuspendLayout();
             this.scHorisontal.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tpGraph.SuspendLayout();
+            this.tpInterpolation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationKoff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -89,7 +105,7 @@
             // 
             // scHorisontal.Panel2
             // 
-            this.scHorisontal.Panel2.Controls.Add(this.graph3D);
+            this.scHorisontal.Panel2.Controls.Add(this.tabControl1);
             this.scHorisontal.Size = new System.Drawing.Size(1046, 339);
             this.scHorisontal.SplitterDistance = 669;
             this.scHorisontal.TabIndex = 1;
@@ -111,38 +127,204 @@
             this.tlp2DTable.Size = new System.Drawing.Size(669, 339);
             this.tlp2DTable.TabIndex = 0;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tpGraph);
+            this.tabControl1.Controls.Add(this.tpInterpolation);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.Padding = new System.Drawing.Point(0, 0);
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(373, 339);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // tpGraph
+            // 
+            this.tpGraph.Controls.Add(this.graph3D);
+            this.tpGraph.Location = new System.Drawing.Point(4, 33);
+            this.tpGraph.Margin = new System.Windows.Forms.Padding(0);
+            this.tpGraph.Name = "tpGraph";
+            this.tpGraph.Size = new System.Drawing.Size(365, 302);
+            this.tpGraph.TabIndex = 0;
+            this.tpGraph.Text = "3D Graph";
+            this.tpGraph.UseVisualStyleBackColor = true;
+            // 
+            // graph3D
+            // 
+            this.graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.graph3D.AxisX_Legend = null;
+            this.graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.graph3D.AxisY_Legend = null;
+            this.graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.graph3D.AxisZ_Legend = null;
+            this.graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.graph3D.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graph3D.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.graph3D.Location = new System.Drawing.Point(0, 0);
+            this.graph3D.Margin = new System.Windows.Forms.Padding(0);
+            this.graph3D.Name = "graph3D";
+            this.graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.graph3D.Size = new System.Drawing.Size(365, 302);
+            this.graph3D.TabIndex = 0;
+            this.graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
+            // 
+            // tpInterpolation
+            // 
+            this.tpInterpolation.BackColor = System.Drawing.Color.Transparent;
+            this.tpInterpolation.Controls.Add(this.btnInterpolate);
+            this.tpInterpolation.Controls.Add(this.nudInterpolationRadius);
+            this.tpInterpolation.Controls.Add(this.nudInterpolationAmount);
+            this.tpInterpolation.Controls.Add(this.label3);
+            this.tpInterpolation.Controls.Add(this.nudInterpolationKoff);
+            this.tpInterpolation.Controls.Add(this.label2);
+            this.tpInterpolation.Controls.Add(this.label1);
+            this.tpInterpolation.Location = new System.Drawing.Point(4, 33);
+            this.tpInterpolation.Name = "tpInterpolation";
+            this.tpInterpolation.Padding = new System.Windows.Forms.Padding(3);
+            this.tpInterpolation.Size = new System.Drawing.Size(365, 302);
+            this.tpInterpolation.TabIndex = 1;
+            this.tpInterpolation.Text = "Interpolation";
+            // 
+            // btnInterpolate
+            // 
+            this.btnInterpolate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInterpolate.Location = new System.Drawing.Point(52, 113);
+            this.btnInterpolate.Name = "btnInterpolate";
+            this.btnInterpolate.Size = new System.Drawing.Size(147, 33);
+            this.btnInterpolate.TabIndex = 8;
+            this.btnInterpolate.Text = "Interpolate";
+            this.btnInterpolate.UseVisualStyleBackColor = true;
+            this.btnInterpolate.Click += new System.EventHandler(this.btnInterpolate_Click);
+            // 
+            // nudInterpolationRadius
+            // 
+            this.nudInterpolationRadius.Location = new System.Drawing.Point(114, 6);
+            this.nudInterpolationRadius.Maximum = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+            this.nudInterpolationRadius.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudInterpolationRadius.Name = "nudInterpolationRadius";
+            this.nudInterpolationRadius.Size = new System.Drawing.Size(120, 29);
+            this.nudInterpolationRadius.TabIndex = 7;
+            this.nudInterpolationRadius.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // nudInterpolationAmount
+            // 
+            this.nudInterpolationAmount.Location = new System.Drawing.Point(114, 78);
+            this.nudInterpolationAmount.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudInterpolationAmount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudInterpolationAmount.Name = "nudInterpolationAmount";
+            this.nudInterpolationAmount.Size = new System.Drawing.Size(120, 29);
+            this.nudInterpolationAmount.TabIndex = 6;
+            this.nudInterpolationAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 24);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Amount:";
+            // 
+            // nudInterpolationKoff
+            // 
+            this.nudInterpolationKoff.DecimalPlaces = 2;
+            this.nudInterpolationKoff.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudInterpolationKoff.Location = new System.Drawing.Point(114, 41);
+            this.nudInterpolationKoff.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudInterpolationKoff.Name = "nudInterpolationKoff";
+            this.nudInterpolationKoff.Size = new System.Drawing.Size(120, 29);
+            this.nudInterpolationKoff.TabIndex = 3;
+            this.nudInterpolationKoff.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            65536});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 24);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Koff:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 24);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Radius:";
+            // 
             // chart2DChart
             // 
-            chartArea1.AxisX.Interval = 1D;
-            chartArea1.AxisY.Interval = 10D;
-            chartArea1.AxisY.Maximum = 60D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.Name = "ChartArea1";
-            this.chart2DChart.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.Interval = 1D;
+            chartArea2.AxisY.Interval = 10D;
+            chartArea2.AxisY.Maximum = 60D;
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.Name = "ChartArea1";
+            this.chart2DChart.ChartAreas.Add(chartArea2);
             this.chart2DChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart2DChart.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chart2DChart.Legends.Add(legend2);
             this.chart2DChart.Location = new System.Drawing.Point(0, 3);
             this.chart2DChart.Name = "chart2DChart";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Brown;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series1.IsValueShownAsLabel = true;
-            series1.LabelBorderWidth = 0;
-            series1.Legend = "Legend1";
-            series1.MarkerColor = System.Drawing.Color.Black;
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Series1";
-            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series1.SmartLabelStyle.MaxMovingDistance = 100D;
-            series1.SmartLabelStyle.MinMovingDistance = 10D;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series1.YValuesPerPoint = 2;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart2DChart.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.Brown;
+            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series2.IsValueShownAsLabel = true;
+            series2.LabelBorderWidth = 0;
+            series2.Legend = "Legend1";
+            series2.MarkerColor = System.Drawing.Color.Black;
+            series2.MarkerSize = 8;
+            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series2.Name = "Series1";
+            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series2.SmartLabelStyle.MaxMovingDistance = 100D;
+            series2.SmartLabelStyle.MinMovingDistance = 10D;
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series2.YValuesPerPoint = 2;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart2DChart.Series.Add(series2);
             this.chart2DChart.Size = new System.Drawing.Size(1046, 235);
             this.chart2DChart.TabIndex = 4;
             this.chart2DChart.Text = " ";
@@ -186,25 +368,6 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // graph3D
-            // 
-            this.graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
-            this.graph3D.AxisX_Legend = null;
-            this.graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
-            this.graph3D.AxisY_Legend = null;
-            this.graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
-            this.graph3D.AxisZ_Legend = null;
-            this.graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.graph3D.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graph3D.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.graph3D.Location = new System.Drawing.Point(0, 0);
-            this.graph3D.Name = "graph3D";
-            this.graph3D.PolygonLineColor = System.Drawing.Color.Black;
-            this.graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.graph3D.Size = new System.Drawing.Size(373, 339);
-            this.graph3D.TabIndex = 0;
-            this.graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
-            // 
             // Editor2D
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -214,6 +377,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Editor2D";
             this.Size = new System.Drawing.Size(1050, 622);
+            this.Load += new System.EventHandler(this.Editor2D_Load);
             this.scVertical.Panel1.ResumeLayout(false);
             this.scVertical.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).EndInit();
@@ -222,6 +386,13 @@
             this.scHorisontal.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scHorisontal)).EndInit();
             this.scHorisontal.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tpGraph.ResumeLayout(false);
+            this.tpInterpolation.ResumeLayout(false);
+            this.tpInterpolation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationKoff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -238,5 +409,15 @@
         private Graph3D graph3D;
         internal System.Windows.Forms.SplitContainer scVertical;
         internal System.Windows.Forms.SplitContainer scHorisontal;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tpGraph;
+        private System.Windows.Forms.TabPage tpInterpolation;
+        private System.Windows.Forms.Button btnInterpolate;
+        private NumericUpDownOneWheel nudInterpolationRadius;
+        private NumericUpDownOneWheel nudInterpolationAmount;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown nudInterpolationKoff;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -80,6 +80,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea25 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea26 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea27 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea28 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea29 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea30 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea31 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -108,7 +109,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea36 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea28 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tmr50ms = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -357,6 +357,8 @@
             this.eWarmupMixture = new ECU_Manager.Controls.Editor1D();
             this.tabPage46 = new System.Windows.Forms.TabPage();
             this.eWarmupMixKoffs = new ECU_Manager.Controls.Editor1D();
+            this.tabPage54 = new System.Windows.Forms.TabPage();
+            this.eWarmupMixCorrs = new ECU_Manager.Controls.Editor1D();
             this.tabPage27 = new System.Windows.Forms.TabPage();
             this.tabControl10 = new System.Windows.Forms.TabControl();
             this.tabPage48 = new System.Windows.Forms.TabPage();
@@ -435,8 +437,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.tabPage54 = new System.Windows.Forms.TabPage();
-            this.eWarmupMixCorrs = new ECU_Manager.Controls.Editor1D();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -575,6 +575,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixture.Chart)).BeginInit();
             this.tabPage46.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixKoffs.Chart)).BeginInit();
+            this.tabPage54.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixCorrs.Chart)).BeginInit();
             this.tabPage27.SuspendLayout();
             this.tabControl10.SuspendLayout();
             this.tabPage48.SuspendLayout();
@@ -612,8 +614,6 @@
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
-            this.tabPage54.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixCorrs.Chart)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -3444,7 +3444,7 @@
             this.ePressureByRPMvsTPS.Graph3D.Name = "graph3D";
             this.ePressureByRPMvsTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.ePressureByRPMvsTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(373, 339);
+            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.ePressureByRPMvsTPS.Graph3D.TabIndex = 0;
             this.ePressureByRPMvsTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.ePressureByRPMvsTPS.LabelTitle = "Pressure by RPM vs. TPS";
@@ -3923,7 +3923,7 @@
             this.eCyclicFilling.Graph3D.Name = "graph3D";
             this.eCyclicFilling.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCyclicFilling.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCyclicFilling.Graph3D.Size = new System.Drawing.Size(414, 256);
+            this.eCyclicFilling.Graph3D.Size = new System.Drawing.Size(406, 219);
             this.eCyclicFilling.Graph3D.TabIndex = 0;
             this.eCyclicFilling.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCyclicFilling.LabelTitle = "Cyclic Filling";
@@ -4922,7 +4922,7 @@
             this.eIdleValveVsRpm.Graph3D.Name = "graph3D";
             this.eIdleValveVsRpm.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eIdleValveVsRpm.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(373, 339);
+            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eIdleValveVsRpm.Graph3D.TabIndex = 0;
             this.eIdleValveVsRpm.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eIdleValveVsRpm.LabelTitle = "Idle Valve vs. RPM";
@@ -5187,10 +5187,10 @@
             // 
             this.tabPage45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage45.Controls.Add(this.eWarmupMixture);
-            this.tabPage45.Location = new System.Drawing.Point(4, 37);
+            this.tabPage45.Location = new System.Drawing.Point(4, 136);
             this.tabPage45.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage45.Name = "tabPage45";
-            this.tabPage45.Size = new System.Drawing.Size(1153, 439);
+            this.tabPage45.Size = new System.Drawing.Size(184, 0);
             this.tabPage45.TabIndex = 13;
             this.tabPage45.Text = "Warmup Mixture";
             // 
@@ -5228,7 +5228,7 @@
             this.eWarmupMixture.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eWarmupMixture.Chart.Location = new System.Drawing.Point(3, 33);
             this.eWarmupMixture.Chart.Name = "chart1DChart";
-            this.eWarmupMixture.Chart.Size = new System.Drawing.Size(1147, 365);
+            this.eWarmupMixture.Chart.Size = new System.Drawing.Size(178, 1);
             this.eWarmupMixture.Chart.TabIndex = 2;
             this.eWarmupMixture.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eWarmupMixture.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -5236,17 +5236,17 @@
             this.eWarmupMixture.Location = new System.Drawing.Point(0, 0);
             this.eWarmupMixture.Margin = new System.Windows.Forms.Padding(6);
             this.eWarmupMixture.Name = "eWarmupMixture";
-            this.eWarmupMixture.Size = new System.Drawing.Size(1153, 439);
+            this.eWarmupMixture.Size = new System.Drawing.Size(184, 0);
             this.eWarmupMixture.TabIndex = 2;
             // 
             // tabPage46
             // 
             this.tabPage46.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage46.Controls.Add(this.eWarmupMixKoffs);
-            this.tabPage46.Location = new System.Drawing.Point(4, 37);
+            this.tabPage46.Location = new System.Drawing.Point(4, 136);
             this.tabPage46.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage46.Name = "tabPage46";
-            this.tabPage46.Size = new System.Drawing.Size(1153, 439);
+            this.tabPage46.Size = new System.Drawing.Size(184, 0);
             this.tabPage46.TabIndex = 14;
             this.tabPage46.Text = "Warmup Mix Koffs";
             // 
@@ -5284,7 +5284,7 @@
             this.eWarmupMixKoffs.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eWarmupMixKoffs.Chart.Location = new System.Drawing.Point(3, 33);
             this.eWarmupMixKoffs.Chart.Name = "chart1DChart";
-            this.eWarmupMixKoffs.Chart.Size = new System.Drawing.Size(1147, 365);
+            this.eWarmupMixKoffs.Chart.Size = new System.Drawing.Size(178, 1);
             this.eWarmupMixKoffs.Chart.TabIndex = 2;
             this.eWarmupMixKoffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eWarmupMixKoffs.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -5292,8 +5292,64 @@
             this.eWarmupMixKoffs.Location = new System.Drawing.Point(0, 0);
             this.eWarmupMixKoffs.Margin = new System.Windows.Forms.Padding(6);
             this.eWarmupMixKoffs.Name = "eWarmupMixKoffs";
-            this.eWarmupMixKoffs.Size = new System.Drawing.Size(1153, 439);
+            this.eWarmupMixKoffs.Size = new System.Drawing.Size(184, 0);
             this.eWarmupMixKoffs.TabIndex = 2;
+            // 
+            // tabPage54
+            // 
+            this.tabPage54.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage54.Controls.Add(this.eWarmupMixCorrs);
+            this.tabPage54.Location = new System.Drawing.Point(4, 37);
+            this.tabPage54.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage54.Name = "tabPage54";
+            this.tabPage54.Size = new System.Drawing.Size(1153, 439);
+            this.tabPage54.TabIndex = 15;
+            this.tabPage54.Text = "Warmup Mix Corrs";
+            // 
+            // eWarmupMixCorrs
+            // 
+            // 
+            // 
+            // 
+            this.eWarmupMixCorrs.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eWarmupMixCorrs.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eWarmupMixCorrs.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(96)))));
+            chartArea28.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea28.AxisX.LabelStyle.Interval = 1D;
+            chartArea28.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisX.MajorGrid.Interval = 1D;
+            chartArea28.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisX.MajorTickMark.Interval = 1D;
+            chartArea28.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisX.Maximum = 1D;
+            chartArea28.AxisX.Minimum = 0D;
+            chartArea28.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea28.AxisX2.LabelStyle.Interval = 1D;
+            chartArea28.AxisX2.MajorGrid.Interval = 1D;
+            chartArea28.AxisX2.MajorTickMark.Interval = 1D;
+            chartArea28.AxisX2.Maximum = 1D;
+            chartArea28.AxisX2.Minimum = 0D;
+            chartArea28.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea28.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
+            chartArea28.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea28.BackColor = System.Drawing.Color.Transparent;
+            chartArea28.Name = "ChartArea1";
+            this.eWarmupMixCorrs.Chart.ChartAreas.Add(chartArea28);
+            this.eWarmupMixCorrs.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eWarmupMixCorrs.Chart.Location = new System.Drawing.Point(3, 33);
+            this.eWarmupMixCorrs.Chart.Name = "chart1DChart";
+            this.eWarmupMixCorrs.Chart.Size = new System.Drawing.Size(1147, 365);
+            this.eWarmupMixCorrs.Chart.TabIndex = 2;
+            this.eWarmupMixCorrs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eWarmupMixCorrs.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eWarmupMixCorrs.LabelTitle = "Warmup Mixture Corr";
+            this.eWarmupMixCorrs.Location = new System.Drawing.Point(0, 0);
+            this.eWarmupMixCorrs.Margin = new System.Windows.Forms.Padding(6);
+            this.eWarmupMixCorrs.Name = "eWarmupMixCorrs";
+            this.eWarmupMixCorrs.Size = new System.Drawing.Size(1153, 439);
+            this.eWarmupMixCorrs.TabIndex = 2;
             // 
             // tabPage27
             // 
@@ -5579,7 +5635,7 @@
             this.eCorrsFillByMAP.Graph3D.Name = "graph3D";
             this.eCorrsFillByMAP.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsFillByMAP.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsFillByMAP.Graph3D.Size = new System.Drawing.Size(339, 252);
+            this.eCorrsFillByMAP.Graph3D.Size = new System.Drawing.Size(331, 215);
             this.eCorrsFillByMAP.Graph3D.TabIndex = 0;
             this.eCorrsFillByMAP.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsFillByMAP.LabelTitle = "Filling by MAP";
@@ -5693,7 +5749,7 @@
             this.eCorrsIdleValveToRPM.Graph3D.Name = "graph3D";
             this.eCorrsIdleValveToRPM.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIdleValveToRPM.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(373, 339);
+            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIdleValveToRPM.Graph3D.TabIndex = 0;
             this.eCorrsIdleValveToRPM.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIdleValveToRPM.LabelTitle = "Idle Valve to RPM";
@@ -5807,7 +5863,7 @@
             this.eCorrsIgnition.Graph3D.Name = "graph3D";
             this.eCorrsIgnition.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIgnition.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(373, 339);
+            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIgnition.Graph3D.TabIndex = 0;
             this.eCorrsIgnition.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIgnition.LabelTitle = "Ignitions";
@@ -5921,7 +5977,7 @@
             this.eCorrsPressureByTPS.Graph3D.Name = "graph3D";
             this.eCorrsPressureByTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsPressureByTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(373, 339);
+            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsPressureByTPS.Graph3D.TabIndex = 0;
             this.eCorrsPressureByTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsPressureByTPS.LabelTitle = "Pressure by TPS";
@@ -6378,7 +6434,7 @@
             this.tabPage21.Location = new System.Drawing.Point(4, 33);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(888, 533);
+            this.tabPage21.Size = new System.Drawing.Size(975, 533);
             this.tabPage21.TabIndex = 2;
             this.tabPage21.Text = "Accel. vs. Time";
             // 
@@ -6429,7 +6485,7 @@
             series12.YValuesPerPoint = 2;
             series12.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.chartDragAccel.Series.Add(series12);
-            this.chartDragAccel.Size = new System.Drawing.Size(882, 527);
+            this.chartDragAccel.Size = new System.Drawing.Size(969, 527);
             this.chartDragAccel.TabIndex = 8;
             this.chartDragAccel.Text = " ";
             // 
@@ -6440,7 +6496,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 33);
             this.tabPage20.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(888, 533);
+            this.tabPage20.Size = new System.Drawing.Size(975, 533);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Table View";
             // 
@@ -6456,7 +6512,7 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(888, 533);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(975, 533);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // lvDragTable
@@ -6476,7 +6532,7 @@
             this.lvDragTable.Margin = new System.Windows.Forms.Padding(0);
             this.lvDragTable.MultiSelect = false;
             this.lvDragTable.Name = "lvDragTable";
-            this.lvDragTable.Size = new System.Drawing.Size(888, 533);
+            this.lvDragTable.Size = new System.Drawing.Size(975, 533);
             this.lvDragTable.TabIndex = 0;
             this.lvDragTable.UseCompatibleStateImageBehavior = false;
             this.lvDragTable.View = System.Windows.Forms.View.Details;
@@ -6736,62 +6792,6 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // tabPage54
-            // 
-            this.tabPage54.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
-            this.tabPage54.Controls.Add(this.eWarmupMixCorrs);
-            this.tabPage54.Location = new System.Drawing.Point(4, 37);
-            this.tabPage54.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage54.Name = "tabPage54";
-            this.tabPage54.Size = new System.Drawing.Size(1153, 439);
-            this.tabPage54.TabIndex = 15;
-            this.tabPage54.Text = "Warmup Mix Corrs";
-            // 
-            // eWarmupMixCorrs
-            // 
-            // 
-            // 
-            // 
-            this.eWarmupMixCorrs.Chart.BackColor = System.Drawing.Color.Transparent;
-            this.eWarmupMixCorrs.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
-            this.eWarmupMixCorrs.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(96)))));
-            chartArea28.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea28.AxisX.LabelStyle.Interval = 1D;
-            chartArea28.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisX.MajorGrid.Interval = 1D;
-            chartArea28.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisX.MajorTickMark.Interval = 1D;
-            chartArea28.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisX.Maximum = 1D;
-            chartArea28.AxisX.Minimum = 0D;
-            chartArea28.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea28.AxisX2.LabelStyle.Interval = 1D;
-            chartArea28.AxisX2.MajorGrid.Interval = 1D;
-            chartArea28.AxisX2.MajorTickMark.Interval = 1D;
-            chartArea28.AxisX2.Maximum = 1D;
-            chartArea28.AxisX2.Minimum = 0D;
-            chartArea28.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea28.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisY.MajorTickMark.LineColor = System.Drawing.Color.DimGray;
-            chartArea28.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea28.BackColor = System.Drawing.Color.Transparent;
-            chartArea28.Name = "ChartArea1";
-            this.eWarmupMixCorrs.Chart.ChartAreas.Add(chartArea28);
-            this.eWarmupMixCorrs.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.eWarmupMixCorrs.Chart.Location = new System.Drawing.Point(3, 33);
-            this.eWarmupMixCorrs.Chart.Name = "chart1DChart";
-            this.eWarmupMixCorrs.Chart.Size = new System.Drawing.Size(1147, 365);
-            this.eWarmupMixCorrs.Chart.TabIndex = 2;
-            this.eWarmupMixCorrs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.eWarmupMixCorrs.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.eWarmupMixCorrs.LabelTitle = "Warmup Mixture Corr";
-            this.eWarmupMixCorrs.Location = new System.Drawing.Point(0, 0);
-            this.eWarmupMixCorrs.Margin = new System.Windows.Forms.Padding(6);
-            this.eWarmupMixCorrs.Name = "eWarmupMixCorrs";
-            this.eWarmupMixCorrs.Size = new System.Drawing.Size(1153, 439);
-            this.eWarmupMixCorrs.TabIndex = 2;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -6954,6 +6954,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixture.Chart)).EndInit();
             this.tabPage46.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixKoffs.Chart)).EndInit();
+            this.tabPage54.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixCorrs.Chart)).EndInit();
             this.tabPage27.ResumeLayout(false);
             this.tabControl10.ResumeLayout(false);
             this.tabPage48.ResumeLayout(false);
@@ -6995,8 +6997,6 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
-            this.tabPage54.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.eWarmupMixCorrs.Chart)).EndInit();
             this.ResumeLayout(false);
 
         }

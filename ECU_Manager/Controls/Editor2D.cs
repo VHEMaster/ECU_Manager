@@ -65,6 +65,8 @@ namespace ECU_Manager.Controls
 
         private EventHandler UpdateTableEvent = null;
 
+        private bool valueChangedEnabled = true;
+
         private class ForcePosition
         {
             public int x;
@@ -693,7 +695,7 @@ namespace ECU_Manager.Controls
                 chart2DChart.Series[seriescount - 1].Points[0].XValue = paramx;
                 chart2DChart.Series[seriescount - 1].Points[0].YValues[0] = paramy;
             }
-
+            
             if (depx != null && depy != null)
             {
                 Interpolation interpolationX = null;
@@ -827,17 +829,112 @@ namespace ECU_Manager.Controls
         }
 
         private void nudTableItem_ValueChanged(object sender, EventArgs e)
-        { 
-            NumericUpDown nud = (NumericUpDown)sender;
-            int index = (int)nud.Tag;
-            int x = index % iArraySizeX;
-            int y = index / iArraySizeX;
-            float value = (float)nud.Value;
-            Color text = Color.Black;
-            Color back = nud.BackColor;
+        {
+            if (valueChangedEnabled)
+            {
+                NumericUpDown nud = (NumericUpDown)sender;
+                int index = (int)nud.Tag;
+                int x = index % iArraySizeX;
+                int y = index / iArraySizeX;
+                float value = (float)nud.Value;
+                Color text = Color.Black;
+                Color back = nud.BackColor;
 
+                float[] array2d = null;
+
+                if (!string.IsNullOrWhiteSpace(sArrayName))
+                {
+                    if (eMode == Editor2DMode.EcuTable)
+                    {
+                        FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                        if (fieldArray != null)
+                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    }
+                    else if (eMode == Editor2DMode.CorrectionsTable)
+                    {
+                        FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                        if (fieldArray != null)
+                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    }
+                }
+
+                if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
+                {
+                    chart2DChart.Series[y].Points[x].YValues = new double[1] { value };
+                }
+
+                //TODO: check if need to check if IsSynchronizing
+                if (array2d[index] != value)
+                {
+                    array2d[index] = value;
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
+                }
+
+                if (ColorTransience != null || !string.IsNullOrWhiteSpace(sCalibrationTable))
+                {
+                    text = Color.White;
+                    if (string.IsNullOrWhiteSpace(sCalibrationTable))
+                        back = ColorTransience.Get(value);
+                }
+
+                nud.ForeColor = text;
+                nud.BackColor = back;
+                nud.Font = new Font(nud.Font, FontStyle.Regular);
+
+                double chartMin = dChartMinY;
+                double chartMax = dChartMaxY;
+
+                for (int i = 0; i < chart2DChart.Series.Count; i++)
+                {
+                    for (int j = 0; j < chart2DChart.Series[i].Points.Count; j++)
+                    {
+                        value = (float)chart2DChart.Series[i].Points[j].YValues[0];
+                        if (value > chartMax)
+                            chartMax = value;
+                        if (value < chartMin)
+                            chartMin = value;
+                    }
+                }
+
+                if (chartMin != dMinY && chartMax != dMaxY)
+                {
+                    chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
+                    chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
+                }
+            }
+        }
+
+        private void Editor2D_Load(object sender, EventArgs e)
+        {
+            tpGraph.BackColor = this.BackColor;
+            tpInterpolation.BackColor = this.BackColor; 
+
+        }
+
+        private void btnInterpolate_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
             float[] array2d = null;
+            float[] new2d = null;
+            double koff = (double)nudInterpolationKoff.Value;
+            int amount = (int)nudInterpolationAmount.Value;
+            int radius = (int)nudInterpolationRadius.Value;
             
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
@@ -854,50 +951,89 @@ namespace ECU_Manager.Controls
                 }
             }
 
-            if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
+            if (sizex > 0 && sizey > 0 && array2d != null)
             {
-                chart2DChart.Series[y].Points[x].YValues = new double[1] { value };
-            }
+                new2d = new float[array2d.Length];
+                array2d.CopyTo(new2d, 0);
+                double temp_koff;
+                int index;
+                int dindex;
+                double valuex1, valuey1, valuex2, valuey2;
 
-            //TODO: check if need to check if IsSynchronizing
-            if (array2d[index] != value)
-            {
-                array2d[index] = value;
-                UpdateTableEvent?.Invoke(sender, new EventArgs());
-            }
-
-            if (ColorTransience != null || !string.IsNullOrWhiteSpace(sCalibrationTable))
-            {
-                text = Color.White;
-                if(string.IsNullOrWhiteSpace(sCalibrationTable))
-                    back = ColorTransience.Get(value);
-            }
-
-            nud.ForeColor = text;
-            nud.BackColor = back;
-            nud.Font = new Font(nud.Font, FontStyle.Regular);
-
-            double chartMin = dChartMinY;
-            double chartMax = dChartMaxY;
-
-            for (int i = 0; i < chart2DChart.Series.Count; i++)
-            {
-                for (int j = 0; j < chart2DChart.Series[i].Points.Count; j++)
+                for (int i = 0; i < amount; i++)
                 {
-                    value = (float)chart2DChart.Series[i].Points[j].YValues[0];
-                    if (value > chartMax)
-                        chartMax = value;
-                    if (value < chartMin)
-                        chartMin = value;
+                    for(int y = 0; y < sizey; y++)
+                    {
+                        for (int x = 0; x < sizex; x++)
+                        {
+                            index = y * iArraySizeX + x;
+                            valuex1 = valuey1 = new2d[index];
+                            valuex2 = valuey2 = new2d[index];
+                            for (int dx = -radius; dx < 0; dx++)
+                            {
+                                if ((dx + x) >= 0 && (dx + x) < sizex)
+                                {
+                                    dindex = y * iArraySizeX + (dx + x);
+                                    temp_koff = ((radius + 1) - Math.Abs(dx)) / (double)(radius + 1);
+
+                                    valuex1 = array2d[dindex] * temp_koff + valuex1 * (1.0D - temp_koff);
+                                }
+                            }
+                            for (int dx = radius; dx > 0; dx--)
+                            {
+                                if ((dx + x) >= 0 && (dx + x) < sizex)
+                                {
+                                    dindex = y * iArraySizeX + (dx + x);
+                                    temp_koff = ((radius + 1) - Math.Abs(dx)) / (double)(radius + 1);
+
+                                    valuex2 = array2d[dindex] * temp_koff + valuex2 * (1.0D - temp_koff);
+                                }
+                            }
+                            for (int dy = -radius; dy < 0; dy++)
+                            {
+                                if ((dy + y) >= 0 && (dy + y) < sizey)
+                                {
+                                    dindex = (dy + y) * iArraySizeX + x;
+                                    temp_koff = ((radius + 1) - Math.Abs(dy)) / (double)(radius + 1);
+
+                                    valuey1 = array2d[dindex] * temp_koff + valuey1 * (1.0D - temp_koff);
+                                }
+                            }
+                            for (int dy = radius; dy > 0; dy--)
+                            {
+                                if ((dy + y) >= 0 && (dy + y) < sizey)
+                                {
+                                    dindex = (dy + y) * iArraySizeX + x;
+                                    temp_koff = ((radius + 1) - Math.Abs(dy)) / (double)(radius + 1);
+
+                                    valuey2 = array2d[dindex] * temp_koff + valuey2 * (1.0D - temp_koff);
+                                }
+                            }
+                            new2d[index] = (float)(((valuex1 + valuey1 + valuex2 + valuey2) * koff * 0.25D) + new2d[index] * (1.0D - koff));
+
+                        }
+                    }
+                    new2d.CopyTo(array2d, 0);
+                }
+
+            }
+
+            valueChangedEnabled = false;
+            foreach (Control control in tlp2DTable.Controls)
+            {
+                if(control.GetType().IsSubclassOf(typeof(NumericUpDown)))
+                {
+                    if(control.Tag != null)
+                    {
+                        int index = (int)control.Tag;
+                        ((NumericUpDown)control).Value = (decimal)array2d[index];
+                    }
                 }
             }
+            valueChangedEnabled = true;
+            UpdateChart();
+            UpdateTableEvent?.Invoke(sender, new EventArgs());
 
-            if (chartMin != dMinY && chartMax != dMaxY)
-            {
-                chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
-                chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
-            }
         }
-
     }
 }
