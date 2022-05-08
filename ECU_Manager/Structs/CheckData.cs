@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[82]
+        private static readonly string[] ErrorStrings = new string[84]
         {
             "Invalid",
             "Flash: Load failure",
@@ -83,6 +83,8 @@ namespace ECU_Manager.Structs
             "Sensor: Lambda failure",
 
             "Output: Driver failure",
+            "CAN: Init failure",
+            "CAN: Test failure",
 
             "Injector 4: OpenCircuit",
             "Injector 4: ShortToBatOrOverheat",
@@ -186,6 +188,8 @@ namespace ECU_Manager.Structs
         SensorPwrVoltageFailure,
         SensorLambdaFailure,
         OutputDriverFailure,
+        CanInitFailure,
+        CanTestFailure,
         Injector4OpenCircuit,
         Injector4ShortToBatOrOverheat,
         Injector4ShortToGND,
