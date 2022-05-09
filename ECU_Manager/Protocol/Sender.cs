@@ -23,8 +23,8 @@ namespace ECU_Manager.Protocol
                 byte[] packet = new byte[data.Length + 10];
 
                 packet[0] = 0x55;
-                packet[1] = 0x55;
-                packet[2] = (byte)(((byte)source | (((byte)destination & 0x7) << 3)) & 0xFF);
+                packet[1] = (byte)source;
+                packet[2] = (byte)destination;
                 packet[3] = (byte)((data.Length + 10) & 0xFF);
                 packet[4] = (byte)(((data.Length + 10) >> 8) & 0xFF);
                 packet[5] = (byte)(packetId & 0xFF);
@@ -45,12 +45,13 @@ namespace ECU_Manager.Protocol
             lock (this)
             {
                 byte[] packet = new byte[8];
+                ushort length = 8;
 
                 packet[0] = 0x55;
-                packet[1] = 0x55;
-                packet[2] = (byte)(((byte)source | (((byte)destination & 0x7) << 3)) & 0xFF);
-                packet[3] = (byte)(8 & 0xFF);
-                packet[4] = (byte)(((8) >> 8) & 0xFF);
+                packet[1] = (byte)source;
+                packet[2] = (byte)destination;
+                packet[3] = (byte)(length & 0xFF);
+                packet[4] = (byte)((length >> 8) & 0xFF);
                 packet[5] = (byte)(packetId & 0xFF);
                 packet[6] = (byte)((packetId >> 8) & 0xFF);
                 packet[7] = Crc.crc_8(packet, 7);

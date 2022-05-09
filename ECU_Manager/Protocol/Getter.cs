@@ -90,7 +90,7 @@ namespace ECU_Manager.Protocol
                 for (int i = 0; i < 8; i++)
                     header[i] = PeekElement(rxfifo, i);
 
-                if (header[0] != 0x55 || header[1] != 0x55)
+                if (header[0] != 0x55)
                 {
                     if(wrongheadercounter++ == 0)
                         Console.WriteLine("Received packet with wrong header preamble.");
@@ -100,9 +100,9 @@ namespace ECU_Manager.Protocol
                 }
                 wrongheadercounter = 0;
 
+                packet.Source = (Channel)header[1];
+                packet.Destination = (Channel)header[2];
                 packet.Length = (ushort)((header[4] << 8) | header[3]);
-                packet.Destination = (Channel)((header[2] >> 3) & 0x7);
-                packet.Source = (Channel)(header[2] & 0x7);
                 packet.PacketId = (ushort)((header[6] << 8) | header[5]);
                 packet.Message = null;
 
