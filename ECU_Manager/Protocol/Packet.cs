@@ -12,7 +12,10 @@ namespace ECU_Manager.Protocol
         etrPC,
         etrECU,
         etrCTRL,
-        etrCount,
+
+        etrCAN = 64,
+   
+        etrCount
     };
 
     public class Packet
