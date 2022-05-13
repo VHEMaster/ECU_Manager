@@ -247,6 +247,11 @@ namespace ECU_Manager
             eEngTemps.SetY("EngineTemp", "Temperature", "F1");
             eEngTemps.SetTableEventHandler(ChartUpdateEvent);
 
+            eAirTemps.Initialize(cs, -50, 150, 1, 1, 0, 100, 1, 10, 0);
+            eAirTemps.SetConfig("air_temps", "air_temp_count", string.Empty);
+            eAirTemps.SetY("AirTemp", "Temperature", "F1");
+            eAirTemps.SetTableEventHandler(ChartUpdateEvent);
+
             eSpeeds.Initialize(cs, 0, 990, 5, 1, 0, 100, 1, 10, 0);
             eSpeeds.SetConfig("idle_rpm_shift_speeds", "idle_speeds_shift_count", string.Empty);
             eSpeeds.SetY("Speed", "Speed", "F1");
@@ -440,6 +445,32 @@ namespace ECU_Manager
             eCorrsIgnition.SetTableColorTrans(colorTransience);
             eCorrsIgnition.SynchronizeChart();
 
+
+            colorTransience = new ColorTransience(-0.2F, 0.3F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -0.2F);
+            colorTransience.Add(Color.Blue, -0.1F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -0.05F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 0.05F);
+            colorTransience.Add(Color.Red, 0.1F);
+            colorTransience.Add(Color.DarkRed, 0.2F);
+            colorTransience.Add(Color.Black, 0.3F);
+
+            eAirTempMixCorr.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
+                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_FILLING_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
+
+            eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
+            eAirTempMixCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
+            eAirTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
+            eAirTempMixCorr.SetD("AirTemp", "AirTemp", "F1");
+            eAirTempMixCorr.SetTableEventHandler(ChartUpdateEvent);
+            eAirTempMixCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempMixCorr.scHorisontal.Width * 0.65);
+
+            eAirTempMixCorr.SetTableColorTrans(colorTransience);
+            eAirTempMixCorr.SynchronizeChart();
+
             SynchronizeCharts();
         }
 
@@ -455,6 +486,7 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.SynchronizeChart();
             eCorrsIgnition.SynchronizeChart();
             eCorrsPressureByTPS.SynchronizeChart();
+            eAirTempMixCorr.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -476,6 +508,7 @@ namespace ECU_Manager
             eRotates.UpdateChart();
             eThrottles.UpdateChart();
             eEngTemps.UpdateChart();
+            eAirTemps.UpdateChart();
             eFillings.UpdateChart();
             eSpeeds.UpdateChart();
             eVoltages.UpdateChart();
@@ -498,6 +531,7 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.UpdateChart();
             eCorrsIgnition.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
+            eAirTempMixCorr.UpdateChart();
         }
 
         private void CorrStart()
@@ -804,6 +838,7 @@ namespace ECU_Manager
             nudParamsCntVoltages.Maximum = Consts.TABLE_VOLTAGES_MAX;
             nudParamsCntFillings.Maximum = Consts.TABLE_FILLING_MAX;
             nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
+            nudParamsCntAirTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
             nudParamsCntSpeeds.Maximum = Consts.TABLE_SPEEDS_MAX;
 
             nudParamsCntPress.Value = cs.ConfigStruct.tables[cs.CurrentTable].pressures_count;
@@ -811,7 +846,7 @@ namespace ECU_Manager
             nudParamsCntThrottles.Value = cs.ConfigStruct.tables[cs.CurrentTable].throttles_count;
             nudParamsCntVoltages.Value = cs.ConfigStruct.tables[cs.CurrentTable].voltages_count;
             nudParamsCntFillings.Value = cs.ConfigStruct.tables[cs.CurrentTable].fillings_count;
-            nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
+            nudParamsCntAirTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count;
             nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
@@ -1916,7 +1951,7 @@ namespace ECU_Manager
             cs.ConfigStruct.tables[cs.CurrentTable].fillings_count = (int)((NumericUpDown)sender).Value;
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].fillings_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].fillings[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].fillings[i] + 5;
+                    cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].fillings[i] + 2;
             UpdateEcuTableValues();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1929,7 +1964,7 @@ namespace ECU_Manager
             cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count = (int)((NumericUpDown)sender).Value;
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i] + 5;
+                    cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i] + 1;
             UpdateEcuTableValues();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -1942,7 +1977,20 @@ namespace ECU_Manager
             cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count = (int)((NumericUpDown)sender).Value;
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 5;
+                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 2;
+            UpdateEcuTableValues();
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsCntAirTemps_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i] + 1;
             UpdateEcuTableValues();
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {

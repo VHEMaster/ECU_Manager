@@ -108,17 +108,16 @@ namespace ECU_Manager.Structs
         [XmlArray("engine_temps")]
         [XmlArrayItem("temperature")]
         public float[] engine_temps;
-
-        //TODO: maybe not needed?..
-        //public int air_temp_count;
-        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        //[XmlArray("air_temps")]
-        //[XmlArrayItem("temperature")]
-        //public float[] air_temps;
-        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        //[XmlArray("air_temp_mix_corr")]
-        //[XmlArrayItem("corr")]
-        //public float[] air_temp_mix_corr;
+        
+        public int air_temp_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("air_temps")]
+        [XmlArrayItem("temperature")]
+        public float[] air_temps;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_FILLING_MAX)]
+        [XmlArray("air_temp_mix_corr")]
+        [XmlArrayItem("corr")]
+        public float[] air_temp_mix_corr;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_wish_rotates")]
@@ -202,7 +201,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1103)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 830)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
