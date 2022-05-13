@@ -53,7 +53,10 @@ namespace ECU_Manager.Structs
         public float tspsRelPos;
         public float tspsDesyncThr;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 987)]
+        public int useShortTermCorr;
+        public int useLongTermCorr;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 985)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

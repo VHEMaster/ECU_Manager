@@ -794,6 +794,8 @@ namespace ECU_Manager
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
+                cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
                 btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
                 btnCorrStart.Enabled = cs.ConfigStruct.parameters.performAdaptation == 0;
                 if (cs.ConfigStruct.parameters.performAdaptation > 0)
@@ -1598,6 +1600,24 @@ namespace ECU_Manager
         private void cbUseLambda_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLambdaSensor = ((CheckBox)sender).Checked ? 1 : 0;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbUseShortTermCorr_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.useShortTermCorr = ((CheckBox)sender).Checked ? 1 : 0;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbUseLongTermCorr_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.useLongTermCorr = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();

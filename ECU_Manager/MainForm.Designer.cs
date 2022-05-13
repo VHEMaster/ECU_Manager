@@ -163,6 +163,8 @@
             this.rbShiftMode1 = new System.Windows.Forms.RadioButton();
             this.rbShiftMode0 = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbUseLongTermCorr = new System.Windows.Forms.CheckBox();
+            this.cbUseShortTermCorr = new System.Windows.Forms.CheckBox();
             this.label69 = new System.Windows.Forms.Label();
             this.nudTspsDsThr = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label66 = new System.Windows.Forms.Label();
@@ -220,6 +222,8 @@
             this.nudToolsCurTable = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label23 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label77 = new System.Windows.Forms.Label();
+            this.nudParamsCntAirTemps = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label73 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
@@ -447,8 +451,6 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.label77 = new System.Windows.Forms.Label();
-            this.nudParamsCntAirTemps = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -483,6 +485,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrI)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrP)).BeginInit();
@@ -630,7 +633,6 @@
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1267,6 +1269,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbUseLongTermCorr);
+            this.groupBox4.Controls.Add(this.cbUseShortTermCorr);
             this.groupBox4.Controls.Add(this.label69);
             this.groupBox4.Controls.Add(this.nudTspsDsThr);
             this.groupBox4.Controls.Add(this.label66);
@@ -1284,10 +1288,32 @@
             this.groupBox4.ForeColor = System.Drawing.Color.White;
             this.groupBox4.Location = new System.Drawing.Point(663, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(225, 403);
+            this.groupBox4.Size = new System.Drawing.Size(225, 444);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Miscellaneous";
+            // 
+            // cbUseLongTermCorr
+            // 
+            this.cbUseLongTermCorr.AutoSize = true;
+            this.cbUseLongTermCorr.Location = new System.Drawing.Point(6, 399);
+            this.cbUseLongTermCorr.Name = "cbUseLongTermCorr";
+            this.cbUseLongTermCorr.Size = new System.Drawing.Size(201, 28);
+            this.cbUseLongTermCorr.TabIndex = 19;
+            this.cbUseLongTermCorr.Text = "Use Long Term Corr";
+            this.cbUseLongTermCorr.UseVisualStyleBackColor = true;
+            this.cbUseLongTermCorr.CheckedChanged += new System.EventHandler(this.cbUseLongTermCorr_CheckedChanged);
+            // 
+            // cbUseShortTermCorr
+            // 
+            this.cbUseShortTermCorr.AutoSize = true;
+            this.cbUseShortTermCorr.Location = new System.Drawing.Point(6, 365);
+            this.cbUseShortTermCorr.Name = "cbUseShortTermCorr";
+            this.cbUseShortTermCorr.Size = new System.Drawing.Size(202, 28);
+            this.cbUseShortTermCorr.TabIndex = 18;
+            this.cbUseShortTermCorr.Text = "Use Short Term Corr";
+            this.cbUseShortTermCorr.UseVisualStyleBackColor = true;
+            this.cbUseShortTermCorr.CheckedChanged += new System.EventHandler(this.cbUseShortTermCorr_CheckedChanged);
             // 
             // label69
             // 
@@ -2167,6 +2193,28 @@
             this.tabPage8.Size = new System.Drawing.Size(1169, 521);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(617, 222);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(162, 24);
+            this.label77.TabIndex = 85;
+            this.label77.Text = "Air Temps. Count:";
+            // 
+            // nudParamsCntAirTemps
+            // 
+            this.nudParamsCntAirTemps.Location = new System.Drawing.Point(782, 221);
+            this.nudParamsCntAirTemps.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.nudParamsCntAirTemps.Name = "nudParamsCntAirTemps";
+            this.nudParamsCntAirTemps.Size = new System.Drawing.Size(96, 29);
+            this.nudParamsCntAirTemps.TabIndex = 84;
+            this.nudParamsCntAirTemps.ValueChanged += new System.EventHandler(this.nudParamsCntAirTemps_ValueChanged);
             // 
             // label73
             // 
@@ -4368,7 +4416,7 @@
             series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIgnition.Chart.Series.Add(series3);
-            this.eIgnition.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eIgnition.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eIgnition.Chart.TabIndex = 4;
             this.eIgnition.Chart.Text = " ";
             this.eIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4512,10 +4560,10 @@
             // 
             this.tabPage24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage24.Controls.Add(this.tabControl7);
-            this.tabPage24.Location = new System.Drawing.Point(4, 37);
+            this.tabPage24.Location = new System.Drawing.Point(4, 235);
             this.tabPage24.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage24.Name = "tabPage24";
-            this.tabPage24.Size = new System.Drawing.Size(1161, 480);
+            this.tabPage24.Size = new System.Drawing.Size(184, 0);
             this.tabPage24.TabIndex = 5;
             this.tabPage24.Text = "Injection";
             // 
@@ -4532,17 +4580,17 @@
             this.tabControl7.Name = "tabControl7";
             this.tabControl7.Padding = new System.Drawing.Point(20, 5);
             this.tabControl7.SelectedIndex = 0;
-            this.tabControl7.Size = new System.Drawing.Size(1161, 480);
+            this.tabControl7.Size = new System.Drawing.Size(184, 0);
             this.tabControl7.TabIndex = 3;
             // 
             // tabPage33
             // 
             this.tabPage33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage33.Controls.Add(this.eFuelMixtures);
-            this.tabPage33.Location = new System.Drawing.Point(4, 37);
+            this.tabPage33.Location = new System.Drawing.Point(4, 103);
             this.tabPage33.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage33.Name = "tabPage33";
-            this.tabPage33.Size = new System.Drawing.Size(1153, 439);
+            this.tabPage33.Size = new System.Drawing.Size(176, 0);
             this.tabPage33.TabIndex = 8;
             this.tabPage33.Text = "Setup";
             // 
@@ -4617,7 +4665,7 @@
             series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eFuelMixtures.Chart.Series.Add(series4);
-            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1149, 159);
+            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eFuelMixtures.Chart.TabIndex = 4;
             this.eFuelMixtures.Chart.Text = " ";
             this.eFuelMixtures.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4642,7 +4690,7 @@
             this.eFuelMixtures.Location = new System.Drawing.Point(0, 0);
             this.eFuelMixtures.Margin = new System.Windows.Forms.Padding(6);
             this.eFuelMixtures.Name = "eFuelMixtures";
-            this.eFuelMixtures.Size = new System.Drawing.Size(1153, 439);
+            this.eFuelMixtures.Size = new System.Drawing.Size(176, 0);
             this.eFuelMixtures.TabIndex = 1;
             // 
             // tabPage36
@@ -4727,7 +4775,7 @@
             series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eInjectionPhase.Chart.Series.Add(series5);
-            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eInjectionPhase.Chart.TabIndex = 4;
             this.eInjectionPhase.Chart.Text = " ";
             this.eInjectionPhase.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4893,7 +4941,7 @@
             series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eAirTempMixCorr.Chart.Series.Add(series6);
-            this.eAirTempMixCorr.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eAirTempMixCorr.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eAirTempMixCorr.Chart.TabIndex = 4;
             this.eAirTempMixCorr.Chart.Text = " ";
             this.eAirTempMixCorr.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4915,7 +4963,7 @@
             this.eAirTempMixCorr.Graph3D.Name = "graph3D";
             this.eAirTempMixCorr.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eAirTempMixCorr.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eAirTempMixCorr.Graph3D.Size = new System.Drawing.Size(403, 201);
+            this.eAirTempMixCorr.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eAirTempMixCorr.Graph3D.TabIndex = 0;
             this.eAirTempMixCorr.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eAirTempMixCorr.LabelTitle = "Air Temp. Mixture Correction";
@@ -6983,28 +7031,6 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(617, 222);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(162, 24);
-            this.label77.TabIndex = 85;
-            this.label77.Text = "Air Temps. Count:";
-            // 
-            // nudParamsCntAirTemps
-            // 
-            this.nudParamsCntAirTemps.Location = new System.Drawing.Point(782, 221);
-            this.nudParamsCntAirTemps.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.nudParamsCntAirTemps.Name = "nudParamsCntAirTemps";
-            this.nudParamsCntAirTemps.Size = new System.Drawing.Size(96, 29);
-            this.nudParamsCntAirTemps.TabIndex = 84;
-            this.nudParamsCntAirTemps.ValueChanged += new System.EventHandler(this.nudParamsCntAirTemps_ValueChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -7063,6 +7089,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrP)).EndInit();
@@ -7214,7 +7241,6 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -7554,5 +7580,7 @@
         private Controls.Editor2D eAirTempMixCorr;
         private System.Windows.Forms.Label label77;
         private Controls.NumericUpDownOneWheel nudParamsCntAirTemps;
+        private System.Windows.Forms.CheckBox cbUseLongTermCorr;
+        private System.Windows.Forms.CheckBox cbUseShortTermCorr;
     }
 }
