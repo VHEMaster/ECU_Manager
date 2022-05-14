@@ -18,6 +18,7 @@ namespace ECU_Manager.Structs
 
         public float ignition_initial;
         public float injector_performance;
+        public int is_fuel_pressure_const;
         public float fuel_pressure;
         public float fuel_mass_per_cc;
         public float fuel_afr;
@@ -201,7 +202,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 830)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 829)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

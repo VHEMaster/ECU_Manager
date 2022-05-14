@@ -451,6 +451,7 @@
             this.dlgExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
+            this.cbParamsIsFuelPressureConst = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -2112,6 +2113,7 @@
             // tabPage8
             // 
             this.tabPage8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
+            this.tabPage8.Controls.Add(this.cbParamsIsFuelPressureConst);
             this.tabPage8.Controls.Add(this.label77);
             this.tabPage8.Controls.Add(this.nudParamsCntAirTemps);
             this.tabPage8.Controls.Add(this.label73);
@@ -2318,7 +2320,7 @@
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(3, 152);
+            this.label71.Location = new System.Drawing.Point(6, 188);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(96, 24);
             this.label71.TabIndex = 77;
@@ -2332,7 +2334,7 @@
             0,
             0,
             65536});
-            this.nudParamsFuelAFR.Location = new System.Drawing.Point(168, 150);
+            this.nudParamsFuelAFR.Location = new System.Drawing.Point(171, 186);
             this.nudParamsFuelAFR.Maximum = new decimal(new int[] {
             30,
             0,
@@ -2403,7 +2405,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(553, 371);
+            this.label50.Location = new System.Drawing.Point(612, 363);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(119, 24);
             this.label50.TabIndex = 71;
@@ -2412,7 +2414,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(553, 338);
+            this.label52.Location = new System.Drawing.Point(612, 330);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(119, 24);
             this.label52.TabIndex = 69;
@@ -2421,7 +2423,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(553, 303);
+            this.label54.Location = new System.Drawing.Point(612, 295);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(119, 24);
             this.label54.TabIndex = 67;
@@ -2430,7 +2432,7 @@
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(553, 266);
+            this.label55.Location = new System.Drawing.Point(612, 258);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(119, 24);
             this.label55.TabIndex = 65;
@@ -2439,7 +2441,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(297, 371);
+            this.label46.Location = new System.Drawing.Point(356, 363);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(112, 24);
             this.label46.TabIndex = 63;
@@ -2448,7 +2450,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(297, 338);
+            this.label41.Location = new System.Drawing.Point(356, 330);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(112, 24);
             this.label41.TabIndex = 61;
@@ -2457,7 +2459,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(297, 303);
+            this.label40.Location = new System.Drawing.Point(356, 295);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(112, 24);
             this.label40.TabIndex = 59;
@@ -2466,7 +2468,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(297, 266);
+            this.label39.Location = new System.Drawing.Point(356, 258);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(112, 24);
             this.label39.TabIndex = 57;
@@ -2475,16 +2477,16 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(3, 266);
+            this.label35.Location = new System.Drawing.Point(6, 295);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(149, 24);
+            this.label35.Size = new System.Drawing.Size(177, 24);
             this.label35.TabIndex = 55;
-            this.label35.Text = "Enr.P.MAP/TPS:";
+            this.label35.Text = "Enr.Prop.MAP/TPS:";
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(3, 336);
+            this.label36.Location = new System.Drawing.Point(6, 365);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(155, 24);
             this.label36.TabIndex = 53;
@@ -2493,7 +2495,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(3, 301);
+            this.label37.Location = new System.Drawing.Point(6, 330);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(150, 24);
             this.label37.TabIndex = 51;
@@ -2502,7 +2504,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(3, 371);
+            this.label38.Location = new System.Drawing.Point(6, 400);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(160, 24);
             this.label38.TabIndex = 49;
@@ -2592,7 +2594,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(3, 82);
+            this.label25.Location = new System.Drawing.Point(6, 118);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(133, 24);
             this.label25.TabIndex = 29;
@@ -2601,7 +2603,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(3, 187);
+            this.label24.Location = new System.Drawing.Point(6, 223);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(119, 24);
             this.label24.TabIndex = 27;
@@ -2610,7 +2612,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(3, 117);
+            this.label21.Location = new System.Drawing.Point(6, 153);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(140, 24);
             this.label21.TabIndex = 25;
@@ -2646,7 +2648,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(3, 222);
+            this.label47.Location = new System.Drawing.Point(6, 258);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(121, 24);
             this.label47.TabIndex = 9;
@@ -2724,7 +2726,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(677, 369);
+            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(736, 361);
             this.nudParamsCorrIgnCy4.Maximum = new decimal(new int[] {
             15,
             0,
@@ -2748,7 +2750,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(677, 336);
+            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(736, 328);
             this.nudParamsCorrIgnCy3.Maximum = new decimal(new int[] {
             15,
             0,
@@ -2772,7 +2774,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(677, 301);
+            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(736, 293);
             this.nudParamsCorrIgnCy2.Maximum = new decimal(new int[] {
             15,
             0,
@@ -2796,7 +2798,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(677, 264);
+            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(736, 256);
             this.nudParamsCorrIgnCy1.Maximum = new decimal(new int[] {
             15,
             0,
@@ -2820,7 +2822,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(421, 369);
+            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(480, 361);
             this.nudParamsCorrInjCy4.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2844,7 +2846,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(421, 336);
+            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(480, 328);
             this.nudParamsCorrInjCy3.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2868,7 +2870,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(421, 301);
+            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(480, 293);
             this.nudParamsCorrInjCy2.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2892,7 +2894,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(421, 264);
+            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(480, 256);
             this.nudParamsCorrInjCy1.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2916,7 +2918,7 @@
             0,
             0,
             131072});
-            this.nudParamsEnrPMapTps.Location = new System.Drawing.Point(168, 264);
+            this.nudParamsEnrPMapTps.Location = new System.Drawing.Point(189, 293);
             this.nudParamsEnrPMapTps.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2935,14 +2937,14 @@
             0,
             0,
             65536});
-            this.nudParamsIdleIgnDevMax.Location = new System.Drawing.Point(168, 334);
+            this.nudParamsIdleIgnDevMax.Location = new System.Drawing.Point(171, 363);
             this.nudParamsIdleIgnDevMax.Maximum = new decimal(new int[] {
             50,
             0,
             0,
             0});
             this.nudParamsIdleIgnDevMax.Name = "nudParamsIdleIgnDevMax";
-            this.nudParamsIdleIgnDevMax.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnDevMax.Size = new System.Drawing.Size(107, 29);
             this.nudParamsIdleIgnDevMax.TabIndex = 52;
             this.nudParamsIdleIgnDevMax.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMax_ValueChanged);
             // 
@@ -2954,7 +2956,7 @@
             0,
             0,
             65536});
-            this.nudParamsIdleIgnDevMin.Location = new System.Drawing.Point(168, 299);
+            this.nudParamsIdleIgnDevMin.Location = new System.Drawing.Point(171, 328);
             this.nudParamsIdleIgnDevMin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2966,7 +2968,7 @@
             0,
             -2147483648});
             this.nudParamsIdleIgnDevMin.Name = "nudParamsIdleIgnDevMin";
-            this.nudParamsIdleIgnDevMin.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnDevMin.Size = new System.Drawing.Size(107, 29);
             this.nudParamsIdleIgnDevMin.TabIndex = 50;
             this.nudParamsIdleIgnDevMin.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnDevMin_ValueChanged);
             // 
@@ -2978,7 +2980,7 @@
             0,
             0,
             65536});
-            this.nudParamsIdleIgnFanCorr.Location = new System.Drawing.Point(168, 369);
+            this.nudParamsIdleIgnFanCorr.Location = new System.Drawing.Point(171, 398);
             this.nudParamsIdleIgnFanCorr.Maximum = new decimal(new int[] {
             30,
             0,
@@ -2990,7 +2992,7 @@
             0,
             -2147483648});
             this.nudParamsIdleIgnFanCorr.Name = "nudParamsIdleIgnFanCorr";
-            this.nudParamsIdleIgnFanCorr.Size = new System.Drawing.Size(89, 29);
+            this.nudParamsIdleIgnFanCorr.Size = new System.Drawing.Size(107, 29);
             this.nudParamsIdleIgnFanCorr.TabIndex = 48;
             this.nudParamsIdleIgnFanCorr.ValueChanged += new System.EventHandler(this.nudParamsIdleIgnFanCorr_ValueChanged);
             // 
@@ -3185,7 +3187,7 @@
             0,
             0,
             65536});
-            this.nudParamsFuelPressure.Location = new System.Drawing.Point(168, 80);
+            this.nudParamsFuelPressure.Location = new System.Drawing.Point(171, 116);
             this.nudParamsFuelPressure.Maximum = new decimal(new int[] {
             10,
             0,
@@ -3204,7 +3206,7 @@
             0,
             0,
             65536});
-            this.nudParamsInjPerformance.Location = new System.Drawing.Point(168, 185);
+            this.nudParamsInjPerformance.Location = new System.Drawing.Point(171, 221);
             this.nudParamsInjPerformance.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -3223,7 +3225,7 @@
             0,
             0,
             131072});
-            this.nudParamsFuelKgL.Location = new System.Drawing.Point(168, 115);
+            this.nudParamsFuelKgL.Location = new System.Drawing.Point(171, 151);
             this.nudParamsFuelKgL.Maximum = new decimal(new int[] {
             5,
             0,
@@ -3281,7 +3283,7 @@
             0,
             0,
             65536});
-            this.nudParamsInitialIgnition.Location = new System.Drawing.Point(168, 220);
+            this.nudParamsInitialIgnition.Location = new System.Drawing.Point(171, 256);
             this.nudParamsInitialIgnition.Maximum = new decimal(new int[] {
             45,
             0,
@@ -7031,6 +7033,18 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
+            // cbParamsIsFuelPressureConst
+            // 
+            this.cbParamsIsFuelPressureConst.AutoSize = true;
+            this.cbParamsIsFuelPressureConst.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbParamsIsFuelPressureConst.Location = new System.Drawing.Point(6, 82);
+            this.cbParamsIsFuelPressureConst.Name = "cbParamsIsFuelPressureConst";
+            this.cbParamsIsFuelPressureConst.Size = new System.Drawing.Size(223, 28);
+            this.cbParamsIsFuelPressureConst.TabIndex = 86;
+            this.cbParamsIsFuelPressureConst.Text = "Is Fuel Pressure Const:";
+            this.cbParamsIsFuelPressureConst.UseVisualStyleBackColor = true;
+            this.cbParamsIsFuelPressureConst.CheckedChanged += new System.EventHandler(this.cbParamsIsFuelPressureConst_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -7038,6 +7052,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(1195, 677);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MinimumSize = new System.Drawing.Size(854, 480);
@@ -7582,5 +7597,6 @@
         private Controls.NumericUpDownOneWheel nudParamsCntAirTemps;
         private System.Windows.Forms.CheckBox cbUseLongTermCorr;
         private System.Windows.Forms.CheckBox cbUseShortTermCorr;
+        private System.Windows.Forms.CheckBox cbParamsIsFuelPressureConst;
     }
 }
