@@ -833,8 +833,9 @@ namespace ECU_Manager
                 case 1: rbInjCh2.Checked = true; break;
                 default: break;
             }
-
+            
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
+            cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_MAX;
@@ -1401,6 +1402,9 @@ namespace ECU_Manager
                 ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
             else if (cs.ConfigStruct.parameters.cutoffRPM < ((TrackBar)sender).Value)
                 ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+            ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+            ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
 
             lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.cutoffRPM = ((TrackBar)sender).Value;
@@ -1867,6 +1871,15 @@ namespace ECU_Manager
                 {
                     middleLayer.UpdateTable(cs.CurrentTable);
                 }
+            }
+        }
+
+        private void cbParamsIsInjectionPhaseByEnd_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end = ((CheckBox)sender).Checked ? 1 : 0;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
 
