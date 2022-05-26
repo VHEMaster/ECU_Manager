@@ -29,6 +29,7 @@ namespace ECU_Manager.Structs
         public float speedCorrection;
 
         public int useLambdaSensor;
+        public int isLambdaForceEnabled;
         public int useTSPS;
         public int useKnockSensor;
         public int performAdaptation;
@@ -56,7 +57,7 @@ namespace ECU_Manager.Structs
         public int useShortTermCorr;
         public int useLongTermCorr;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 985)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 984)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

@@ -793,7 +793,8 @@ namespace ECU_Manager
 
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
-                cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbUseLambdaAC.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
                 btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
@@ -1605,6 +1606,15 @@ namespace ECU_Manager
         private void cbUseLambda_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLambdaSensor = ((CheckBox)sender).Checked ? 1 : 0;
+            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbLambdaForceEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.isLambdaForceEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (!middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
