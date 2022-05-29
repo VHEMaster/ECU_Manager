@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[84]
+        private static readonly string[] ErrorStrings = new string[86]
         {
             "Invalid",
             "Flash: Load failure",
@@ -85,6 +85,8 @@ namespace ECU_Manager.Structs
             "Output: Driver failure",
             "CAN: Init failure",
             "CAN: Test failure",
+            "KLine: Protocol failure",
+            "KLine: Loopback failure",
 
             "Injector 4: OpenCircuit",
             "Injector 4: ShortToBatOrOverheat",
@@ -190,6 +192,8 @@ namespace ECU_Manager.Structs
         OutputDriverFailure,
         CanInitFailure,
         CanTestFailure,
+        KlineProtocolFailure,
+        KlineLoopbackFailure,
         Injector4OpenCircuit,
         Injector4ShortToBatOrOverheat,
         Injector4ShortToGND,
