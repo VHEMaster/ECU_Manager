@@ -229,7 +229,7 @@ namespace ECU_Manager.Structs
         StarterRelayOpenCirtuit,
         StarterRelayShortToBatOrOverheat,
         StarterRelayShortToGND,
-        FamRelayOpenCirtuit,
+        FanRelayOpenCirtuit,
         FanRelayShortToBatOrOverheat,
         FanRelayShortToGND,
         Outputs2CommunicationFailure,
