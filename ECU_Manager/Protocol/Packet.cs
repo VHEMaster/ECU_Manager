@@ -12,8 +12,6 @@ namespace ECU_Manager.Protocol
         etrPC,
         etrECU,
         etrCTRL,
-
-        etrCAN = 64,
    
         etrCount
     };
