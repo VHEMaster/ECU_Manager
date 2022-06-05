@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -50,9 +50,9 @@
             this.cbLiveView = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelSetup = new System.Windows.Forms.Panel();
+            this.btnExportLog = new System.Windows.Forms.Button();
             this.gpForceTemplate = new System.Windows.Forms.GroupBox();
             this.tbForceTemplate = new System.Windows.Forms.TrackBar();
-            this.nudForceTemplate = new Controls.NumericUpDownOneWheel();
             this.cbForceTemplate = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnUsedMoveUp = new System.Windows.Forms.Button();
@@ -64,6 +64,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbParamsAvailable = new System.Windows.Forms.ListBox();
             this.timer200ms = new System.Windows.Forms.Timer(this.components);
+            this.sfdExportLog = new System.Windows.Forms.SaveFileDialog();
+            this.nudForceTemplate = new ECU_Manager.Controls.NumericUpDownOneWheel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -242,38 +244,38 @@
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
             this.chart1.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            chartArea2.AxisX.Crossing = -1.7976931348623157E+308D;
-            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(72)))), ((int)(((byte)(0)))));
-            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.Empty;
-            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.DimGray;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(72)))), ((int)(((byte)(0)))));
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderColor = System.Drawing.Color.Empty;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 99F;
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.Crossing = -1.7976931348623157E+308D;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(72)))), ((int)(((byte)(0)))));
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.Empty;
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(72)))), ((int)(((byte)(0)))));
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderColor = System.Drawing.Color.Empty;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 99F;
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.IsSoftShadows = false;
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Margin = new System.Windows.Forms.Padding(0);
             this.chart1.Name = "chart1";
             this.tableLayoutPanel2.SetRowSpan(this.chart1, 2);
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Gold;
-            series2.LabelForeColor = System.Drawing.Color.White;
-            series2.MarkerSize = 7;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Gold;
+            series1.LabelForeColor = System.Drawing.Color.White;
+            series1.MarkerSize = 7;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(91, 231);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
@@ -364,6 +366,7 @@
             // 
             this.panelSetup.AutoScroll = true;
             this.panelSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(32)))), ((int)(((byte)(0)))));
+            this.panelSetup.Controls.Add(this.btnExportLog);
             this.panelSetup.Controls.Add(this.gpForceTemplate);
             this.panelSetup.Controls.Add(this.label5);
             this.panelSetup.Controls.Add(this.btnUsedMoveUp);
@@ -382,6 +385,17 @@
             this.panelSetup.Size = new System.Drawing.Size(297, 555);
             this.panelSetup.TabIndex = 1;
             // 
+            // btnExportLog
+            // 
+            this.btnExportLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportLog.Location = new System.Drawing.Point(8, 326);
+            this.btnExportLog.Name = "btnExportLog";
+            this.btnExportLog.Size = new System.Drawing.Size(132, 34);
+            this.btnExportLog.TabIndex = 12;
+            this.btnExportLog.Text = "Export Log";
+            this.btnExportLog.UseVisualStyleBackColor = true;
+            this.btnExportLog.Click += new System.EventHandler(this.btnExportLog_Click);
+            // 
             // gpForceTemplate
             // 
             this.gpForceTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -391,7 +405,7 @@
             this.gpForceTemplate.Controls.Add(this.cbForceTemplate);
             this.gpForceTemplate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.gpForceTemplate.ForeColor = System.Drawing.Color.White;
-            this.gpForceTemplate.Location = new System.Drawing.Point(8, 368);
+            this.gpForceTemplate.Location = new System.Drawing.Point(8, 387);
             this.gpForceTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.gpForceTemplate.Name = "gpForceTemplate";
             this.gpForceTemplate.Padding = new System.Windows.Forms.Padding(0);
@@ -399,6 +413,7 @@
             this.gpForceTemplate.TabIndex = 11;
             this.gpForceTemplate.TabStop = false;
             this.gpForceTemplate.Text = "WishParameterName";
+            this.gpForceTemplate.Enter += new System.EventHandler(this.gpForceTemplate_Enter);
             // 
             // tbForceTemplate
             // 
@@ -413,15 +428,6 @@
             this.tbForceTemplate.SmallChange = 100;
             this.tbForceTemplate.TabIndex = 2;
             // 
-            // nudForceTemplate
-            // 
-            this.nudForceTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudForceTemplate.Location = new System.Drawing.Point(28, 21);
-            this.nudForceTemplate.Name = "nudForceTemplate";
-            this.nudForceTemplate.Size = new System.Drawing.Size(234, 23);
-            this.nudForceTemplate.TabIndex = 1;
-            // 
             // cbForceTemplate
             // 
             this.cbForceTemplate.Checked = true;
@@ -435,7 +441,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 344);
+            this.label5.Location = new System.Drawing.Point(8, 363);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(160, 24);
             this.label5.TabIndex = 9;
@@ -541,6 +547,21 @@
             this.timer200ms.Interval = 200;
             this.timer200ms.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // sfdExportLog
+            // 
+            this.sfdExportLog.DefaultExt = "*.eculog";
+            this.sfdExportLog.FileName = "*.eculog";
+            this.sfdExportLog.Filter = "AutoECU log|*.eculog";
+            // 
+            // nudForceTemplate
+            // 
+            this.nudForceTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudForceTemplate.Location = new System.Drawing.Point(28, 21);
+            this.nudForceTemplate.Name = "nudForceTemplate";
+            this.nudForceTemplate.Size = new System.Drawing.Size(234, 23);
+            this.nudForceTemplate.TabIndex = 1;
+            // 
             // DiagForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -612,7 +633,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox gpForceTemplate;
         private System.Windows.Forms.TrackBar tbForceTemplate;
-        private System.Windows.Forms.NumericUpDown nudForceTemplate;
         private System.Windows.Forms.CheckBox cbForceTemplate;
+        private Controls.NumericUpDownOneWheel nudForceTemplate;
+        private System.Windows.Forms.Button btnExportLog;
+        private System.Windows.Forms.SaveFileDialog sfdExportLog;
     }
 }

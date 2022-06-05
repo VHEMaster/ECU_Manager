@@ -134,6 +134,7 @@
     <Compile Include="Structs\EcuForceParameters.cs" />
     <Compile Include="Structs\EcuStatus.cs" />
     <Compile Include="Structs\EcuParameters.cs" />
+    <Compile Include="Structs\PointData.cs" />
     <Compile Include="SyncForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +144,7 @@
     <Compile Include="Structs\EcuCorrections.cs" />
     <Compile Include="Structs\EcuCriticalBackup.cs" />
     <Compile Include="Tools\BinarySearch.cs" />
+    <Compile Include="Tools\EcuLog.cs" />
     <Compile Include="Tools\Interpolation.cs" />
     <Compile Include="Tools\Serializator.cs" />
     <Compile Include="Tools\StructCopy.cs" />

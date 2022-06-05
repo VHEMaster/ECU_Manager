@@ -8,6 +8,7 @@ using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace ECU_Manager
 {
@@ -39,11 +40,11 @@ namespace ECU_Manager
             {
                 comboBox1.SelectedIndex = comboBox1.Items.Add("No any ports");
                 comboBox1.Enabled = false;
-                button1.Enabled = false;
+                btnEnter.Enabled = false;
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnEnter_Click(object sender, EventArgs e)
         {
             string portname = comboBox1.SelectedItem.ToString();
             if (SerialPort.GetPortNames().Contains(portname))
@@ -64,9 +65,27 @@ namespace ECU_Manager
                     Application.Run(diagForm);
                 });
                 threadDiag.IsBackground = false;
+                threadDiag.SetApartmentState(ApartmentState.STA);
                 threadDiag.Start();
             }
             else MessageBox.Show($"Port {portname} not available.", "ECU", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnLogReader_Click(object sender, EventArgs e)
+        {
+            DialogResult result = ofdLogReader.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                this.Hide();
+                FileInfo fileInfo = new FileInfo(ofdLogReader.FileName);
+                DiagForm diagForm = new DiagForm(fileInfo);
+                diagForm.Show();
+            }
+        }
+
+        private void btnStandalone_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

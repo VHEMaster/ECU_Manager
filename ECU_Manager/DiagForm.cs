@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -20,13 +21,6 @@ namespace ECU_Manager
     public partial class DiagForm : Form, IEcuEventHandler
     {
         MiddleLayer middleLayer;
-
-        [Serializable]
-        class PointData
-        {
-            public EcuParameters Parameters;
-            public double Seconds;
-        }
         
         int[] TimeScaleTime = new int[(int)TimeScaleEnum.TimeScaleCount] { 1,2,5,10,20,30,60,120,180,300,600 };
 
@@ -49,19 +43,52 @@ namespace ECU_Manager
         double dTimeFrom;
         double dTimeTo;
         TimeScaleEnum TimeScale = TimeScaleEnum.TenSeconds;
-        List<PointData> points = new List<PointData>(1048576);
+        List<PointData> dataPoints = new List<PointData>(1048576);
         Stopwatch stopwatch = new Stopwatch();
         bool widthBigPrev = false;
 
         List<Label> lblValues = new List<Label>();
         List<Chart> chartValues = new List<Chart>();
 
+        public DiagForm(FileInfo fileInfo)
+        {
+            InitializeComponent();
+
+            cbLiveView.Visible = false;
+            cbLiveView.Enabled = false;
+            cbLiveView.Checked = false;
+
+            Initialize();
+
+            try
+            {
+                IEnumerable<PointData> points = EcuLog.ParseLog(fileInfo);
+                foreach(PointData point in points)
+                {
+                    dataPoints.Add(point);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to import log.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+            UpdateCharts();
+        }
+        
         public DiagForm(MiddleLayer middleLayer)
         {
             InitializeComponent();
+
             middleLayer.RegisterEventHandler(this);
             this.middleLayer = middleLayer;
 
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             InitParametersList();
 
             lbParamsAvailable.Items.Clear();
@@ -80,113 +107,120 @@ namespace ECU_Manager
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "CyclicAirFlow").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "InjectionPulse").First());
 
-            foreach(Parameter item in lbParamsUsed.Items)
+            foreach (Parameter item in lbParamsUsed.Items)
             {
                 lbParamsAvailable.Items.Remove(item);
             }
 
             GroupBox gpPrevious = gpForceTemplate;
             gpPrevious.Location = new Point(gpPrevious.Location.X, gpPrevious.Location.Y - gpPrevious.Size.Height);
-            foreach (Parameter parameter in ForceParameters)
+            if (middleLayer != null)
             {
-                GroupBox groupBox = new GroupBox();
-                groupBox.ForeColor = gpPrevious.ForeColor;
-                groupBox.Size = gpPrevious.Size;
-                groupBox.Location = gpPrevious.Location;
-                groupBox.Font = gpPrevious.Font;
-                groupBox.Anchor = gpPrevious.Anchor;
-                groupBox.Padding = gpPrevious.Padding;
-                groupBox.Margin = gpPrevious.Margin;
-                groupBox.Tag = parameter;
-                groupBox.Name = "groupBoxForce" + parameter.Name;
-                groupBox.Text = parameter.Name;
-                groupBox.Location = new Point(gpPrevious.Location.X, gpPrevious.Location.Y + gpPrevious.Size.Height);
-
-                CheckBox checkBox = new CheckBox();
-                checkBox.AutoSize = cbForceTemplate.AutoSize;
-                checkBox.Location = cbForceTemplate.Location;
-                checkBox.Size = cbForceTemplate.Size;
-                checkBox.Name = "checkBoxForceEnable" + parameter.Name;
-                checkBox.Checked = false;
-                checkBox.Tag = parameter;
-                checkBox.CheckedChanged += CheckBoxForceParam_CheckedChanged;
-
-                TrackBar trackBar = new TrackBar();
-                trackBar.Anchor = tbForceTemplate.Anchor;
-                trackBar.AutoSize = tbForceTemplate.AutoSize;
-                trackBar.Location = tbForceTemplate.Location;
-                trackBar.Size = tbForceTemplate.Size;
-                trackBar.Name = "trackBarForceEnable" + parameter.Name;
-                trackBar.Enabled = checkBox.Checked;
-                trackBar.Minimum = (int)(parameter.Min / parameter.Step);
-                trackBar.Maximum = (int)(parameter.Max / parameter.Step);
-                trackBar.LargeChange = (int)((parameter.Max - parameter.Min) / parameter.Step / 10.0F);
-                trackBar.TickFrequency = trackBar.LargeChange;
-                trackBar.SmallChange = 1;
-                if (parameter.Type == typeof(float))
+                foreach (Parameter parameter in ForceParameters)
                 {
-                    if ((float)parameter.Value / parameter.Step > trackBar.Maximum)
-                        trackBar.Value = trackBar.Maximum;
-                    else if ((float)parameter.Value / parameter.Step < trackBar.Minimum)
-                        trackBar.Value = trackBar.Minimum;
+                    GroupBox groupBox = new GroupBox();
+                    groupBox.ForeColor = gpPrevious.ForeColor;
+                    groupBox.Size = gpPrevious.Size;
+                    groupBox.Location = gpPrevious.Location;
+                    groupBox.Font = gpPrevious.Font;
+                    groupBox.Anchor = gpPrevious.Anchor;
+                    groupBox.Padding = gpPrevious.Padding;
+                    groupBox.Margin = gpPrevious.Margin;
+                    groupBox.Tag = parameter;
+                    groupBox.Name = "groupBoxForce" + parameter.Name;
+                    groupBox.Text = parameter.Name;
+                    groupBox.Location = new Point(gpPrevious.Location.X, gpPrevious.Location.Y + gpPrevious.Size.Height);
+
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.AutoSize = cbForceTemplate.AutoSize;
+                    checkBox.Location = cbForceTemplate.Location;
+                    checkBox.Size = cbForceTemplate.Size;
+                    checkBox.Name = "checkBoxForceEnable" + parameter.Name;
+                    checkBox.Checked = false;
+                    checkBox.Tag = parameter;
+                    checkBox.CheckedChanged += CheckBoxForceParam_CheckedChanged;
+
+                    TrackBar trackBar = new TrackBar();
+                    trackBar.Anchor = tbForceTemplate.Anchor;
+                    trackBar.AutoSize = tbForceTemplate.AutoSize;
+                    trackBar.Location = tbForceTemplate.Location;
+                    trackBar.Size = tbForceTemplate.Size;
+                    trackBar.Name = "trackBarForceEnable" + parameter.Name;
+                    trackBar.Enabled = checkBox.Checked;
+                    trackBar.Minimum = (int)(parameter.Min / parameter.Step);
+                    trackBar.Maximum = (int)(parameter.Max / parameter.Step);
+                    trackBar.LargeChange = (int)((parameter.Max - parameter.Min) / parameter.Step / 10.0F);
+                    trackBar.TickFrequency = trackBar.LargeChange;
+                    trackBar.SmallChange = 1;
+                    if (parameter.Type == typeof(float))
+                    {
+                        if ((float)parameter.Value / parameter.Step > trackBar.Maximum)
+                            trackBar.Value = trackBar.Maximum;
+                        else if ((float)parameter.Value / parameter.Step < trackBar.Minimum)
+                            trackBar.Value = trackBar.Minimum;
+                        else
+                            trackBar.Value = (int)((float)parameter.Value / parameter.Step);
+                    }
                     else
-                        trackBar.Value = (int)((float)parameter.Value / parameter.Step);
-                }
-                else
-                {
-                    if ((int)((int)parameter.Value / parameter.Step) > trackBar.Maximum)
-                        trackBar.Value = trackBar.Maximum;
-                    else if ((int)((int)parameter.Value / parameter.Step) < trackBar.Minimum)
-                        trackBar.Value = trackBar.Minimum;
+                    {
+                        if ((int)((int)parameter.Value / parameter.Step) > trackBar.Maximum)
+                            trackBar.Value = trackBar.Maximum;
+                        else if ((int)((int)parameter.Value / parameter.Step) < trackBar.Minimum)
+                            trackBar.Value = trackBar.Minimum;
+                        else
+                            trackBar.Value = (int)((int)parameter.Value / parameter.Step);
+                    }
+                    trackBar.Tag = parameter;
+                    trackBar.Scroll += TrackBarForceParam_Scroll;
+
+                    NumericUpDown nud = new NumericUpDown();
+                    nud.Anchor = nudForceTemplate.Anchor;
+                    nud.AutoSize = nudForceTemplate.AutoSize;
+                    nud.Location = nudForceTemplate.Location;
+                    nud.Size = nudForceTemplate.Size;
+                    nud.Name = "nudForceEnable" + parameter.Name;
+                    nud.Enabled = checkBox.Checked;
+                    nud.Minimum = (decimal)parameter.Min;
+                    nud.Maximum = (decimal)parameter.Max;
+                    nud.DecimalPlaces = parameter.Step < 1.0F ? (int)Math.Ceiling(0 - Math.Log10(parameter.Step)) : 0;
+                    nud.Increment = (decimal)parameter.Step;
+                    if (parameter.Type == typeof(float))
+                    {
+                        if ((decimal)(float)parameter.Value > nud.Maximum)
+                            nud.Value = nud.Maximum;
+                        else if ((decimal)(float)parameter.Value < nud.Minimum)
+                            nud.Value = nud.Minimum;
+                        else
+                            nud.Value = (decimal)(float)parameter.Value;
+                    }
                     else
-                        trackBar.Value = (int)((int)parameter.Value / parameter.Step);
+                    {
+                        if ((decimal)(int)parameter.Value > nud.Maximum)
+                            nud.Value = nud.Maximum;
+                        else if ((decimal)(int)parameter.Value < nud.Minimum)
+                            nud.Value = nud.Minimum;
+                        else
+                            nud.Value = (decimal)(int)parameter.Value;
+                    }
+                    nud.Tag = parameter;
+                    nud.ValueChanged += NudForceParam_ValueChanged;
+
+
+                    parameter.NumericUpDown = nud;
+                    parameter.TrackBar = trackBar;
+
+                    groupBox.Controls.Add(checkBox);
+                    groupBox.Controls.Add(trackBar);
+                    groupBox.Controls.Add(nud);
+                    gpForceTemplate.Parent.Controls.Add(groupBox);
+
+                    gpPrevious = groupBox;
+
                 }
-                trackBar.Tag = parameter;
-                trackBar.Scroll += TrackBarForceParam_Scroll;
-
-                NumericUpDown nud = new NumericUpDown();
-                nud.Anchor = nudForceTemplate.Anchor;
-                nud.AutoSize = nudForceTemplate.AutoSize;
-                nud.Location = nudForceTemplate.Location;
-                nud.Size = nudForceTemplate.Size;
-                nud.Name = "nudForceEnable" + parameter.Name;
-                nud.Enabled = checkBox.Checked;
-                nud.Minimum = (decimal)parameter.Min;
-                nud.Maximum = (decimal)parameter.Max;
-                nud.DecimalPlaces = parameter.Step < 1.0F ? (int)Math.Ceiling(0 - Math.Log10(parameter.Step)) : 0 ;
-                nud.Increment = (decimal)parameter.Step;
-                if (parameter.Type == typeof(float))
-                {
-                    if ((decimal)(float)parameter.Value > nud.Maximum)
-                        nud.Value = nud.Maximum;
-                    else if ((decimal)(float)parameter.Value < nud.Minimum)
-                        nud.Value = nud.Minimum;
-                    else
-                        nud.Value = (decimal)(float)parameter.Value;
-                }
-                else
-                {
-                    if ((decimal)(int)parameter.Value > nud.Maximum)
-                        nud.Value = nud.Maximum;
-                    else if ((decimal)(int)parameter.Value < nud.Minimum)
-                        nud.Value = nud.Minimum;
-                    else
-                        nud.Value = (decimal)(int)parameter.Value;
-                }
-                nud.Tag = parameter;
-                nud.ValueChanged += NudForceParam_ValueChanged;
-
-
-                parameter.NumericUpDown = nud;
-                parameter.TrackBar = trackBar;
-
-                groupBox.Controls.Add(checkBox);
-                groupBox.Controls.Add(trackBar);
-                groupBox.Controls.Add(nud);
-                gpForceTemplate.Parent.Controls.Add(groupBox);
-
-                gpPrevious = groupBox;
-
+            }
+            else
+            {
+                label5.Visible = false;
             }
 
             gpForceTemplate.Parent.Controls.Remove(gpForceTemplate);
@@ -198,18 +232,25 @@ namespace ECU_Manager
 
             dTimeFrom = 0;
             dTimeTo = TimeScaleTime[(int)TimeScale];
-
         }
 
         private void CheckBoxForceParam_CheckedChanged(object sender, EventArgs e)
         {
-            Parameter parameter = (Parameter)((Control)sender).Tag;
-            if (parameter != null)
+            if (middleLayer != null)
             {
-                parameter.Enabled = ((CheckBox)sender).Checked;
-                parameter.NumericUpDown.Enabled = parameter.Enabled;
-                parameter.TrackBar.Enabled = parameter.Enabled;
-                UpdateForceElements(middleLayer.ComponentStructure.EcuParameters);
+                Parameter parameter = (Parameter)((Control)sender).Tag;
+                if (parameter != null)
+                {
+                    parameter.Enabled = ((CheckBox)sender).Checked;
+                    parameter.NumericUpDown.Enabled = parameter.Enabled;
+                    parameter.TrackBar.Enabled = parameter.Enabled;
+                    UpdateForceElements(middleLayer.ComponentStructure.EcuParameters);
+                }
+            }
+            else
+            {
+                if(((CheckBox)sender).Checked != false)
+                    ((CheckBox)sender).Checked = false;
             }
         }
 
@@ -217,7 +258,7 @@ namespace ECU_Manager
         {
             Parameter parameter = (Parameter)((Control)sender).Tag;
 
-            if (parameter != null)
+            if (middleLayer != null && parameter != null)
             {
                 if (parameter.Type == typeof(float))
                 {
@@ -310,6 +351,13 @@ namespace ECU_Manager
             {
                 get
                 {
+                    if (middleLayer == null)
+                    {
+                        if (this.Type == typeof(float))
+                            return 0.0F;
+                        else return 0;
+                    }
+
                     if (Enabled)
                     {
                         return FieldInfo.GetValue(middleLayer.ComponentStructure.ForceParameters);
@@ -325,9 +373,12 @@ namespace ECU_Manager
                 }
                 set
                 {
-                    if (Enabled)
+                    if (middleLayer != null)
                     {
-                        FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), value);
+                        if (Enabled)
+                        {
+                            FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), value);
+                        }
                     }
                 }
             }
@@ -335,19 +386,24 @@ namespace ECU_Manager
             {
                 get
                 {
+                    if (middleLayer == null)
+                        return false;
                     return (byte)EnableFieldInfo.GetValue(middleLayer.ComponentStructure.ForceParameters) > 0;
                 }
                 set
                 {
-                    if(!Enabled)
+                    if (middleLayer != null)
                     {
-                        if (DepFieldInfo != null)
+                        if (!Enabled)
                         {
-                            object val = DepFieldInfo.GetValue(middleLayer.ComponentStructure.EcuParameters);
-                            FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), val);
+                            if (DepFieldInfo != null)
+                            {
+                                object val = DepFieldInfo.GetValue(middleLayer.ComponentStructure.EcuParameters);
+                                FieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), val);
+                            }
                         }
+                        EnableFieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), (byte)(value ? 1 : 0));
                     }
-                    EnableFieldInfo.SetValueDirect(__makeref(middleLayer.ComponentStructure.ForceParameters), (byte)(value ? 1 : 0));
                 }
             }
 
@@ -537,7 +593,7 @@ namespace ECU_Manager
                     }
                 }
             }
-            if(updated > 0)
+            if(middleLayer != null && updated > 0)
             {
                 middleLayer.UpdateForceParameters();
             }
@@ -576,6 +632,7 @@ namespace ECU_Manager
                 labelValue.TextAlign = ContentAlignment.TopCenter;
                 labelValue.Margin = new Padding(0, 0, 0, 0);
                 labelValue.Padding = new Padding(0, 0, 0, 0);
+                labelValue.Size = new Size(200, 100);
                 labelValue.Tag = tag;
 
                 chart.Dock = DockStyle.Fill;
@@ -586,6 +643,7 @@ namespace ECU_Manager
                 chart.BackSecondaryColor = Color.FromArgb(24, 64, 0);
                 chart.Text = "chart" + obj.ToString();
                 chart.Tag = tag;
+                chart.MouseMove += chart_MouseMove;
 
                 ChartArea area = chart.ChartAreas.Add("ChartArea" + obj.ToString());
                 area.BackColor = Color.Transparent;
@@ -636,16 +694,66 @@ namespace ECU_Manager
             this.ResumeLayout();
         }
 
+        Point? chart_point_prev;
+
+        private void chart_MouseMove(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (!cbLiveView.Checked)
+                {
+                    Chart chart = ((Chart)sender);
+                    List<HitTestResult> results = new List<HitTestResult>();
+
+                    if (chart_point_prev.HasValue && e.X == chart_point_prev.Value.X && e.Y == chart_point_prev.Value.Y)
+                        return;
+
+                    chart_point_prev = new Point(e.X, e.Y);
+
+                    double time_nrst = chart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                    PointData closest = dataPoints.OrderBy(p => Math.Abs(p.Seconds - time_nrst)).FirstOrDefault();
+                    if (closest != null)
+                    {
+                        Parameter parameter = chart.Tag as Parameter;
+
+                        this.SuspendLayout();
+                        foreach (Label label in lblValues)
+                        {
+                            if (label.Tag != null)
+                            {
+                                parameter = (Parameter)label.Tag;
+                                if (parameter.Type == typeof(float))
+                                {
+                                    float valuef = (float)parameter.FieldInfo.GetValue(closest.Parameters);
+                                    label.Text = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
+                                }
+                                else
+                                {
+                                    label.Text = parameter.FieldInfo.GetValue(closest.Parameters).ToString();
+                                }
+                            }
+                        }
+                        this.ResumeLayout(true);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            
+        }
+
         private void UpdateCharts()
         {
             Parameter parameter;
             float valuef;
             int valuei;
 
-            if (points.Count > 0)
+            if (dataPoints.Count > 0)
             {
-                PointData current = points.LastOrDefault();
-                if (current != null)
+                PointData current = dataPoints.LastOrDefault();
+                if (current != null && cbLiveView.Checked)
                 {
                     foreach (Label label in lblValues)
                     {
@@ -685,35 +793,43 @@ namespace ECU_Manager
 
                 int index_first = 0;
                 int index_last = 0;
-                double[] seconds = points.Select(p => p.Seconds).ToArray();
+                double[] seconds = dataPoints.Select(p => p.Seconds).ToArray();
 
-                if (dTimeFrom <= points.First().Seconds)
+                if (dTimeFrom <= dataPoints.First().Seconds)
                 {
                     index_first = 0;
                 }
                 else
                 {
-                    index_first = BinarySearch<double>.Find(seconds, 0, points.Count - 1, dTimeFrom);
+                    index_first = BinarySearch<double>.Find(seconds, 0, dataPoints.Count - 1, dTimeFrom);
                     if (index_first < 0)
                         index_first = 0;
                 }
 
-                if (dTimeFrom >= points.Last().Seconds)
+                if (dTimeFrom >= dataPoints.Last().Seconds)
                 {
                     index_last = 0;
                 }
                 else
                 {
-                    index_last = BinarySearch<double>.Find(seconds, 0, points.Count - 1, dTimeTo);
+                    index_last = BinarySearch<double>.Find(seconds, 0, dataPoints.Count - 1, dTimeTo);
                     if (index_last < 0)
                         index_last = index_first;
                     else if(index_last + 1 < seconds.Count())
                         index_last++;
                     
                 }
-                
-                hScrollBar1.Minimum = 0;
-                hScrollBar1.Maximum = (int)stopwatch.ElapsedMilliseconds;
+
+                if (middleLayer == null)
+                {
+                    hScrollBar1.Minimum = 0;
+                    hScrollBar1.Maximum = (int)(current.Seconds * 1000);
+                }
+                else
+                {
+                    hScrollBar1.Minimum = 0;
+                    hScrollBar1.Maximum = (int)stopwatch.ElapsedMilliseconds;
+                }
                 hScrollBar1.LargeChange = TimeScaleTime[(int)TimeScale] * 1000;
                 hScrollBar1.SmallChange = 10;
 
@@ -759,7 +875,7 @@ namespace ECU_Manager
                     
                     for (int i = index_first; i <= index_last; i++)
                     {
-                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < points[i].Seconds)
+                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints[i].Seconds)
                         {
                             if (chart.Tag != null)
                             {
@@ -767,13 +883,13 @@ namespace ECU_Manager
 
                                 if (parameter.Type == typeof(float))
                                 {
-                                    valuef = (float)parameter.FieldInfo.GetValue(points[i].Parameters);
-                                    chart.Series[0].Points.AddXY(points[i].Seconds, valuef);
+                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
                                 }
                                 else
                                 {
-                                    valuei = (int)parameter.FieldInfo.GetValue(points[i].Parameters);
-                                    chart.Series[0].Points.AddXY(points[i].Seconds, valuei);
+                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
                                 }
                             }
                         }
@@ -848,18 +964,21 @@ namespace ECU_Manager
 
         private void UpdateParameters(EcuParameters parameters)
         {
-            points.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
+            dataPoints.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
             UpdateForceElements(parameters);
         }
 
         private void DiagForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //TODO: do it synchroniously
-            foreach(Parameter parameter in ForceParameters)
+            if (middleLayer != null)
             {
-                parameter.Enabled = false;
+                foreach (Parameter parameter in ForceParameters)
+                {
+                    parameter.Enabled = false;
+                }
+                middleLayer.UpdateForceParameters();
             }
-            middleLayer.UpdateForceParameters();
             Application.Exit();
         }
 
@@ -971,7 +1090,10 @@ namespace ECU_Manager
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateCharts();
-            SendUpdatedParameters();
+            if (middleLayer != null)
+            {
+                SendUpdatedParameters();
+            }
         }
 
         private void btnZoomIn_Click(object sender, EventArgs e)
@@ -989,6 +1111,29 @@ namespace ECU_Manager
                 TimeScale++;
             }
         }
+
+        private void gpForceTemplate_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExportLog_Click(object sender, EventArgs e)
+        {
+            DialogResult result = sfdExportLog.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                try
+                {
+                    EcuLog.SaveLog(sfdExportLog.FileName, dataPoints);
+                    MessageBox.Show("Log exported successfully", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to export log.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        
     }
 }
  
