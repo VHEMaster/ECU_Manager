@@ -1816,11 +1816,11 @@ namespace ECU_Manager
 
         private void btnTableImport_Click(object sender, EventArgs e)
         {
-            if (dlgImport.ShowDialog() == DialogResult.OK)
+            if (dlgTableImport.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    cs.ConfigStruct.tables[cs.CurrentTable] = Serializator<EcuTable>.Deserialize(dlgExport.FileName);
+                    cs.ConfigStruct.tables[cs.CurrentTable] = Serializator<EcuTable>.Deserialize(dlgTableExport.FileName);
                     if (!middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(cs.CurrentTable);
@@ -1837,16 +1837,53 @@ namespace ECU_Manager
 
         private void btnTableExport_Click(object sender, EventArgs e)
         {
-            if (dlgExport.ShowDialog() == DialogResult.OK)
+            if (dlgTableExport.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    Serializator<EcuTable>.Serialize(dlgExport.FileName, cs.ConfigStruct.tables[cs.CurrentTable]);
+                    Serializator<EcuTable>.Serialize(dlgTableExport.FileName, cs.ConfigStruct.tables[cs.CurrentTable]);
                     MessageBox.Show($"Table export success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Table export failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnSetupImport_Click(object sender, EventArgs e)
+        {
+            if (dlgSetupImport.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    cs.ConfigStruct = Serializator<ConfigStruct>.Deserialize(dlgSetupImport.FileName);
+                    if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                    {
+                        middleLayer.SyncSave(false);
+                    }
+                    SynchronizedEvent(0, false);
+                    MessageBox.Show($"Setup import success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Setup import failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnSetupExport_Click(object sender, EventArgs e)
+        {
+            if (dlgSetupExport.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Serializator<ConfigStruct>.Serialize(dlgSetupExport.FileName, cs.ConfigStruct);
+                    MessageBox.Show($"Setup export success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Setup export failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

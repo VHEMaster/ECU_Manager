@@ -163,6 +163,7 @@
             this.rbShiftMode1 = new System.Windows.Forms.RadioButton();
             this.rbShiftMode0 = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbLambdaForceEnabled = new System.Windows.Forms.CheckBox();
             this.cbUseLongTermCorr = new System.Windows.Forms.CheckBox();
             this.cbUseShortTermCorr = new System.Windows.Forms.CheckBox();
             this.label69 = new System.Windows.Forms.Label();
@@ -450,10 +451,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.cbLive = new System.Windows.Forms.CheckBox();
             this.pbCheckEngine = new System.Windows.Forms.PictureBox();
-            this.dlgExport = new System.Windows.Forms.SaveFileDialog();
-            this.dlgImport = new System.Windows.Forms.OpenFileDialog();
+            this.dlgTableExport = new System.Windows.Forms.SaveFileDialog();
+            this.dlgTableImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.cbLambdaForceEnabled = new System.Windows.Forms.CheckBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnSetupImport = new System.Windows.Forms.Button();
+            this.btnSetupExport = new System.Windows.Forms.Button();
+            this.dlgSetupImport = new System.Windows.Forms.OpenFileDialog();
+            this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -636,6 +642,8 @@
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1296,6 +1304,17 @@
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Miscellaneous";
+            // 
+            // cbLambdaForceEnabled
+            // 
+            this.cbLambdaForceEnabled.AutoSize = true;
+            this.cbLambdaForceEnabled.Location = new System.Drawing.Point(6, 130);
+            this.cbLambdaForceEnabled.Name = "cbLambdaForceEnabled";
+            this.cbLambdaForceEnabled.Size = new System.Drawing.Size(228, 28);
+            this.cbLambdaForceEnabled.TabIndex = 20;
+            this.cbLambdaForceEnabled.Text = "Lambda Force Enabled";
+            this.cbLambdaForceEnabled.UseVisualStyleBackColor = true;
+            this.cbLambdaForceEnabled.CheckedChanged += new System.EventHandler(this.cbLambdaForceEnabled_CheckedChanged);
             // 
             // cbUseLongTermCorr
             // 
@@ -1969,11 +1988,9 @@
             // tabPage12
             // 
             this.tabPage12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
-            this.tabPage12.Controls.Add(this.btnTableImport);
-            this.tabPage12.Controls.Add(this.btnTableExport);
+            this.tabPage12.Controls.Add(this.groupBox7);
+            this.tabPage12.Controls.Add(this.groupBox6);
             this.tabPage12.Controls.Add(this.groupBox5);
-            this.tabPage12.Controls.Add(this.nudToolsCurTable);
-            this.tabPage12.Controls.Add(this.label23);
             this.tabPage12.Location = new System.Drawing.Point(4, 39);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
@@ -1985,9 +2002,9 @@
             // 
             this.btnTableImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.btnTableImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTableImport.Location = new System.Drawing.Point(268, 10);
+            this.btnTableImport.Location = new System.Drawing.Point(10, 58);
             this.btnTableImport.Name = "btnTableImport";
-            this.btnTableImport.Size = new System.Drawing.Size(100, 31);
+            this.btnTableImport.Size = new System.Drawing.Size(126, 31);
             this.btnTableImport.TabIndex = 5;
             this.btnTableImport.Text = "Import";
             this.btnTableImport.UseVisualStyleBackColor = false;
@@ -1997,9 +2014,9 @@
             // 
             this.btnTableExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
             this.btnTableExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTableExport.Location = new System.Drawing.Point(374, 10);
+            this.btnTableExport.Location = new System.Drawing.Point(142, 58);
             this.btnTableExport.Name = "btnTableExport";
-            this.btnTableExport.Size = new System.Drawing.Size(100, 31);
+            this.btnTableExport.Size = new System.Drawing.Size(110, 31);
             this.btnTableExport.TabIndex = 4;
             this.btnTableExport.Text = "Export";
             this.btnTableExport.UseVisualStyleBackColor = false;
@@ -2013,7 +2030,7 @@
             this.groupBox5.Controls.Add(this.nudToolsCopyFrom);
             this.groupBox5.Controls.Add(this.label42);
             this.groupBox5.ForeColor = System.Drawing.Color.White;
-            this.groupBox5.Location = new System.Drawing.Point(10, 72);
+            this.groupBox5.Location = new System.Drawing.Point(10, 113);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(274, 142);
             this.groupBox5.TabIndex = 3;
@@ -2088,7 +2105,7 @@
             // 
             // nudToolsCurTable
             // 
-            this.nudToolsCurTable.Location = new System.Drawing.Point(142, 11);
+            this.nudToolsCurTable.Location = new System.Drawing.Point(142, 23);
             this.nudToolsCurTable.Maximum = new decimal(new int[] {
             4,
             0,
@@ -2107,7 +2124,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 13);
+            this.label23.Location = new System.Drawing.Point(6, 25);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(130, 24);
             this.label23.TabIndex = 1;
@@ -3520,7 +3537,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.ePressureByRPMvsTPS.Chart.Series.Add(series1);
-            this.ePressureByRPMvsTPS.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.ePressureByRPMvsTPS.Chart.Size = new System.Drawing.Size(1046, 235);
             this.ePressureByRPMvsTPS.Chart.TabIndex = 4;
             this.ePressureByRPMvsTPS.Chart.Text = " ";
             this.ePressureByRPMvsTPS.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3542,7 +3559,7 @@
             this.ePressureByRPMvsTPS.Graph3D.Name = "graph3D";
             this.ePressureByRPMvsTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.ePressureByRPMvsTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(403, 201);
+            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.ePressureByRPMvsTPS.Graph3D.TabIndex = 0;
             this.ePressureByRPMvsTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.ePressureByRPMvsTPS.LabelTitle = "Pressure by RPM vs. TPS";
@@ -4446,7 +4463,7 @@
             series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIgnition.Chart.Series.Add(series3);
-            this.eIgnition.Chart.Size = new System.Drawing.Size(1149, 169);
+            this.eIgnition.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eIgnition.Chart.TabIndex = 4;
             this.eIgnition.Chart.Text = " ";
             this.eIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4695,7 +4712,7 @@
             series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eFuelMixtures.Chart.Series.Add(series4);
-            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1149, 169);
+            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eFuelMixtures.Chart.TabIndex = 4;
             this.eFuelMixtures.Chart.Text = " ";
             this.eFuelMixtures.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4805,7 +4822,7 @@
             series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eInjectionPhase.Chart.Series.Add(series5);
-            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eInjectionPhase.Chart.TabIndex = 4;
             this.eInjectionPhase.Chart.Text = " ";
             this.eInjectionPhase.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5169,7 +5186,7 @@
             series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIdleValveVsRpm.Chart.Series.Add(series7);
-            this.eIdleValveVsRpm.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eIdleValveVsRpm.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eIdleValveVsRpm.Chart.TabIndex = 4;
             this.eIdleValveVsRpm.Chart.Text = " ";
             this.eIdleValveVsRpm.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5191,7 +5208,7 @@
             this.eIdleValveVsRpm.Graph3D.Name = "graph3D";
             this.eIdleValveVsRpm.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eIdleValveVsRpm.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(403, 201);
+            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eIdleValveVsRpm.Graph3D.TabIndex = 0;
             this.eIdleValveVsRpm.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eIdleValveVsRpm.LabelTitle = "Idle Valve vs. RPM";
@@ -5996,7 +6013,7 @@
             series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series9.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsIdleValveToRPM.Chart.Series.Add(series9);
-            this.eCorrsIdleValveToRPM.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsIdleValveToRPM.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsIdleValveToRPM.Chart.TabIndex = 4;
             this.eCorrsIdleValveToRPM.Chart.Text = " ";
             this.eCorrsIdleValveToRPM.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6018,7 +6035,7 @@
             this.eCorrsIdleValveToRPM.Graph3D.Name = "graph3D";
             this.eCorrsIdleValveToRPM.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIdleValveToRPM.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIdleValveToRPM.Graph3D.TabIndex = 0;
             this.eCorrsIdleValveToRPM.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIdleValveToRPM.LabelTitle = "Idle Valve to RPM";
@@ -6110,7 +6127,7 @@
             series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series10.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsIgnition.Chart.Series.Add(series10);
-            this.eCorrsIgnition.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsIgnition.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsIgnition.Chart.TabIndex = 4;
             this.eCorrsIgnition.Chart.Text = " ";
             this.eCorrsIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6132,7 +6149,7 @@
             this.eCorrsIgnition.Graph3D.Name = "graph3D";
             this.eCorrsIgnition.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIgnition.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIgnition.Graph3D.TabIndex = 0;
             this.eCorrsIgnition.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIgnition.LabelTitle = "Ignitions";
@@ -6224,7 +6241,7 @@
             series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series11.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsPressureByTPS.Chart.Series.Add(series11);
-            this.eCorrsPressureByTPS.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsPressureByTPS.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsPressureByTPS.Chart.TabIndex = 4;
             this.eCorrsPressureByTPS.Chart.Text = " ";
             this.eCorrsPressureByTPS.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6246,7 +6263,7 @@
             this.eCorrsPressureByTPS.Graph3D.Name = "graph3D";
             this.eCorrsPressureByTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsPressureByTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsPressureByTPS.Graph3D.TabIndex = 0;
             this.eCorrsPressureByTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsPressureByTPS.LabelTitle = "Pressure by TPS";
@@ -7043,17 +7060,17 @@
             this.pbCheckEngine.TabStop = false;
             this.pbCheckEngine.Visible = false;
             // 
-            // dlgExport
+            // dlgTableExport
             // 
-            this.dlgExport.DefaultExt = "xml";
-            this.dlgExport.Filter = "XML Ignition Config|*.xml";
-            this.dlgExport.RestoreDirectory = true;
+            this.dlgTableExport.DefaultExt = "xml";
+            this.dlgTableExport.Filter = "AutoECU Table Config|*.ecutable";
+            this.dlgTableExport.RestoreDirectory = true;
             // 
-            // dlgImport
+            // dlgTableImport
             // 
-            this.dlgImport.DefaultExt = "xml";
-            this.dlgImport.Filter = "XML Ignition Config|*.xml";
-            this.dlgImport.RestoreDirectory = true;
+            this.dlgTableImport.DefaultExt = "xml";
+            this.dlgTableImport.Filter = "AutoECU Table Config|*.ecutable";
+            this.dlgTableImport.RestoreDirectory = true;
             // 
             // tmrSync
             // 
@@ -7061,16 +7078,67 @@
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
             // 
-            // cbLambdaForceEnabled
+            // groupBox6
             // 
-            this.cbLambdaForceEnabled.AutoSize = true;
-            this.cbLambdaForceEnabled.Location = new System.Drawing.Point(6, 130);
-            this.cbLambdaForceEnabled.Name = "cbLambdaForceEnabled";
-            this.cbLambdaForceEnabled.Size = new System.Drawing.Size(228, 28);
-            this.cbLambdaForceEnabled.TabIndex = 20;
-            this.cbLambdaForceEnabled.Text = "Lambda Force Enabled";
-            this.cbLambdaForceEnabled.UseVisualStyleBackColor = true;
-            this.cbLambdaForceEnabled.CheckedChanged += new System.EventHandler(this.cbLambdaForceEnabled_CheckedChanged);
+            this.groupBox6.Controls.Add(this.label23);
+            this.groupBox6.Controls.Add(this.nudToolsCurTable);
+            this.groupBox6.Controls.Add(this.btnTableImport);
+            this.groupBox6.Controls.Add(this.btnTableExport);
+            this.groupBox6.ForeColor = System.Drawing.Color.White;
+            this.groupBox6.Location = new System.Drawing.Point(10, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(274, 101);
+            this.groupBox6.TabIndex = 8;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Table Select";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btnSetupImport);
+            this.groupBox7.Controls.Add(this.btnSetupExport);
+            this.groupBox7.ForeColor = System.Drawing.Color.White;
+            this.groupBox7.Location = new System.Drawing.Point(10, 261);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(274, 74);
+            this.groupBox7.TabIndex = 9;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Whole Setup";
+            // 
+            // btnSetupImport
+            // 
+            this.btnSetupImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnSetupImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetupImport.Location = new System.Drawing.Point(10, 28);
+            this.btnSetupImport.Name = "btnSetupImport";
+            this.btnSetupImport.Size = new System.Drawing.Size(126, 31);
+            this.btnSetupImport.TabIndex = 7;
+            this.btnSetupImport.Text = "Import";
+            this.btnSetupImport.UseVisualStyleBackColor = false;
+            this.btnSetupImport.Click += new System.EventHandler(this.btnSetupImport_Click);
+            // 
+            // btnSetupExport
+            // 
+            this.btnSetupExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnSetupExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetupExport.Location = new System.Drawing.Point(142, 28);
+            this.btnSetupExport.Name = "btnSetupExport";
+            this.btnSetupExport.Size = new System.Drawing.Size(110, 31);
+            this.btnSetupExport.TabIndex = 6;
+            this.btnSetupExport.Text = "Export";
+            this.btnSetupExport.UseVisualStyleBackColor = false;
+            this.btnSetupExport.Click += new System.EventHandler(this.btnSetupExport_Click);
+            // 
+            // dlgSetupImport
+            // 
+            this.dlgSetupImport.DefaultExt = "xml";
+            this.dlgSetupImport.Filter = "AutoECU Setup|*.ecusetup";
+            this.dlgSetupImport.RestoreDirectory = true;
+            // 
+            // dlgSetupExport
+            // 
+            this.dlgSetupExport.DefaultExt = "xml";
+            this.dlgSetupExport.Filter = "AutoECU Setup|*.ecusetup";
+            this.dlgSetupExport.RestoreDirectory = true;
             // 
             // MainForm
             // 
@@ -7122,7 +7190,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabControl111.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyTo)).EndInit();
@@ -7282,6 +7349,9 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -7395,8 +7465,8 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDragTime;
         private System.Windows.Forms.Button btnTableImport;
         private System.Windows.Forms.Button btnTableExport;
-        private System.Windows.Forms.SaveFileDialog dlgExport;
-        private System.Windows.Forms.OpenFileDialog dlgImport;
+        private System.Windows.Forms.SaveFileDialog dlgTableExport;
+        private System.Windows.Forms.OpenFileDialog dlgTableImport;
         private System.Windows.Forms.Timer tmrSync;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TextBox tbDragName;
@@ -7626,5 +7696,11 @@
         private System.Windows.Forms.CheckBox cbParamsIsFuelPressureConst;
         private System.Windows.Forms.CheckBox cbParamsIsInjectionPhaseByEnd;
         private System.Windows.Forms.CheckBox cbLambdaForceEnabled;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button btnSetupImport;
+        private System.Windows.Forms.Button btnSetupExport;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.OpenFileDialog dlgSetupImport;
+        private System.Windows.Forms.SaveFileDialog dlgSetupExport;
     }
 }

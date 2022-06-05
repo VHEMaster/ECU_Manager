@@ -85,7 +85,6 @@ namespace ECU_Manager
 
         private void btnStandalone_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
