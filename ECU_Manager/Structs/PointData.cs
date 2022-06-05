@@ -18,6 +18,10 @@ namespace ECU_Manager.Structs
                 return false;
             return Seconds == (obj as PointData).Seconds;
         }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
     
 }

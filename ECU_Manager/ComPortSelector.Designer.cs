@@ -86,7 +86,6 @@
             // 
             // ofdStandalone
             // 
-            this.ofdStandalone.FileName = "*.xml";
             resources.ApplyResources(this.ofdStandalone, "ofdStandalone");
             this.ofdStandalone.ReadOnlyChecked = true;
             // 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -18,6 +19,7 @@ namespace ECU_Manager
 {
     public partial class MainForm : Form, IEcuEventHandler
     {
+        FileInfo standaloneFileInfo;
         MiddleLayer middleLayer;
         SyncForm syncForm;
         DateTime lastReceivedarameters = DateTime.Now;
@@ -69,22 +71,57 @@ namespace ECU_Manager
             return pic;
         }
 
+        public MainForm(FileInfo fileInfo)
+        {
+            InitializeComponent();
+
+            this.middleLayer = null;
+            this.cs = new ComponentStructure();
+            this.cs.ConfigStruct = Serializator<ConfigStruct>.Deserialize(fileInfo.FullName);
+
+            cbLive.Enabled = false;
+            cbLive.Checked = false;
+            cbLive.Visible = false;
+
+            tableLayoutPanel13.Enabled = false;
+            btnCorrStart.Enabled = false;
+            btnCorrStop.Enabled = false;
+            btnResetFailures.Enabled = false;
+
+            standaloneFileInfo = fileInfo;
+
+            btnRestore.Text = "Reload File";
+            btnSave.Text = "Save File";
+            btnRedownload.Enabled = false;
+
+            Initialize();
+
+            SynchronizedEventInternal(0, false);
+        }
+
         public MainForm(MiddleLayer middleLayer)
         {
-            ColorTransience colorTransience;
             InitializeComponent();
-            middleLayer.RegisterEventHandler(this);
 
             this.middleLayer = middleLayer;
-            cs = middleLayer.ComponentStructure;
+            this.cs = middleLayer.ComponentStructure;
 
 
-            middleLayer.SyncLoad(false);
+            this.middleLayer.RegisterEventHandler(this);
+            this.middleLayer.SyncLoad(false);
 
-            syncForm = new SyncForm();
-            syncForm.ShowDialog();
+            this.syncForm = new SyncForm();
+            this.syncForm.ShowDialog();
 
-            pbCheckEngine.Image = MakeImageColored(pbCheckEngine.Image, Color.FromArgb(255, 255, 0));
+            this.pbCheckEngine.Image = MakeImageColored(pbCheckEngine.Image, Color.FromArgb(255, 255, 0));
+
+            Initialize();
+
+        }
+
+        private void Initialize()
+        {
+            ColorTransience colorTransience;
 
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -571,7 +608,7 @@ namespace ECU_Manager
 
         private void ChartUpdateEvent(object sender, EventArgs e)
         {
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -579,7 +616,7 @@ namespace ECU_Manager
 
         private void ChartCorrectionEvent(object sender, EventArgs e)
         {
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateCorrections();
             }
@@ -643,9 +680,12 @@ namespace ECU_Manager
 
         private void SynchronizedEventInternal(int errorCode, bool fast)
         {
-            if (syncForm.InvokeRequired)
-                syncForm.BeginInvoke(new Action(() => syncForm.CloseForm()));
-            else syncForm.Close();
+            if (syncForm != null)
+            {
+                if (syncForm.InvokeRequired)
+                    syncForm.BeginInvoke(new Action(() => syncForm.CloseForm()));
+                else syncForm.Close();
+            }
 
             if (cs.ConfigStruct.parameters.performAdaptation > 0)
             {
@@ -816,7 +856,7 @@ namespace ECU_Manager
                 {
                     parametersReceived = false;
                     lastReceivedarameters = DateTime.Now;
-                    middleLayer.PacketHandler.SendParametersRequest();
+                    middleLayer?.PacketHandler.SendParametersRequest();
                 }
             }
         }
@@ -1088,7 +1128,7 @@ namespace ECU_Manager
 
                         if (drCurrentRun.TotalPoints > drCurrentRun.Points.Count)
                         {
-                            middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
+                            middleLayer?.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
                         }
                         else
                         {
@@ -1114,7 +1154,7 @@ namespace ECU_Manager
 
                 if (drCurrentRun.TotalPoints > drCurrentRun.Points.Count)
                 {
-                    middleLayer.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
+                    middleLayer?.PacketHandler.SendDragPointRequest(drCurrentRun.FromSpeed, drCurrentRun.ToSpeed, drCurrentRun.Points.Count);
                 }
                 else
                 {
@@ -1217,27 +1257,34 @@ namespace ECU_Manager
 
         private void tmrSync_Tick(object sender, EventArgs e)
         {
-            if (cs.ConfigStruct.parameters.performAdaptation > 0)
-                middleLayer.SyncFast();
-            middleLayer.PacketHandler.SendStatusRequest();
-            if (cs.EcuParameters.IsCheckEngine > 0)
-                pbCheckEngine.Visible = !pbCheckEngine.Visible;
-            else pbCheckEngine.Visible = false;
+            if (middleLayer != null)
+            {
+                if (cs.ConfigStruct.parameters.performAdaptation > 0)
+                    middleLayer.SyncFast();
+                middleLayer.PacketHandler.SendStatusRequest();
+
+                if (cs.EcuParameters.IsCheckEngine > 0)
+                    pbCheckEngine.Visible = !pbCheckEngine.Visible;
+                else pbCheckEngine.Visible = false;
+            }
         }
 
         private void tmr50ms_Tick(object sender, EventArgs e)
         {
-            tableLayoutPanel1.Enabled = !middleLayer.IsSynchronizing;
-            toolStripProgressBar1.Style = middleLayer.IsSynchronizing ? ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
-            if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
+            if (middleLayer != null)
             {
-                parametersReceived = false;
-                lastReceivedarameters = DateTime.Now;
-                middleLayer.PacketHandler.SendParametersRequest();
-            }
-            if ((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
-            {
-                middleLayer.PacketHandler.SendDragUpdateRequest();
+                tableLayoutPanel1.Enabled = !middleLayer.IsSynchronizing;
+                toolStripProgressBar1.Style = middleLayer.IsSynchronizing ? ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
+                if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
+                {
+                    parametersReceived = false;
+                    lastReceivedarameters = DateTime.Now;
+                    middleLayer.PacketHandler.SendParametersRequest();
+                }
+                if ((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
+                {
+                    middleLayer.PacketHandler.SendDragUpdateRequest();
+                }
             }
         }
 
@@ -1246,7 +1293,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 0;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1258,7 +1305,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 1;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1270,7 +1317,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 2;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1282,7 +1329,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 3;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1294,7 +1341,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 4;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1306,7 +1353,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 5;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1318,7 +1365,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 6;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1330,7 +1377,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.cutoffMode = 7;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1342,7 +1389,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.shiftMode = 0;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1354,7 +1401,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.shiftMode = 1;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1366,7 +1413,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.shiftMode = 2;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1378,7 +1425,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.shiftMode = 3;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1390,7 +1437,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.parameters.shiftMode = 4;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1409,7 +1456,7 @@ namespace ECU_Manager
 
             lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.cutoffRPM = ((TrackBar)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1419,7 +1466,7 @@ namespace ECU_Manager
         {
             lblCutoffAngle.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
             cs.ConfigStruct.parameters.cutoffAngle = ((float)((TrackBar)sender).Value / 10.0f);
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1429,7 +1476,7 @@ namespace ECU_Manager
         {
             lblCutoffMixture.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
             cs.ConfigStruct.parameters.cutoffMixture = ((float)((TrackBar)sender).Value / 10.0f);
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1439,7 +1486,7 @@ namespace ECU_Manager
         {
             lblShiftThrThr.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.shiftThrThr = ((TrackBar)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1454,7 +1501,7 @@ namespace ECU_Manager
 
             lblShiftRpmThr.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.shiftRpmThr = ((TrackBar)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1469,7 +1516,7 @@ namespace ECU_Manager
 
             lblShiftRpmTill.Text = ((TrackBar)sender).Value.ToString();
             cs.ConfigStruct.parameters.shiftRpmTill = ((TrackBar)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1479,7 +1526,7 @@ namespace ECU_Manager
         {
             lblShiftAngle.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
             cs.ConfigStruct.parameters.shiftAngle = ((float)((TrackBar)sender).Value / 10.0f);
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1489,7 +1536,7 @@ namespace ECU_Manager
         {
             lblShiftMixture.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
             cs.ConfigStruct.parameters.shiftMixture = ((float)((TrackBar)sender).Value / 10.0f);
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1498,7 +1545,7 @@ namespace ECU_Manager
         private void cbFuelExtSw_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.isSwitchByExternal = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1507,7 +1554,7 @@ namespace ECU_Manager
         private void nudSwPos1_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.switchPos1Table = (int)((NumericUpDown)sender).Value - 1;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1516,7 +1563,7 @@ namespace ECU_Manager
         private void nudEngVol_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.engineVolume = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1525,7 +1572,7 @@ namespace ECU_Manager
         private void nudSpeedCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.speedCorrection = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1534,7 +1581,7 @@ namespace ECU_Manager
         private void nudTspsRelPos_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.tspsRelPos = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1543,7 +1590,7 @@ namespace ECU_Manager
         private void nudTspsDsThr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.tspsDesyncThr = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1552,7 +1599,7 @@ namespace ECU_Manager
         private void nudSwPos0_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.switchPos0Table = (int)((NumericUpDown)sender).Value - 1;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1561,7 +1608,7 @@ namespace ECU_Manager
         private void nudSwPos2_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.switchPos2Table = (int)((NumericUpDown)sender).Value - 1;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1570,7 +1617,7 @@ namespace ECU_Manager
         private void cbFuelForce_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.isForceTable = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1579,7 +1626,7 @@ namespace ECU_Manager
         private void nudFuelForce_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.forceTable = (int)((NumericUpDown)sender).Value - 1;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1588,7 +1635,7 @@ namespace ECU_Manager
         private void cbUseTSPS_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useTSPS = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1597,7 +1644,7 @@ namespace ECU_Manager
         private void cbUseKnock_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useKnockSensor = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1606,7 +1653,7 @@ namespace ECU_Manager
         private void cbUseLambda_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLambdaSensor = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1615,7 +1662,7 @@ namespace ECU_Manager
         private void cbLambdaForceEnabled_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.isLambdaForceEnabled = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1624,7 +1671,7 @@ namespace ECU_Manager
         private void cbUseShortTermCorr_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useShortTermCorr = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1633,7 +1680,7 @@ namespace ECU_Manager
         private void cbUseLongTermCorr_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLongTermCorr = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
             }
@@ -1671,7 +1718,7 @@ namespace ECU_Manager
                 rbIgnitionModule.Checked = false;
                 cs.ConfigStruct.parameters.isIndividualCoils = 1;
                 cs.ConfigStruct.parameters.isSingleCoil = 0;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1686,7 +1733,7 @@ namespace ECU_Manager
                 rbIndividualCoils.Checked = false;
                 cs.ConfigStruct.parameters.isIndividualCoils = 0;
                 cs.ConfigStruct.parameters.isSingleCoil = 0;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1701,7 +1748,7 @@ namespace ECU_Manager
                 rbIndividualCoils.Checked = false;
                 cs.ConfigStruct.parameters.isIndividualCoils = 0;
                 cs.ConfigStruct.parameters.isSingleCoil = 1;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
                 }
@@ -1714,23 +1761,57 @@ namespace ECU_Manager
             if (check != bLiveCheckOld)
             {
                 bLiveCheckOld = check;
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            while (!middleLayer.SyncSave(true)) ;
+            if (middleLayer != null)
+            {
+                while (!middleLayer.SyncSave(true)) ;
+            }
+            else
+            {
+                try
+                {
+                    Serializator<ConfigStruct>.Serialize(standaloneFileInfo.FullName, cs.ConfigStruct);
+                    MessageBox.Show($"Setup save success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Setup save failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnReload_Click(object sender, EventArgs e)
         {
-            while (!middleLayer.SyncLoad(true)) ;
+            if (middleLayer != null)
+            {
+                while (!middleLayer.SyncLoad(true)) ;
+            }
+            else
+            {
+                try
+                {
+                    cs.ConfigStruct = Serializator<ConfigStruct>.Deserialize(standaloneFileInfo.FullName);
+                    SynchronizedEventInternal(0, false);
+                    MessageBox.Show($"Setup reload success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Setup reload failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnRedownload_Click(object sender, EventArgs e)
         {
-            while (!middleLayer.SyncLoad(false)) ;
+            if (middleLayer != null)
+            {
+                while (!middleLayer.SyncLoad(false)) ;
+            }
         }
 
         private void nudToolsCurTable_ValueChanged(object sender, EventArgs e)
@@ -1759,7 +1840,7 @@ namespace ECU_Manager
                 StructCopy<EcuTable> structCopy = new StructCopy<EcuTable>();
                 byte[] data = structCopy.GetBytes(cs.ConfigStruct.tables[from]);
                 cs.ConfigStruct.tables[to] = structCopy.FromBytes(data);
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
 
@@ -1821,7 +1902,7 @@ namespace ECU_Manager
                 try
                 {
                     cs.ConfigStruct.tables[cs.CurrentTable] = Serializator<EcuTable>.Deserialize(dlgTableExport.FileName);
-                    if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                    if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(cs.CurrentTable);
                     }
@@ -1858,7 +1939,7 @@ namespace ECU_Manager
                 try
                 {
                     cs.ConfigStruct = Serializator<ConfigStruct>.Deserialize(dlgSetupImport.FileName);
-                    if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                    if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.SyncSave(false);
                     }
@@ -1891,7 +1972,7 @@ namespace ECU_Manager
         private void tbParamsName_TextChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].name = ((TextBox)sender).Text;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1902,7 +1983,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.tables[cs.CurrentTable].inj_channel = 0;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateTable(cs.CurrentTable);
                 }
@@ -1914,7 +1995,7 @@ namespace ECU_Manager
             if (((RadioButton)sender).Checked)
             {
                 cs.ConfigStruct.tables[cs.CurrentTable].inj_channel = 1;
-                if (!middleLayer.IsSynchronizing && cbLive.Checked)
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateTable(cs.CurrentTable);
                 }
@@ -1924,7 +2005,7 @@ namespace ECU_Manager
         private void cbParamsIsInjectionPhaseByEnd_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1933,7 +2014,7 @@ namespace ECU_Manager
         private void cbParamsIsFuelPressureConst_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const = ((CheckBox)sender).Checked ? 1 : 0;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1943,7 +2024,7 @@ namespace ECU_Manager
         private void nudParamsFuelPressure_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1952,7 +2033,7 @@ namespace ECU_Manager
         private void nudParamsFuelKgL_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1961,7 +2042,7 @@ namespace ECU_Manager
         private void nudParamsFuelAFR_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].fuel_afr = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1970,7 +2051,7 @@ namespace ECU_Manager
         private void nudParamsInjPerformance_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].injector_performance = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1979,7 +2060,7 @@ namespace ECU_Manager
         private void nudParamsInitialIgnition_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].ignition_initial = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -1992,7 +2073,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].pressures[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].pressures[i] + 1000;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2005,7 +2086,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].rotates[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].rotates[i] + 100;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2018,7 +2099,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].throttles[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].throttles[i] + 2;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2031,7 +2112,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].voltages[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].voltages[i] + 1;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2044,7 +2125,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].fillings[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].fillings[i] + 2;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2057,7 +2138,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i] + 1;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2070,7 +2151,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 2;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2083,7 +2164,7 @@ namespace ECU_Manager
                 if (cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i] + 1;
             UpdateEcuTableValues();
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2092,7 +2173,7 @@ namespace ECU_Manager
         private void nudParamsIdleRegThr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_pid_act = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2101,7 +2182,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleValveP_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_p = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2110,7 +2191,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleValveI_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_i = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2119,7 +2200,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleValveD_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_d = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2128,7 +2209,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleIgnP_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_p = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2137,7 +2218,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleIgnI_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_i = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2146,7 +2227,7 @@ namespace ECU_Manager
         private void nudParamsPidIdleIgnD_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2155,7 +2236,7 @@ namespace ECU_Manager
         private void nudParamsPidShortCorrP_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2164,7 +2245,7 @@ namespace ECU_Manager
         private void nudParamsPidShortCorrI_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2173,7 +2254,7 @@ namespace ECU_Manager
         private void nudParamsPidShortCorrD_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2182,7 +2263,7 @@ namespace ECU_Manager
         private void nudParamsCorrInjCy1_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[0] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2191,7 +2272,7 @@ namespace ECU_Manager
         private void nudParamsCorrInjCy2_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[1] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2200,7 +2281,7 @@ namespace ECU_Manager
         private void nudParamsCorrInjCy3_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[2] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2209,7 +2290,7 @@ namespace ECU_Manager
         private void nudParamsCorrInjCy4_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[3] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2218,7 +2299,7 @@ namespace ECU_Manager
         private void nudParamsCorrIgnCy1_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[0] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2227,7 +2308,7 @@ namespace ECU_Manager
         private void nudParamsCorrIgnCy2_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[1] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2236,7 +2317,7 @@ namespace ECU_Manager
         private void nudParamsCorrIgnCy3_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[2] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2245,7 +2326,7 @@ namespace ECU_Manager
         private void nudParamsCorrIgnCy4_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[3] = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2254,7 +2335,7 @@ namespace ECU_Manager
         private void nudParamsEnrPMapTps_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2263,7 +2344,7 @@ namespace ECU_Manager
         private void nudParamsIdleIgnDevMin_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2272,7 +2353,7 @@ namespace ECU_Manager
         private void nudParamsIdleIgnDevMax_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2281,7 +2362,7 @@ namespace ECU_Manager
         private void nudParamsIdleIgnFanCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_corr = (float)((NumericUpDown)sender).Value;
-            if (!middleLayer.IsSynchronizing && cbLive.Checked)
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
@@ -2300,7 +2381,7 @@ namespace ECU_Manager
 
         private void btnResetFailures_Click(object sender, EventArgs e)
         {
-            middleLayer.PacketHandler.SendResetStatusRequest();
+            middleLayer?.PacketHandler.SendResetStatusRequest();
         }
 
         private void btnCorrAppendFillingByMAP_Click(object sender, EventArgs e)
@@ -2318,7 +2399,7 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
             
@@ -2338,7 +2419,7 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
 
@@ -2357,7 +2438,7 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
 
@@ -2376,7 +2457,7 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
-                middleLayer.SyncSave(false);
+                middleLayer?.SyncSave(false);
             }
         }
     }

@@ -212,6 +212,12 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl111 = new System.Windows.Forms.TabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnSetupImport = new System.Windows.Forms.Button();
+            this.btnSetupExport = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.nudToolsCurTable = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.btnTableImport = new System.Windows.Forms.Button();
             this.btnTableExport = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -220,8 +226,6 @@
             this.label43 = new System.Windows.Forms.Label();
             this.nudToolsCopyFrom = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label42 = new System.Windows.Forms.Label();
-            this.nudToolsCurTable = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label23 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.cbParamsIsInjectionPhaseByEnd = new System.Windows.Forms.CheckBox();
             this.cbParamsIsFuelPressureConst = new System.Windows.Forms.CheckBox();
@@ -445,19 +449,15 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnRedownload = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRestore = new System.Windows.Forms.Button();
             this.cbLive = new System.Windows.Forms.CheckBox();
             this.pbCheckEngine = new System.Windows.Forms.PictureBox();
             this.dlgTableExport = new System.Windows.Forms.SaveFileDialog();
             this.dlgTableImport = new System.Windows.Forms.OpenFileDialog();
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnSetupImport = new System.Windows.Forms.Button();
-            this.btnSetupExport = new System.Windows.Forms.Button();
             this.dlgSetupImport = new System.Windows.Forms.OpenFileDialog();
             this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
@@ -489,10 +489,12 @@
             this.tabPage3.SuspendLayout();
             this.tabControl111.SuspendLayout();
             this.tabPage12.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyFrom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).BeginInit();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsPidShortCorrD)).BeginInit();
@@ -642,8 +644,6 @@
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
-            this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1998,6 +1998,83 @@
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btnSetupImport);
+            this.groupBox7.Controls.Add(this.btnSetupExport);
+            this.groupBox7.ForeColor = System.Drawing.Color.White;
+            this.groupBox7.Location = new System.Drawing.Point(10, 261);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(274, 74);
+            this.groupBox7.TabIndex = 9;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Whole Setup";
+            // 
+            // btnSetupImport
+            // 
+            this.btnSetupImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnSetupImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetupImport.Location = new System.Drawing.Point(10, 28);
+            this.btnSetupImport.Name = "btnSetupImport";
+            this.btnSetupImport.Size = new System.Drawing.Size(126, 31);
+            this.btnSetupImport.TabIndex = 7;
+            this.btnSetupImport.Text = "Import";
+            this.btnSetupImport.UseVisualStyleBackColor = false;
+            this.btnSetupImport.Click += new System.EventHandler(this.btnSetupImport_Click);
+            // 
+            // btnSetupExport
+            // 
+            this.btnSetupExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnSetupExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetupExport.Location = new System.Drawing.Point(142, 28);
+            this.btnSetupExport.Name = "btnSetupExport";
+            this.btnSetupExport.Size = new System.Drawing.Size(110, 31);
+            this.btnSetupExport.TabIndex = 6;
+            this.btnSetupExport.Text = "Export";
+            this.btnSetupExport.UseVisualStyleBackColor = false;
+            this.btnSetupExport.Click += new System.EventHandler(this.btnSetupExport_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label23);
+            this.groupBox6.Controls.Add(this.nudToolsCurTable);
+            this.groupBox6.Controls.Add(this.btnTableImport);
+            this.groupBox6.Controls.Add(this.btnTableExport);
+            this.groupBox6.ForeColor = System.Drawing.Color.White;
+            this.groupBox6.Location = new System.Drawing.Point(10, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(274, 101);
+            this.groupBox6.TabIndex = 8;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Table Select";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 25);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(130, 24);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "Current Table:";
+            // 
+            // nudToolsCurTable
+            // 
+            this.nudToolsCurTable.Location = new System.Drawing.Point(142, 23);
+            this.nudToolsCurTable.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.nudToolsCurTable.Name = "nudToolsCurTable";
+            this.nudToolsCurTable.Size = new System.Drawing.Size(120, 29);
+            this.nudToolsCurTable.TabIndex = 2;
+            this.nudToolsCurTable.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudToolsCurTable.ValueChanged += new System.EventHandler(this.nudToolsCurTable_ValueChanged);
+            // 
             // btnTableImport
             // 
             this.btnTableImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
@@ -2102,33 +2179,6 @@
             this.label42.Size = new System.Drawing.Size(60, 24);
             this.label42.TabIndex = 3;
             this.label42.Text = "From:";
-            // 
-            // nudToolsCurTable
-            // 
-            this.nudToolsCurTable.Location = new System.Drawing.Point(142, 23);
-            this.nudToolsCurTable.Maximum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.nudToolsCurTable.Name = "nudToolsCurTable";
-            this.nudToolsCurTable.Size = new System.Drawing.Size(120, 29);
-            this.nudToolsCurTable.TabIndex = 2;
-            this.nudToolsCurTable.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudToolsCurTable.ValueChanged += new System.EventHandler(this.nudToolsCurTable_ValueChanged);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 25);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(130, 24);
-            this.label23.TabIndex = 1;
-            this.label23.Text = "Current Table:";
             // 
             // tabPage8
             // 
@@ -6965,10 +7015,10 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel4.Controls.Add(this.button3, 5, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button2, 3, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnRedownload, 5, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnSave, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button1, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnRestore, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.cbLive, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.pbCheckEngine, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6980,33 +7030,33 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1195, 34);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
-            // button3
+            // btnRedownload
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(1045, 0);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 34);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Redownload";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnRedownload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnRedownload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRedownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRedownload.Location = new System.Drawing.Point(1045, 0);
+            this.btnRedownload.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRedownload.Name = "btnRedownload";
+            this.btnRedownload.Size = new System.Drawing.Size(150, 34);
+            this.btnRedownload.TabIndex = 5;
+            this.btnRedownload.Text = "Redownload";
+            this.btnRedownload.UseVisualStyleBackColor = false;
+            this.btnRedownload.Click += new System.EventHandler(this.btnRedownload_Click);
             // 
-            // button2
+            // btnSave
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(745, 0);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 34);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Save Flash";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Location = new System.Drawing.Point(745, 0);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(150, 34);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save Flash";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 
@@ -7021,19 +7071,19 @@
             this.label1.Text = "ENGINE CONTROL UNIT";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // button1
+            // btnRestore
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(895, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Restore Flash";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnRestore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnRestore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestore.Location = new System.Drawing.Point(895, 0);
+            this.btnRestore.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRestore.Name = "btnRestore";
+            this.btnRestore.Size = new System.Drawing.Size(150, 34);
+            this.btnRestore.TabIndex = 2;
+            this.btnRestore.Text = "Restore Flash";
+            this.btnRestore.UseVisualStyleBackColor = false;
+            this.btnRestore.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // cbLive
             // 
@@ -7077,56 +7127,6 @@
             this.tmrSync.Enabled = true;
             this.tmrSync.Interval = 500;
             this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label23);
-            this.groupBox6.Controls.Add(this.nudToolsCurTable);
-            this.groupBox6.Controls.Add(this.btnTableImport);
-            this.groupBox6.Controls.Add(this.btnTableExport);
-            this.groupBox6.ForeColor = System.Drawing.Color.White;
-            this.groupBox6.Location = new System.Drawing.Point(10, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(274, 101);
-            this.groupBox6.TabIndex = 8;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Table Select";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.btnSetupImport);
-            this.groupBox7.Controls.Add(this.btnSetupExport);
-            this.groupBox7.ForeColor = System.Drawing.Color.White;
-            this.groupBox7.Location = new System.Drawing.Point(10, 261);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(274, 74);
-            this.groupBox7.TabIndex = 9;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Whole Setup";
-            // 
-            // btnSetupImport
-            // 
-            this.btnSetupImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.btnSetupImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetupImport.Location = new System.Drawing.Point(10, 28);
-            this.btnSetupImport.Name = "btnSetupImport";
-            this.btnSetupImport.Size = new System.Drawing.Size(126, 31);
-            this.btnSetupImport.TabIndex = 7;
-            this.btnSetupImport.Text = "Import";
-            this.btnSetupImport.UseVisualStyleBackColor = false;
-            this.btnSetupImport.Click += new System.EventHandler(this.btnSetupImport_Click);
-            // 
-            // btnSetupExport
-            // 
-            this.btnSetupExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.btnSetupExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetupExport.Location = new System.Drawing.Point(142, 28);
-            this.btnSetupExport.Name = "btnSetupExport";
-            this.btnSetupExport.Size = new System.Drawing.Size(110, 31);
-            this.btnSetupExport.TabIndex = 6;
-            this.btnSetupExport.Text = "Export";
-            this.btnSetupExport.UseVisualStyleBackColor = false;
-            this.btnSetupExport.Click += new System.EventHandler(this.btnSetupExport_Click);
             // 
             // dlgSetupImport
             // 
@@ -7190,11 +7190,14 @@
             this.tabPage3.ResumeLayout(false);
             this.tabControl111.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolsCopyFrom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudToolsCurTable)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntAirTemps)).EndInit();
@@ -7349,9 +7352,6 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -7402,8 +7402,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnRestore;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.CheckBox cbLive;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
@@ -7435,7 +7435,7 @@
         private System.Windows.Forms.RadioButton rbInjCh2;
         private System.Windows.Forms.RadioButton rbInjCh1;
         private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnRedownload;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label56;
         private Controls.Meter mGenFuelUsage;

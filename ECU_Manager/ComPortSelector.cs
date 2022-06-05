@@ -85,6 +85,14 @@ namespace ECU_Manager
 
         private void btnStandalone_Click(object sender, EventArgs e)
         {
+            DialogResult result = ofdStandalone.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.Hide();
+                FileInfo fileInfo = new FileInfo(ofdStandalone.FileName);
+                MainForm mainForm = new MainForm(fileInfo);
+                mainForm.Show();
+            }
         }
     }
 }
