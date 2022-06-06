@@ -504,7 +504,7 @@ namespace ECU_Manager
                     if (parameter.Name == "IgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "InjectionPhase") { parameter.Min = 0; parameter.Max = 720; parameter.Step = 1.0F; }
                     else if (parameter.Name == "IgnitionOctane") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
-                    else if (parameter.Name == "IgnitionPulse") { parameter.Min = 0; parameter.Max = 10000; parameter.Step = 100F; }
+                    else if (parameter.Name == "IgnitionPulse") { parameter.Min = 300; parameter.Max = 10000; parameter.Step = 100F; }
                     else if (parameter.Name == "InjectionPulse") { parameter.Min = 0; parameter.Max = 100000; parameter.Step = 10F; }
                     else if (parameter.Name == "WishFuelRatio") { parameter.Min = 1; parameter.Max = 20; parameter.Step = 0.1F; }
                     else if (parameter.Name == "WishIdleRPM") { parameter.Min = 200; parameter.Max = 5000; parameter.Step = 20.0F; }
