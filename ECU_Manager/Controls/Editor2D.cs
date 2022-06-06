@@ -839,7 +839,10 @@ namespace ECU_Manager.Controls
                 float value = (float)nud.Value;
                 Color text = Color.Black;
                 Color back = nud.BackColor;
-
+                int sizex = 0;
+                int sizey = 0;
+                float[] depx = null;
+                float[] depy = null;
                 float[] array2d = null;
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
@@ -856,6 +859,34 @@ namespace ECU_Manager.Controls
                         if (fieldArray != null)
                             array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
                     }
+                }
+
+                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+                {
+                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                    if (fieldSizeX != null)
+                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+                {
+                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                    if (fieldSizeY != null)
+                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sConfigDepX))
+                {
+                    FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                    if (fieldDepX != null)
+                        depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sConfigDepY))
+                {
+                    FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
+                    if (fieldDepY != null)
+                        depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
 
                 if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
@@ -901,6 +932,16 @@ namespace ECU_Manager.Controls
                     chart2DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiffY));
                     chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
                 }
+
+                cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+
+                for (int iy = 0; iy < sizey; iy++)
+                    for (int ix = 0; ix < sizex; ix++)
+                        i_Points3D[ix, iy] = new cPoint3D(depy[iy], depx[ix], array2d[iy * sizex + ix]);
+
+                cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
+                    chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
+                graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
             }
         }
 
