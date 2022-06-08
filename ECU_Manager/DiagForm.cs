@@ -474,7 +474,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "IgnitionAngle") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionAngle, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPhase") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhase, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPhaseDuration") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhaseDuration, .title = "%s%0.0f"},
-                if (fieldInfo.Name == "InjectionPulse") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionPulse, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "InjectionPulse") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPulse, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionDutyCycle") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionDutyCycle, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "InjectionEnrichment") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "IgnitionPulse") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionPulse, .title = "%s%0.2f"},
