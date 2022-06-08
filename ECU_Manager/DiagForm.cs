@@ -476,12 +476,12 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "InjectionPhaseDuration") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhaseDuration, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPulse") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPulse, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionDutyCycle") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionDutyCycle, .title = "%s%0.2f"},
-                if (fieldInfo.Name == "InjectionEnrichment") parameter.FloatFormat = "F2"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "InjectionEnrichment") parameter.FloatFormat = "F3"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.3f"},
                 if (fieldInfo.Name == "IgnitionPulse") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionPulse, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "IdleSpeedShift") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleSpeedShift, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "DrivenKilometers") parameter.FloatFormat = "F2"; //&ecu_parameters.DrivenKilometers, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "FuelConsumed") parameter.FloatFormat = "F3"; //&ecu_parameters.FuelConsumed, .title = "%s%0.1f"},
-                if (fieldInfo.Name == "FuelConsumption") parameter.FloatFormat = "F1"; //&ecu_parameters.FuelConsumption, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "FuelConsumption") continue;
                 if (fieldInfo.Name == "FuelHourly") parameter.FloatFormat = "F1"; //&ecu_parameters.FuelHourly, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "TspsRelativePosition") parameter.FloatFormat = "F2"; //&ecu_parameters.TspsRelativePosition, .title = "%s%0.2f"},
 
