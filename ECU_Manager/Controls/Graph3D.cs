@@ -1112,7 +1112,7 @@ namespace ECU_Manager.Controls
                                 continue;
 
                             cLine i_Raster = new cLine();
-                            i_Raster.mi_Pen         = mi_RasterPens[(int)e_Second];
+                            i_Raster.mi_Pen         = mi_RasterPens[(int)e_First];
                             i_Raster.me_Line        = e_First;
                             i_Raster.me_Offset      = e_Second;
                             i_Raster.md_Label       = d_Offset;
@@ -1489,7 +1489,7 @@ namespace ECU_Manager.Controls
                         else continue;
 
                         String s_Label = FormatLabel(i_Line.md_Label);
-                        Brush  i_Brush = mi_AxisBrushes[(int)i_Line.me_Offset];
+                        Brush  i_Brush = mi_AxisBrushes[((int)i_Line.me_Offset ^ 1) - ((int)i_Line.me_Offset >> 1)];
                         i_Graph.DrawString(s_Label, Font, i_Brush, k_Pos, i_Align);
                     }
                 }
