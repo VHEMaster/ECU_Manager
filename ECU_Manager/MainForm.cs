@@ -508,6 +508,33 @@ namespace ECU_Manager
             eAirTempMixCorr.SetTableColorTrans(colorTransience);
             eAirTempMixCorr.SynchronizeChart();
 
+
+            colorTransience = new ColorTransience(-5F, 5F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -5.0F);
+            colorTransience.Add(Color.Blue, -3.0F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -2.0F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
+            colorTransience.Add(Color.Red, 3.0F);
+            colorTransience.Add(Color.DarkRed, 4.0F);
+            colorTransience.Add(Color.Black, 5.0F);
+
+            eAirTempIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
+                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, Consts.TABLE_FILLING_MAX, Consts.TABLE_TEMPERATURES_MAX, 1);
+
+            eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
+            eAirTempIgnCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
+            eAirTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
+            eAirTempIgnCorr.SetD("AirTemp", "AirTemp", "F1");
+            eAirTempIgnCorr.SetTableEventHandler(ChartUpdateEvent);
+            eAirTempIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempIgnCorr.scHorisontal.Width * 0.65);
+
+            eAirTempIgnCorr.SetTableColorTrans(colorTransience);
+            eAirTempIgnCorr.SynchronizeChart();
+
+
             eIgnitionInitial.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
             eIgnitionInitial.SetConfig("ignition_initial", "engine_temp_count", "engine_temps");
             eIgnitionInitial.SetX("EngineTemp", "Temperature", "F0");
@@ -536,6 +563,7 @@ namespace ECU_Manager
             eCorrsIgnition.SynchronizeChart();
             eCorrsPressureByTPS.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
+            eAirTempIgnCorr.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -581,6 +609,7 @@ namespace ECU_Manager
             eCorrsIgnition.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
+            eAirTempIgnCorr.UpdateChart();
 
             eIgnitionInitial.UpdateChart();
             eIdleValveInitial.UpdateChart();

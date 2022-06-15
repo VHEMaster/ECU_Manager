@@ -127,8 +127,12 @@ namespace ECU_Manager.Structs
         public float[] air_temps;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_FILLING_MAX)]
         [XmlArray("air_temp_mix_corr")]
-        [XmlArrayItem("corr")]
+        [XmlArrayItem("mixcorr")]
         public float[] air_temp_mix_corr;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_FILLING_MAX)]
+        [XmlArray("air_temp_ign_corr")]
+        [XmlArrayItem("igncorr")]
+        public float[] air_temp_ign_corr;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_wish_rotates")]
@@ -212,7 +216,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 797)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 541)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
