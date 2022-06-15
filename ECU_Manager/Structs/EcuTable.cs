@@ -15,8 +15,7 @@ namespace ECU_Manager.Structs
         public string name;
 
         public int inj_channel;
-
-        public float ignition_initial;
+        
         public float injector_performance;
         public int is_fuel_pressure_const;
         public int is_fuel_phase_by_end;
@@ -110,7 +109,17 @@ namespace ECU_Manager.Structs
         [XmlArray("engine_temps")]
         [XmlArrayItem("temperature")]
         public float[] engine_temps;
-        
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("ignition_initial")]
+        [XmlArrayItem("ignition")]
+        public float[] ignition_initial;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_valve_initial")]
+        [XmlArrayItem("valve")]
+        public float[] idle_valve_initial;
+
         public int air_temp_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("air_temps")]
@@ -203,7 +212,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 828)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 797)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

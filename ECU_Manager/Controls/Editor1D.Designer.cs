@@ -111,7 +111,7 @@
             0,
             0,
             0});
-            this.nudValue.Location = new System.Drawing.Point(463, 3);
+            this.nudValue.Location = new System.Drawing.Point(492, 3);
             this.nudValue.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -135,7 +135,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(393, 5);
+            this.label22.Location = new System.Drawing.Point(422, 5);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(64, 24);
             this.label22.TabIndex = 3;
@@ -144,7 +144,7 @@
             // btnPressApply
             // 
             this.btnPressApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPressApply.Location = new System.Drawing.Point(607, 2);
+            this.btnPressApply.Location = new System.Drawing.Point(636, 2);
             this.btnPressApply.Name = "btnPressApply";
             this.btnPressApply.Size = new System.Drawing.Size(99, 31);
             this.btnPressApply.TabIndex = 2;

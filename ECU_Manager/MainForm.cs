@@ -508,6 +508,18 @@ namespace ECU_Manager
             eAirTempMixCorr.SetTableColorTrans(colorTransience);
             eAirTempMixCorr.SynchronizeChart();
 
+            eIgnitionInitial.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
+            eIgnitionInitial.SetConfig("ignition_initial", "engine_temp_count", "engine_temps");
+            eIgnitionInitial.SetX("EngineTemp", "Temperature", "F0");
+            eIgnitionInitial.SetY("IgnitionAngle", "Ignition", "F0");
+            eIgnitionInitial.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValveInitial.Initialize(cs, 0D, 255D, 1D, 20D, 20D, 80D, 10D, 5D, 1);
+            eIdleValveInitial.SetConfig("idle_valve_initial", "engine_temp_count", "engine_temps");
+            eIdleValveInitial.SetX("EngineTemp", "Temperature", "F0");
+            eIdleValveInitial.SetY("IdleValvePosition", "Valve", "F0");
+            eIdleValveInitial.SetTableEventHandler(ChartUpdateEvent);
+
             SynchronizeCharts();
         }
 
@@ -569,6 +581,9 @@ namespace ECU_Manager
             eCorrsIgnition.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
+
+            eIgnitionInitial.UpdateChart();
+            eIdleValveInitial.UpdateChart();
         }
 
         private void CorrStart()
@@ -895,7 +910,6 @@ namespace ECU_Manager
             nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
-            nudParamsInitialIgnition.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].ignition_initial;
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
             nudParamsFuelKgL.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc;
             nudParamsFuelAFR.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_afr;
@@ -2051,15 +2065,6 @@ namespace ECU_Manager
         private void nudParamsInjPerformance_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].injector_performance = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsInitialIgnition_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].ignition_initial = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
