@@ -2499,15 +2499,28 @@ namespace ECU_Manager
 
         private void btnIITestRun_Click(object sender, EventArgs e)
         {
+            byte ignition = 0;
+            byte injection = 0;
+
+            ignition |= (byte)(cbIITIgnCy1.Checked ? 1 : 0);
+            ignition |= (byte)(cbIITIgnCy2.Checked ? 2 : 0);
+            ignition |= (byte)(cbIITIgnCy3.Checked ? 4 : 0);
+            ignition |= (byte)(cbIITIgnCy4.Checked ? 8 : 0);
+
+            injection |= (byte)(cbIITInjCy1.Checked ? 1 : 0);
+            injection |= (byte)(cbIITInjCy2.Checked ? 2 : 0);
+            injection |= (byte)(cbIITInjCy3.Checked ? 4 : 0);
+            injection |= (byte)(cbIITInjCy4.Checked ? 8 : 0);
+
             middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(
-                cbIITestIgnEnabled.Checked, cbIITestInjEnabled.Checked,
-                (int)nudIITestCount.Value, (int)nudIITestPeriod.Value,
+                ignition, injection,
+                (int)nudIITestCount.Value, (int)nudIITestPeriod.Value * 1000,
                 (int)nudIITestIgnPulse.Value, (int)nudIITestInjPulse.Value);
         }
 
         private void btnIITestAbort_Click(object sender, EventArgs e)
         {
-            middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(false, false, 0, 0, 0, 0);
+            middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(0, 0, 0, 0, 0, 0);
         }
     }
 }

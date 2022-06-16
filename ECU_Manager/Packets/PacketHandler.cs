@@ -316,7 +316,7 @@ namespace ECU_Manager.Packets
             protocolHandler.Send(Channel.etrECU, bytes);
         }
 
-        public void SendIgnitionInjectionTestRequest(bool ignitionEnabled, bool injectionEnabled, int count, int period, int ignitionPulse, int injectionPulse)
+        public void SendIgnitionInjectionTestRequest(byte ignitionEnabled, byte injectionEnabled, int count, int period, int ignitionPulse, int injectionPulse)
         {
             PK_IgnitionInjectionTestRequest packet = new PK_IgnitionInjectionTestRequest(0, ignitionEnabled, injectionEnabled, count, period, ignitionPulse, injectionPulse);
             StructCopy<PK_IgnitionInjectionTestRequest> StructCopy = new StructCopy<PK_IgnitionInjectionTestRequest>();

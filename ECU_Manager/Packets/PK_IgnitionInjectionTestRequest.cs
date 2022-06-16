@@ -17,12 +17,12 @@ namespace ECU_Manager.Packets
         public uint Period;
         public uint IgnitionPulse;
         public uint InjectionPulse;
-        public PK_IgnitionInjectionTestRequest(int _, bool ignitionEnabled, bool injectionEnabled, int count, int period, int ignitionPulse, int injectionPulse)
+        public PK_IgnitionInjectionTestRequest(int _, byte ignitionEnabled, byte injectionEnabled, int count, int period, int ignitionPulse, int injectionPulse)
         {
             PacketID = (byte)Packets.IgnitionInjectionTestRequestID;
 
-            IgnitionEnabled = (byte)(ignitionEnabled ? 1 : 0);
-            InjectionEnabled = (byte)(injectionEnabled ? 1 : 0);
+            IgnitionEnabled = ignitionEnabled;
+            InjectionEnabled = injectionEnabled;
             Count = (ushort)count;
             Period = (uint)period;
             IgnitionPulse = (uint)ignitionPulse;
