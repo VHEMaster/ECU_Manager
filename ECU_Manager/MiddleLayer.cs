@@ -833,6 +833,14 @@ namespace ECU_Manager
 
                         }
                     }
+                    else if (packetobj.GetType() == typeof(PK_IgnitionInjectionTestResponse))
+                    {
+                        PK_IgnitionInjectionTestResponse iitr = (PK_IgnitionInjectionTestResponse)packetobj;
+                        if (iitr.ErrorCode != 0)
+                        {
+
+                        }
+                    }
                     else if (packetobj.GetType() == typeof(PK_StatusResponse))
                     {
                         PK_StatusResponse sr = (PK_StatusResponse)packetobj;

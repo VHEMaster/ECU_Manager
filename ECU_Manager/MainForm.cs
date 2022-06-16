@@ -93,6 +93,8 @@ namespace ECU_Manager
             btnRestore.Text = "Reload File";
             btnSave.Text = "Save File";
             btnRedownload.Enabled = false;
+            btnIITestRun.Enabled = false;
+            groupBox8.Enabled = false;
 
             Initialize();
 
@@ -2493,6 +2495,19 @@ namespace ECU_Manager
 
                 middleLayer?.SyncSave(false);
             }
+        }
+
+        private void btnIITestRun_Click(object sender, EventArgs e)
+        {
+            middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(
+                cbIITestIgnEnabled.Checked, cbIITestInjEnabled.Checked,
+                (int)nudIITestCount.Value, (int)nudIITestPeriod.Value,
+                (int)nudIITestIgnPulse.Value, (int)nudIITestInjPulse.Value);
+        }
+
+        private void btnIITestAbort_Click(object sender, EventArgs e)
+        {
+            middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(false, false, 0, 0, 0, 0);
         }
     }
 }

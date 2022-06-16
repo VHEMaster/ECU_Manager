@@ -114,6 +114,8 @@
     <Compile Include="Packets\PK_DragUpdateResponse.cs" />
     <Compile Include="Packets\PK_ForceParametersDataAcknowledge.cs" />
     <Compile Include="Packets\PK_ForceParametersData.cs" />
+    <Compile Include="Packets\PK_IgnitionInjectionTestRequest.cs" />
+    <Compile Include="Packets\PK_IgnitionInjectionTestResponse.cs" />
     <Compile Include="Packets\PK_ResetStatusRequest.cs" />
     <Compile Include="Packets\PK_StatusRequest.cs" />
     <Compile Include="Packets\PK_ResetStatusResponse.cs" />

@@ -105,6 +105,10 @@ namespace ECU_Manager.Packets
                     StructCopy<PK_ResetStatusResponse> pc38 = new StructCopy<PK_ResetStatusResponse>();
                     result = pc38.FromBytes(bytes);
                     break;
+                case Packets.IgnitionInjectionTestResponseID:
+                    StructCopy<PK_IgnitionInjectionTestResponse> pc40 = new StructCopy<PK_IgnitionInjectionTestResponse>();
+                    result = pc40.FromBytes(bytes);
+                    break;
                 default:
                     break;
             }
@@ -311,7 +315,15 @@ namespace ECU_Manager.Packets
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }
-        
+
+        public void SendIgnitionInjectionTestRequest(bool ignitionEnabled, bool injectionEnabled, int count, int period, int ignitionPulse, int injectionPulse)
+        {
+            PK_IgnitionInjectionTestRequest packet = new PK_IgnitionInjectionTestRequest(0, ignitionEnabled, injectionEnabled, count, period, ignitionPulse, injectionPulse);
+            StructCopy<PK_IgnitionInjectionTestRequest> StructCopy = new StructCopy<PK_IgnitionInjectionTestRequest>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
 
     }
 }
