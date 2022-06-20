@@ -21,96 +21,102 @@ namespace ECU_Manager.Packets
         public object GetPacket(byte[] bytes)
         {
             object result = null;
-
-            Packets packetId = (Packets)bytes[0];
-            switch(packetId)
+            try
             {
-                case Packets.PingID:
-                    StructCopy<PK_Ping> pc1 = new StructCopy<PK_Ping>();
-                    result = pc1.FromBytes(bytes);
-                    break;
-                case Packets.PongID:
-                    StructCopy<PK_Pong> pc2 = new StructCopy<PK_Pong>();
-                    result = pc2.FromBytes(bytes);
-                    break;
-                case Packets.TableMemoryAcknowledgeID:
-                    StructCopy<PK_TableMemoryAcknowledge> pc7 = new StructCopy<PK_TableMemoryAcknowledge>();
-                    result = pc7.FromBytes(bytes);
-                    break;
-                case Packets.TableMemoryDataID:
-                    StructCopy<PK_TableMemoryData> pc6 = new StructCopy<PK_TableMemoryData>();
-                    result = pc6.FromBytes(bytes);
-                    break;
-                case Packets.ConfigMemoryAcknowledgeID:
-                    StructCopy<PK_ConfigMemoryAcknowledge> pc10 = new StructCopy<PK_ConfigMemoryAcknowledge>();
-                    result = pc10.FromBytes(bytes);
-                    break;
-                case Packets.ConfigMemoryDataID:
-                    StructCopy<PK_ConfigMemoryData> pc9 = new StructCopy<PK_ConfigMemoryData>();
-                    result = pc9.FromBytes(bytes);
-                    break;
-                case Packets.SaveConfigAcknowledgeID:
-                    StructCopy<PK_SaveConfigAcknowledge> pc13 = new StructCopy<PK_SaveConfigAcknowledge>();
-                    result = pc13.FromBytes(bytes);
-                    break;
-                case Packets.RestoreConfigAcknowledgeID:
-                    StructCopy<PK_RestoreConfigAcknowledge> pc14 = new StructCopy<PK_RestoreConfigAcknowledge>();
-                    result = pc14.FromBytes(bytes);
-                    break;
-                case Packets.DragUpdateResponseID:
-                    StructCopy<PK_DragUpdateResponse> pc17 = new StructCopy<PK_DragUpdateResponse>();
-                    result = pc17.FromBytes(bytes);
-                    break;
-                case Packets.DragPointResponseID:
-                    StructCopy<PK_DragPointResponse> pc20 = new StructCopy<PK_DragPointResponse>();
-                    result = pc20.FromBytes(bytes);
-                    break;
-                case Packets.DragStartAcknowledgeID:
-                    StructCopy<PK_DragStartAcknowledge> pc21 = new StructCopy<PK_DragStartAcknowledge>();
-                    result = pc21.FromBytes(bytes);
-                    break;
-                case Packets.DragStopAcknowledgeID:
-                    StructCopy<PK_DragStopAcknowledge> pc22 = new StructCopy<PK_DragStopAcknowledge>();
-                    result = pc22.FromBytes(bytes);
-                    break;
-                case Packets.CorrectionsMemoryDataID:
-                    StructCopy<PK_CorrectionsMemoryData> pc26 = new StructCopy<PK_CorrectionsMemoryData>();
-                    result = pc26.FromBytes(bytes);
-                    break;
-                case Packets.CorrectionsMemoryAcknowledgeID:
-                    StructCopy<PK_CorrectionsMemoryAcknowledge> pc27 = new StructCopy<PK_CorrectionsMemoryAcknowledge>();
-                    result = pc27.FromBytes(bytes);
-                    break;
-                case Packets.CriticalMemoryDataID:
-                    StructCopy<PK_CriticalMemoryData> pc29 = new StructCopy<PK_CriticalMemoryData>();
-                    result = pc29.FromBytes(bytes);
-                    break;
-                case Packets.CriticalMemoryAcknowledgeID:
-                    StructCopy<PK_CriticalMemoryAcknowledge> pc30 = new StructCopy<PK_CriticalMemoryAcknowledge>();
-                    result = pc30.FromBytes(bytes);
-                    break;
-                case Packets.ParametersResponseID:
-                    StructCopy<PK_ParametersResponse> pc32 = new StructCopy<PK_ParametersResponse>();
-                    result = pc32.FromBytes(bytes);
-                    break;
-                case Packets.ForceParametersDataAcknowledgeID:
-                    StructCopy<PK_ForceParametersDataAcknowledge> pc34 = new StructCopy<PK_ForceParametersDataAcknowledge>();
-                    result = pc34.FromBytes(bytes);
-                    break;
-                case Packets.StatusResponseID:
-                    StructCopy<PK_StatusResponse> pc36 = new StructCopy<PK_StatusResponse>();
-                    result = pc36.FromBytes(bytes);
-                    break;
-                case Packets.ResetStatusResponseID:
-                    StructCopy<PK_ResetStatusResponse> pc38 = new StructCopy<PK_ResetStatusResponse>();
-                    result = pc38.FromBytes(bytes);
-                    break;
-                case Packets.IgnitionInjectionTestResponseID:
-                    StructCopy<PK_IgnitionInjectionTestResponse> pc40 = new StructCopy<PK_IgnitionInjectionTestResponse>();
-                    result = pc40.FromBytes(bytes);
-                    break;
-                default:
-                    break;
+                Packets packetId = (Packets)bytes[0];
+                switch (packetId)
+                {
+                    case Packets.PingID:
+                        StructCopy<PK_Ping> pc1 = new StructCopy<PK_Ping>();
+                        result = pc1.FromBytes(bytes);
+                        break;
+                    case Packets.PongID:
+                        StructCopy<PK_Pong> pc2 = new StructCopy<PK_Pong>();
+                        result = pc2.FromBytes(bytes);
+                        break;
+                    case Packets.TableMemoryAcknowledgeID:
+                        StructCopy<PK_TableMemoryAcknowledge> pc7 = new StructCopy<PK_TableMemoryAcknowledge>();
+                        result = pc7.FromBytes(bytes);
+                        break;
+                    case Packets.TableMemoryDataID:
+                        StructCopy<PK_TableMemoryData> pc6 = new StructCopy<PK_TableMemoryData>();
+                        result = pc6.FromBytes(bytes);
+                        break;
+                    case Packets.ConfigMemoryAcknowledgeID:
+                        StructCopy<PK_ConfigMemoryAcknowledge> pc10 = new StructCopy<PK_ConfigMemoryAcknowledge>();
+                        result = pc10.FromBytes(bytes);
+                        break;
+                    case Packets.ConfigMemoryDataID:
+                        StructCopy<PK_ConfigMemoryData> pc9 = new StructCopy<PK_ConfigMemoryData>();
+                        result = pc9.FromBytes(bytes);
+                        break;
+                    case Packets.SaveConfigAcknowledgeID:
+                        StructCopy<PK_SaveConfigAcknowledge> pc13 = new StructCopy<PK_SaveConfigAcknowledge>();
+                        result = pc13.FromBytes(bytes);
+                        break;
+                    case Packets.RestoreConfigAcknowledgeID:
+                        StructCopy<PK_RestoreConfigAcknowledge> pc14 = new StructCopy<PK_RestoreConfigAcknowledge>();
+                        result = pc14.FromBytes(bytes);
+                        break;
+                    case Packets.DragUpdateResponseID:
+                        StructCopy<PK_DragUpdateResponse> pc17 = new StructCopy<PK_DragUpdateResponse>();
+                        result = pc17.FromBytes(bytes);
+                        break;
+                    case Packets.DragPointResponseID:
+                        StructCopy<PK_DragPointResponse> pc20 = new StructCopy<PK_DragPointResponse>();
+                        result = pc20.FromBytes(bytes);
+                        break;
+                    case Packets.DragStartAcknowledgeID:
+                        StructCopy<PK_DragStartAcknowledge> pc21 = new StructCopy<PK_DragStartAcknowledge>();
+                        result = pc21.FromBytes(bytes);
+                        break;
+                    case Packets.DragStopAcknowledgeID:
+                        StructCopy<PK_DragStopAcknowledge> pc22 = new StructCopy<PK_DragStopAcknowledge>();
+                        result = pc22.FromBytes(bytes);
+                        break;
+                    case Packets.CorrectionsMemoryDataID:
+                        StructCopy<PK_CorrectionsMemoryData> pc26 = new StructCopy<PK_CorrectionsMemoryData>();
+                        result = pc26.FromBytes(bytes);
+                        break;
+                    case Packets.CorrectionsMemoryAcknowledgeID:
+                        StructCopy<PK_CorrectionsMemoryAcknowledge> pc27 = new StructCopy<PK_CorrectionsMemoryAcknowledge>();
+                        result = pc27.FromBytes(bytes);
+                        break;
+                    case Packets.CriticalMemoryDataID:
+                        StructCopy<PK_CriticalMemoryData> pc29 = new StructCopy<PK_CriticalMemoryData>();
+                        result = pc29.FromBytes(bytes);
+                        break;
+                    case Packets.CriticalMemoryAcknowledgeID:
+                        StructCopy<PK_CriticalMemoryAcknowledge> pc30 = new StructCopy<PK_CriticalMemoryAcknowledge>();
+                        result = pc30.FromBytes(bytes);
+                        break;
+                    case Packets.ParametersResponseID:
+                        StructCopy<PK_ParametersResponse> pc32 = new StructCopy<PK_ParametersResponse>();
+                        result = pc32.FromBytes(bytes);
+                        break;
+                    case Packets.ForceParametersDataAcknowledgeID:
+                        StructCopy<PK_ForceParametersDataAcknowledge> pc34 = new StructCopy<PK_ForceParametersDataAcknowledge>();
+                        result = pc34.FromBytes(bytes);
+                        break;
+                    case Packets.StatusResponseID:
+                        StructCopy<PK_StatusResponse> pc36 = new StructCopy<PK_StatusResponse>();
+                        result = pc36.FromBytes(bytes);
+                        break;
+                    case Packets.ResetStatusResponseID:
+                        StructCopy<PK_ResetStatusResponse> pc38 = new StructCopy<PK_ResetStatusResponse>();
+                        result = pc38.FromBytes(bytes);
+                        break;
+                    case Packets.IgnitionInjectionTestResponseID:
+                        StructCopy<PK_IgnitionInjectionTestResponse> pc40 = new StructCopy<PK_IgnitionInjectionTestResponse>();
+                        result = pc40.FromBytes(bytes);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch
+            {
+
             }
 
             return result;
