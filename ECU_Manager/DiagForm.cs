@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,7 +44,7 @@ namespace ECU_Manager
         double dTimeFrom;
         double dTimeTo;
         TimeScaleEnum TimeScale = TimeScaleEnum.TenSeconds;
-        List<PointData> dataPoints = new List<PointData>(1048576);
+        BlockingCollection<PointData> dataPoints = new BlockingCollection<PointData>();
         Stopwatch stopwatch = new Stopwatch();
         bool widthBigPrev = false;
 
@@ -875,7 +876,7 @@ namespace ECU_Manager
                     
                     for (int i = index_first; i <= index_last; i++)
                     {
-                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints[i].Seconds)
+                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints.ElementAt(i).Seconds)
                         {
                             if (chart.Tag != null)
                             {
@@ -883,13 +884,13 @@ namespace ECU_Manager
 
                                 if (parameter.Type == typeof(float))
                                 {
-                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
+                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuef);
                                 }
                                 else
                                 {
-                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
+                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuei);
                                 }
                             }
                         }
@@ -931,6 +932,7 @@ namespace ECU_Manager
 
         public void UpdateParametersEvent(EcuParameters parameters)
         {
+            dataPoints.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
             Action action = new Action(() => { this.UpdateParameters(parameters); });
             if (this.InvokeRequired)
                 this.BeginInvoke(action);
@@ -964,7 +966,6 @@ namespace ECU_Manager
 
         private void UpdateParameters(EcuParameters parameters)
         {
-            dataPoints.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
             UpdateForceElements(parameters);
         }
 
@@ -1122,15 +1123,20 @@ namespace ECU_Manager
             DialogResult result = sfdExportLog.ShowDialog();
             if(result == DialogResult.OK)
             {
-                try
+                Task task = new Task(new Action(() =>
                 {
-                    EcuLog.SaveLog(sfdExportLog.FileName, dataPoints);
-                    MessageBox.Show("Log exported successfully", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to export log.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    try
+                    {
+                        EcuLog.SaveLog(sfdExportLog.FileName, dataPoints);
+                        this.Invoke(new Action(() => MessageBox.Show(this, "Log exported successfully", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information)));
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Invoke(new Action(() => MessageBox.Show(this, "Failed to export log.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                    }
+                }));
+
+                task.Start();
             }
         }
         
