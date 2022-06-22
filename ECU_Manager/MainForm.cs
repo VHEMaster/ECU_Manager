@@ -853,6 +853,9 @@ namespace ECU_Manager
                 lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
                 tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
 
+                lblOilPressCutoffRPM.Text = cs.ConfigStruct.parameters.oilPressureCutoffRPM.ToString("F0");
+                tbOilPressCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.oilPressureCutoffRPM);
+
                 lblShiftThrThr.Text = cs.ConfigStruct.parameters.shiftThrThr.ToString("F0");
                 tbShiftThrThr.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftThrThr);
 
@@ -1491,19 +1494,23 @@ namespace ECU_Manager
 
         private void tbCutoffRPM_Scroll(object sender, EventArgs e)
         {
-            if (cs.ConfigStruct.parameters.cutoffRPM > ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
-            else if (cs.ConfigStruct.parameters.cutoffRPM < ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-            ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-            ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-
-            lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
-            cs.ConfigStruct.parameters.cutoffRPM = ((TrackBar)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            try
             {
-                middleLayer.UpdateConfig();
+                if (cs.ConfigStruct.parameters.cutoffRPM > ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+                else if (cs.ConfigStruct.parameters.cutoffRPM < ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
+                lblCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
+                cs.ConfigStruct.parameters.cutoffRPM = ((TrackBar)sender).Value;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -1537,33 +1544,69 @@ namespace ECU_Manager
             }
         }
 
+        private void tbOilPressCutoffRPM_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cs.ConfigStruct.parameters.oilPressureCutoffRPM > ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 100;
+                else if (cs.ConfigStruct.parameters.oilPressureCutoffRPM < ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value += 100 - ((TrackBar)sender).Value % 100;
+
+                lblOilPressCutoffRPM.Text = ((TrackBar)sender).Value.ToString();
+                cs.ConfigStruct.parameters.oilPressureCutoffRPM = ((TrackBar)sender).Value;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         private void tbShiftRpmThr_Scroll(object sender, EventArgs e)
         {
-            if(cs.ConfigStruct.parameters.shiftRpmThr > ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
-            else if (cs.ConfigStruct.parameters.shiftRpmThr < ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-
-            lblShiftRpmThr.Text = ((TrackBar)sender).Value.ToString();
-            cs.ConfigStruct.parameters.shiftRpmThr = ((TrackBar)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            try
             {
-                middleLayer.UpdateConfig();
+                if (cs.ConfigStruct.parameters.shiftRpmThr > ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+                else if (cs.ConfigStruct.parameters.shiftRpmThr < ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
+                lblShiftRpmThr.Text = ((TrackBar)sender).Value.ToString();
+                cs.ConfigStruct.parameters.shiftRpmThr = ((TrackBar)sender).Value;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+            catch
+            {
+
             }
         }
 
         private void tbShiftRpmTill_Scroll(object sender, EventArgs e)
         {
-            if (cs.ConfigStruct.parameters.shiftRpmTill > ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
-            else if (cs.ConfigStruct.parameters.shiftRpmTill < ((TrackBar)sender).Value)
-                ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
-
-            lblShiftRpmTill.Text = ((TrackBar)sender).Value.ToString();
-            cs.ConfigStruct.parameters.shiftRpmTill = ((TrackBar)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            try
             {
-                middleLayer.UpdateConfig();
+                if (cs.ConfigStruct.parameters.shiftRpmTill > ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value -= ((TrackBar)sender).Value % 50;
+                else if (cs.ConfigStruct.parameters.shiftRpmTill < ((TrackBar)sender).Value)
+                    ((TrackBar)sender).Value += 50 - ((TrackBar)sender).Value % 50;
+
+                lblShiftRpmTill.Text = ((TrackBar)sender).Value.ToString();
+                cs.ConfigStruct.parameters.shiftRpmTill = ((TrackBar)sender).Value;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+            catch
+            {
+
             }
         }
 

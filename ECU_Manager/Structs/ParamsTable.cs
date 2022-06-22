@@ -25,6 +25,7 @@ namespace ECU_Manager.Structs
         public float cutoffRPM;
         public float cutoffAngle;
         public float cutoffMixture;
+        public float oilPressureCutoffRPM;
 
         public float speedCorrection;
 
@@ -57,7 +58,7 @@ namespace ECU_Manager.Structs
         public int useShortTermCorr;
         public int useLongTermCorr;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 984)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 983)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

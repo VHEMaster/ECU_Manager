@@ -220,6 +220,16 @@
             this.tabControl111 = new System.Windows.Forms.TabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cbIITInjCy4 = new System.Windows.Forms.CheckBox();
+            this.cbIITInjCy3 = new System.Windows.Forms.CheckBox();
+            this.cbIITInjCy2 = new System.Windows.Forms.CheckBox();
+            this.cbIITInjCy1 = new System.Windows.Forms.CheckBox();
+            this.cbIITIgnCy4 = new System.Windows.Forms.CheckBox();
+            this.cbIITIgnCy3 = new System.Windows.Forms.CheckBox();
+            this.cbIITIgnCy2 = new System.Windows.Forms.CheckBox();
+            this.cbIITIgnCy1 = new System.Windows.Forms.CheckBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
             this.btnIITestAbort = new System.Windows.Forms.Button();
             this.btnIITestRun = new System.Windows.Forms.Button();
             this.nudIITestIgnPulse = new ECU_Manager.Controls.NumericUpDownOneWheel();
@@ -481,16 +491,9 @@
             this.tmrSync = new System.Windows.Forms.Timer(this.components);
             this.dlgSetupImport = new System.Windows.Forms.OpenFileDialog();
             this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
-            this.label80 = new System.Windows.Forms.Label();
-            this.label81 = new System.Windows.Forms.Label();
-            this.cbIITIgnCy1 = new System.Windows.Forms.CheckBox();
-            this.cbIITIgnCy2 = new System.Windows.Forms.CheckBox();
-            this.cbIITIgnCy3 = new System.Windows.Forms.CheckBox();
-            this.cbIITIgnCy4 = new System.Windows.Forms.CheckBox();
-            this.cbIITInjCy4 = new System.Windows.Forms.CheckBox();
-            this.cbIITInjCy3 = new System.Windows.Forms.CheckBox();
-            this.cbIITInjCy2 = new System.Windows.Forms.CheckBox();
-            this.cbIITInjCy1 = new System.Windows.Forms.CheckBox();
+            this.lblOilPressCutoffRPM = new System.Windows.Forms.Label();
+            this.tbOilPressCutoffRPM = new System.Windows.Forms.TrackBar();
+            this.label83 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -685,6 +688,7 @@
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbOilPressCutoffRPM)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1765,6 +1769,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblOilPressCutoffRPM);
+            this.groupBox1.Controls.Add(this.tbOilPressCutoffRPM);
+            this.groupBox1.Controls.Add(this.label83);
             this.groupBox1.Controls.Add(this.lblCutoffMixture);
             this.groupBox1.Controls.Add(this.lblCutoffAngle);
             this.groupBox1.Controls.Add(this.tbCutoffMixture);
@@ -1785,7 +1792,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(225, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(213, 478);
+            this.groupBox1.Size = new System.Drawing.Size(213, 544);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cutoff Setup";
@@ -2068,6 +2075,96 @@
             this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Ignition/Injection Test";
+            // 
+            // cbIITInjCy4
+            // 
+            this.cbIITInjCy4.AutoSize = true;
+            this.cbIITInjCy4.Location = new System.Drawing.Point(208, 135);
+            this.cbIITInjCy4.Name = "cbIITInjCy4";
+            this.cbIITInjCy4.Size = new System.Drawing.Size(15, 14);
+            this.cbIITInjCy4.TabIndex = 22;
+            this.cbIITInjCy4.UseVisualStyleBackColor = true;
+            // 
+            // cbIITInjCy3
+            // 
+            this.cbIITInjCy3.AutoSize = true;
+            this.cbIITInjCy3.Location = new System.Drawing.Point(187, 135);
+            this.cbIITInjCy3.Name = "cbIITInjCy3";
+            this.cbIITInjCy3.Size = new System.Drawing.Size(15, 14);
+            this.cbIITInjCy3.TabIndex = 21;
+            this.cbIITInjCy3.UseVisualStyleBackColor = true;
+            // 
+            // cbIITInjCy2
+            // 
+            this.cbIITInjCy2.AutoSize = true;
+            this.cbIITInjCy2.Location = new System.Drawing.Point(166, 135);
+            this.cbIITInjCy2.Name = "cbIITInjCy2";
+            this.cbIITInjCy2.Size = new System.Drawing.Size(15, 14);
+            this.cbIITInjCy2.TabIndex = 20;
+            this.cbIITInjCy2.UseVisualStyleBackColor = true;
+            // 
+            // cbIITInjCy1
+            // 
+            this.cbIITInjCy1.AutoSize = true;
+            this.cbIITInjCy1.Location = new System.Drawing.Point(145, 135);
+            this.cbIITInjCy1.Name = "cbIITInjCy1";
+            this.cbIITInjCy1.Size = new System.Drawing.Size(15, 14);
+            this.cbIITInjCy1.TabIndex = 19;
+            this.cbIITInjCy1.UseVisualStyleBackColor = true;
+            // 
+            // cbIITIgnCy4
+            // 
+            this.cbIITIgnCy4.AutoSize = true;
+            this.cbIITIgnCy4.Location = new System.Drawing.Point(87, 135);
+            this.cbIITIgnCy4.Name = "cbIITIgnCy4";
+            this.cbIITIgnCy4.Size = new System.Drawing.Size(15, 14);
+            this.cbIITIgnCy4.TabIndex = 18;
+            this.cbIITIgnCy4.UseVisualStyleBackColor = true;
+            // 
+            // cbIITIgnCy3
+            // 
+            this.cbIITIgnCy3.AutoSize = true;
+            this.cbIITIgnCy3.Location = new System.Drawing.Point(66, 135);
+            this.cbIITIgnCy3.Name = "cbIITIgnCy3";
+            this.cbIITIgnCy3.Size = new System.Drawing.Size(15, 14);
+            this.cbIITIgnCy3.TabIndex = 17;
+            this.cbIITIgnCy3.UseVisualStyleBackColor = true;
+            // 
+            // cbIITIgnCy2
+            // 
+            this.cbIITIgnCy2.AutoSize = true;
+            this.cbIITIgnCy2.Location = new System.Drawing.Point(45, 135);
+            this.cbIITIgnCy2.Name = "cbIITIgnCy2";
+            this.cbIITIgnCy2.Size = new System.Drawing.Size(15, 14);
+            this.cbIITIgnCy2.TabIndex = 16;
+            this.cbIITIgnCy2.UseVisualStyleBackColor = true;
+            // 
+            // cbIITIgnCy1
+            // 
+            this.cbIITIgnCy1.AutoSize = true;
+            this.cbIITIgnCy1.Location = new System.Drawing.Point(24, 135);
+            this.cbIITIgnCy1.Name = "cbIITIgnCy1";
+            this.cbIITIgnCy1.Size = new System.Drawing.Size(15, 14);
+            this.cbIITIgnCy1.TabIndex = 15;
+            this.cbIITIgnCy1.UseVisualStyleBackColor = true;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(141, 102);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(80, 24);
+            this.label81.TabIndex = 14;
+            this.label81.Text = "Injection";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(20, 102);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(70, 24);
+            this.label80.TabIndex = 13;
+            this.label80.Text = "Ignition";
             // 
             // btnIITestAbort
             // 
@@ -3777,7 +3874,7 @@
             series15.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series15.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.ePressureByRPMvsTPS.Chart.Series.Add(series15);
-            this.ePressureByRPMvsTPS.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.ePressureByRPMvsTPS.Chart.Size = new System.Drawing.Size(1046, 235);
             this.ePressureByRPMvsTPS.Chart.TabIndex = 4;
             this.ePressureByRPMvsTPS.Chart.Text = " ";
             this.ePressureByRPMvsTPS.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3799,7 +3896,7 @@
             this.ePressureByRPMvsTPS.Graph3D.Name = "graph3D";
             this.ePressureByRPMvsTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.ePressureByRPMvsTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(403, 201);
+            this.ePressureByRPMvsTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.ePressureByRPMvsTPS.Graph3D.TabIndex = 0;
             this.ePressureByRPMvsTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.ePressureByRPMvsTPS.LabelTitle = "Pressure by RPM vs. TPS";
@@ -4704,7 +4801,7 @@
             series17.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series17.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIgnition.Chart.Series.Add(series17);
-            this.eIgnition.Chart.Size = new System.Drawing.Size(1149, 169);
+            this.eIgnition.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eIgnition.Chart.TabIndex = 4;
             this.eIgnition.Chart.Text = " ";
             this.eIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5067,7 +5164,7 @@
             series19.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series19.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eFuelMixtures.Chart.Series.Add(series19);
-            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1149, 169);
+            this.eFuelMixtures.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eFuelMixtures.Chart.TabIndex = 4;
             this.eFuelMixtures.Chart.Text = " ";
             this.eFuelMixtures.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5177,7 +5274,7 @@
             series20.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series20.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eInjectionPhase.Chart.Series.Add(series20);
-            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eInjectionPhase.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eInjectionPhase.Chart.TabIndex = 4;
             this.eInjectionPhase.Chart.Text = " ";
             this.eInjectionPhase.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5541,7 +5638,7 @@
             series22.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series22.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIdleValveVsRpm.Chart.Series.Add(series22);
-            this.eIdleValveVsRpm.Chart.Size = new System.Drawing.Size(1149, 164);
+            this.eIdleValveVsRpm.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eIdleValveVsRpm.Chart.TabIndex = 4;
             this.eIdleValveVsRpm.Chart.Text = " ";
             this.eIdleValveVsRpm.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5563,7 +5660,7 @@
             this.eIdleValveVsRpm.Graph3D.Name = "graph3D";
             this.eIdleValveVsRpm.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eIdleValveVsRpm.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(403, 201);
+            this.eIdleValveVsRpm.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eIdleValveVsRpm.Graph3D.TabIndex = 0;
             this.eIdleValveVsRpm.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eIdleValveVsRpm.LabelTitle = "Idle Valve vs. RPM";
@@ -6482,7 +6579,7 @@
             series24.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series24.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsIdleValveToRPM.Chart.Series.Add(series24);
-            this.eCorrsIdleValveToRPM.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsIdleValveToRPM.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsIdleValveToRPM.Chart.TabIndex = 4;
             this.eCorrsIdleValveToRPM.Chart.Text = " ";
             this.eCorrsIdleValveToRPM.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6504,7 +6601,7 @@
             this.eCorrsIdleValveToRPM.Graph3D.Name = "graph3D";
             this.eCorrsIdleValveToRPM.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIdleValveToRPM.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsIdleValveToRPM.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIdleValveToRPM.Graph3D.TabIndex = 0;
             this.eCorrsIdleValveToRPM.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIdleValveToRPM.LabelTitle = "Idle Valve to RPM";
@@ -6596,7 +6693,7 @@
             series25.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series25.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsIgnition.Chart.Series.Add(series25);
-            this.eCorrsIgnition.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsIgnition.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsIgnition.Chart.TabIndex = 4;
             this.eCorrsIgnition.Chart.Text = " ";
             this.eCorrsIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6618,7 +6715,7 @@
             this.eCorrsIgnition.Graph3D.Name = "graph3D";
             this.eCorrsIgnition.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsIgnition.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsIgnition.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsIgnition.Graph3D.TabIndex = 0;
             this.eCorrsIgnition.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsIgnition.LabelTitle = "Ignitions";
@@ -6710,7 +6807,7 @@
             series26.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series26.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCorrsPressureByTPS.Chart.Series.Add(series26);
-            this.eCorrsPressureByTPS.Chart.Size = new System.Drawing.Size(951, 179);
+            this.eCorrsPressureByTPS.Chart.Size = new System.Drawing.Size(1046, 235);
             this.eCorrsPressureByTPS.Chart.TabIndex = 4;
             this.eCorrsPressureByTPS.Chart.Text = " ";
             this.eCorrsPressureByTPS.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -6732,7 +6829,7 @@
             this.eCorrsPressureByTPS.Graph3D.Name = "graph3D";
             this.eCorrsPressureByTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCorrsPressureByTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(331, 221);
+            this.eCorrsPressureByTPS.Graph3D.Size = new System.Drawing.Size(365, 302);
             this.eCorrsPressureByTPS.Graph3D.TabIndex = 0;
             this.eCorrsPressureByTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCorrsPressureByTPS.LabelTitle = "Pressure by TPS";
@@ -7559,95 +7656,39 @@
             this.dlgSetupExport.Filter = "AutoECU Setup|*.ecusetup";
             this.dlgSetupExport.RestoreDirectory = true;
             // 
-            // label80
+            // lblOilPressCutoffRPM
             // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(20, 102);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(70, 24);
-            this.label80.TabIndex = 13;
-            this.label80.Text = "Ignition";
+            this.lblOilPressCutoffRPM.AutoSize = true;
+            this.lblOilPressCutoffRPM.Location = new System.Drawing.Point(145, 475);
+            this.lblOilPressCutoffRPM.Margin = new System.Windows.Forms.Padding(0);
+            this.lblOilPressCutoffRPM.Name = "lblOilPressCutoffRPM";
+            this.lblOilPressCutoffRPM.Size = new System.Drawing.Size(20, 24);
+            this.lblOilPressCutoffRPM.TabIndex = 23;
+            this.lblOilPressCutoffRPM.Text = "0";
             // 
-            // label81
+            // tbOilPressCutoffRPM
             // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(141, 102);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(80, 24);
-            this.label81.TabIndex = 14;
-            this.label81.Text = "Injection";
+            this.tbOilPressCutoffRPM.LargeChange = 500;
+            this.tbOilPressCutoffRPM.Location = new System.Drawing.Point(1, 502);
+            this.tbOilPressCutoffRPM.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.tbOilPressCutoffRPM.Maximum = 6000;
+            this.tbOilPressCutoffRPM.Name = "tbOilPressCutoffRPM";
+            this.tbOilPressCutoffRPM.Size = new System.Drawing.Size(206, 45);
+            this.tbOilPressCutoffRPM.SmallChange = 50;
+            this.tbOilPressCutoffRPM.TabIndex = 22;
+            this.tbOilPressCutoffRPM.TickFrequency = 500;
+            this.tbOilPressCutoffRPM.Value = 2000;
+            this.tbOilPressCutoffRPM.Scroll += new System.EventHandler(this.tbOilPressCutoffRPM_Scroll);
             // 
-            // cbIITIgnCy1
+            // label83
             // 
-            this.cbIITIgnCy1.AutoSize = true;
-            this.cbIITIgnCy1.Location = new System.Drawing.Point(24, 135);
-            this.cbIITIgnCy1.Name = "cbIITIgnCy1";
-            this.cbIITIgnCy1.Size = new System.Drawing.Size(15, 14);
-            this.cbIITIgnCy1.TabIndex = 15;
-            this.cbIITIgnCy1.UseVisualStyleBackColor = true;
-            // 
-            // cbIITIgnCy2
-            // 
-            this.cbIITIgnCy2.AutoSize = true;
-            this.cbIITIgnCy2.Location = new System.Drawing.Point(45, 135);
-            this.cbIITIgnCy2.Name = "cbIITIgnCy2";
-            this.cbIITIgnCy2.Size = new System.Drawing.Size(15, 14);
-            this.cbIITIgnCy2.TabIndex = 16;
-            this.cbIITIgnCy2.UseVisualStyleBackColor = true;
-            // 
-            // cbIITIgnCy3
-            // 
-            this.cbIITIgnCy3.AutoSize = true;
-            this.cbIITIgnCy3.Location = new System.Drawing.Point(66, 135);
-            this.cbIITIgnCy3.Name = "cbIITIgnCy3";
-            this.cbIITIgnCy3.Size = new System.Drawing.Size(15, 14);
-            this.cbIITIgnCy3.TabIndex = 17;
-            this.cbIITIgnCy3.UseVisualStyleBackColor = true;
-            // 
-            // cbIITIgnCy4
-            // 
-            this.cbIITIgnCy4.AutoSize = true;
-            this.cbIITIgnCy4.Location = new System.Drawing.Point(87, 135);
-            this.cbIITIgnCy4.Name = "cbIITIgnCy4";
-            this.cbIITIgnCy4.Size = new System.Drawing.Size(15, 14);
-            this.cbIITIgnCy4.TabIndex = 18;
-            this.cbIITIgnCy4.UseVisualStyleBackColor = true;
-            // 
-            // cbIITInjCy4
-            // 
-            this.cbIITInjCy4.AutoSize = true;
-            this.cbIITInjCy4.Location = new System.Drawing.Point(208, 135);
-            this.cbIITInjCy4.Name = "cbIITInjCy4";
-            this.cbIITInjCy4.Size = new System.Drawing.Size(15, 14);
-            this.cbIITInjCy4.TabIndex = 22;
-            this.cbIITInjCy4.UseVisualStyleBackColor = true;
-            // 
-            // cbIITInjCy3
-            // 
-            this.cbIITInjCy3.AutoSize = true;
-            this.cbIITInjCy3.Location = new System.Drawing.Point(187, 135);
-            this.cbIITInjCy3.Name = "cbIITInjCy3";
-            this.cbIITInjCy3.Size = new System.Drawing.Size(15, 14);
-            this.cbIITInjCy3.TabIndex = 21;
-            this.cbIITInjCy3.UseVisualStyleBackColor = true;
-            // 
-            // cbIITInjCy2
-            // 
-            this.cbIITInjCy2.AutoSize = true;
-            this.cbIITInjCy2.Location = new System.Drawing.Point(166, 135);
-            this.cbIITInjCy2.Name = "cbIITInjCy2";
-            this.cbIITInjCy2.Size = new System.Drawing.Size(15, 14);
-            this.cbIITInjCy2.TabIndex = 20;
-            this.cbIITInjCy2.UseVisualStyleBackColor = true;
-            // 
-            // cbIITInjCy1
-            // 
-            this.cbIITInjCy1.AutoSize = true;
-            this.cbIITInjCy1.Location = new System.Drawing.Point(145, 135);
-            this.cbIITInjCy1.Name = "cbIITInjCy1";
-            this.cbIITInjCy1.Size = new System.Drawing.Size(15, 14);
-            this.cbIITInjCy1.TabIndex = 19;
-            this.cbIITInjCy1.UseVisualStyleBackColor = true;
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(4, 475);
+            this.label83.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(141, 24);
+            this.label83.TabIndex = 21;
+            this.label83.Text = "Oil Press. RPM:";
             // 
             // MainForm
             // 
@@ -7872,6 +7913,7 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCheckEngine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbOilPressCutoffRPM)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -8246,5 +8288,8 @@
         private System.Windows.Forms.CheckBox cbIITIgnCy1;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label lblOilPressCutoffRPM;
+        private System.Windows.Forms.TrackBar tbOilPressCutoffRPM;
+        private System.Windows.Forms.Label label83;
     }
 }
