@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[86]
+        private static readonly string[] ErrorStrings = new string[88]
         {
             "Invalid",
             "Flash: Load failure",
@@ -160,6 +160,9 @@ namespace ECU_Manager.Structs
             "Sensor: Rich Mixture",
             "Sensor: Lean Idle Mixture",
             "Sensor: Rich Idle Mixture",
+
+            "Engine: No Oil Pressure",
+            "Engine: No Battery Charge",
         };
 
         public static string GetStringForCode(ErrorCode errorCode)
@@ -259,6 +262,8 @@ namespace ECU_Manager.Structs
         EngineRichMixture,
         EngineLeanIdleMixture,
         EngineRichIdleMixture,
+        NoOilPressure,
+        NoBatteryCharge,
         Count,
     };
 }
