@@ -654,6 +654,9 @@ namespace ECU_Manager
             btnCorrAppendIdleValve.Enabled = false;
             btnCorrAppendIgnitions.Enabled = false;
             btnCorrAppendPressureByTPS.Enabled = false;
+
+            rbCorrInterpolationFunc.Enabled = false;
+            rbCorrPointFunc.Enabled = false;
         }
 
         private void CorrStop()
@@ -671,6 +674,9 @@ namespace ECU_Manager
             btnCorrAppendIdleValve.Enabled = true;
             btnCorrAppendIgnitions.Enabled = true;
             btnCorrAppendPressureByTPS.Enabled = true;
+
+            rbCorrInterpolationFunc.Enabled = true;
+            rbCorrPointFunc.Enabled = true;
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -997,6 +1003,21 @@ namespace ECU_Manager
 
             nudParamsKnockIgnCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_ign_corr_max;
             nudParamsKnockInjCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_inj_corr_max;
+
+            if (cs.ConfigStruct.parameters.performAdaptation == 1)
+            {
+                rbCorrInterpolationFunc.Checked = false;
+                rbCorrPointFunc.Checked = false;
+
+                rbCorrInterpolationFunc.Checked = true;
+            }
+            else if (cs.ConfigStruct.parameters.performAdaptation == 2)
+            {
+                rbCorrInterpolationFunc.Checked = false;
+                rbCorrPointFunc.Checked = false;
+
+                rbCorrPointFunc.Checked = true;
+            }
 
             SynchronizeCharts();
         }
@@ -1821,7 +1842,7 @@ namespace ECU_Manager
 
         private void btnCorrStop_Click(object sender, EventArgs e)
         {
-            if (!middleLayer.IsSynchronizing)
+             if (!middleLayer.IsSynchronizing)
             {
                 cs.ConfigStruct.parameters.performAdaptation = 0;
                 CorrStop();

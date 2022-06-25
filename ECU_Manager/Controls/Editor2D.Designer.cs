@@ -49,6 +49,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.cbInterpolateUseProgress = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -174,6 +175,7 @@
             // tpInterpolation
             // 
             this.tpInterpolation.BackColor = System.Drawing.Color.Transparent;
+            this.tpInterpolation.Controls.Add(this.cbInterpolateUseProgress);
             this.tpInterpolation.Controls.Add(this.btnInterpolate);
             this.tpInterpolation.Controls.Add(this.nudInterpolationRadius);
             this.tpInterpolation.Controls.Add(this.nudInterpolationAmount);
@@ -368,6 +370,20 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cbInterpolateUseProgress
+            // 
+            this.cbInterpolateUseProgress.AutoSize = true;
+            this.cbInterpolateUseProgress.Checked = true;
+            this.cbInterpolateUseProgress.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbInterpolateUseProgress.Enabled = false;
+            this.cbInterpolateUseProgress.Location = new System.Drawing.Point(10, 152);
+            this.cbInterpolateUseProgress.Name = "cbInterpolateUseProgress";
+            this.cbInterpolateUseProgress.Size = new System.Drawing.Size(142, 28);
+            this.cbInterpolateUseProgress.TabIndex = 9;
+            this.cbInterpolateUseProgress.Text = "Use Progress";
+            this.cbInterpolateUseProgress.UseVisualStyleBackColor = true;
+            this.cbInterpolateUseProgress.Visible = false;
+            // 
             // Editor2D
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -419,5 +435,6 @@
         private System.Windows.Forms.NumericUpDown nudInterpolationKoff;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbInterpolateUseProgress;
     }
 }

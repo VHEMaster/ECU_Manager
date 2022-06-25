@@ -46,6 +46,7 @@ namespace ECU_Manager.Controls
         private string sFormatStatusD;
         private string sArrayName;
         private string sCalibrationTable;
+        private bool bCalibrationEnabled;
         private double dStepSize;
         private double dIntervalX;
         private double dIntervalY;
@@ -278,12 +279,31 @@ namespace ECU_Manager.Controls
 
         public void SetCalibrationTable(string table)
         {
+            Action action = new Action(() =>
+            {
+                cbInterpolateUseProgress.Enabled = false;
+                cbInterpolateUseProgress.Visible = true;
+            });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+
             sCalibrationTable = table;
+            bCalibrationEnabled = true;
         }
 
         public void ClearCalibrationTable()
         {
-            sCalibrationTable = string.Empty;
+            Action action = new Action(() =>
+            {
+                cbInterpolateUseProgress.Enabled = true;
+                cbInterpolateUseProgress.Visible = true;
+            });
+            if (this.InvokeRequired)
+                this.BeginInvoke(action);
+            else action.Invoke();
+
+            bCalibrationEnabled = false;
         }
 
         public void SetTableColorTrans(ColorTransience colorTransience)
@@ -745,7 +765,7 @@ namespace ECU_Manager.Controls
                                 if (!nud.Focused && nud.Value != (decimal)array2d[index])
                                     nud.Value = (decimal)array2d[index];
 
-                                if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+                                if (!string.IsNullOrWhiteSpace(sCalibrationTable) && bCalibrationEnabled)
                                 {
                                     if (arraycalib == null)
                                     {
@@ -972,6 +992,7 @@ namespace ECU_Manager.Controls
             int sizey = 0;
             float[] array2d = null;
             float[] new2d = null;
+            byte[] arraycalib = null;
             double koff = (double)nudInterpolationKoff.Value;
             int amount = (int)nudInterpolationAmount.Value;
             int radius = (int)nudInterpolationRadius.Value;
@@ -1006,11 +1027,20 @@ namespace ECU_Manager.Controls
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+            {
+                FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
+                if (calibrationTable != null)
+                    arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+            }
+
             if (sizex > 0 && sizey > 0 && array2d != null)
             {
                 new2d = new float[array2d.Length];
                 array2d.CopyTo(new2d, 0);
                 double temp_koff;
+                double calib_koff = 1.0;
+                double val;
                 int index;
                 int dindex;
                 double valuex1, valuey1, valuex2, valuey2;
@@ -1064,7 +1094,14 @@ namespace ECU_Manager.Controls
                                     valuey2 = array2d[dindex] * temp_koff + valuey2 * (1.0D - temp_koff);
                                 }
                             }
-                            new2d[index] = (float)(((valuex1 + valuey1 + valuex2 + valuey2) * koff * 0.25D) + new2d[index] * (1.0D - koff));
+
+                            val = ((valuex1 + valuey1 + valuex2 + valuey2) * koff * 0.25D) + new2d[index] * (1.0D - koff);
+
+                            if (arraycalib != null && cbInterpolateUseProgress.Checked)
+                                calib_koff = 1.0D - (arraycalib[index] / 255.0D);
+                            else calib_koff = 1.0D;
+
+                            new2d[index] = (float)(val * calib_koff + new2d[index] * (1.0D - calib_koff));
 
                         }
                     }
