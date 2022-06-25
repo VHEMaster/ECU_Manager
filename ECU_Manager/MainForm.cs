@@ -402,6 +402,24 @@ namespace ECU_Manager
             eKnockThreshold.SetTableEventHandler(ChartUpdateEvent);
 
 
+            eKnockZone.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                0.0D, 1.0D, 0.01D, 100.0D, 0.5D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eKnockZone.SetConfig("knock_zone", "rotates_count", "fillings_count", "rotates", "fillings");
+            eKnockZone.SetX("RPM", "RPM", "F0");
+            eKnockZone.SetY("KnockZone", "KnockZone", "F2");
+            eKnockZone.SetD("CyclicAirFlow", "Filling", "F1");
+            eKnockZone.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(0.0F, 1.0F, Color.Gray);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.OrangeRed, 0.3F);
+            colorTransience.Add(Color.Red, 1.0F);
+
+            eKnockZone.SetTableColorTrans(colorTransience);
+
 
             colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -1.0F);
@@ -549,6 +567,7 @@ namespace ECU_Manager
             eIdleValveInitial.SetY("IdleValvePosition", "Valve", "F0");
             eIdleValveInitial.SetTableEventHandler(ChartUpdateEvent);
 
+
             SynchronizeCharts();
         }
 
@@ -566,6 +585,7 @@ namespace ECU_Manager
             eCorrsPressureByTPS.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
             eAirTempIgnCorr.SynchronizeChart();
+            eKnockZone.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -605,6 +625,7 @@ namespace ECU_Manager
 
             eKnockThreshold.UpdateChart();
             eKnockNoiseLevel.UpdateChart();
+            eKnockZone.UpdateChart();
 
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
@@ -973,7 +994,10 @@ namespace ECU_Manager
             nudParamsCorrIgnCy2.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[1];
             nudParamsCorrIgnCy3.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[2];
             nudParamsCorrIgnCy4.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_ignition[3];
-            
+
+            nudParamsKnockIgnCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_ign_corr_max;
+            nudParamsKnockInjCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_inj_corr_max;
+
             SynchronizeCharts();
         }
 
@@ -2414,6 +2438,24 @@ namespace ECU_Manager
         private void nudParamsEnrPMapTps_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsKnockIgnCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].knock_ign_corr_max = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsKnockInjCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].knock_inj_corr_max = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

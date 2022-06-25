@@ -51,6 +51,16 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("value")]
         public byte[] progress_idle_valve_to_rpm;
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
+        [XmlArray("knock_ignition_correctives")]
+        [XmlArrayItem("value")]
+        public float[] knock_ignition_correctives;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
+        [XmlArray("knock_injection_correctives")]
+        [XmlArrayItem("value")]
+        public float[] knock_injection_correctives;
+
         public float long_term_correction;
         public float idle_correction;
     }

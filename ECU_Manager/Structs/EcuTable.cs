@@ -198,6 +198,9 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("shift")]
         public float[] idle_rpm_shift;
 
+        public float knock_ign_corr_max;
+        public float knock_inj_corr_max;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("knock_noise_level")]
         [XmlArrayItem("noise")]
@@ -206,6 +209,10 @@ namespace ECU_Manager.Structs
         [XmlArray("knock_threshold")]
         [XmlArrayItem("threshold")]
         public float[] knock_threshold;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_zone")]
+        [XmlArrayItem("multiplier")]
+        public float[] knock_zone;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("cy_corr_injection")]
@@ -216,7 +223,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 541)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 283)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
