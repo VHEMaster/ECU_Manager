@@ -1805,9 +1805,16 @@ namespace ECU_Manager
             {
                 if (!middleLayer.IsSynchronizing)
                 {
-                    cs.ConfigStruct.parameters.performAdaptation = 1;
-                    CorrStart();
-                    middleLayer.UpdateConfig();
+                    if (rbCorrInterpolationFunc.Checked && !rbCorrPointFunc.Checked)
+                        cs.ConfigStruct.parameters.performAdaptation = 1;
+                    else if (rbCorrPointFunc.Checked && !rbCorrInterpolationFunc.Checked)
+                        cs.ConfigStruct.parameters.performAdaptation = 2;
+
+                    if (cs.ConfigStruct.parameters.performAdaptation > 0)
+                    {
+                        CorrStart();
+                        middleLayer.UpdateConfig();
+                    }
                 }
             }
         }
