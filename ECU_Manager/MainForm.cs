@@ -405,7 +405,7 @@ namespace ECU_Manager
             eKnockZone.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0.0D, 1.0D, 0.01D, 100.0D, 0.5D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+                0.0D, 1.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
 
             eKnockZone.SetConfig("knock_zone", "rotates_count", "fillings_count", "rotates", "fillings");
             eKnockZone.SetX("RPM", "RPM", "F0");

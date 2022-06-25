@@ -446,6 +446,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "AdcLambdaUA") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcLambdaUA, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockSensor") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensor, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockSensorFiltered") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "KnockSensorDetonate") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorDetonate, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockZone") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockAdvance") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "AirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.AirTemp, .title = "%s%0.1f"},

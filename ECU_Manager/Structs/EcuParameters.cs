@@ -29,6 +29,7 @@ namespace ECU_Manager.Structs
 
         public float KnockSensor;
         public float KnockSensorFiltered;
+        public float KnockSensorDetonate;
         public float KnockZone;
         public float KnockAdvance;
         public float AirTemp;
