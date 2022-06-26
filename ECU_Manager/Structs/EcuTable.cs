@@ -214,6 +214,10 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("multiplier")]
         public float[] knock_zone;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_gain")]
+        [XmlArrayItem("frequency")]
+        public float[] knock_gain;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("knock_filter_frequency")]
         [XmlArrayItem("frequency")]
         public float[] knock_filter_frequency;
@@ -227,7 +231,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 267)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 251)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

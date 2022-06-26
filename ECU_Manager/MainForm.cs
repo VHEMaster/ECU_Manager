@@ -400,11 +400,16 @@ namespace ECU_Manager
             eKnockThreshold.SetX("RPM", "RPM", "F0");
             eKnockThreshold.SetY("KnockSensorFiltered", "Knock Level", "F2");
             eKnockThreshold.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eKnockFilterFrequency.Initialize(cs, 0, 63, 1, 1, 30D, 50D, 500, 2D, 0);
             eKnockFilterFrequency.SetConfig("knock_filter_frequency", "rotates_count", "rotates");
             eKnockFilterFrequency.SetX("RPM", "RPM", "F0");
             eKnockFilterFrequency.SetTableEventHandler(ChartUpdateEvent);
+
+            eKnockGain.Initialize(cs, 0, 63, 1, 1, 0D, 63D, 500, 5D, 0);
+            eKnockGain.SetConfig("knock_gain", "rotates_count", "rotates");
+            eKnockGain.SetX("RPM", "RPM", "F0");
+            eKnockGain.SetTableEventHandler(ChartUpdateEvent);
 
 
             eKnockZone.Initialize(cs, Editor2DMode.EcuTable,
@@ -632,6 +637,7 @@ namespace ECU_Manager
             eKnockNoiseLevel.UpdateChart();
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
+            eKnockGain.UpdateChart();
 
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
@@ -912,7 +918,6 @@ namespace ECU_Manager
                 nudSpeedCorr.Value = (decimal)cs.ConfigStruct.parameters.speedCorrection;
                 nudTspsRelPos.Value = (decimal)cs.ConfigStruct.parameters.tspsRelPos;
                 nudTspsDsThr.Value = (decimal)cs.ConfigStruct.parameters.tspsDesyncThr;
-                nudKnockGain.Value = cs.ConfigStruct.parameters.knockGain;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
 
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
@@ -1767,15 +1772,6 @@ namespace ECU_Manager
         private void nudFuelForce_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.forceTable = (int)((NumericUpDown)sender).Value - 1;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateConfig();
-            }
-        }
-
-        private void nudKnockGain_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.parameters.knockGain = (int)((NumericUpDown)sender).Value - 1;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
