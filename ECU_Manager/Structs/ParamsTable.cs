@@ -58,7 +58,10 @@ namespace ECU_Manager.Structs
         public int useShortTermCorr;
         public int useLongTermCorr;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 983)]
+        public int knockGain;
+        public int knockIntegratorTime;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 981)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
