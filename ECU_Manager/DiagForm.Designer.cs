@@ -65,7 +65,12 @@
             this.lbParamsAvailable = new System.Windows.Forms.ListBox();
             this.timer200ms = new System.Windows.Forms.Timer(this.components);
             this.sfdExportLog = new System.Windows.Forms.SaveFileDialog();
+            this.btnSaveParams = new System.Windows.Forms.Button();
+            this.btnImportParams = new System.Windows.Forms.Button();
+            this.sfdSaveParams = new System.Windows.Forms.SaveFileDialog();
+            this.ofdImportParams = new System.Windows.Forms.OpenFileDialog();
             this.nudForceTemplate = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -81,6 +86,7 @@
             this.gpForceTemplate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbForceTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudForceTemplate)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -90,9 +96,9 @@
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Panel2MinSize = 300;
-            this.splitContainer1.Size = new System.Drawing.Size(334, 563);
-            this.splitContainer1.SplitterDistance = 25;
+            this.splitContainer1.Panel2MinSize = 330;
+            this.splitContainer1.Size = new System.Drawing.Size(362, 563);
+            this.splitContainer1.SplitterDistance = 27;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.Visible = false;
             // 
@@ -109,7 +115,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(0, 0);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(334, 563);
+            this.tabControl1.Size = new System.Drawing.Size(362, 563);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -119,7 +125,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(297, 555);
+            this.tabPage1.Size = new System.Drawing.Size(325, 555);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Charts";
             // 
@@ -132,7 +138,7 @@
             this.panelChart.Location = new System.Drawing.Point(0, 0);
             this.panelChart.Margin = new System.Windows.Forms.Padding(0);
             this.panelChart.Name = "panelChart";
-            this.panelChart.Size = new System.Drawing.Size(297, 555);
+            this.panelChart.Size = new System.Drawing.Size(325, 555);
             this.panelChart.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -155,17 +161,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(297, 555);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(325, 555);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // lblTimeScale
             // 
             this.lblTimeScale.AutoSize = true;
             this.lblTimeScale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTimeScale.Location = new System.Drawing.Point(148, 500);
+            this.lblTimeScale.Location = new System.Drawing.Point(162, 500);
             this.lblTimeScale.Margin = new System.Windows.Forms.Padding(0);
             this.lblTimeScale.Name = "lblTimeScale";
-            this.lblTimeScale.Size = new System.Drawing.Size(149, 30);
+            this.lblTimeScale.Size = new System.Drawing.Size(163, 30);
             this.lblTimeScale.TabIndex = 3;
             this.lblTimeScale.Text = "+10s";
             this.lblTimeScale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -176,7 +182,7 @@
             this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hScrollBar1.Location = new System.Drawing.Point(0, 530);
             this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(297, 25);
+            this.hScrollBar1.Size = new System.Drawing.Size(325, 25);
             this.hScrollBar1.TabIndex = 0;
             this.hScrollBar1.Value = 90;
             // 
@@ -194,7 +200,7 @@
             this.tlpCharts.RowCount = 2;
             this.tlpCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpCharts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpCharts.Size = new System.Drawing.Size(297, 475);
+            this.tlpCharts.Size = new System.Drawing.Size(325, 475);
             this.tlpCharts.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -211,7 +217,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(291, 231);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(319, 231);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label3
@@ -219,7 +225,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(94, 0);
+            this.label3.Location = new System.Drawing.Point(122, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(194, 50);
             this.label3.TabIndex = 0;
@@ -231,7 +237,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(94, 50);
+            this.label4.Location = new System.Drawing.Point(122, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(194, 181);
             this.label4.TabIndex = 1;
@@ -276,7 +282,7 @@
             series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(91, 231);
+            this.chart1.Size = new System.Drawing.Size(119, 231);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
             this.chart1.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
@@ -288,7 +294,7 @@
             this.lblTimePos.Location = new System.Drawing.Point(0, 500);
             this.lblTimePos.Margin = new System.Windows.Forms.Padding(0);
             this.lblTimePos.Name = "lblTimePos";
-            this.lblTimePos.Size = new System.Drawing.Size(148, 30);
+            this.lblTimePos.Size = new System.Drawing.Size(162, 30);
             this.lblTimePos.TabIndex = 2;
             this.lblTimePos.Text = "0s";
             this.lblTimePos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -302,12 +308,12 @@
             this.tableLayoutPanel3.Controls.Add(this.btnZoomOut, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnZoomIn, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(148, 475);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(162, 475);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(149, 25);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(163, 25);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // btnZoomOut
@@ -315,7 +321,7 @@
             this.btnZoomOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZoomOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.btnZoomOut.Location = new System.Drawing.Point(119, 0);
+            this.btnZoomOut.Location = new System.Drawing.Point(133, 0);
             this.btnZoomOut.Margin = new System.Windows.Forms.Padding(0);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(30, 25);
@@ -329,7 +335,7 @@
             this.btnZoomIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZoomIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.btnZoomIn.Location = new System.Drawing.Point(89, 0);
+            this.btnZoomIn.Location = new System.Drawing.Point(103, 0);
             this.btnZoomIn.Margin = new System.Windows.Forms.Padding(0);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(30, 25);
@@ -358,7 +364,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(297, 555);
+            this.tabPage2.Size = new System.Drawing.Size(325, 555);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Setup";
             // 
@@ -366,7 +372,7 @@
             // 
             this.panelSetup.AutoScroll = true;
             this.panelSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(32)))), ((int)(((byte)(0)))));
-            this.panelSetup.Controls.Add(this.btnExportLog);
+            this.panelSetup.Controls.Add(this.tableLayoutPanel4);
             this.panelSetup.Controls.Add(this.gpForceTemplate);
             this.panelSetup.Controls.Add(this.label5);
             this.panelSetup.Controls.Add(this.btnUsedMoveUp);
@@ -382,15 +388,17 @@
             this.panelSetup.Location = new System.Drawing.Point(0, 0);
             this.panelSetup.Margin = new System.Windows.Forms.Padding(0);
             this.panelSetup.Name = "panelSetup";
-            this.panelSetup.Size = new System.Drawing.Size(297, 555);
+            this.panelSetup.Size = new System.Drawing.Size(325, 555);
             this.panelSetup.TabIndex = 1;
             // 
             // btnExportLog
             // 
+            this.btnExportLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExportLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportLog.Location = new System.Drawing.Point(8, 326);
+            this.btnExportLog.Location = new System.Drawing.Point(1, 37);
+            this.btnExportLog.Margin = new System.Windows.Forms.Padding(1);
             this.btnExportLog.Name = "btnExportLog";
-            this.btnExportLog.Size = new System.Drawing.Size(132, 34);
+            this.btnExportLog.Size = new System.Drawing.Size(150, 34);
             this.btnExportLog.TabIndex = 12;
             this.btnExportLog.Text = "Export Log";
             this.btnExportLog.UseVisualStyleBackColor = true;
@@ -405,11 +413,11 @@
             this.gpForceTemplate.Controls.Add(this.cbForceTemplate);
             this.gpForceTemplate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.gpForceTemplate.ForeColor = System.Drawing.Color.White;
-            this.gpForceTemplate.Location = new System.Drawing.Point(8, 387);
+            this.gpForceTemplate.Location = new System.Drawing.Point(8, 422);
             this.gpForceTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.gpForceTemplate.Name = "gpForceTemplate";
             this.gpForceTemplate.Padding = new System.Windows.Forms.Padding(0);
-            this.gpForceTemplate.Size = new System.Drawing.Size(269, 91);
+            this.gpForceTemplate.Size = new System.Drawing.Size(297, 91);
             this.gpForceTemplate.TabIndex = 11;
             this.gpForceTemplate.TabStop = false;
             this.gpForceTemplate.Text = "WishParameterName";
@@ -424,7 +432,7 @@
             this.tbForceTemplate.Location = new System.Drawing.Point(3, 50);
             this.tbForceTemplate.Maximum = 300;
             this.tbForceTemplate.Name = "tbForceTemplate";
-            this.tbForceTemplate.Size = new System.Drawing.Size(263, 38);
+            this.tbForceTemplate.Size = new System.Drawing.Size(291, 38);
             this.tbForceTemplate.SmallChange = 100;
             this.tbForceTemplate.TabIndex = 2;
             // 
@@ -441,7 +449,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 363);
+            this.label5.Location = new System.Drawing.Point(8, 398);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(160, 24);
             this.label5.TabIndex = 9;
@@ -451,7 +459,7 @@
             // 
             this.btnUsedMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUsedMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsedMoveUp.Location = new System.Drawing.Point(247, 204);
+            this.btnUsedMoveUp.Location = new System.Drawing.Point(283, 204);
             this.btnUsedMoveUp.Name = "btnUsedMoveUp";
             this.btnUsedMoveUp.Size = new System.Drawing.Size(30, 58);
             this.btnUsedMoveUp.TabIndex = 7;
@@ -463,7 +471,7 @@
             // 
             this.btnUsedMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUsedMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsedMoveDown.Location = new System.Drawing.Point(247, 268);
+            this.btnUsedMoveDown.Location = new System.Drawing.Point(283, 268);
             this.btnUsedMoveDown.Name = "btnUsedMoveDown";
             this.btnUsedMoveDown.Size = new System.Drawing.Size(30, 52);
             this.btnUsedMoveDown.TabIndex = 6;
@@ -514,7 +522,7 @@
             this.lbParamsUsed.Location = new System.Drawing.Point(8, 204);
             this.lbParamsUsed.Name = "lbParamsUsed";
             this.lbParamsUsed.ScrollAlwaysVisible = true;
-            this.lbParamsUsed.Size = new System.Drawing.Size(233, 116);
+            this.lbParamsUsed.Size = new System.Drawing.Size(269, 116);
             this.lbParamsUsed.TabIndex = 2;
             // 
             // label1
@@ -538,7 +546,7 @@
             this.lbParamsAvailable.Location = new System.Drawing.Point(8, 41);
             this.lbParamsAvailable.Name = "lbParamsAvailable";
             this.lbParamsAvailable.ScrollAlwaysVisible = true;
-            this.lbParamsAvailable.Size = new System.Drawing.Size(269, 116);
+            this.lbParamsAvailable.Size = new System.Drawing.Size(297, 116);
             this.lbParamsAvailable.TabIndex = 0;
             // 
             // timer200ms
@@ -553,26 +561,84 @@
             this.sfdExportLog.FileName = "*.eculog";
             this.sfdExportLog.Filter = "AutoECU log|*.eculog";
             // 
+            // btnSaveParams
+            // 
+            this.btnSaveParams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSaveParams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveParams.Location = new System.Drawing.Point(1, 1);
+            this.btnSaveParams.Margin = new System.Windows.Forms.Padding(1);
+            this.btnSaveParams.Name = "btnSaveParams";
+            this.btnSaveParams.Size = new System.Drawing.Size(150, 34);
+            this.btnSaveParams.TabIndex = 13;
+            this.btnSaveParams.Text = "Save Params";
+            this.btnSaveParams.UseVisualStyleBackColor = true;
+            this.btnSaveParams.Click += new System.EventHandler(this.btnSaveParams_Click);
+            // 
+            // btnImportParams
+            // 
+            this.btnImportParams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnImportParams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportParams.Location = new System.Drawing.Point(153, 1);
+            this.btnImportParams.Margin = new System.Windows.Forms.Padding(1);
+            this.btnImportParams.Name = "btnImportParams";
+            this.btnImportParams.Size = new System.Drawing.Size(151, 34);
+            this.btnImportParams.TabIndex = 14;
+            this.btnImportParams.Text = "Import Params";
+            this.btnImportParams.UseVisualStyleBackColor = true;
+            this.btnImportParams.Click += new System.EventHandler(this.btnImportParams_Click);
+            // 
+            // sfdSaveParams
+            // 
+            this.sfdSaveParams.DefaultExt = "*.eculogparams";
+            this.sfdSaveParams.FileName = "*.eculogparams";
+            this.sfdSaveParams.Filter = "AutoECU Params|*.eculogparams";
+            // 
+            // ofdImportParams
+            // 
+            this.ofdImportParams.DefaultExt = "*.eculogparams";
+            this.ofdImportParams.FileName = "*.eculogparams";
+            this.ofdImportParams.Filter = "AutoECU Params|*.eculogparams";
+            this.ofdImportParams.ShowReadOnly = true;
+            // 
             // nudForceTemplate
             // 
             this.nudForceTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nudForceTemplate.Location = new System.Drawing.Point(28, 21);
             this.nudForceTemplate.Name = "nudForceTemplate";
-            this.nudForceTemplate.Size = new System.Drawing.Size(234, 23);
+            this.nudForceTemplate.Size = new System.Drawing.Size(262, 23);
             this.nudForceTemplate.TabIndex = 1;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.btnSaveParams, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnExportLog, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.btnImportParams, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(8, 323);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(305, 72);
+            this.tableLayoutPanel4.TabIndex = 15;
             // 
             // DiagForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(334, 563);
+            this.ClientSize = new System.Drawing.Size(362, 563);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.MinimumSize = new System.Drawing.Size(350, 480);
+            this.MinimumSize = new System.Drawing.Size(378, 480);
             this.Name = "DiagForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Engine Control Unit - Parameters";
@@ -596,6 +662,7 @@
             this.gpForceTemplate.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbForceTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudForceTemplate)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -637,5 +704,10 @@
         private Controls.NumericUpDownOneWheel nudForceTemplate;
         private System.Windows.Forms.Button btnExportLog;
         private System.Windows.Forms.SaveFileDialog sfdExportLog;
+        private System.Windows.Forms.Button btnImportParams;
+        private System.Windows.Forms.Button btnSaveParams;
+        private System.Windows.Forms.SaveFileDialog sfdSaveParams;
+        private System.Windows.Forms.OpenFileDialog ofdImportParams;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
     }
 }

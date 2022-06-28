@@ -1142,7 +1142,67 @@ namespace ECU_Manager
                 task.Start();
             }
         }
-        
+
+        private void btnSaveParams_Click(object sender, EventArgs e)
+        {
+            DialogResult result = sfdSaveParams.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    List<string> parametersUsed = new List<string>();
+                    foreach (Parameter parameter in lbParamsUsed.Items)
+                        parametersUsed.Add(parameter.Name);
+
+                    Serializator<string[]>.Serialize(sfdSaveParams.FileName, parametersUsed.ToArray());
+                    MessageBox.Show(this, "Log params saved successfully", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Failed to save log params.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            } 
+        }
+
+        private void btnImportParams_Click(object sender, EventArgs e)
+        {
+            DialogResult result = ofdImportParams.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    string[] parametersUsed = Serializator<string[]>.Deserialize(ofdImportParams.FileName);
+
+                    lbParamsAvailable.Items.Clear();
+                    lbParamsUsed.Items.Clear();
+
+                    foreach (Parameter parameter in ChartParameters)
+                    {
+                        lbParamsAvailable.Items.Add(parameter);
+                    }
+
+                    foreach (string parameter in parametersUsed)
+                    {
+                        object param = ChartParameters.Where(p => p.Name == parameter).FirstOrDefault();
+                        if (param != null)
+                            lbParamsUsed.Items.Add(param);
+                    }
+
+                    foreach (Parameter item in lbParamsUsed.Items)
+                    {
+                        lbParamsAvailable.Items.Remove(item);
+                    }
+                    UpdateChartsSetup();
+
+
+                    MessageBox.Show(this, "Log params import successful", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Failed to import log params.\r\n" + ex.Message, "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
  
