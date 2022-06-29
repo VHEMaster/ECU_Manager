@@ -231,7 +231,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 251)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1283)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
