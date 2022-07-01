@@ -73,6 +73,7 @@ namespace ECU_Manager
 
         public MainForm(FileInfo fileInfo)
         {
+            this.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 204);
             InitializeComponent();
 
             this.middleLayer = null;
@@ -103,6 +104,7 @@ namespace ECU_Manager
 
         public MainForm(MiddleLayer middleLayer)
         {
+            this.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 204);
             InitializeComponent();
 
             this.middleLayer = middleLayer;
