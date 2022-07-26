@@ -580,6 +580,42 @@ namespace ECU_Manager
             eIdleValveInitial.SetTableEventHandler(ChartUpdateEvent);
 
 
+            eIdleRegThr.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 0.2D, 10D, 0.01D, 3);
+            eIdleRegThr.SetConfig("idle_rpm_pid_act", "engine_temp_count", "engine_temps");
+            eIdleRegThr.SetX("EngineTemp", "Temperature", "F0");
+            eIdleRegThr.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "rotates_count", "rotates");
+            eIdleValvePidP.SetX("RPM", "RPM", "F0");
+            eIdleValvePidP.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "rotates_count", "rotates");
+            eIdleValvePidI.SetX("RPM", "RPM", "F0");
+            eIdleValvePidI.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValvePidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
+            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "rotates_count", "rotates");
+            eIdleValvePidD.SetX("RPM", "RPM", "F0");
+            eIdleValvePidD.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "rotates_count", "rotates");
+            eIdleIgnPidP.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidP.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "rotates_count", "rotates");
+            eIdleIgnPidI.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidI.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleIgnPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
+            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "rotates_count", "rotates");
+            eIdleIgnPidD.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
+
+
             SynchronizeCharts();
         }
 
@@ -629,6 +665,14 @@ namespace ECU_Manager
             eIdleWishMassAirFlow.UpdateChart();
             eIdleSpeedShift.UpdateChart();
             eIdleValveVsRpm.UpdateChart();
+
+            eIdleRegThr.UpdateChart();
+            eIdleValvePidP.UpdateChart();
+            eIdleValvePidI.UpdateChart();
+            eIdleValvePidD.UpdateChart();
+            eIdleIgnPidP.UpdateChart();
+            eIdleIgnPidI.UpdateChart();
+            eIdleIgnPidD.UpdateChart();
 
             eStartupMixture.UpdateChart();
             eWarmupMixture.UpdateChart();
@@ -989,14 +1033,7 @@ namespace ECU_Manager
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
             nudParamsFuelKgL.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc;
             nudParamsFuelAFR.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_afr;
-
-            nudParamsIdleRegThr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_pid_act;
-            nudParamsPidIdleValveP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_p;
-            nudParamsPidIdleValveI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_i;
-            nudParamsPidIdleValveD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_d;
-            nudParamsPidIdleIgnP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_p;
-            nudParamsPidIdleIgnI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_i;
-            nudParamsPidIdleIgnD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d;
+            
             nudParamsPidShortCorrP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p;
             nudParamsPidShortCorrI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i;
             nudParamsPidShortCorrD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d;
@@ -2324,69 +2361,7 @@ namespace ECU_Manager
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
-
-        private void nudParamsIdleRegThr_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_pid_act = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleValveP_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_p = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleValveI_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_i = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleValveD_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_to_massair_pid_d = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleIgnP_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_p = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleIgnI_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_i = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsPidIdleIgnD_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_to_rpm_pid_d = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
+        
 
         private void nudParamsPidShortCorrP_ValueChanged(object sender, EventArgs e)
         {

@@ -151,15 +151,36 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("valve")]
         public float[] idle_valve_to_rpm;
 
-        public float idle_rpm_pid_act;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_rpm_pid_act")]
+        [XmlArrayItem("koff")]
+        public float[] idle_rpm_pid_act;
 
-        public float idle_valve_to_massair_pid_p;
-        public float idle_valve_to_massair_pid_i;
-        public float idle_valve_to_massair_pid_d;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_massair_pid_p")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_massair_pid_i;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_massair_pid_i")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_massair_pid_p;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_massair_pid_d")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_massair_pid_d;
 
-        public float idle_ign_to_rpm_pid_p;
-        public float idle_ign_to_rpm_pid_i;
-        public float idle_ign_to_rpm_pid_d;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_ign_to_rpm_pid_p")]
+        [XmlArrayItem("koff")]
+        public float[] idle_ign_to_rpm_pid_p;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_ign_to_rpm_pid_i")]
+        [XmlArrayItem("koff")]
+        public float[] idle_ign_to_rpm_pid_i;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_ign_to_rpm_pid_d")]
+        [XmlArrayItem("koff")]
+        public float[] idle_ign_to_rpm_pid_d;
 
         public float short_term_corr_pid_p;
         public float short_term_corr_pid_i;
@@ -231,7 +252,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1283)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1178)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
