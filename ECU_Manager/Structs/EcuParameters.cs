@@ -39,6 +39,7 @@ namespace ECU_Manager.Structs
         public float ReferenceVoltage;
         public float PowerVoltage;
         public float FuelRatio;
+        public float FuelRatioDiff;
         public float LambdaValue;
         public float LambdaTemperature;
         public float LambdaHeaterVoltage;
@@ -48,6 +49,7 @@ namespace ECU_Manager.Structs
         public float IdleCorrection;
 
         public int IdleFlag;
+        public int IdleCorrFlag;
         public float RPM;
         public float Speed;
         public float Acceleration;
@@ -58,6 +60,7 @@ namespace ECU_Manager.Structs
         public float RelativeFilling;
         public float WishFuelRatio;
         public float IdleValvePosition;
+        public float IdleRegThrRPM;
         public float WishIdleRPM;
         public float WishIdleMassAirFlow;
         public float WishIdleValvePosition;
