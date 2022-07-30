@@ -580,17 +580,17 @@ namespace ECU_Manager
             eIdleValveInitial.SetTableEventHandler(ChartUpdateEvent);
 
 
-            eIdleRegThr.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 0.2D, 10D, 0.01D, 3);
+            eIdleRegThr.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
             eIdleRegThr.SetConfig("idle_rpm_pid_act", "engine_temp_count", "engine_temps");
             eIdleRegThr.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
             eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "rotates_count", "rotates");
             eIdleValvePidP.SetX("RPM", "RPM", "F0");
             eIdleValvePidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
             eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "rotates_count", "rotates");
             eIdleValvePidI.SetX("RPM", "RPM", "F0");
             eIdleValvePidI.SetTableEventHandler(ChartUpdateEvent);
@@ -600,12 +600,12 @@ namespace ECU_Manager
             eIdleValvePidD.SetX("RPM", "RPM", "F0");
             eIdleValvePidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
             eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "rotates_count", "rotates");
             eIdleIgnPidP.SetX("RPM", "RPM", "F0");
             eIdleIgnPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.1D, 0D, 0.5D, 500, 0.05D, 3);
+            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
             eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "rotates_count", "rotates");
             eIdleIgnPidI.SetX("RPM", "RPM", "F0");
             eIdleIgnPidI.SetTableEventHandler(ChartUpdateEvent);
