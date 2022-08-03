@@ -709,7 +709,6 @@ namespace ECU_Manager
                 if (!cbLiveView.Checked)
                 {
                     Chart chart = ((Chart)sender);
-                    List<HitTestResult> results = new List<HitTestResult>();
 
                     if (chart_point_prev.HasValue && e.X == chart_point_prev.Value.X && e.Y == chart_point_prev.Value.Y)
                         return;

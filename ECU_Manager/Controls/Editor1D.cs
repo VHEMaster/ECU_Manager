@@ -38,6 +38,19 @@ namespace ECU_Manager.Controls
 
         private ComponentStructure cs;
 
+        private bool bSelected = false;
+        private bool bSelecting = false;
+        private Point pSelectionStart = new Point();
+        private Point pSelectionEnd = new Point();
+
+        private double dValueStartX;
+        private double dValueStartY;
+        private double dValueEndX;
+        private double dValueEndY;
+
+        private int[] iSelectedIndexes = new int[0];
+        private DateTime dtSelectedLast = DateTime.Now;
+
         public Editor1D()
         {
             InitializeComponent();
@@ -207,6 +220,8 @@ namespace ECU_Manager.Controls
                         for (int i = 0; i < size; i++)
                         {
                             int point = chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i]);
+                            if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
+                                chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
                             chart1DChart.Series[0].Points[point].Tag = i;
 
                             if (array1d[i] > chartMax)
@@ -235,6 +250,8 @@ namespace ECU_Manager.Controls
                         for (int i = 0; i < size; i++)
                         {
                             int point = chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i]);
+                            if((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
+                                chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
                             chart1DChart.Series[0].Points[point].Tag = i;
 
                             if (array1d[i] > chartMax)
@@ -426,6 +443,152 @@ namespace ECU_Manager.Controls
         private void btnPressApply_Click(object sender, EventArgs e)
         {
             UpdateTableEvent?.Invoke(sender, new EventArgs());
+        }
+
+        private void chart1DChart_Paint(object sender, PaintEventArgs e)
+        {
+            DataPoint[] points;
+            int x1 = pSelectionStart.X;
+            int y1 = pSelectionStart.Y;
+            int x2 = pSelectionEnd.X;
+            int y2 = pSelectionEnd.Y;
+
+            double dx1, dy1, dx2, dy2;
+
+            if (x1 > x2)
+            {
+                x1 ^= x2;
+                x2 ^= x1;
+                x1 ^= x2;
+            }
+
+            if (y1 > y2)
+            {
+                y1 ^= y2;
+                y2 ^= y1;
+                y1 ^= y2;
+            }
+
+            if (bSelecting)
+            {
+                try
+                {
+                    Pen pen = new Pen(Color.White, 1);
+                    pen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F };
+                    Rectangle rectangle = new Rectangle(x1, y1, x2 - x1, y2 - y1);
+
+                    e.Graphics.DrawRectangle(pen, rectangle);
+
+                    dx1 = Chart.ChartAreas[0].AxisX.PixelPositionToValue(x1);
+                    dy1 = Chart.ChartAreas[0].AxisY.PixelPositionToValue(y1);
+                    dx2 = Chart.ChartAreas[0].AxisX.PixelPositionToValue(x2);
+                    dy2 = Chart.ChartAreas[0].AxisY.PixelPositionToValue(y2);
+
+                    if (dx1 > dx2)
+                    {
+                        dx1 = dx1 + dx2;
+                        dx2 = dx1 - dx2;
+                        dx1 = dx1 - dx2;
+                    }
+
+                    if (dy1 > dy2)
+                    {
+                        dy1 = dy1 + dy2;
+                        dy2 = dy1 - dy2;
+                        dy1 = dy1 - dy2;
+                    }
+
+                    dValueStartX = dx1;
+                    dValueStartY = dy1;
+                    dValueEndX = dx2;
+                    dValueEndY = dy2;
+
+                    points = Chart.Series[0].Points.Where(p => p.XValue >= dValueStartX && p.XValue <= dValueEndX && p.YValues[0] >= dValueStartY && p.YValues[0] <= dValueEndY).ToArray();
+                    iSelectedIndexes = new int[points.Length];
+                    for (int i = 0; i < points.Length; i++)
+                    {
+                        iSelectedIndexes[i] = Chart.Series[0].Points.IndexOf(points[i]);
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+            if (bSelected)
+            {
+                try
+                {
+                    for (int i = 0; i < Chart.Series[0].Points.Count; i++)
+                    {
+                        if (!iSelectedIndexes.Contains(i) || (DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 > 500)
+                        {
+                            if (Chart.Series[0].Points[i].MarkerColor != Color.White)
+                                Chart.Series[0].Points[i].MarkerColor = Color.White;
+                        }
+                        else
+                        {
+                            if (Chart.Series[0].Points[i].MarkerColor != Color.FromArgb(0, 96, 0))
+                                Chart.Series[0].Points[i].MarkerColor = Color.FromArgb(0, 96, 0);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void chart1DChart_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                bSelected = true;
+                bSelecting = true;
+                pSelectionStart.X = e.X;
+                pSelectionStart.Y = e.Y;
+                pSelectionEnd.X = e.X;
+                pSelectionEnd.Y = e.Y;
+                dtSelectedLast = DateTime.Now;
+                this.Refresh();
+            }
+        }
+
+        private void chart1DChart_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                bSelecting = false;
+                pSelectionEnd.X = e.X;
+                pSelectionEnd.Y = e.Y;
+                dtSelectedLast = DateTime.Now;
+                this.Refresh();
+            }
+        }
+
+        private void chart1DChart_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(bSelecting)
+            {
+                Point point = new Point(e.X, e.Y);
+
+                if (point.X < 0)
+                    point.X = 0;
+                if (point.Y < 0)
+                    point.Y = 0;
+                if (point.X >= chart1DChart.Size.Width)
+                    point.X = chart1DChart.Size.Width - 1;
+                if (point.Y >= chart1DChart.Size.Height)
+                    point.Y = chart1DChart.Size.Height - 1;
+
+
+                pSelectionEnd.X = point.X;
+                pSelectionEnd.Y = point.Y;
+                dtSelectedLast = DateTime.Now;
+                this.Refresh();
+            }
         }
     }
 }
