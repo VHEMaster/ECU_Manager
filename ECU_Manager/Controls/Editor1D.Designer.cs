@@ -214,6 +214,7 @@
             this.chart1DChart.Size = new System.Drawing.Size(952, 457);
             this.chart1DChart.TabIndex = 2;
             this.chart1DChart.Text = " ";
+            this.chart1DChart.Click += new System.EventHandler(this.chart1DChart_Click);
             this.chart1DChart.Paint += new System.Windows.Forms.PaintEventHandler(this.chart1DChart_Paint);
             this.chart1DChart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseDown);
             this.chart1DChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseMove);

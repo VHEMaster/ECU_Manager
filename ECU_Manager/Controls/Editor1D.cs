@@ -50,6 +50,7 @@ namespace ECU_Manager.Controls
 
         private int[] iSelectedIndexes = new int[0];
         private DateTime dtSelectedLast = DateTime.Now;
+        private int iPrevDataPoint = -1;
 
         public Editor1D()
         {
@@ -233,6 +234,11 @@ namespace ECU_Manager.Controls
                             {
                                 chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
                                 chart1DChart.Series[0].Points[point].MarkerSize = 15;
+                            }
+                            
+                            if (iPrevDataPoint >= 0 && iPrevDataPoint == point)
+                            {
+                                chart1DChart.Series[0].Points[point].MarkerSize = 16;
                             }
                         }
                     }
@@ -570,7 +576,43 @@ namespace ECU_Manager.Controls
 
         private void chart1DChart_MouseMove(object sender, MouseEventArgs e)
         {
-            if(bSelecting)
+            bool refresh = false;
+            HitTestResult result = chart1DChart.HitTest(e.X, e.Y);
+
+            if (result.ChartElementType == ChartElementType.DataPoint || result.ChartElementType == ChartElementType.DataPointLabel)
+            {
+                if (result.ChartElementType == ChartElementType.DataPoint)
+                {
+                    DataPoint point = (DataPoint)result.Object;
+                    if(chart1DChart.Series[0].Points.Contains(point))
+                    {
+                        if (iPrevDataPoint >= 0)
+                        {
+                            if(nudItem.Value - 1 == iPrevDataPoint)
+                                chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 15;
+                            else chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 8;
+                            iPrevDataPoint = -1;
+                        }
+
+                        point.MarkerSize = 16;
+                        iPrevDataPoint = chart1DChart.Series[0].Points.IndexOf(point);
+                        refresh = true;
+                    }
+                }
+            }
+            else
+            {
+                if (iPrevDataPoint >= 0)
+                {
+                    if (nudItem.Value - 1 == iPrevDataPoint)
+                        chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 15;
+                    else chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 8;
+                    iPrevDataPoint = -1;
+                    refresh = true;
+                }
+            }
+
+            if (bSelecting)
             {
                 Point point = new Point(e.X, e.Y);
 
@@ -587,7 +629,17 @@ namespace ECU_Manager.Controls
                 pSelectionEnd.X = point.X;
                 pSelectionEnd.Y = point.Y;
                 dtSelectedLast = DateTime.Now;
+            }
+
+            if(refresh)
                 this.Refresh();
+        }
+
+        private void chart1DChart_Click(object sender, EventArgs e)
+        {
+            if(iPrevDataPoint >= 0)
+            {
+                nudItem.Value = iPrevDataPoint + 1;
             }
         }
     }
