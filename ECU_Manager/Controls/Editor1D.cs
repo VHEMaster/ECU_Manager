@@ -139,6 +139,7 @@ namespace ECU_Manager.Controls
                 float[] dep1d = null;
                 int size = 0;
                 double min, max;
+                bool update = false;
 
                 double chartMin = dChartMinY;
                 double chartMax = dChartMaxY;
@@ -164,149 +165,210 @@ namespace ECU_Manager.Controls
                         array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
 
-                string str = string.Empty;
-                lblParams.Text = string.Empty;
-                chart1DChart.Series.Clear();
-                if (array1d != null)
+                if (chart1DChart.Series.Count == 0 || chart1DChart.Series[0].Points.Count != size)
                 {
-                    chart1DChart.Series.Add("Config");
-                    chart1DChart.Series[0].XAxisType = AxisType.Primary;
-                    chart1DChart.Series[0].YAxisType = AxisType.Primary;
-                    chart1DChart.Series[0].YValueType = ChartValueType.Single;
-                    chart1DChart.Series[0].MarkerSize = 8;
-                    chart1DChart.Series[0].BorderWidth = 3;
-                    chart1DChart.Series[0].MarkerColor = Color.White;
-                    chart1DChart.Series[0].MarkerStyle = MarkerStyle.Circle;
-                    chart1DChart.Series[0].ChartType = SeriesChartType.Line;
-                    chart1DChart.Series[0].IsValueShownAsLabel = true;
-                    chart1DChart.Series[0].LabelFormat = $"F{nudValue.DecimalPlaces}";
-                    chart1DChart.Series[0].LabelForeColor = Color.White;
-
-                    min = array1d.Take(size).Min();
-                    max = array1d.Take(size).Max();
-
-                    if (min > dChartMinY)
-                        min = dChartMinY;
-
-                    if (max < dChartMaxY)
-                        max = dChartMaxY;
-
-                    chart1DChart.ChartAreas[0].AxisX.Interval = dIntervalX;
-                    chart1DChart.ChartAreas[0].AxisY.Interval = dIntervalY;
-
-                    chart1DChart.ChartAreas[0].AxisX.MajorGrid.Interval = dIntervalX;
-                    chart1DChart.ChartAreas[0].AxisY.MajorGrid.Interval = dIntervalY;
-
-                    chart1DChart.ChartAreas[0].AxisX.LabelStyle.Interval = dIntervalX;
-                    chart1DChart.ChartAreas[0].AxisY.LabelStyle.Interval = dIntervalY;
-
-                    chart1DChart.ChartAreas[0].AxisX.MajorTickMark.Interval = dIntervalX;
-                    chart1DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
-
-                    nudItem.Minimum = 1;
-                    nudItem.Maximum = size;
-
-                    nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
-                    nudValue.Minimum = (decimal)dMinY;
-                    nudValue.Maximum = (decimal)dMaxY;
-                    nudValue.Increment = (decimal)dStepSize;
-
-
-                    if (dep1d == null)
+                    update = true;
+                }
+                else
+                {
+                    for(int i = 0; i < size; i++)
                     {
-                        chart1DChart.Series[0].XValueType = ChartValueType.Int32;
-                        chart1DChart.ChartAreas[0].AxisX.Minimum = 1;
-                        chart1DChart.ChartAreas[0].AxisX.Maximum = size;
-
-                        for (int i = 0; i < size; i++)
+                        if(array1d[i] != (float)chart1DChart.Series[0].Points[i].YValues[0])
                         {
-                            int point = chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i]);
-                            if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
-                                chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
-                            chart1DChart.Series[0].Points[point].Tag = i;
+                            update = true;
+                            break;
+                        }
+                    }
+                }
 
-                            if (array1d[i] > chartMax)
-                                chartMax = array1d[i];
-                            if (array1d[i] < chartMin)
-                                chartMin = array1d[i];
+                string str = string.Empty;
+                if (update)
+                {
+                    chart1DChart.Series.Clear();
+                    if (array1d != null)
+                    {
+                        chart1DChart.Series.Add("Config");
+                        chart1DChart.Series[0].XAxisType = AxisType.Primary;
+                        chart1DChart.Series[0].YAxisType = AxisType.Primary;
+                        chart1DChart.Series[0].YValueType = ChartValueType.Single;
+                        chart1DChart.Series[0].MarkerSize = 8;
+                        chart1DChart.Series[0].BorderWidth = 3;
+                        chart1DChart.Series[0].MarkerColor = Color.White;
+                        chart1DChart.Series[0].MarkerStyle = MarkerStyle.Circle;
+                        chart1DChart.Series[0].ChartType = SeriesChartType.Line;
+                        chart1DChart.Series[0].IsValueShownAsLabel = true;
+                        chart1DChart.Series[0].LabelFormat = $"F{nudValue.DecimalPlaces}";
+                        chart1DChart.Series[0].LabelForeColor = Color.White;
 
-                            if (i == nudItem.Value - 1)
+                        min = array1d.Take(size).Min();
+                        max = array1d.Take(size).Max();
+
+                        if (min > dChartMinY)
+                            min = dChartMinY;
+
+                        if (max < dChartMaxY)
+                            max = dChartMaxY;
+
+                        chart1DChart.ChartAreas[0].AxisX.Interval = dIntervalX;
+                        chart1DChart.ChartAreas[0].AxisY.Interval = dIntervalY;
+
+                        chart1DChart.ChartAreas[0].AxisX.MajorGrid.Interval = dIntervalX;
+                        chart1DChart.ChartAreas[0].AxisY.MajorGrid.Interval = dIntervalY;
+
+                        chart1DChart.ChartAreas[0].AxisX.LabelStyle.Interval = dIntervalX;
+                        chart1DChart.ChartAreas[0].AxisY.LabelStyle.Interval = dIntervalY;
+
+                        chart1DChart.ChartAreas[0].AxisX.MajorTickMark.Interval = dIntervalX;
+                        chart1DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
+
+                        nudItem.Minimum = 1;
+                        nudItem.Maximum = size;
+
+                        nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
+                        nudValue.Minimum = (decimal)dMinY;
+                        nudValue.Maximum = (decimal)dMaxY;
+                        nudValue.Increment = (decimal)dStepSize;
+
+
+
+                        if (dep1d == null)
+                        {
+                            chart1DChart.Series[0].XValueType = ChartValueType.Int32;
+                            chart1DChart.ChartAreas[0].AxisX.Minimum = 1;
+                            chart1DChart.ChartAreas[0].AxisX.Maximum = size;
+
+                            for (int i = 0; i < size; i++)
                             {
-                                chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
-                                chart1DChart.Series[0].Points[point].MarkerSize = 15;
-                            }
-                            
-                            if (iPrevDataPoint >= 0 && iPrevDataPoint == point)
-                            {
-                                chart1DChart.Series[0].Points[point].MarkerSize = 16;
+                                int point = chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i]);
+                                if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
+                                    chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
+                                chart1DChart.Series[0].Points[point].Tag = i;
+
+                                if (array1d[i] > chartMax)
+                                    chartMax = array1d[i];
+                                if (array1d[i] < chartMin)
+                                    chartMin = array1d[i];
+
+                                if (i == nudItem.Value - 1)
+                                {
+                                    chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
+                                    chart1DChart.Series[0].Points[point].MarkerSize = 15;
+                                }
+
+                                if (iPrevDataPoint >= 0 && iPrevDataPoint == point)
+                                {
+                                    chart1DChart.Series[0].Points[point].MarkerSize = 16;
+                                }
                             }
                         }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(sTitleStatusX))
+                            {
+                                str = $"{sTitleStatusX}: ";
+                                str += $"{dep1d[(int)nudItem.Value - 1].ToString(sFormatStatusX)}";
+                            }
+
+                            chart1DChart.Series[0].XValueType = ChartValueType.Single;
+                            chart1DChart.ChartAreas[0].AxisX.Minimum = dep1d[0];
+                            chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[size - 1];
+                            for (int i = 0; i < size; i++)
+                            {
+                                int point = chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i]);
+                                if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
+                                    chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
+                                chart1DChart.Series[0].Points[point].Tag = i;
+
+                                if (array1d[i] > chartMax)
+                                    chartMax = array1d[i];
+                                if (array1d[i] < chartMin)
+                                    chartMin = array1d[i];
+
+                                if (i == nudItem.Value - 1)
+                                {
+                                    chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
+                                    chart1DChart.Series[0].Points[point].MarkerSize = 15;
+                                }
+                            }
+                        }
+
+                        chart1DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiff));
+                        chart1DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiff - (chartMax % dMinDiff)));
+                        
+
+                        nudValue.Enabled = true;
+                        nudItem.Enabled = true;
+
+                        if (!lblItemValue.Text.Equals(str))
+                            lblItemValue.Text = str;
                     }
                     else
                     {
+                        nudValue.Enabled = false;
+                        nudItem.Enabled = false;
+                    }
+                }
+
+                str = string.Empty;
+                if (!string.IsNullOrWhiteSpace(sParamsStatusX) || !string.IsNullOrWhiteSpace(sParamsStatusY))
+                {
+
+                    FieldInfo fieldParamX = null;
+                    FieldInfo fieldParamY = null;
+
+                    if (!string.IsNullOrWhiteSpace(sParamsStatusX))
+                        fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
+                    if (!string.IsNullOrWhiteSpace(sParamsStatusY))
+                        fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
+
+                    if (fieldParamX != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(str))
+                            str += "   ";
                         if (!string.IsNullOrWhiteSpace(sTitleStatusX))
-                        {
-                            str = $"{sTitleStatusX}: ";
-                            str += $"{dep1d[(int)nudItem.Value - 1].ToString(sFormatStatusX)}";
-                        }
-
-                        chart1DChart.Series[0].XValueType = ChartValueType.Single;
-                        chart1DChart.ChartAreas[0].AxisX.Minimum = dep1d[0];
-                        chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[size - 1];
-                        for (int i = 0; i < size; i++)
-                        {
-                            int point = chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i]);
-                            if((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
-                                chart1DChart.Series[0].Points[point].MarkerColor = Color.FromArgb(0, 96, 0);
-                            chart1DChart.Series[0].Points[point].Tag = i;
-
-                            if (array1d[i] > chartMax)
-                                chartMax = array1d[i];
-                            if (array1d[i] < chartMin)
-                                chartMin = array1d[i];
-
-                            if (i == nudItem.Value - 1)
-                            {
-                                chart1DChart.Series[0].Points[point].MarkerStyle = MarkerStyle.Cross;
-                                chart1DChart.Series[0].Points[point].MarkerSize = 15;
-                            }
-                        }
+                            str += $"{sTitleStatusX}: ";
+                        str += $"{((float)fieldParamX.GetValue(cs.EcuParameters)).ToString(sFormatStatusX)}";
+                    }
+                    if (fieldParamY != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(str))
+                            str += "   ";
+                        if (!string.IsNullOrWhiteSpace(sTitleStatusY))
+                            str += $"{sTitleStatusY}: ";
+                        str += $"{((float)fieldParamY.GetValue(cs.EcuParameters)).ToString(sFormatStatusY)}";
                     }
 
-                    chart1DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiff));
-                    chart1DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiff - (chartMax % dMinDiff)));
+                    Series series;
 
+                    float x = 0;
+                    float y = 0;
 
-
-                    if (!string.IsNullOrWhiteSpace(sParamsStatusX) || !string.IsNullOrWhiteSpace(sParamsStatusY))
+                    if (fieldParamX != null && fieldParamY != null)
                     {
+                        x = (float)fieldParamX.GetValue(cs.EcuParameters);
+                        y = (float)fieldParamY.GetValue(cs.EcuParameters);
+                    }
+                    else if (fieldParamX != null && dep1d != null)
+                    {
+                        Interpolation interpolate = new Interpolation((float)fieldParamX.GetValue(cs.EcuParameters), dep1d, size);
+                        x = (float)fieldParamX.GetValue(cs.EcuParameters);
+                        y = interpolate.Interpolate1D(array1d);
+                    }
+                    else if (fieldParamY != null)
+                    {
+                        Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(cs.EcuParameters), array1d, size);
+                        x = (float)(interpolate.indexes[0] + interpolate.mult) + 1;
+                        y = (float)fieldParamY.GetValue(cs.EcuParameters);
+                    }
 
-                        FieldInfo fieldParamX = null;
-                        FieldInfo fieldParamY = null;
+                    if (chart1DChart.Series.Count > 1)
+                    {
+                        series = chart1DChart.Series[1];
 
-                        if (!string.IsNullOrWhiteSpace(sParamsStatusX))
-                            fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
-                        if (!string.IsNullOrWhiteSpace(sParamsStatusY))
-                            fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
-
-                        if (fieldParamX != null)
-                        {
-                            if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                                lblParams.Text += "   ";
-                            if (!string.IsNullOrWhiteSpace(sTitleStatusX))
-                                lblParams.Text += $"{sTitleStatusX}: ";
-                            lblParams.Text += $"{((float)fieldParamX.GetValue(cs.EcuParameters)).ToString(sFormatStatusX)}";
-                        }
-                        if (fieldParamY != null)
-                        {
-                            if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                                lblParams.Text += "   ";
-                            if (!string.IsNullOrWhiteSpace(sTitleStatusY))
-                                lblParams.Text += $"{sTitleStatusY}: ";
-                            lblParams.Text += $"{((float)fieldParamY.GetValue(cs.EcuParameters)).ToString(sFormatStatusY)}";
-                        }
-
-                        Series series = chart1DChart.Series.Add("Current");
+                    }
+                    else
+                    {
+                        series = chart1DChart.Series.Add("Current");
                         series.ChartType = SeriesChartType.Point;
                         series.XAxisType = AxisType.Primary;
                         series.XValueType = ChartValueType.Single;
@@ -315,33 +377,22 @@ namespace ECU_Manager.Controls
                         series.MarkerSize = 11;
                         series.Color = Color.Red;
                         series.MarkerStyle = MarkerStyle.Circle;
-
-                        if (fieldParamX != null && fieldParamY != null)
-                        {
-                            series.Points.AddXY((float)fieldParamX.GetValue(cs.EcuParameters), (float)fieldParamY.GetValue(cs.EcuParameters));
-                        }
-                        else if (fieldParamX != null && dep1d != null)
-                        {
-                            Interpolation interpolate = new Interpolation((float)fieldParamX.GetValue(cs.EcuParameters), dep1d, size);
-                            series.Points.AddXY((float)fieldParamX.GetValue(cs.EcuParameters), interpolate.Interpolate1D(array1d));
-                        }
-                        else if (fieldParamY != null)
-                        {
-                            Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(cs.EcuParameters), array1d, size);
-                            series.Points.AddXY((float)(interpolate.indexes[0] + interpolate.mult) + 1, (float)fieldParamY.GetValue(cs.EcuParameters));
-                        }
                     }
 
-                    nudValue.Enabled = true;
-                    nudItem.Enabled = true;
-
-                    lblItemValue.Text = str;
+                    if(series.Points.Count > 0)
+                    {
+                        if((float)series.Points[0].XValue != x)
+                            series.Points[0].XValue = x;
+                        if ((float)series.Points[0].YValues[0] != y)
+                            series.Points[0].YValues = new double[1] { y };
+                    }
+                    else
+                    {
+                        series.Points.AddXY(x, y);
+                    }
                 }
-                else
-                {
-                    nudValue.Enabled = false;
-                    nudItem.Enabled = false;
-                }
+                if (!lblParams.Text.Equals(str))
+                    lblParams.Text = str;
             }
             catch
             {
@@ -392,6 +443,8 @@ namespace ECU_Manager.Controls
         {
             float[] array1d = null;
             int size = 0;
+            double chartMin = dChartMinY;
+            double chartMax = dChartMaxY;
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
@@ -442,6 +495,17 @@ namespace ECU_Manager.Controls
                         result.FirstOrDefault().YValues = new double[1] { value };
                     }
                 }
+
+                for (int i = 0; i < size; i++)
+                {
+                    if (array1d[i] > chartMax)
+                        chartMax = array1d[i];
+                    if (array1d[i] < chartMin)
+                        chartMin = array1d[i];
+                }
+
+                chart1DChart.ChartAreas[0].AxisY.Minimum = (chartMin - (chartMin % dMinDiff));
+                chart1DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiff - (chartMax % dMinDiff)));
             }
 
         }

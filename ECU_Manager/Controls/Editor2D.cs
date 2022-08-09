@@ -615,6 +615,7 @@ namespace ECU_Manager.Controls
                 float paramy = 0;
                 float paramd = 0;
 
+                string paramstext = string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(sConfigSizeX))
                 {
@@ -660,7 +661,7 @@ namespace ECU_Manager.Controls
                         depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
 
-                lblParams.Text = string.Empty;
+                paramstext = string.Empty;
                 if (!string.IsNullOrWhiteSpace(sParamsStatusX))
                 {
                     FieldInfo fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
@@ -668,11 +669,11 @@ namespace ECU_Manager.Controls
                     {
                         paramx = (float)fieldParamX.GetValue(cs.EcuParameters);
 
-                        if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                            lblParams.Text += "  ";
+                        if (!string.IsNullOrWhiteSpace(paramstext))
+                            paramstext += "  ";
                         if (!string.IsNullOrWhiteSpace(sTitleStatusX))
-                            lblParams.Text += $"{sTitleStatusX}: ";
-                        lblParams.Text += $"{paramx.ToString(sFormatStatusX)}";
+                            paramstext += $"{sTitleStatusX}: ";
+                        paramstext += $"{paramx.ToString(sFormatStatusX)}";
                     }
                 }
 
@@ -683,11 +684,11 @@ namespace ECU_Manager.Controls
                     {
                         paramd = (float)fieldParamD.GetValue(cs.EcuParameters);
 
-                        if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                            lblParams.Text += "  ";
+                        if (!string.IsNullOrWhiteSpace(paramstext))
+                            paramstext += "  ";
                         if (!string.IsNullOrWhiteSpace(sTitleStatusD))
-                            lblParams.Text += $"{sTitleStatusD}: ";
-                        lblParams.Text += $"{paramd.ToString(sFormatStatusD)}";
+                            paramstext += $"{sTitleStatusD}: ";
+                        paramstext += $"{paramd.ToString(sFormatStatusD)}";
                     }
                 }
 
@@ -698,11 +699,11 @@ namespace ECU_Manager.Controls
                     {
                         paramy = (float)fieldParamY.GetValue(cs.EcuParameters);
 
-                        if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                            lblParams.Text += "  ";
+                        if (!string.IsNullOrWhiteSpace(paramstext))
+                            paramstext += "  ";
                         if (!string.IsNullOrWhiteSpace(sTitleStatusY))
-                            lblParams.Text += $"{sTitleStatusY}: ";
-                        lblParams.Text += $"{paramy.ToString(sFormatStatusY)}";
+                            paramstext += $"{sTitleStatusY}: ";
+                        paramstext += $"{paramy.ToString(sFormatStatusY)}";
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
@@ -711,11 +712,11 @@ namespace ECU_Manager.Controls
                     Interpolation interpolationY = new Interpolation(paramd, depy, sizey);
                     paramy = Interpolation.Interpolate2D(interpolationX, interpolationY, array2d, iArraySizeX);
 
-                    if (!string.IsNullOrWhiteSpace(lblParams.Text))
-                        lblParams.Text += "  ";
+                    if (!string.IsNullOrWhiteSpace(paramstext))
+                        paramstext += "  ";
                     if (!string.IsNullOrWhiteSpace(sTitleStatusY))
-                        lblParams.Text += $"{sTitleStatusY}: ";
-                    lblParams.Text += $"{paramy.ToString(sFormatStatusY)}";
+                        paramstext += $"{sTitleStatusY}: ";
+                    paramstext += $"{paramy.ToString(sFormatStatusY)}";
                 }
 
                 int seriescount = chart2DChart.Series.Count;
@@ -753,89 +754,98 @@ namespace ECU_Manager.Controls
 
                                 int r, g, b;
                                 int index = (int)nud.Tag;
-                                int xpos = index % sizex;
-                                int ypos = index / sizex;
+                                int xpos = index % iArraySizeY;
+                                int ypos = index / iArraySizeY;
                                 Color color;
                                 Color original = Color.DarkGray;
                                 double[] mult = new double[4];
                                 bool handled = false;
 
-                                if (chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
-                                    chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
-                                if (!nud.Focused && nud.Value != (decimal)array2d[index])
-                                    nud.Value = (decimal)array2d[index];
+                                if (xpos < sizex && ypos < sizey)
+                                {
 
-                                if (!string.IsNullOrWhiteSpace(sCalibrationTable) && bCalibrationEnabled)
-                                {
-                                    if (arraycalib == null)
-                                    {
-                                        original = Color.DarkGray;
-                                    }
-                                    else if (CalibrationColorTransience != null)
-                                    {
-                                        original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
-                                    }
-                                }
-                                else if (ColorTransience != null)
-                                {
-                                    original = ColorTransience.Get((float)nud.Value);
-                                }
+                                    if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
+                                        chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
+                                    if (!nud.Focused && nud.Value != (decimal)array2d[index])
+                                        nud.Value = (decimal)array2d[index];
 
-                                if (interpolationX != null && interpolationY != null)
-                                {
-                                    for (int y = 0; y < 2; y++)
+                                    if (!string.IsNullOrWhiteSpace(sCalibrationTable) && bCalibrationEnabled)
                                     {
-                                        for (int x = 0; x < 2; x++)
+                                        if (arraycalib == null)
                                         {
-                                            double value;
-                                            if (x == 0 && y == 0)
-                                                value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
-                                            else if (x == 0 && y != 0)
-                                                value = (1.0 - interpolationX.mult) * interpolationY.mult;
-                                            else if (x != 0 && y == 0)
-                                                value = interpolationX.mult * (1.0f - interpolationY.mult);
-                                            else
-                                                value = interpolationX.mult * interpolationY.mult;
-                                            mult[y * 2 + x] = value;
+                                            original = Color.DarkGray;
+                                        }
+                                        else if (CalibrationColorTransience != null)
+                                        {
+                                            original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
                                         }
                                     }
-
-
-                                    for (int y = 0; y < 2; y++)
+                                    else if (ColorTransience != null)
                                     {
-                                        for (int x = 0; x < 2; x++)
+                                        original = ColorTransience.Get((float)nud.Value);
+                                    }
+
+                                    if (interpolationX != null && interpolationY != null)
+                                    {
+                                        for (int y = 0; y < 2; y++)
                                         {
-                                            if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
+                                            for (int x = 0; x < 2; x++)
                                             {
-                                                color = Color.DarkGray;
-
-                                                if (mult[y * 2 + x] > 1.0)
-                                                    mult[y * 2 + x] = 1.0;
-                                                else if (mult[y * 2 + x] < 0.0)
-                                                    mult[y * 2 + x] = 0.0;
-
-                                                r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
-                                                g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
-                                                b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
-
-                                                nud.BackColor = Color.FromArgb(r, g, b);
-                                                nud.ForeColor = Color.White;
-                                                if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
-                                                    nud.Font = new Font(nud.Font, FontStyle.Bold);
+                                                double value;
+                                                if (x == 0 && y == 0)
+                                                    value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
+                                                else if (x == 0 && y != 0)
+                                                    value = (1.0 - interpolationX.mult) * interpolationY.mult;
+                                                else if (x != 0 && y == 0)
+                                                    value = interpolationX.mult * (1.0f - interpolationY.mult);
                                                 else
-                                                    nud.Font = new Font(nud.Font, FontStyle.Regular);
-                                                handled = true;
+                                                    value = interpolationX.mult * interpolationY.mult;
+                                                mult[y * 2 + x] = value;
                                             }
                                         }
-                                    }
-                                    if (!handled && nud.BackColor != original)
-                                    {
-                                        nud.BackColor = original;
-                                        if (!nud.Focused)
-                                            nudTableItem_ValueChanged(nud, new EventArgs());
+
+
+                                        for (int y = 0; y < 2; y++)
+                                        {
+                                            for (int x = 0; x < 2; x++)
+                                            {
+                                                if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
+                                                {
+                                                    color = Color.DarkGray;
+
+                                                    if (mult[y * 2 + x] > 1.0)
+                                                        mult[y * 2 + x] = 1.0;
+                                                    else if (mult[y * 2 + x] < 0.0)
+                                                        mult[y * 2 + x] = 0.0;
+
+                                                    r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
+                                                    g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
+                                                    b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
+
+                                                    nud.BackColor = Color.FromArgb(r, g, b);
+                                                    nud.ForeColor = Color.White;
+                                                    if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
+                                                    {
+                                                        if (nud.Font.Style != FontStyle.Bold)
+                                                            nud.Font = new Font(nud.Font, FontStyle.Bold);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (nud.Font.Style != FontStyle.Regular)
+                                                            nud.Font = new Font(nud.Font, FontStyle.Regular);
+                                                    }
+                                                    handled = true;
+                                                }
+                                            }
+                                        }
+                                        if (!handled && nud.BackColor != original)
+                                        {
+                                            nud.BackColor = original;
+                                            if (!nud.Focused)
+                                                nudTableItem_ValueChanged(nud, new EventArgs());
+                                        }
                                     }
                                 }
-
                             }
                         }
 
@@ -855,6 +865,8 @@ namespace ECU_Manager.Controls
                         graph3D.SetColorScheme(ColorScheme, 3.0F);
                     }
                 }
+                if (!lblParams.Text.Equals(paramstext))
+                    lblParams.Text = paramstext;
             }
             catch
             {
@@ -944,7 +956,8 @@ namespace ECU_Manager.Controls
 
                 nud.ForeColor = text;
                 nud.BackColor = back;
-                nud.Font = new Font(nud.Font, FontStyle.Regular);
+                if(nud.Font.Style != FontStyle.Regular)
+                    nud.Font = new Font(nud.Font, FontStyle.Regular);
 
                 double chartMin = dChartMinY;
                 double chartMax = dChartMaxY;
