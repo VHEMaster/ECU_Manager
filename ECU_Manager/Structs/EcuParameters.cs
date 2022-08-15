@@ -84,7 +84,7 @@ namespace ECU_Manager.Structs
         public int LambdaValid;
 
         public int OilSensor;
-        public int StarterSensor;
+        public int FanForceSwitch;
         public int HandbrakeSensor;
         public int ChargeSensor;
         public int ClutchSensor;
@@ -94,7 +94,7 @@ namespace ECU_Manager.Structs
         public int FanRelay;
         public int CheckEngine;
         public int StarterRelay;
-        public int Rsvd1Output;
+        public int FanSwitch;
         public int IgnOutput;
 
         public int StartAllowed;
