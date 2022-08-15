@@ -1041,7 +1041,8 @@ namespace ECU_Manager
             nudParamsEnrPMapTps.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr;
             nudParamsIdleIgnDevMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min;
             nudParamsIdleIgnDevMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max;
-            nudParamsIdleIgnFanCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_corr;
+            nudParamsIdleIgnFanLCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_low_corr;
+            nudParamsIdleIgnFanHCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_high_corr;
 
             nudParamsCorrInjCy1.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[0];
             nudParamsCorrInjCy2.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[1];
@@ -2507,9 +2508,18 @@ namespace ECU_Manager
             }
         }
 
-        private void nudParamsIdleIgnFanCorr_ValueChanged(object sender, EventArgs e)
+        private void nudParamsIdleIgnFanLCorr_ValueChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_corr = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_low_corr = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleIgnFanHCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_high_corr = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
