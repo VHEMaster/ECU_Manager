@@ -38,6 +38,7 @@ namespace ECU_Manager.Structs
         public int isIndividualCoils;
 
         public float fanHighTemperature;
+        public float fanMidTemperature;
         public float fanLowTemperature;
 
         public int isBluetoothEnabled;
@@ -60,7 +61,7 @@ namespace ECU_Manager.Structs
        
         public int knockIntegratorTime;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 982)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 981)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
