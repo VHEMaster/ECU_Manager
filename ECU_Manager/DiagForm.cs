@@ -518,6 +518,7 @@ namespace ECU_Manager
                     else if (parameter.Name == "WishIdleIgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
+                    else if (parameter.Name == "FanSwitch") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FuelPumpRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "CheckEngine") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else continue;

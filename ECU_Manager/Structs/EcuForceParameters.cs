@@ -22,6 +22,7 @@ namespace ECU_Manager.Structs
         public float WishIdleIgnitionAngle;
         public float WishIdleMassAirFlow;
         public int FanRelay;
+        public int FanSwitch;
         public int FuelPumpRelay;
         public int CheckEngine;
 
@@ -36,6 +37,7 @@ namespace ECU_Manager.Structs
         public byte EnableWishIdleIgnitionAngle;
         public byte EnableWishIdleMassAirFlow;
         public byte EnableFanRelay;
+        public byte EnableFanSwitch;
         public byte EnableFuelPumpRelay;
         public byte EnableCheckEngine;
 
