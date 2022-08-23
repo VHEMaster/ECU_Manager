@@ -514,7 +514,7 @@ namespace ECU_Manager
                     else if (parameter.Name == "InjectionPulse") { parameter.Min = 0; parameter.Max = 100000; parameter.Step = 10F; }
                     else if (parameter.Name == "WishFuelRatio") { parameter.Min = 1; parameter.Max = 20; parameter.Step = 0.1F; }
                     else if (parameter.Name == "WishIdleRPM") { parameter.Min = 200; parameter.Max = 5000; parameter.Step = 20.0F; }
-                    else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = 255; parameter.Step = 1.0F; }
+                    else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = Consts.IDLE_VALVE_POS_MAX; parameter.Step = 1.0F; }
                     else if (parameter.Name == "WishIdleIgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }

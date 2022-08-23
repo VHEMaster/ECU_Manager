@@ -20,6 +20,8 @@ namespace ECU_Manager.Structs
         public const int TABLE_VOLTAGES_MAX = 16;
         public const int TABLE_STRING_MAX = 16;
 
+        public const int IDLE_VALVE_POS_MAX = 160;
+
         public const int CHECK_ITEMS_MAX = 128;
         public const int CHECK_BITMAP_SIZE = 16;
 

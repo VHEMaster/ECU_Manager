@@ -352,7 +352,7 @@ namespace ECU_Manager
             eIdleValveVsRpm.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
-                0, 255, 1, 100.0D, 1D, 0.0D, 50D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 0);
+                0, Consts.IDLE_VALVE_POS_MAX, 1, 100.0D, 1D, 0.0D, 50D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 0);
 
 
             eIdleValveVsRpm.SetConfig("idle_valve_to_rpm", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
@@ -573,7 +573,7 @@ namespace ECU_Manager
             eIgnitionInitial.SetY("IgnitionAngle", "Ignition", "F0");
             eIgnitionInitial.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveInitial.Initialize(cs, 0D, 255D, 1D, 20D, 20D, 80D, 10D, 5D, 1);
+            eIdleValveInitial.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
             eIdleValveInitial.SetConfig("idle_valve_initial", "engine_temp_count", "engine_temps");
             eIdleValveInitial.SetX("EngineTemp", "Temperature", "F0");
             eIdleValveInitial.SetY("IdleValvePosition", "Valve", "F0");
