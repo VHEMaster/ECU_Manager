@@ -32,6 +32,7 @@ namespace ECU_Manager.Structs
         public float KnockSensorDetonate;
         public float KnockZone;
         public float KnockAdvance;
+        public int KnockCount;
         public float AirTemp;
         public float EngineTemp;
         public float ManifoldAirPressure;
