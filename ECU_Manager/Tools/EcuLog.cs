@@ -125,43 +125,50 @@ namespace ECU_Manager.Tools
                     split = str.Split(',');
                     if(header.Length > 0)
                     {
-                        if (header.Length == split.Length)
+                        try
                         {
-                            for(int i = 0; i < split.Length;i++)
+                            if (header.Length == split.Length)
                             {
-                                if (header[i] == "TimePoint")
+                                for(int i = 0; i < split.Length;i++)
                                 {
-                                    data.Seconds = Convert.ToDouble(split[i]) / 1000000.0D;
-                                }
-                                else
-                                {
-                                    FieldInfo field = fields.Where(f => f.Name.Equals(header[i])).FirstOrDefault();
-                                    if(field != null)
+                                    if (header[i] == "TimePoint")
                                     {
-                                        if (field.FieldType == typeof(string))
-                                            field.SetValueDirect(__makeref(data.Parameters), split[i]);
-                                        else if (field.FieldType == typeof(float))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToSingle(split[i]));
-                                        else if (field.FieldType == typeof(double))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToDouble(split[i]));
-                                        else if (field.FieldType == typeof(int))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt32(split[i]));
-                                        else if (field.FieldType == typeof(uint))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt32(split[i]));
-                                        else if (field.FieldType == typeof(short))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt16(split[i]));
-                                        else if (field.FieldType == typeof(ushort))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt16(split[i]));
-                                        else if (field.FieldType == typeof(long))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt64(split[i]));
-                                        else if (field.FieldType == typeof(ulong))
-                                            field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt64(split[i]));
+                                        data.Seconds = Convert.ToDouble(split[i]) / 1000000.0D;
+                                    }
+                                    else
+                                    {
+                                        FieldInfo field = fields.Where(f => f.Name.Equals(header[i])).FirstOrDefault();
+                                        if(field != null)
+                                        {
+                                            if (field.FieldType == typeof(string))
+                                                field.SetValueDirect(__makeref(data.Parameters), split[i]);
+                                            else if (field.FieldType == typeof(float))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToSingle(split[i]));
+                                            else if (field.FieldType == typeof(double))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToDouble(split[i]));
+                                            else if (field.FieldType == typeof(int))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt32(split[i]));
+                                            else if (field.FieldType == typeof(uint))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt32(split[i]));
+                                            else if (field.FieldType == typeof(short))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt16(split[i]));
+                                            else if (field.FieldType == typeof(ushort))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt16(split[i]));
+                                            else if (field.FieldType == typeof(long))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToInt64(split[i]));
+                                            else if (field.FieldType == typeof(ulong))
+                                                field.SetValueDirect(__makeref(data.Parameters), Convert.ToUInt64(split[i]));
+                                        }
                                     }
                                 }
                             }
+                            points.Add(data);
                         }
-                        points.Add(data);
-                    }
+                        catch (Exception ex)
+                        {
+
+                        }
+        }
                 }
 
             }
