@@ -961,7 +961,8 @@ namespace ECU_Manager
                 nudSwPos2.Value = cs.ConfigStruct.parameters.switchPos2Table + 1;
                 nudFuelForce.Value = cs.ConfigStruct.parameters.forceTable + 1;
                 nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
-                nudSpeedCorr.Value = (decimal)cs.ConfigStruct.parameters.speedCorrection;
+                nudSpeedInputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedInputCorrection;
+                nudSpeedOutputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedOutputCorrection;
                 nudTspsRelPos.Value = (decimal)cs.ConfigStruct.parameters.tspsRelPos;
                 nudTspsDsThr.Value = (decimal)cs.ConfigStruct.parameters.tspsDesyncThr;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
@@ -1755,9 +1756,18 @@ namespace ECU_Manager
             }
         }
 
-        private void nudSpeedCorr_ValueChanged(object sender, EventArgs e)
+        private void nudSpeedInputCorr_ValueChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.parameters.speedCorrection = (float)((NumericUpDown)sender).Value;
+            cs.ConfigStruct.parameters.speedInputCorrection = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudSpeedOutputCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.speedOutputCorrection = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -2643,6 +2653,11 @@ namespace ECU_Manager
         private void btnIITestAbort_Click(object sender, EventArgs e)
         {
             middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(0, 0, 0, 0, 0, 0);
+        }
+
+        private void nudSpeedCorr_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

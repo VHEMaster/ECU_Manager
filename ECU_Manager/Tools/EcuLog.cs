@@ -164,7 +164,7 @@ namespace ECU_Manager.Tools
                             }
                             points.Add(data);
                         }
-                        catch (Exception ex)
+                        catch
                         {
 
                         }

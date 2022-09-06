@@ -27,7 +27,8 @@ namespace ECU_Manager.Structs
         public float cutoffMixture;
         public float oilPressureCutoffRPM;
 
-        public float speedCorrection;
+        public float speedInputCorrection;
+        public float speedOutputCorrection;
 
         public int useLambdaSensor;
         public int isLambdaForceEnabled;
@@ -61,7 +62,7 @@ namespace ECU_Manager.Structs
        
         public int knockIntegratorTime;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 981)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 980)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
