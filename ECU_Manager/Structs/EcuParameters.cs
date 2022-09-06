@@ -51,6 +51,7 @@ namespace ECU_Manager.Structs
 
         public int IdleFlag;
         public int IdleCorrFlag;
+        public int IdleEconFlag;
         public float RPM;
         public float Speed;
         public float Acceleration;

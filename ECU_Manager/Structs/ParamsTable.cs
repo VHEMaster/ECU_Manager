@@ -37,6 +37,7 @@ namespace ECU_Manager.Structs
         public int performAdaptation;
         public int isSingleCoil;
         public int isIndividualCoils;
+        public int isEconEnabled;
 
         public float fanHighTemperature;
         public float fanMidTemperature;
@@ -62,7 +63,7 @@ namespace ECU_Manager.Structs
        
         public int knockIntegratorTime;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 980)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 979)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

@@ -973,6 +973,7 @@ namespace ECU_Manager
                 cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
+                cbIsEconEnabled.Checked = cs.ConfigStruct.parameters.isEconEnabled > 0;
                 btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
                 btnCorrStart.Enabled = cs.ConfigStruct.parameters.performAdaptation == 0;
                 if (cs.ConfigStruct.parameters.performAdaptation > 0)
@@ -1885,6 +1886,15 @@ namespace ECU_Manager
         private void cbUseLongTermCorr_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLongTermCorr = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbIsEconEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.isEconEnabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
