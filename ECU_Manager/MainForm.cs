@@ -2123,7 +2123,7 @@ namespace ECU_Manager
             {
                 try
                 {
-                    cs.ConfigStruct.tables[cs.CurrentTable] = Serializator<EcuTable>.Deserialize(dlgTableExport.FileName);
+                    cs.ConfigStruct.tables[cs.CurrentTable] = Serializator<EcuTable>.Deserialize(dlgTableImport.FileName);
                     if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                     {
                         middleLayer.UpdateTable(cs.CurrentTable);
