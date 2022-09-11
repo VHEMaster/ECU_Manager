@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using RJCP.IO.Ports;
+using System.IO.Ports;
 
 namespace ECU_Manager.Protocol
 {
     public class Getter
     {
-        private SerialPortStream sp;
+        private SerialPort sp;
         private Sender sender;
         private Queue<byte> rxfifo;
         private Thread rxthread;
         private Mutex fifomutex;
-        public Getter(SerialPortStream sp, Sender sender)
+        public Getter(SerialPort sp, Sender sender)
         {
             this.sender = sender;
             this.sp = sp;
@@ -51,7 +51,7 @@ namespace ECU_Manager.Protocol
                             else
                             {
                                 byte[] data = new byte[1];
-                                sp.ReadAsync(data, 0, 1).Wait();
+                                sp.Read(data, 0, 1);
                                 fifomutex.WaitOne();
                                 foreach (byte b in data)
                                     rxfifo.Enqueue(b);

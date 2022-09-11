@@ -1,8 +1,8 @@
-﻿using RJCP.IO.Ports;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,7 +19,7 @@ namespace ECU_Manager.Protocol
         const int RETRIES_MAX = 20;
         const int RETRY_TIMEOUT = 50;
 
-        SerialPortStream sp;
+        SerialPort sp;
         string comPort;
         PacketReceivedEvent receivedEvent;
         PacketSentEvent sentEvent;
@@ -42,13 +42,12 @@ namespace ECU_Manager.Protocol
             this.sentEvent = sentEvent;
             this.comPort = comPort;
 
-            sp = new SerialPortStream(comPort, 960000, 8, Parity.None, StopBits.One);
+            sp = new SerialPort(comPort, 960000, Parity.None, 8, StopBits.One);
             sp.ReadBufferSize = 4096;
             sp.WriteBufferSize = 4096;
-            sp.OpenDirect();
+            sp.Open();
             sp.DiscardInBuffer();
             sp.DiscardOutBuffer();
-            sp.Flush();
 
             sender = new Sender(sp);
             getter = new Getter(sp, sender);
@@ -82,10 +81,9 @@ namespace ECU_Manager.Protocol
                 }
                 catch { }
                 
-                sp.OpenDirect();
+                sp.Open();
                 sp.DiscardInBuffer();
                 sp.DiscardOutBuffer();
-                sp.Flush();
             }
             catch (Exception) { }
         }

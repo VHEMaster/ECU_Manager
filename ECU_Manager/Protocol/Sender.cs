@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using RJCP.IO.Ports;
+using System.IO.Ports;
 
 namespace ECU_Manager.Protocol
 {
     public class Sender
     {
-        private SerialPortStream sp;
-        public Sender(SerialPortStream sp)
+        private SerialPort sp;
+        public Sender(SerialPort sp)
         {
             this.sp = sp;
         }
@@ -36,7 +36,6 @@ namespace ECU_Manager.Protocol
                 packet[packet.Length - 2] = (byte)(crc16 & 0xFF);
                 packet[packet.Length - 1] = (byte)((crc16 >> 8) & 0xFF);
                 sp.Write(packet, 0, packet.Length);
-                sp.Flush();
             }
         }
 
@@ -56,7 +55,6 @@ namespace ECU_Manager.Protocol
                 packet[6] = (byte)((packetId >> 8) & 0xFF);
                 packet[7] = Crc.crc_8(packet, 7);
                 sp.Write(packet, 0, packet.Length);
-                sp.Flush();
             }
         }
     }
