@@ -268,7 +268,7 @@ namespace ECU_Manager
             eRotates.SetY("RPM", "RPM", "F0");
             eRotates.SetTableEventHandler(ChartUpdateEvent);
 
-            eThrottles.Initialize(cs, 0, 100, 1, 5, 0, 100, 1, 10, 1);
+            eThrottles.Initialize(cs, 0, 100, 1, 1, 0, 100, 1, 10, 1);
             eThrottles.SetConfig("throttles", "throttles_count", string.Empty);
             eThrottles.SetY("ThrottlePosition", "TPS", "F1");
             eThrottles.SetTableEventHandler(ChartUpdateEvent);
