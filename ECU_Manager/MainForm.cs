@@ -236,13 +236,13 @@ namespace ECU_Manager
             eInjectorLag.SetY("InjectionLag", "Lag", "F2");
             eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentByMAP.Initialize(cs, 0, 5, 0.001D, 0.1D, 0D, 1.0F, 5000, 0.1D, 3);
+            eEnrichmentByMAP.Initialize(cs, -1, 5, 0.001D, 0.1D, 0D, 1.0F, 5000, 0.1D, 3);
             eEnrichmentByMAP.SetConfig("enrichment_by_map_sens", "pressures_count", "pressures");
             eEnrichmentByMAP.SetX("ManifoldAirPressure", "MAP", "F0");
             eEnrichmentByMAP.SetY("InjectionEnrichment", "Enr.", "F3");
             eEnrichmentByMAP.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentByTPS.Initialize(cs, 0, 5, 0.001D, 0.1D, 0D, 1.0F, 5, 0.1D, 3);
+            eEnrichmentByTPS.Initialize(cs, -1, 5, 0.001D, 0.1D, 0D, 1.0F, 5, 0.1D, 3);
             eEnrichmentByTPS.SetConfig("enrichment_by_thr_sens", "throttles_count", "throttles");
             eEnrichmentByTPS.SetX("ThrottlePosition", "TPS", "F0");
             eEnrichmentByTPS.SetY("InjectionEnrichment", "Enr.", "F3");
