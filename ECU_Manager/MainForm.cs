@@ -1831,7 +1831,7 @@ namespace ECU_Manager
 
         private void nudKnockIntegratorTimeConstant_ValueChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.parameters.knockIntegratorTime = (int)((NumericUpDown)sender).Value - 1;
+            cs.ConfigStruct.parameters.knockIntegratorTime = (int)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
