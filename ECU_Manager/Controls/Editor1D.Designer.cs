@@ -41,6 +41,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.chart1DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btnCopyToC = new System.Windows.Forms.Button();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudValue)).BeginInit();
@@ -82,6 +83,7 @@
             // panel2
             // 
             this.tableLayoutPanel5.SetColumnSpan(this.panel2, 2);
+            this.panel2.Controls.Add(this.btnCopyToC);
             this.panel2.Controls.Add(this.lblItemValue);
             this.panel2.Controls.Add(this.nudValue);
             this.panel2.Controls.Add(this.label22);
@@ -231,6 +233,17 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnCopyToC
+            // 
+            this.btnCopyToC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyToC.Location = new System.Drawing.Point(766, 3);
+            this.btnCopyToC.Name = "btnCopyToC";
+            this.btnCopyToC.Size = new System.Drawing.Size(170, 31);
+            this.btnCopyToC.TabIndex = 6;
+            this.btnCopyToC.Text = "Copy to C code";
+            this.btnCopyToC.UseVisualStyleBackColor = true;
+            this.btnCopyToC.Click += new System.EventHandler(this.btnCopyToC_Click);
+            // 
             // Editor1D
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -264,5 +277,6 @@
         private System.Windows.Forms.Label lblItemValue;
         private NumericUpDownOneWheel nudValue;
         private NumericUpDownOneWheel nudItem;
+        private System.Windows.Forms.Button btnCopyToC;
     }
 }

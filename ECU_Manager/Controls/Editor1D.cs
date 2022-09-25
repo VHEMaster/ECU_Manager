@@ -706,5 +706,39 @@ namespace ECU_Manager.Controls
                 nudItem.Value = iPrevDataPoint + 1;
             }
         }
+
+        private void btnCopyToC_Click(object sender, EventArgs e)
+        {
+            float[] array1d = null;
+            int size = 0;
+            string text = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSize != null)
+                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                if (fieldArrayX != null)
+                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (size > 0 && array1d != null)
+            {
+                text = "\t";
+                for (int x = 0; x < size; x++)
+                {
+                    text += string.Format("{0:0.0##}f, ", array1d[x]);
+                    if ((x + 1) % 8 == 0 && (x + 1) < size && x > 0)
+                        text += "\r\n\t";
+                }
+                text += "\r\n";
+                Clipboard.SetText(text);
+            }
+        }
     }
 }

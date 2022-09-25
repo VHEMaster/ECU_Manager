@@ -995,7 +995,8 @@ namespace ECU_Manager.Controls
         private void Editor2D_Load(object sender, EventArgs e)
         {
             tpGraph.BackColor = this.BackColor;
-            tpInterpolation.BackColor = this.BackColor; 
+            tpInterpolation.BackColor = this.BackColor;
+            tpTools.BackColor = this.BackColor;
 
         }
 
@@ -1139,6 +1140,63 @@ namespace ECU_Manager.Controls
             UpdateChart();
             UpdateTableEvent?.Invoke(sender, new EventArgs());
 
+        }
+
+        private void btnCopyToC_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
+            float[] array2d = null;
+            int index;
+            string text = string.Empty;
+            string line = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+                else if (eMode == Editor2DMode.CorrectionsTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
+            }
+
+            if (sizex > 0 && sizey > 0 && array2d != null)
+            {
+                for (int y = 0; y < sizey; y++)
+                {
+                    line = string.Empty;
+                    text += "\t{ ";
+                    for (int x = 0; x < sizex; x++)
+                    {
+                        index = y * iArraySizeX + x;
+                        line += string.Format("{0:0.0##}f, ", array2d[index]);
+                    }
+                    text += line;
+                    text += "},\r\n";
+                }
+                Clipboard.SetText(text);
+            }
         }
     }
 }

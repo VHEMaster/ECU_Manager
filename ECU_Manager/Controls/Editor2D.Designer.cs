@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.scVertical = new System.Windows.Forms.SplitContainer();
             this.scHorisontal = new System.Windows.Forms.SplitContainer();
             this.tlp2DTable = new System.Windows.Forms.TableLayoutPanel();
@@ -38,6 +38,7 @@
             this.tpGraph = new System.Windows.Forms.TabPage();
             this.graph3D = new ECU_Manager.Controls.Graph3D();
             this.tpInterpolation = new System.Windows.Forms.TabPage();
+            this.cbInterpolateUseProgress = new System.Windows.Forms.CheckBox();
             this.btnInterpolate = new System.Windows.Forms.Button();
             this.nudInterpolationRadius = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudInterpolationAmount = new ECU_Manager.Controls.NumericUpDownOneWheel();
@@ -49,7 +50,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.cbInterpolateUseProgress = new System.Windows.Forms.CheckBox();
+            this.tpTools = new System.Windows.Forms.TabPage();
+            this.btnCopyToC = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -66,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationKoff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tpTools.SuspendLayout();
             this.SuspendLayout();
             // 
             // scVertical
@@ -132,6 +135,7 @@
             // 
             this.tabControl1.Controls.Add(this.tpGraph);
             this.tabControl1.Controls.Add(this.tpInterpolation);
+            this.tabControl1.Controls.Add(this.tpTools);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -189,6 +193,20 @@
             this.tpInterpolation.Size = new System.Drawing.Size(365, 302);
             this.tpInterpolation.TabIndex = 1;
             this.tpInterpolation.Text = "Interpolation";
+            // 
+            // cbInterpolateUseProgress
+            // 
+            this.cbInterpolateUseProgress.AutoSize = true;
+            this.cbInterpolateUseProgress.Checked = true;
+            this.cbInterpolateUseProgress.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbInterpolateUseProgress.Enabled = false;
+            this.cbInterpolateUseProgress.Location = new System.Drawing.Point(10, 152);
+            this.cbInterpolateUseProgress.Name = "cbInterpolateUseProgress";
+            this.cbInterpolateUseProgress.Size = new System.Drawing.Size(142, 28);
+            this.cbInterpolateUseProgress.TabIndex = 9;
+            this.cbInterpolateUseProgress.Text = "Use Progress";
+            this.cbInterpolateUseProgress.UseVisualStyleBackColor = true;
+            this.cbInterpolateUseProgress.Visible = false;
             // 
             // btnInterpolate
             // 
@@ -297,36 +315,36 @@
             // 
             // chart2DChart
             // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.AxisY.Interval = 10D;
-            chartArea2.AxisY.Maximum = 60D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.Name = "ChartArea1";
-            this.chart2DChart.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.Interval = 1D;
+            chartArea1.AxisY.Interval = 10D;
+            chartArea1.AxisY.Maximum = 60D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chart2DChart.ChartAreas.Add(chartArea1);
             this.chart2DChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart2DChart.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chart2DChart.Legends.Add(legend1);
             this.chart2DChart.Location = new System.Drawing.Point(0, 3);
             this.chart2DChart.Name = "chart2DChart";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Brown;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series2.IsValueShownAsLabel = true;
-            series2.LabelBorderWidth = 0;
-            series2.Legend = "Legend1";
-            series2.MarkerColor = System.Drawing.Color.Black;
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series2.SmartLabelStyle.MaxMovingDistance = 100D;
-            series2.SmartLabelStyle.MinMovingDistance = 10D;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series2.YValuesPerPoint = 2;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart2DChart.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Brown;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelBorderWidth = 0;
+            series1.Legend = "Legend1";
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series1.SmartLabelStyle.MaxMovingDistance = 100D;
+            series1.SmartLabelStyle.MinMovingDistance = 10D;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series1.YValuesPerPoint = 2;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart2DChart.Series.Add(series1);
             this.chart2DChart.Size = new System.Drawing.Size(1046, 235);
             this.chart2DChart.TabIndex = 4;
             this.chart2DChart.Text = " ";
@@ -370,19 +388,27 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cbInterpolateUseProgress
+            // tpTools
             // 
-            this.cbInterpolateUseProgress.AutoSize = true;
-            this.cbInterpolateUseProgress.Checked = true;
-            this.cbInterpolateUseProgress.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbInterpolateUseProgress.Enabled = false;
-            this.cbInterpolateUseProgress.Location = new System.Drawing.Point(10, 152);
-            this.cbInterpolateUseProgress.Name = "cbInterpolateUseProgress";
-            this.cbInterpolateUseProgress.Size = new System.Drawing.Size(142, 28);
-            this.cbInterpolateUseProgress.TabIndex = 9;
-            this.cbInterpolateUseProgress.Text = "Use Progress";
-            this.cbInterpolateUseProgress.UseVisualStyleBackColor = true;
-            this.cbInterpolateUseProgress.Visible = false;
+            this.tpTools.BackColor = System.Drawing.Color.Transparent;
+            this.tpTools.Controls.Add(this.btnCopyToC);
+            this.tpTools.Location = new System.Drawing.Point(4, 33);
+            this.tpTools.Name = "tpTools";
+            this.tpTools.Padding = new System.Windows.Forms.Padding(3);
+            this.tpTools.Size = new System.Drawing.Size(365, 302);
+            this.tpTools.TabIndex = 2;
+            this.tpTools.Text = "Tools";
+            // 
+            // btnCopyToC
+            // 
+            this.btnCopyToC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyToC.Location = new System.Drawing.Point(6, 6);
+            this.btnCopyToC.Name = "btnCopyToC";
+            this.btnCopyToC.Size = new System.Drawing.Size(201, 33);
+            this.btnCopyToC.TabIndex = 9;
+            this.btnCopyToC.Text = "Copy to C code";
+            this.btnCopyToC.UseVisualStyleBackColor = true;
+            this.btnCopyToC.Click += new System.EventHandler(this.btnCopyToC_Click);
             // 
             // Editor2D
             // 
@@ -412,6 +438,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tpTools.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -436,5 +463,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbInterpolateUseProgress;
+        private System.Windows.Forms.TabPage tpTools;
+        private System.Windows.Forms.Button btnCopyToC;
     }
 }
