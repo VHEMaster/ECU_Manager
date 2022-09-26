@@ -16,6 +16,7 @@ namespace ECU_Manager.Controls
 {
     public partial class Editor1D : UserControl
     {
+        private int iDecPlaces;
         private string sConfigSizeX;
         private string sConfigDepX;
         private string sParamsStatusX;
@@ -97,6 +98,7 @@ namespace ECU_Manager.Controls
             dChartMinY = chartminy;
             dChartMaxY = chartmaxy;
             dMinDiff = mindiff;
+            iDecPlaces = decplaces;
 
             bLog10 = log10;
 
@@ -712,6 +714,7 @@ namespace ECU_Manager.Controls
             float[] array1d = null;
             int size = 0;
             string text = string.Empty;
+            string decplaces = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
@@ -729,10 +732,13 @@ namespace ECU_Manager.Controls
 
             if (size > 0 && array1d != null)
             {
+                if (iDecPlaces > 0)
+                    decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
+
                 text = "\t";
                 for (int x = 0; x < size; x++)
                 {
-                    text += string.Format("{0:0.0##}f, ", array1d[x]);
+                    text += string.Format("{0:0" + decplaces + "}f, ", array1d[x]);
                     if ((x + 1) % 8 == 0 && (x + 1) < size && x > 0)
                         text += "\r\n\t";
                 }

@@ -31,6 +31,7 @@ namespace ECU_Manager.Controls
     {
         private int iArraySizeX;
         private int iArraySizeY;
+        private int iDecPlaces;
         private string sConfigSizeX;
         private string sConfigSizeY;
         private string sConfigDepX;
@@ -146,6 +147,7 @@ namespace ECU_Manager.Controls
             dMinDiffY = mindiffy;
             iArraySizeX = arraysizex;
             iArraySizeY = arraysizey;
+            iDecPlaces = decplaces;
             eMode = mode;
 
             bLog10 = log10;
@@ -1150,6 +1152,7 @@ namespace ECU_Manager.Controls
             int index;
             string text = string.Empty;
             string line = string.Empty;
+            string decplaces = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
@@ -1183,6 +1186,9 @@ namespace ECU_Manager.Controls
 
             if (sizex > 0 && sizey > 0 && array2d != null)
             {
+                if (iDecPlaces > 0)
+                    decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
+
                 for (int y = 0; y < sizey; y++)
                 {
                     line = string.Empty;
@@ -1190,12 +1196,164 @@ namespace ECU_Manager.Controls
                     for (int x = 0; x < sizex; x++)
                     {
                         index = y * iArraySizeX + x;
-                        line += string.Format("{0:0.0##}f, ", array2d[index]);
+                        line += string.Format("{0:0" + decplaces + "}f, ", array2d[index]);
                     }
                     text += line;
                     text += "},\r\n";
                 }
                 Clipboard.SetText(text);
+            }
+        }
+
+        private void btnImport2DChart_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
+            float[] array2d = null;
+            float[][] array;
+            int index;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+                else if (eMode == Editor2DMode.CorrectionsTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
+            }
+
+            if (sizex > 0 && sizey > 0 && array2d != null)
+            {
+                if (dlgImport2DChart.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        array = Serializator<float[][]>.Deserialize(dlgImport2DChart.FileName);
+
+                        if (array.Length != sizey)
+                            throw new Exception("Y size not equals to original array.");
+
+                        for (int y = 0; y < sizey; y++)
+                        {
+                            if (array[y].Length != sizex)
+                                throw new Exception("X size not equals to original array.");
+
+                            for (int x = 0; x < sizex; x++)
+                            {
+                                index = y * iArraySizeX + x;
+                                array2d[index] = array[y][x];
+                            }
+                        }
+
+                        valueChangedEnabled = false;
+                        foreach (Control control in tlp2DTable.Controls)
+                        {
+                            if (control.GetType().IsSubclassOf(typeof(NumericUpDown)))
+                            {
+                                if (control.Tag != null)
+                                {
+                                    index = (int)control.Tag;
+                                    ((NumericUpDown)control).Value = (decimal)array2d[index];
+                                }
+                            }
+                        }
+                        valueChangedEnabled = true;
+                        UpdateChart();
+                        UpdateTableEvent?.Invoke(sender, new EventArgs());
+
+                        MessageBox.Show($"2D Chart import success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"2d Chart import failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnExport2DChart_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
+            float[] array2d = null;
+            float[][] array;
+            int index;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+                else if (eMode == Editor2DMode.CorrectionsTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
+            }
+
+            if (sizex > 0 && sizey > 0 && array2d != null)
+            {
+                if (dlgExport2DChart.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        array = new float[sizey][];
+                        for(int y = 0; y < sizey; y++)
+                        {
+                            array[y] = new float[sizex];
+                            for (int x = 0; x < sizex; x++)
+                            {
+                                index = y * iArraySizeX + x;
+                                array[y][x] = array2d[index];
+                            }
+                        }
+                        Serializator<float[][]>.Serialize(dlgExport2DChart.FileName, array);
+                        MessageBox.Show($"2D Chart export success.", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"2d Chart export failed.\r\n{ex.Message}", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

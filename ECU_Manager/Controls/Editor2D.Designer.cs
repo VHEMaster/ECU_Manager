@@ -46,12 +46,16 @@
             this.nudInterpolationKoff = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tpTools = new System.Windows.Forms.TabPage();
+            this.btnCopyToC = new System.Windows.Forms.Button();
             this.chart2DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.tpTools = new System.Windows.Forms.TabPage();
-            this.btnCopyToC = new System.Windows.Forms.Button();
+            this.btnImport2DChart = new System.Windows.Forms.Button();
+            this.btnExport2DChart = new System.Windows.Forms.Button();
+            this.dlgExport2DChart = new System.Windows.Forms.SaveFileDialog();
+            this.dlgImport2DChart = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -66,9 +70,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationKoff)).BeginInit();
+            this.tpTools.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tpTools.SuspendLayout();
             this.SuspendLayout();
             // 
             // scVertical
@@ -187,10 +191,10 @@
             this.tpInterpolation.Controls.Add(this.nudInterpolationKoff);
             this.tpInterpolation.Controls.Add(this.label2);
             this.tpInterpolation.Controls.Add(this.label1);
-            this.tpInterpolation.Location = new System.Drawing.Point(4, 33);
+            this.tpInterpolation.Location = new System.Drawing.Point(4, 22);
             this.tpInterpolation.Name = "tpInterpolation";
             this.tpInterpolation.Padding = new System.Windows.Forms.Padding(3);
-            this.tpInterpolation.Size = new System.Drawing.Size(365, 302);
+            this.tpInterpolation.Size = new System.Drawing.Size(365, 313);
             this.tpInterpolation.TabIndex = 1;
             this.tpInterpolation.Text = "Interpolation";
             // 
@@ -313,6 +317,30 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Radius:";
             // 
+            // tpTools
+            // 
+            this.tpTools.BackColor = System.Drawing.Color.Transparent;
+            this.tpTools.Controls.Add(this.btnExport2DChart);
+            this.tpTools.Controls.Add(this.btnImport2DChart);
+            this.tpTools.Controls.Add(this.btnCopyToC);
+            this.tpTools.Location = new System.Drawing.Point(4, 33);
+            this.tpTools.Name = "tpTools";
+            this.tpTools.Padding = new System.Windows.Forms.Padding(3);
+            this.tpTools.Size = new System.Drawing.Size(365, 302);
+            this.tpTools.TabIndex = 2;
+            this.tpTools.Text = "Tools";
+            // 
+            // btnCopyToC
+            // 
+            this.btnCopyToC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyToC.Location = new System.Drawing.Point(6, 6);
+            this.btnCopyToC.Name = "btnCopyToC";
+            this.btnCopyToC.Size = new System.Drawing.Size(201, 33);
+            this.btnCopyToC.TabIndex = 9;
+            this.btnCopyToC.Text = "Copy to C code";
+            this.btnCopyToC.UseVisualStyleBackColor = true;
+            this.btnCopyToC.Click += new System.EventHandler(this.btnCopyToC_Click);
+            // 
             // chart2DChart
             // 
             chartArea1.AxisX.Interval = 1D;
@@ -388,27 +416,39 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tpTools
+            // btnImport2DChart
             // 
-            this.tpTools.BackColor = System.Drawing.Color.Transparent;
-            this.tpTools.Controls.Add(this.btnCopyToC);
-            this.tpTools.Location = new System.Drawing.Point(4, 33);
-            this.tpTools.Name = "tpTools";
-            this.tpTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTools.Size = new System.Drawing.Size(365, 302);
-            this.tpTools.TabIndex = 2;
-            this.tpTools.Text = "Tools";
+            this.btnImport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImport2DChart.Location = new System.Drawing.Point(6, 45);
+            this.btnImport2DChart.Name = "btnImport2DChart";
+            this.btnImport2DChart.Size = new System.Drawing.Size(98, 33);
+            this.btnImport2DChart.TabIndex = 10;
+            this.btnImport2DChart.Text = "Import";
+            this.btnImport2DChart.UseVisualStyleBackColor = true;
+            this.btnImport2DChart.Click += new System.EventHandler(this.btnImport2DChart_Click);
             // 
-            // btnCopyToC
+            // btnExport2DChart
             // 
-            this.btnCopyToC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCopyToC.Location = new System.Drawing.Point(6, 6);
-            this.btnCopyToC.Name = "btnCopyToC";
-            this.btnCopyToC.Size = new System.Drawing.Size(201, 33);
-            this.btnCopyToC.TabIndex = 9;
-            this.btnCopyToC.Text = "Copy to C code";
-            this.btnCopyToC.UseVisualStyleBackColor = true;
-            this.btnCopyToC.Click += new System.EventHandler(this.btnCopyToC_Click);
+            this.btnExport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport2DChart.Location = new System.Drawing.Point(109, 45);
+            this.btnExport2DChart.Name = "btnExport2DChart";
+            this.btnExport2DChart.Size = new System.Drawing.Size(98, 33);
+            this.btnExport2DChart.TabIndex = 11;
+            this.btnExport2DChart.Text = "Export";
+            this.btnExport2DChart.UseVisualStyleBackColor = true;
+            this.btnExport2DChart.Click += new System.EventHandler(this.btnExport2DChart_Click);
+            // 
+            // dlgExport2DChart
+            // 
+            this.dlgExport2DChart.DefaultExt = "xml";
+            this.dlgExport2DChart.Filter = "AutoECU 2D Chart|*.ecu2dchart";
+            this.dlgExport2DChart.RestoreDirectory = true;
+            // 
+            // dlgImport2DChart
+            // 
+            this.dlgImport2DChart.DefaultExt = "xml";
+            this.dlgImport2DChart.Filter = "AutoECU 2D Chart|*.ecu2dchart";
+            this.dlgImport2DChart.RestoreDirectory = true;
             // 
             // Editor2D
             // 
@@ -435,10 +475,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudInterpolationKoff)).EndInit();
+            this.tpTools.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2DChart)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tpTools.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -465,5 +505,9 @@
         private System.Windows.Forms.CheckBox cbInterpolateUseProgress;
         private System.Windows.Forms.TabPage tpTools;
         private System.Windows.Forms.Button btnCopyToC;
+        private System.Windows.Forms.Button btnExport2DChart;
+        private System.Windows.Forms.Button btnImport2DChart;
+        private System.Windows.Forms.SaveFileDialog dlgExport2DChart;
+        private System.Windows.Forms.OpenFileDialog dlgImport2DChart;
     }
 }

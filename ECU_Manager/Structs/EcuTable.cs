@@ -90,6 +90,10 @@ namespace ECU_Manager.Structs
         [XmlArray("injection_phase")]
         [XmlArrayItem("phase")]
         public float[] injection_phase;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_phase_lpf")]
+        [XmlArrayItem("lpf")]
+        public float[] injection_phase_lpf;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("ignition_time_rpm_mult")]
@@ -206,6 +210,16 @@ namespace ECU_Manager.Structs
         public float[] warmup_mix_corrs;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("cold_start_corrs")]
+        [XmlArrayItem("corr")]
+        public float[] cold_start_corrs;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("cold_start_times")]
+        [XmlArrayItem("time")]
+        public float[] cold_start_times;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("start_mixtures")]
         [XmlArrayItem("mixture")]
         public float[] start_mixtures;
@@ -253,7 +267,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1177)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1129)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

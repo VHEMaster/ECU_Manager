@@ -236,6 +236,11 @@ namespace ECU_Manager
             eInjectorLag.SetY("InjectionLag", "Lag", "F2");
             eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
 
+            eInjectionPhaseLPF.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            eInjectionPhaseLPF.SetConfig("injection_phase_lpf", "rotates_count", "rotates");
+            eInjectionPhaseLPF.SetX("RPM", "RPM", "F0");
+            eInjectionPhaseLPF.SetTableEventHandler(ChartUpdateEvent);
+
             eEnrichmentByMAP.Initialize(cs, -1, 5, 0.001D, 0.1D, 0D, 1.0F, 5000, 0.1D, 3);
             eEnrichmentByMAP.SetConfig("enrichment_by_map_sens", "pressures_count", "pressures");
             eEnrichmentByMAP.SetX("ManifoldAirPressure", "MAP", "F0");
@@ -390,6 +395,16 @@ namespace ECU_Manager
             eWarmupMixCorrs.SetConfig("warmup_mix_corrs", "engine_temp_count", "engine_temps");
             eWarmupMixCorrs.SetX("EngineTemp", "Temp.", "F1");
             eWarmupMixCorrs.SetTableEventHandler(ChartUpdateEvent);
+
+            eColdStartCorrs.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
+            eColdStartCorrs.SetConfig("cold_start_times", "engine_temp_count", "engine_temps");
+            eColdStartCorrs.SetX("EngineTemp", "Temp.", "F1");
+            eColdStartCorrs.SetTableEventHandler(ChartUpdateEvent);
+
+            eColdStartCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
+            eColdStartCorrs.SetConfig("cold_start_corrs", "engine_temp_count", "engine_temps");
+            eColdStartCorrs.SetX("EngineTemp", "Temp.", "F1");
+            eColdStartCorrs.SetTableEventHandler(ChartUpdateEvent);
 
             eKnockNoiseLevel.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
             eKnockNoiseLevel.SetConfig("knock_noise_level", "rotates_count", "rotates");
@@ -645,6 +660,7 @@ namespace ECU_Manager
             ePressureByRPMvsTPS.UpdateChart();
             eSatByRPM.UpdateChart();
             eInjectorLag.UpdateChart();
+            eInjectionPhaseLPF.UpdateChart();
             eSaturationPulse.UpdateChart();
             eEnrichmentByMAP.UpdateChart();
             eEnrichmentByTPS.UpdateChart();
@@ -678,6 +694,8 @@ namespace ECU_Manager
             eWarmupMixture.UpdateChart();
             eWarmupMixKoffs.UpdateChart();
             eWarmupMixCorrs.UpdateChart();
+            eColdStartCorrs.UpdateChart();
+            eColdStartTimes.UpdateChart();
 
             eKnockThreshold.UpdateChart();
             eKnockNoiseLevel.UpdateChart();
@@ -966,6 +984,9 @@ namespace ECU_Manager
                 nudTspsRelPos.Value = (decimal)cs.ConfigStruct.parameters.tspsRelPos;
                 nudTspsDsThr.Value = (decimal)cs.ConfigStruct.parameters.tspsDesyncThr;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
+                nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
+                nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
+                nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
 
                 cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
@@ -1529,6 +1550,33 @@ namespace ECU_Manager
                 {
                     middleLayer.UpdateConfig();
                 }
+            }
+        }
+
+        private void nudParamsFanLowT_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.fanLowTemperature = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsFanMidT_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.fanMidTemperature = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsFanHighT_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.fanHighTemperature = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
             }
         }
 
@@ -2663,11 +2711,6 @@ namespace ECU_Manager
         private void btnIITestAbort_Click(object sender, EventArgs e)
         {
             middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(0, 0, 0, 0, 0, 0);
-        }
-
-        private void nudSpeedCorr_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
