@@ -116,6 +116,8 @@
     <Compile Include="Packets\PK_ForceParametersData.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestRequest.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterRequest.cs" />
+    <Compile Include="Packets\PK_SpecificParameterResponse.cs" />
     <Compile Include="Packets\PK_ResetStatusRequest.cs" />
     <Compile Include="Packets\PK_StatusRequest.cs" />
     <Compile Include="Packets\PK_ResetStatusResponse.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="Structs\EcuForceParameters.cs" />
     <Compile Include="Structs\EcuStatus.cs" />
     <Compile Include="Structs\EcuParameters.cs" />
+    <Compile Include="Structs\Parameter.cs" />
+    <Compile Include="Structs\ParameterUnion.cs" />
     <Compile Include="Structs\PointData.cs" />
     <Compile Include="SyncForm.cs">
       <SubType>Form</SubType>

@@ -49,5 +49,7 @@ namespace ECU_Manager.Packets
         ResetStatusResponseID = 38,
         IgnitionInjectionTestRequestID = 39,
         IgnitionInjectionTestResponseID = 40,
+        SpecificParameterRequestID = 41,
+        SpecificParameterResponseID = 42,
     }
 }
