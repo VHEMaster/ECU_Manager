@@ -341,11 +341,17 @@ namespace ECU_Manager
             eIdleWishMassAirFlow.SetY("MassAirFlow", "Mass Air Flow", "F1");
             eIdleWishMassAirFlow.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleWishIgnition.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
-            eIdleWishIgnition.SetConfig("idle_wish_ignition", "rotates_count", "rotates");
-            eIdleWishIgnition.SetX("RPM", "RPM", "F0");
+            eIdleWishIgnition.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 10D, 2D, 1);
+            eIdleWishIgnition.SetConfig("idle_wish_ignition", "engine_temp_count", "engine_temps");
+            eIdleWishIgnition.SetX("EngineTemp", "Temp", "F1");
             eIdleWishIgnition.SetY("IgnitionAngle", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
+            eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "rotates_count", "rotates");
+            eIdleIgnitionStatic.SetX("RPM", "RPM", "F0");
+            eIdleIgnitionStatic.SetY("IgnitionAngle", "Ignition", "F1");
+            eIdleIgnitionStatic.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleSpeedShift.Initialize(cs, 0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
             eIdleSpeedShift.SetConfig("idle_rpm_shift", "idle_speeds_shift_count", "idle_rpm_shift_speeds");
@@ -374,12 +380,6 @@ namespace ECU_Manager
 
             eIdleValveVsRpm.SetTableColorTrans(colorTransience);
 
-            eStartupMixture.Initialize(cs, 1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
-            eStartupMixture.SetConfig("start_mixtures", "engine_temp_count", "engine_temps");
-            eStartupMixture.SetX("EngineTemp", "Temp.", "F1");
-            eStartupMixture.SetY("WishFuelRatio", "Fuel Ratio", "F1");
-            eStartupMixture.SetTableEventHandler(ChartUpdateEvent);
-
             eWarmupMixture.Initialize(cs, 1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
             eWarmupMixture.SetConfig("warmup_mixtures", "engine_temp_count", "engine_temps");
             eWarmupMixture.SetX("EngineTemp", "Temp.", "F1");
@@ -396,13 +396,13 @@ namespace ECU_Manager
             eWarmupMixCorrs.SetX("EngineTemp", "Temp.", "F1");
             eWarmupMixCorrs.SetTableEventHandler(ChartUpdateEvent);
 
-            eColdStartCorrs.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
-            eColdStartCorrs.SetConfig("cold_start_times", "engine_temp_count", "engine_temps");
-            eColdStartCorrs.SetX("EngineTemp", "Temp.", "F1");
-            eColdStartCorrs.SetTableEventHandler(ChartUpdateEvent);
+            eColdStartTimes.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
+            eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
+            eColdStartTimes.SetX("EngineTemp", "Temp.", "F1");
+            eColdStartTimes.SetTableEventHandler(ChartUpdateEvent);
 
             eColdStartCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
-            eColdStartCorrs.SetConfig("cold_start_corrs", "engine_temp_count", "engine_temps");
+            eColdStartCorrs.SetConfig("cold_start_idle_corrs", "engine_temp_count", "engine_temps");
             eColdStartCorrs.SetX("EngineTemp", "Temp.", "F1");
             eColdStartCorrs.SetTableEventHandler(ChartUpdateEvent);
 
@@ -582,24 +582,54 @@ namespace ECU_Manager
             eAirTempIgnCorr.SynchronizeChart();
 
 
-            eIgnitionInitial.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
-            eIgnitionInitial.SetConfig("ignition_initial", "engine_temp_count", "engine_temps");
-            eIgnitionInitial.SetX("EngineTemp", "Temperature", "F0");
-            eIgnitionInitial.SetY("IgnitionAngle", "Ignition", "F0");
-            eIgnitionInitial.SetTableEventHandler(ChartUpdateEvent);
+            eStartIgnition.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
+            eStartIgnition.SetConfig("start_ignition", "engine_temp_count", "engine_temps");
+            eStartIgnition.SetX("EngineTemp", "Temperature", "F0");
+            eStartIgnition.SetY("IgnitionAngle", "Ignition", "F0");
+            eStartIgnition.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveInitial.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
-            eIdleValveInitial.SetConfig("idle_valve_initial", "engine_temp_count", "engine_temps");
-            eIdleValveInitial.SetX("EngineTemp", "Temperature", "F0");
-            eIdleValveInitial.SetY("IdleValvePosition", "Valve", "F0");
-            eIdleValveInitial.SetTableEventHandler(ChartUpdateEvent);
+            eStartIdleValvePos.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
+            eStartIdleValvePos.SetConfig("start_idle_valve_pos", "engine_temp_count", "engine_temps");
+            eStartIdleValvePos.SetX("EngineTemp", "Temperature", "F0");
+            eStartIdleValvePos.SetY("IdleValvePosition", "Valve", "F0");
+            eStartIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
+
+            eStartAsyncInject.Initialize(cs, 0D, 5000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartAsyncInject.SetConfig("start_async_filling", "engine_temp_count", "engine_temps");
+            eStartAsyncInject.SetX("EngineTemp", "Temperature", "F0");
+            eStartAsyncInject.SetTableEventHandler(ChartUpdateEvent);
+
+            eStartLargeInject.Initialize(cs, 0D, 4000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartLargeInject.SetConfig("start_large_filling", "engine_temp_count", "engine_temps");
+            eStartLargeInject.SetX("EngineTemp", "Temperature", "F0");
+            eStartLargeInject.SetTableEventHandler(ChartUpdateEvent);
+
+            eStartSmallInject.Initialize(cs, 0D, 3000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartSmallInject.SetConfig("start_small_filling", "engine_temp_count", "engine_temps");
+            eStartSmallInject.SetX("EngineTemp", "Temperature", "F0");
+            eStartSmallInject.SetTableEventHandler(ChartUpdateEvent);
+
+            eStartInjPhase.Initialize(cs, 0D, 360D, 1D, 5D, 0D, 200D, 10D, 20D, 0);
+            eStartInjPhase.SetConfig("start_injection_phase", "engine_temp_count", "engine_temps");
+            eStartInjPhase.SetX("EngineTemp", "Temperature", "F0");
+            eStartInjPhase.SetTableEventHandler(ChartUpdateEvent);
+
+            eStartTpsCorrs.Initialize(cs, 0D, 1D, 0.01D, 0.05D, 0D, 1D, 10D, 0.1D, 2);
+            eStartTpsCorrs.SetConfig("start_tps_corrs", "throttles_count", "throttles");
+            eStartTpsCorrs.SetX("ThrottlePosition", "TPS", "F1");
+            eStartTpsCorrs.SetTableEventHandler(ChartUpdateEvent);
 
 
-            eIdleRegThr.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
-            eIdleRegThr.SetConfig("idle_rpm_pid_act", "engine_temp_count", "engine_temps");
-            eIdleRegThr.SetX("EngineTemp", "Temperature", "F0");
-            eIdleRegThr.SetTableEventHandler(ChartUpdateEvent);
-
+            eIdleRegThr1.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
+            eIdleRegThr1.SetConfig("idle_rpm_pid_act_1", "engine_temp_count", "engine_temps");
+            eIdleRegThr1.SetX("EngineTemp", "Temperature", "F0");
+            eIdleRegThr1.SetTableEventHandler(ChartUpdateEvent);
+            
+            eIdleRegThr2.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
+            eIdleRegThr2.SetConfig("idle_rpm_pid_act_2", "engine_temp_count", "engine_temps");
+            eIdleRegThr2.SetX("EngineTemp", "Temperature", "F0");
+            eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
+        
             eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
             eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "rotates_count", "rotates");
             eIdleValvePidP.SetX("RPM", "RPM", "F0");
@@ -678,24 +708,32 @@ namespace ECU_Manager
 
             eIdleWishRPM.UpdateChart();
             eIdleWishIgnition.UpdateChart();
+            eIdleIgnitionStatic.UpdateChart();
             eIdleWishMassAirFlow.UpdateChart();
             eIdleSpeedShift.UpdateChart();
             eIdleValveVsRpm.UpdateChart();
 
-            eIdleRegThr.UpdateChart();
+            eIdleRegThr1.UpdateChart();
+            eIdleRegThr2.UpdateChart();
             eIdleValvePidP.UpdateChart();
             eIdleValvePidI.UpdateChart();
             eIdleValvePidD.UpdateChart();
             eIdleIgnPidP.UpdateChart();
             eIdleIgnPidI.UpdateChart();
             eIdleIgnPidD.UpdateChart();
-
-            eStartupMixture.UpdateChart();
+            
             eWarmupMixture.UpdateChart();
             eWarmupMixKoffs.UpdateChart();
             eWarmupMixCorrs.UpdateChart();
             eColdStartCorrs.UpdateChart();
             eColdStartTimes.UpdateChart();
+            eStartAsyncInject.UpdateChart();
+            eStartLargeInject.UpdateChart();
+            eStartSmallInject.UpdateChart();
+            eStartInjPhase.UpdateChart();
+            eStartTpsCorrs.UpdateChart();
+            eStartIgnition.UpdateChart();
+            eStartIdleValvePos.UpdateChart();
 
             eKnockThreshold.UpdateChart();
             eKnockNoiseLevel.UpdateChart();
@@ -709,9 +747,6 @@ namespace ECU_Manager
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
             eAirTempIgnCorr.UpdateChart();
-
-            eIgnitionInitial.UpdateChart();
-            eIdleValveInitial.UpdateChart();
         }
 
         private void CorrStart()

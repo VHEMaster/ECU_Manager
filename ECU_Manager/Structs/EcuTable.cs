@@ -114,16 +114,6 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("temperature")]
         public float[] engine_temps;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("ignition_initial")]
-        [XmlArrayItem("ignition")]
-        public float[] ignition_initial;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("idle_valve_initial")]
-        [XmlArrayItem("valve")]
-        public float[] idle_valve_initial;
-
         public int air_temp_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("air_temps")]
@@ -146,19 +136,28 @@ namespace ECU_Manager.Structs
         [XmlArray("idle_wish_massair")]
         [XmlArrayItem("massair")]
         public float[] idle_wish_massair;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_wish_ignition")]
         [XmlArrayItem("angle")]
         public float[] idle_wish_ignition;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_wish_ignition_static")]
+        [XmlArrayItem("angle")]
+        public float[] idle_wish_ignition_static;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_rpm")]
         [XmlArrayItem("valve")]
         public float[] idle_valve_to_rpm;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("idle_rpm_pid_act")]
+        [XmlArray("idle_rpm_pid_act_1")]
         [XmlArrayItem("koff")]
-        public float[] idle_rpm_pid_act;
+        public float[] idle_rpm_pid_act_1;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_rpm_pid_act_2")]
+        [XmlArrayItem("koff")]
+        public float[] idle_rpm_pid_act_2;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_massair_pid_p")]
@@ -210,19 +209,44 @@ namespace ECU_Manager.Structs
         public float[] warmup_mix_corrs;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("cold_start_corrs")]
+        [XmlArray("cold_start_idle_corrs")]
         [XmlArrayItem("corr")]
-        public float[] cold_start_corrs;
+        public float[] cold_start_idle_corrs;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("cold_start_times")]
+        [XmlArray("cold_start_idle_times")]
         [XmlArrayItem("time")]
-        public float[] cold_start_times;
+        public float[] cold_start_idle_times;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
-        [XmlArray("start_mixtures")]
-        [XmlArrayItem("mixture")]
-        public float[] start_mixtures;
+        [XmlArray("start_injection_phase")]
+        [XmlArrayItem("phase")]
+        public float[] start_injection_phase;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_idle_valve_pos")]
+        [XmlArrayItem("valve")]
+        public float[] start_idle_valve_pos;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_ignition")]
+        [XmlArrayItem("ignition")]
+        public float[] start_ignition;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX)]
+        [XmlArray("start_tps_corrs")]
+        [XmlArrayItem("throttle")]
+        public float[] start_tps_corrs;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_async_filling")]
+        [XmlArrayItem("filling")]
+        public float[] start_async_filling;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_large_filling")]
+        [XmlArrayItem("filling")]
+        public float[] start_large_filling;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_small_filling")]
+        [XmlArrayItem("filling")]
+        public float[] start_small_filling;
+        public int start_large_count;
 
         public int idle_speeds_shift_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_SPEEDS_MAX)]
@@ -267,7 +291,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1129)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1032)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
