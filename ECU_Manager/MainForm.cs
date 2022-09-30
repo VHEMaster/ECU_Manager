@@ -1067,9 +1067,11 @@ namespace ECU_Manager
                 case 1: rbInjCh2.Checked = true; break;
                 default: break;
             }
-            
+
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
+            cbParamsIsAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_enabled > 0;
+            cbParamsIsSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_sync_enabled > 0;
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_MAX;
@@ -2323,7 +2325,25 @@ namespace ECU_Manager
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
-            
+
+        }
+
+        private void cbParamsIsAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsIsSyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_sync_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
         }
 
         private void nudParamsFuelPressure_ValueChanged(object sender, EventArgs e)
