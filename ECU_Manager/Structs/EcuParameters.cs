@@ -36,8 +36,8 @@ namespace ECU_Manager.Structs
         public float AirTemp;
         public float EngineTemp;
         public float ManifoldAirPressure;
-        public float ReferenceVoltage;
         public float ThrottlePosition;
+        public float ReferenceVoltage;
         public float PowerVoltage;
         public float FuelRatio;
         public float FuelRatioDiff;
