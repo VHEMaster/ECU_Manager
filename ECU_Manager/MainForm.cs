@@ -614,6 +614,11 @@ namespace ECU_Manager
             eStartSmallInject.SetX("EngineTemp", "Temperature", "F0");
             eStartSmallInject.SetTableEventHandler(ChartUpdateEvent);
 
+            eStartFillingTime.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
+            eStartFillingTime.SetConfig("start_filling_time", "engine_temp_count", "engine_temps");
+            eStartFillingTime.SetX("EngineTemp", "Temperature", "F0");
+            eStartFillingTime.SetTableEventHandler(ChartUpdateEvent);
+
             eStartInjPhase.Initialize(cs, 0D, 360D, 1D, 5D, 0D, 200D, 10D, 20D, 0);
             eStartInjPhase.SetConfig("start_injection_phase", "engine_temp_count", "engine_temps");
             eStartInjPhase.SetX("EngineTemp", "Temperature", "F0");

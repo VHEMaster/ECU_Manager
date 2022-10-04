@@ -252,6 +252,10 @@ namespace ECU_Manager.Structs
         [XmlArray("start_small_filling")]
         [XmlArrayItem("filling")]
         public float[] start_small_filling;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_filling_time")]
+        [XmlArrayItem("time")]
+        public float[] start_filling_time;
         public int start_large_count;
 
         public int idle_speeds_shift_count;
@@ -297,7 +301,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1030)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 998)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
