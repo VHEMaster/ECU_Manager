@@ -262,6 +262,11 @@ namespace ECU_Manager
             eEnrichmentTPSHPF.SetConfig("enrichment_by_thr_hpf", "rotates_count", "rotates");
             eEnrichmentTPSHPF.SetX("RPM", "RPM", "F0");
             eEnrichmentTPSHPF.SetTableEventHandler(ChartUpdateEvent);
+            
+            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 0D, 0.5F, 10D, 0.05D, 2);
+            eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
+            eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
+            eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
 
             ePressures.Initialize(cs, 0, 1000000, 200, 500, 0, 100000, 1, 10000, 0);
             ePressures.SetConfig("pressures", "pressures_count", string.Empty);

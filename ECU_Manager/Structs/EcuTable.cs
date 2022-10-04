@@ -74,6 +74,10 @@ namespace ECU_Manager.Structs
         [XmlArray("enrichment_by_thr_hpf")]
         [XmlArrayItem("filter")]
         public float[] enrichment_by_thr_hpf;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("enrichment_temp_mult")]
+        [XmlArrayItem("mult")]
+        public float[] enrichment_temp_mult;
 
         public int fillings_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX)]
