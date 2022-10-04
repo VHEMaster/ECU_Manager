@@ -1139,6 +1139,10 @@ namespace ECU_Manager
         {
             chartDragTime.Series.Clear();
             chartDragAccel.Series.Clear();
+            chartDragRPM.Series.Clear();
+            chartDragPressure.Series.Clear();
+            chartDragMAF.Series.Clear();
+            chartDragCAF.Series.Clear();
             lvDragTable.Items.Clear();
             for (int i = lvDragTable.Columns.Count - 1; i >= 2; i--)
             {
@@ -1160,6 +1164,10 @@ namespace ECU_Manager
 
             chartDragTime.Series.Clear();
             chartDragAccel.Series.Clear();
+            chartDragRPM.Series.Clear();
+            chartDragPressure.Series.Clear();
+            chartDragMAF.Series.Clear();
+            chartDragCAF.Series.Clear();
             lvDragTable.Items.Clear();
             for (int i = lvDragTable.Columns.Count - 1; i >= 2; i--)
             {
@@ -1211,6 +1219,78 @@ namespace ECU_Manager
                             series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
                         }
 
+                        series = chartDragRPM.Series.Add(lDragRuns[i].Label);
+                        series.ChartType = SeriesChartType.Line;
+                        series.XAxisType = AxisType.Primary;
+                        series.XValueType = ChartValueType.Single;
+                        series.YAxisType = AxisType.Primary;
+                        series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
+                        series.BorderWidth = 2;
+                        series.Tag = lDragRuns[i];
+                        //float trans = (float)i / (float)(lDragRuns.Count - 1);
+                        //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
+
+                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
+                        {
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
+                        }
+
+                        series = chartDragPressure.Series.Add(lDragRuns[i].Label);
+                        series.ChartType = SeriesChartType.Line;
+                        series.XAxisType = AxisType.Primary;
+                        series.XValueType = ChartValueType.Single;
+                        series.YAxisType = AxisType.Primary;
+                        series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
+                        series.BorderWidth = 2;
+                        series.Tag = lDragRuns[i];
+                        //float trans = (float)i / (float)(lDragRuns.Count - 1);
+                        //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
+
+                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
+                        {
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Pressure);
+                        }
+
+                        series = chartDragMAF.Series.Add(lDragRuns[i].Label);
+                        series.ChartType = SeriesChartType.Line;
+                        series.XAxisType = AxisType.Primary;
+                        series.XValueType = ChartValueType.Single;
+                        series.YAxisType = AxisType.Primary;
+                        series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
+                        series.BorderWidth = 2;
+                        series.Tag = lDragRuns[i];
+                        //float trans = (float)i / (float)(lDragRuns.Count - 1);
+                        //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
+
+                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
+                        {
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].MassAirFlow);
+                        }
+
+                        series = chartDragCAF.Series.Add(lDragRuns[i].Label);
+                        series.ChartType = SeriesChartType.Line;
+                        series.XAxisType = AxisType.Primary;
+                        series.XValueType = ChartValueType.Single;
+                        series.YAxisType = AxisType.Primary;
+                        series.YValueType = ChartValueType.Single;
+                        series.LabelForeColor = Color.White;
+                        series.MarkerColor = Color.White;
+                        series.BorderWidth = 2;
+                        series.Tag = lDragRuns[i];
+                        //float trans = (float)i / (float)(lDragRuns.Count - 1);
+                        //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
+
+                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
+                        {
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].CycleAirFlow);
+                        }
+
                     }
                 }
 
@@ -1225,6 +1305,16 @@ namespace ECU_Manager
 
                 chartDragAccel.ChartAreas[0].AxisY.Minimum = 0;
                 //chartDragAccel.ChartAreas[0].AxisY.Maximum = deltaRpmMax;
+
+                chartDragRPM.ChartAreas[0].AxisX.Minimum = 0;
+                chartDragPressure.ChartAreas[0].AxisX.Minimum = 0;
+                chartDragMAF.ChartAreas[0].AxisX.Minimum = 0;
+                chartDragCAF.ChartAreas[0].AxisX.Minimum = 0;
+
+                chartDragRPM.ChartAreas[0].AxisY.Minimum = 0;
+                chartDragPressure.ChartAreas[0].AxisY.Minimum = 0;
+                chartDragMAF.ChartAreas[0].AxisY.Minimum = 0;
+                chartDragCAF.ChartAreas[0].AxisY.Minimum = 0;
 
 
                 if (TableSplit >= 2)
