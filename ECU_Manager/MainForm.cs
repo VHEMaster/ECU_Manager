@@ -1080,8 +1080,10 @@ namespace ECU_Manager
 
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
-            cbParamsIsAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_enabled > 0;
-            cbParamsIsSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_sync_enabled > 0;
+            cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
+            cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
+            cbParamsIsPpAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_async_enabled > 0;
+            cbParamsIsPpSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_sync_enabled > 0;
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_MAX;
@@ -2428,18 +2430,36 @@ namespace ECU_Manager
 
         }
 
-        private void cbParamsIsAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        private void cbParamsIsPhAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
 
-        private void cbParamsIsSyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        private void cbParamsIsPhSyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_sync_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsIsPpAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_async_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsIsPpSyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_sync_enabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
