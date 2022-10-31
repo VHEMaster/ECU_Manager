@@ -17,6 +17,7 @@ namespace ECU_Manager.Structs
         public int inj_channel;
         
         public float injector_performance;
+        public int is_full_thr_used;
         public int is_fuel_pressure_const;
         public int is_fuel_phase_by_end;
         public int enrichment_ph_async_enabled;
@@ -86,18 +87,46 @@ namespace ECU_Manager.Structs
         [XmlArray("fillings")]
         [XmlArrayItem("filling")]
         public float[] fillings;
+        
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("ignitions")]
+        [XmlArray("ignitions_full")]
         [XmlArrayItem("angle")]
-        public float[] ignitions;
+        public float[] ignitions_full;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("fuel_mixtures")]
+        [XmlArray("fuel_mixtures_full")]
         [XmlArrayItem("mixture")]
-        public float[] fuel_mixtures;
+        public float[] fuel_mixtures_full;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("injection_phase")]
+        [XmlArray("injection_phase_full")]
         [XmlArrayItem("phase")]
-        public float[] injection_phase;
+        public float[] injection_phase_full;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("ignitions_part")]
+        [XmlArrayItem("angle")]
+        public float[] ignitions_part;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("fuel_mixtures_part")]
+        [XmlArrayItem("mixture")]
+        public float[] fuel_mixtures_part;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_phase_part")]
+        [XmlArrayItem("phase")]
+        public float[] injection_phase_part;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("switch_ign_lpf")]
+        [XmlArrayItem("lpf")]
+        public float[] switch_ign_lpf;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("switch_mix_lpf")]
+        [XmlArrayItem("lpf")]
+        public float[] switch_mix_lpf;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("switch_phase_lpf")]
+        [XmlArrayItem("lpf")]
+        public float[] switch_phase_lpf;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("injection_phase_lpf")]
         [XmlArrayItem("lpf")]
@@ -303,7 +332,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 996)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 179)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

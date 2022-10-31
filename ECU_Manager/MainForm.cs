@@ -152,19 +152,7 @@ namespace ECU_Manager
 
             eCyclicFilling.SetTableColorTrans(colorTransience);
             eCyclicFilling.SynchronizeChart();
-
-
-            eFuelMixtures.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
-
-            eFuelMixtures.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
-            eFuelMixtures.SetX("RPM", "RPM", "F0");
-            eFuelMixtures.SetY("WishFuelRatio", "FuelRatio", "F1");
-            eFuelMixtures.SetD("CyclicAirFlow", "Filling", "F1");
-            eFuelMixtures.SetTableEventHandler(ChartUpdateEvent);
-
+            
             colorTransience = new ColorTransience(5.0F, 20.0F, Color.Gray);
             colorTransience.Add(Color.Black, 5.0F);
             colorTransience.Add(Color.Red, 12.0F);
@@ -174,19 +162,31 @@ namespace ECU_Manager
             colorTransience.Add(Color.Blue, 18.0F);
             colorTransience.Add(Color.DeepSkyBlue, 20.0F);
 
-            eFuelMixtures.SetTableColorTrans(colorTransience);
-
-
-            eInjectionPhase.Initialize(cs, Editor2DMode.EcuTable,
+            eFuelMixturesPart.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
+                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
 
-            eInjectionPhase.SetConfig("injection_phase", "rotates_count", "fillings_count", "rotates", "fillings");
-            eInjectionPhase.SetX("RPM", "RPM", "F0");
-            eInjectionPhase.SetY("InjectionPhase", "Phase", "F0");
-            eInjectionPhase.SetD("CyclicAirFlow", "Filling", "F1");
-            eInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
+            eFuelMixturesPart.SetConfig("fuel_mixtures_part", "rotates_count", "fillings_count", "rotates", "fillings");
+            eFuelMixturesPart.SetX("RPM", "RPM", "F0");
+            eFuelMixturesPart.SetY("WishFuelRatio", "FuelRatio", "F1");
+            eFuelMixturesPart.SetD("CyclicAirFlow", "Filling", "F1");
+            eFuelMixturesPart.SetTableEventHandler(ChartUpdateEvent);
+
+            eFuelMixturesPart.SetTableColorTrans(colorTransience);
+
+            eFuelMixturesFull.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
+
+            eFuelMixturesFull.SetConfig("fuel_mixtures_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eFuelMixturesFull.SetX("RPM", "RPM", "F0");
+            eFuelMixturesFull.SetY("WishFuelRatio", "FuelRatio", "F1");
+            eFuelMixturesFull.SetD("CyclicAirFlow", "Filling", "F1");
+            eFuelMixturesFull.SetTableEventHandler(ChartUpdateEvent);
+
+            eFuelMixturesFull.SetTableColorTrans(colorTransience);
 
             colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, 100);
@@ -197,27 +197,62 @@ namespace ECU_Manager
             colorTransience.Add(Color.Red, 350);
             colorTransience.Add(Color.Black, 600);
 
-            eInjectionPhase.SetTableColorTrans(colorTransience);
-
-
-            eIgnition.Initialize(cs, Editor2DMode.EcuTable,
+            eInjectionPhasePart.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
 
+            eInjectionPhasePart.SetConfig("injection_phase_part", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionPhasePart.SetX("RPM", "RPM", "F0");
+            eInjectionPhasePart.SetY("InjectionPhase", "Phase", "F0");
+            eInjectionPhasePart.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionPhasePart.SetTableEventHandler(ChartUpdateEvent);
 
-            eIgnition.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
-            eIgnition.SetX("RPM", "RPM", "F0");
-            eIgnition.SetY("IgnitionAngle", "Ignition", "F1");
-            eIgnition.SetD("CyclicAirFlow", "Filling", "F1");
-            eIgnition.SetTableEventHandler(ChartUpdateEvent);
+            eInjectionPhasePart.SetTableColorTrans(colorTransience);
+
+            eInjectionPhaseFull.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
+
+            eInjectionPhaseFull.SetConfig("injection_phase_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionPhaseFull.SetX("RPM", "RPM", "F0");
+            eInjectionPhaseFull.SetY("InjectionPhase", "Phase", "F0");
+            eInjectionPhaseFull.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionPhaseFull.SetTableEventHandler(ChartUpdateEvent);
+
+            eInjectionPhaseFull.SetTableColorTrans(colorTransience);
 
             colorTransience = new ColorTransience(-15, 45, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -15);
             colorTransience.Add(Color.Orange, 15);
             colorTransience.Add(Color.Red, 45);
 
-            eIgnition.SetTableColorTrans(colorTransience);
+            eIgnitionPart.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+
+            eIgnitionPart.SetConfig("ignitions_part", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionPart.SetX("RPM", "RPM", "F0");
+            eIgnitionPart.SetY("IgnitionAngle", "Ignition", "F1");
+            eIgnitionPart.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionPart.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionPart.SetTableColorTrans(colorTransience);
+
+            eIgnitionFull.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+
+            eIgnitionFull.SetConfig("ignitions_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFull.SetX("RPM", "RPM", "F0");
+            eIgnitionFull.SetY("IgnitionAngle", "Ignition", "F1");
+            eIgnitionFull.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionFull.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionFull.SetTableColorTrans(colorTransience);
 
             eSaturationPulse.Initialize(cs, 0, 10000, 100, 500, 0, 5000, 1, 500, 0);
             eSaturationPulse.SetConfig("ignition_time", "voltages_count", "voltages");
@@ -452,6 +487,20 @@ namespace ECU_Manager
 
             eKnockZone.SetTableColorTrans(colorTransience);
 
+            ePartFullLPFIgnition.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            ePartFullLPFIgnition.SetConfig("switch_ign_lpf", "rotates_count", "rotates");
+            ePartFullLPFIgnition.SetX("RPM", "RPM", "F0");
+            ePartFullLPFIgnition.SetTableEventHandler(ChartUpdateEvent);
+
+            ePartFullLPFMixture.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            ePartFullLPFMixture.SetConfig("switch_mix_lpf", "rotates_count", "rotates");
+            ePartFullLPFMixture.SetX("RPM", "RPM", "F0");
+            ePartFullLPFMixture.SetTableEventHandler(ChartUpdateEvent);
+
+            ePartFullLPFInjPhase.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
+            ePartFullLPFInjPhase.SetConfig("switch_phase_lpf", "rotates_count", "rotates");
+            ePartFullLPFInjPhase.SetX("RPM", "RPM", "F0");
+            ePartFullLPFInjPhase.SetTableEventHandler(ChartUpdateEvent);
 
             colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -1.0F);
@@ -677,9 +726,12 @@ namespace ECU_Manager
         private void SynchronizeCharts()
         {
             eCyclicFilling.SynchronizeChart();
-            eFuelMixtures.SynchronizeChart();
-            eInjectionPhase.SynchronizeChart();
-            eIgnition.SynchronizeChart();
+            eFuelMixturesPart.SynchronizeChart();
+            eInjectionPhasePart.SynchronizeChart();
+            eFuelMixturesFull.SynchronizeChart();
+            eInjectionPhaseFull.SynchronizeChart();
+            eIgnitionPart.SynchronizeChart();
+            eIgnitionFull.SynchronizeChart();
             ePressureByRPMvsTPS.SynchronizeChart();
             eIdleValveVsRpm.SynchronizeChart();
             eCorrsFillByMAP.SynchronizeChart();
@@ -694,9 +746,12 @@ namespace ECU_Manager
         private void UpdateCharts()
         {
             eCyclicFilling.UpdateChart();
-            eFuelMixtures.UpdateChart();
-            eInjectionPhase.UpdateChart();
-            eIgnition.UpdateChart();
+            eFuelMixturesPart.UpdateChart();
+            eInjectionPhasePart.UpdateChart();
+            eFuelMixturesFull.UpdateChart();
+            eInjectionPhaseFull.UpdateChart();
+            eIgnitionPart.UpdateChart();
+            eIgnitionFull.UpdateChart();
             ePressureByRPMvsTPS.UpdateChart();
             eSatByRPM.UpdateChart();
             eInjectorLag.UpdateChart();
@@ -750,6 +805,10 @@ namespace ECU_Manager
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
             eKnockGain.UpdateChart();
+
+            ePartFullLPFIgnition.UpdateChart();
+            ePartFullLPFMixture.UpdateChart();
+            ePartFullLPFInjPhase.UpdateChart();
 
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
@@ -1079,6 +1138,7 @@ namespace ECU_Manager
             }
 
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
+            cbParamsIsFullThrottleUsed.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_full_thr_used > 0;
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
@@ -2427,7 +2487,15 @@ namespace ECU_Manager
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
+        }
 
+        private void cbParamsIsFullThrottleUsed_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].is_full_thr_used = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
         }
 
         private void cbParamsIsPhAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
@@ -2826,21 +2894,22 @@ namespace ECU_Manager
 
         private void btnCorrAppendIgnitions_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (dialogResult == DialogResult.Yes)
-            {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
-                float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
-                int size = array2d.Length;
+            //TODO: keep or refactor it? Part/Full throttle feature
+            //DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            //if (dialogResult == DialogResult.Yes)
+            //{
+            //    float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
+            //    float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
+            //    int size = array2d.Length;
 
-                for (int i = 0; i < size; i++)
-                {
-                    array2d[i] += corrs2d[i];
-                    corrs2d[i] = 0.0F;
-                }
+            //    for (int i = 0; i < size; i++)
+            //    {
+            //        array2d[i] += corrs2d[i];
+            //        corrs2d[i] = 0.0F;
+            //    }
 
-                middleLayer?.SyncSave(false);
-            }
+            //    middleLayer?.SyncSave(false);
+            //}
         }
 
         private void btnCorrAppendPressureByTPS_Click(object sender, EventArgs e)
