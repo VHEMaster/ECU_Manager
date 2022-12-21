@@ -1175,6 +1175,8 @@ namespace ECU_Manager
             nudParamsIdleIgnDevMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max;
             nudParamsIdleIgnFanLCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_low_corr;
             nudParamsIdleIgnFanHCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_high_corr;
+            nudParamsIdleAirFanLCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_air_fan_low_corr;
+            nudParamsIdleAirFanHCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_air_fan_high_corr;
 
             nudParamsCorrInjCy1.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[0];
             nudParamsCorrInjCy2.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].cy_corr_injection[1];
@@ -2831,6 +2833,24 @@ namespace ECU_Manager
         private void nudParamsIdleIgnFanHCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_high_corr = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleAirFanLCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_air_fan_low_corr = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleAirFanHCorr_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_air_fan_high_corr = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

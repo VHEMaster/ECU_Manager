@@ -232,6 +232,9 @@ namespace ECU_Manager.Structs
         public float idle_ign_fan_low_corr;
         public float idle_ign_fan_high_corr;
 
+        public float idle_air_fan_low_corr;
+        public float idle_air_fan_high_corr;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("warmup_mixtures")]
         [XmlArrayItem("mixture")]
@@ -332,7 +335,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 179)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 177)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
