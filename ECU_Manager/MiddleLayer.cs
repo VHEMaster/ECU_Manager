@@ -238,7 +238,7 @@ namespace ECU_Manager
             {
                 if (IsCtrlConnected)
                 {
-                    //PacketHandler.SendPcConnected();
+                    PacketHandler.SendPcConnected();
                 }
                 lock (SyncMutex)
                 {
