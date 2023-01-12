@@ -313,6 +313,11 @@ namespace ECU_Manager
             eRotates.SetY("RPM", "RPM", "F0");
             eRotates.SetTableEventHandler(ChartUpdateEvent);
 
+            eIdleRotates.Initialize(cs, 0, 10000, 50, 100, 0, 8000, 1, 500, 0);
+            eIdleRotates.SetConfig("idle_rotates", "idle_rotates_count", string.Empty);
+            eIdleRotates.SetY("RPM", "RPM", "F0");
+            eIdleRotates.SetTableEventHandler(ChartUpdateEvent);
+
             eThrottles.Initialize(cs, 0, 100, 1, 1, 0, 100, 1, 10, 1);
             eThrottles.SetConfig("throttles", "throttles_count", string.Empty);
             eThrottles.SetY("ThrottlePosition", "TPS", "F1");
@@ -388,7 +393,7 @@ namespace ECU_Manager
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
-            eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "rotates_count", "rotates");
+            eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "idle_rotates_count", "idle_rotates");
             eIdleIgnitionStatic.SetX("RPM", "RPM", "F0");
             eIdleIgnitionStatic.SetY("IgnitionAngle", "Ignition", "F1");
             eIdleIgnitionStatic.SetTableEventHandler(ChartUpdateEvent);
@@ -690,32 +695,32 @@ namespace ECU_Manager
             eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
         
             eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "rotates_count", "rotates");
+            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "idle_rotates_count", "idle_rotates");
             eIdleValvePidP.SetX("RPM", "RPM", "F0");
             eIdleValvePidP.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "rotates_count", "rotates");
+            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "idle_rotates_count", "idle_rotates");
             eIdleValvePidI.SetX("RPM", "RPM", "F0");
             eIdleValvePidI.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleValvePidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
-            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "rotates_count", "rotates");
+            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "idle_rotates_count", "idle_rotates");
             eIdleValvePidD.SetX("RPM", "RPM", "F0");
             eIdleValvePidD.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "rotates_count", "rotates");
+            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_rotates_count", "idle_rotates");
             eIdleIgnPidP.SetX("RPM", "RPM", "F0");
             eIdleIgnPidP.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "rotates_count", "rotates");
+            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "idle_rotates_count", "idle_rotates");
             eIdleIgnPidI.SetX("RPM", "RPM", "F0");
             eIdleIgnPidI.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
-            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "rotates_count", "rotates");
+            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_rotates_count", "idle_rotates");
             eIdleIgnPidD.SetX("RPM", "RPM", "F0");
             eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
 
@@ -764,6 +769,7 @@ namespace ECU_Manager
 
             ePressures.UpdateChart();
             eRotates.UpdateChart();
+            eIdleRotates.UpdateChart();
             eThrottles.UpdateChart();
             eEngTemps.UpdateChart();
             eAirTemps.UpdateChart();
@@ -1146,6 +1152,7 @@ namespace ECU_Manager
             cbParamsIsPpSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_sync_enabled > 0;
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
+            nudParamsCntIdleRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_MAX;
             nudParamsCntVoltages.Maximum = Consts.TABLE_VOLTAGES_MAX;
             nudParamsCntFillings.Maximum = Consts.TABLE_FILLING_MAX;
@@ -1155,6 +1162,7 @@ namespace ECU_Manager
 
             nudParamsCntPress.Value = cs.ConfigStruct.tables[cs.CurrentTable].pressures_count;
             nudParamsCntRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].rotates_count;
+            nudParamsCntIdleRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count;
             nudParamsCntThrottles.Value = cs.ConfigStruct.tables[cs.CurrentTable].throttles_count;
             nudParamsCntVoltages.Value = cs.ConfigStruct.tables[cs.CurrentTable].voltages_count;
             nudParamsCntFillings.Value = cs.ConfigStruct.tables[cs.CurrentTable].fillings_count;
@@ -2592,6 +2600,19 @@ namespace ECU_Manager
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].rotates_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].rotates[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].rotates[i] + 100;
+            UpdateEcuTableValues();
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsCntIdleRPMs_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i] + 5;
             UpdateEcuTableValues();
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {

@@ -46,6 +46,12 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("rotate")]
         public float[] rotates;
 
+        public int idle_rotates_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_rotates")]
+        [XmlArrayItem("idle_rotate")]
+        public float[] idle_rotates;
+
         public int throttles_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX)]
         [XmlArray("throttles")]
@@ -335,7 +341,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 177)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 160)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
