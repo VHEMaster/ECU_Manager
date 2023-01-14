@@ -50,11 +50,9 @@ namespace ECU_Manager.Protocol
                             }
                             else
                             {
-                                byte[] data = new byte[1];
-                                sp.Read(data, 0, 1);
+                                byte data = (byte)sp.ReadByte();
                                 fifomutex.WaitOne();
-                                foreach (byte b in data)
-                                    rxfifo.Enqueue(b);
+                                rxfifo.Enqueue(data);
                                 fifomutex.ReleaseMutex();
                             }
 
@@ -95,7 +93,6 @@ namespace ECU_Manager.Protocol
                     if(wrongheadercounter++ == 0)
                         Console.WriteLine("Received packet with wrong header preamble.");
                     rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
                 wrongheadercounter = 0;
@@ -111,7 +108,6 @@ namespace ECU_Manager.Protocol
                 {
                     Console.WriteLine("Received packet with wrong header CRC.");
                     rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
 
@@ -119,7 +115,6 @@ namespace ECU_Manager.Protocol
                 {
                     Console.WriteLine("Received packet invalid Destination.");
                     rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
 
@@ -127,7 +122,6 @@ namespace ECU_Manager.Protocol
                 {
                     Console.WriteLine("Received packet invalid Source.");
                     rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
 
@@ -148,7 +142,6 @@ namespace ECU_Manager.Protocol
                         {
                             Console.WriteLine("Received packet with wrong data CRC.");
                             rxfifo.Dequeue();
-                            //rxfifo.Clear();
                             continue;
                         }
 
@@ -158,7 +151,6 @@ namespace ECU_Manager.Protocol
                     {
                         Console.WriteLine("Received packet too long.");
                         rxfifo.Dequeue();
-                        //rxfifo.Clear();
                         continue;
                     }
                 }
@@ -166,7 +158,6 @@ namespace ECU_Manager.Protocol
                 {
                     Console.WriteLine("Received packet too short.");
                     rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
 
@@ -176,8 +167,6 @@ namespace ECU_Manager.Protocol
                 if (packet.Destination != Channel.etrPC)
                 {
                     Console.WriteLine("Received packet with different destination.");
-                    rxfifo.Dequeue();
-                    //rxfifo.Clear();
                     continue;
                 }
                 break;
