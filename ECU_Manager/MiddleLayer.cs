@@ -233,12 +233,17 @@ namespace ECU_Manager
         private void BackgroundThread()
         {
             Stopwatch stopwatch = new Stopwatch();
+            Stopwatch lastpcconnected = new Stopwatch();
             stopwatch.Reset();
             while (true)
             {
                 if (IsCtrlConnected)
                 {
-                    PacketHandler.SendPcConnected();
+                    if (!lastpcconnected.IsRunning || lastpcconnected.ElapsedMilliseconds > 200000)
+                    {
+                        lastpcconnected.Restart();
+                        PacketHandler.SendPcConnected();
+                    }
                 }
                 lock (SyncMutex)
                 {
