@@ -239,7 +239,7 @@ namespace ECU_Manager
             {
                 if (IsCtrlConnected)
                 {
-                    if (!lastpcconnected.IsRunning || lastpcconnected.ElapsedMilliseconds > 200000)
+                    if (!lastpcconnected.IsRunning || lastpcconnected.ElapsedMilliseconds > 100)
                     {
                         lastpcconnected.Restart();
                         PacketHandler.SendPcConnected();

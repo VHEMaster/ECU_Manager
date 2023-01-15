@@ -202,14 +202,19 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("koff")]
         public float[] idle_rpm_pid_act_2;
 
+        public int idle_pids_rpm_koffs_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_pids_rpm_koffs")]
+        [XmlArrayItem("koff")]
+        public float[] idle_pids_rpm_koffs;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_massair_pid_p")]
         [XmlArrayItem("koff")]
-        public float[] idle_valve_to_massair_pid_i;
+        public float[] idle_valve_to_massair_pid_p;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_massair_pid_i")]
         [XmlArrayItem("koff")]
-        public float[] idle_valve_to_massair_pid_p;
+        public float[] idle_valve_to_massair_pid_i;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_valve_to_massair_pid_d")]
         [XmlArrayItem("koff")]
@@ -341,7 +346,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 160)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 143)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

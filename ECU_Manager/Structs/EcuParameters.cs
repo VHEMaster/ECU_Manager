@@ -82,6 +82,7 @@ namespace ECU_Manager.Structs
         public float FuelConsumption;
         public float FuelHourly;
         public float TspsRelativePosition;
+        public float IdleWishToRpmRelation;
 
         public int LambdaValid;
 

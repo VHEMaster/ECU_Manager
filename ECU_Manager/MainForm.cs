@@ -694,34 +694,34 @@ namespace ECU_Manager
             eIdleRegThr2.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
         
-            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "idle_rotates_count", "idle_rotates");
-            eIdleValvePidP.SetX("RPM", "RPM", "F0");
+            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValvePidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValvePidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "idle_rotates_count", "idle_rotates");
-            eIdleValvePidI.SetX("RPM", "RPM", "F0");
+            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValvePidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValvePidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
-            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "idle_rotates_count", "idle_rotates");
-            eIdleValvePidD.SetX("RPM", "RPM", "F0");
+            eIdleValvePidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValvePidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValvePidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_rotates_count", "idle_rotates");
-            eIdleIgnPidP.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 500, 0.2D, 3);
-            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "idle_rotates_count", "idle_rotates");
-            eIdleIgnPidI.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 500, 0.01D, 4);
-            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_rotates_count", "idle_rotates");
-            eIdleIgnPidD.SetX("RPM", "RPM", "F0");
+            eIdleIgnPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
 
 
