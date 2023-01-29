@@ -1640,6 +1640,7 @@
             // 
             // nudSpeedOutputCorr
             // 
+            this.nudSpeedOutputCorr.DecimalPlaces = 2;
             this.nudSpeedOutputCorr.Increment = new decimal(new int[] {
             1,
             0,
@@ -1817,6 +1818,7 @@
             // 
             // nudSpeedInputCorr
             // 
+            this.nudSpeedInputCorr.DecimalPlaces = 2;
             this.nudSpeedInputCorr.Increment = new decimal(new int[] {
             1,
             0,
@@ -5747,10 +5749,10 @@
             // 
             this.tabPage24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage24.Controls.Add(this.tabControl7);
-            this.tabPage24.Location = new System.Drawing.Point(4, 37);
+            this.tabPage24.Location = new System.Drawing.Point(4, 268);
             this.tabPage24.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage24.Name = "tabPage24";
-            this.tabPage24.Size = new System.Drawing.Size(1161, 480);
+            this.tabPage24.Size = new System.Drawing.Size(184, 0);
             this.tabPage24.TabIndex = 5;
             this.tabPage24.Text = "Injection";
             // 
@@ -5768,17 +5770,17 @@
             this.tabControl7.Name = "tabControl7";
             this.tabControl7.Padding = new System.Drawing.Point(20, 5);
             this.tabControl7.SelectedIndex = 0;
-            this.tabControl7.Size = new System.Drawing.Size(1161, 480);
+            this.tabControl7.Size = new System.Drawing.Size(184, 0);
             this.tabControl7.TabIndex = 3;
             // 
             // tpInjPart
             // 
             this.tpInjPart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tpInjPart.Controls.Add(this.tabControl13);
-            this.tpInjPart.Location = new System.Drawing.Point(4, 37);
+            this.tpInjPart.Location = new System.Drawing.Point(4, 169);
             this.tpInjPart.Margin = new System.Windows.Forms.Padding(0);
             this.tpInjPart.Name = "tpInjPart";
-            this.tpInjPart.Size = new System.Drawing.Size(1153, 439);
+            this.tpInjPart.Size = new System.Drawing.Size(176, 0);
             this.tpInjPart.TabIndex = 17;
             this.tpInjPart.Text = "Part Load";
             // 
@@ -5793,7 +5795,7 @@
             this.tabControl13.Name = "tabControl13";
             this.tabControl13.Padding = new System.Drawing.Point(20, 5);
             this.tabControl13.SelectedIndex = 0;
-            this.tabControl13.Size = new System.Drawing.Size(1153, 439);
+            this.tabControl13.Size = new System.Drawing.Size(176, 0);
             this.tabControl13.TabIndex = 4;
             // 
             // tabPage87
@@ -5803,7 +5805,7 @@
             this.tabPage87.Location = new System.Drawing.Point(4, 37);
             this.tabPage87.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage87.Name = "tabPage87";
-            this.tabPage87.Size = new System.Drawing.Size(1145, 398);
+            this.tabPage87.Size = new System.Drawing.Size(168, 0);
             this.tabPage87.TabIndex = 8;
             this.tabPage87.Text = "Mixture";
             // 
@@ -5878,7 +5880,7 @@
             series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eFuelMixturesPart.Chart.Series.Add(series6);
-            this.eFuelMixturesPart.Chart.Size = new System.Drawing.Size(1141, 142);
+            this.eFuelMixturesPart.Chart.Size = new System.Drawing.Size(172, 121);
             this.eFuelMixturesPart.Chart.TabIndex = 4;
             this.eFuelMixturesPart.Chart.Text = " ";
             this.eFuelMixturesPart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5903,14 +5905,14 @@
             this.eFuelMixturesPart.Location = new System.Drawing.Point(0, 0);
             this.eFuelMixturesPart.Margin = new System.Windows.Forms.Padding(6);
             this.eFuelMixturesPart.Name = "eFuelMixturesPart";
-            this.eFuelMixturesPart.Size = new System.Drawing.Size(1145, 398);
+            this.eFuelMixturesPart.Size = new System.Drawing.Size(168, 0);
             this.eFuelMixturesPart.TabIndex = 1;
             // 
             // tabPage88
             // 
             this.tabPage88.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage88.Controls.Add(this.eInjectionPhasePart);
-            this.tabPage88.Location = new System.Drawing.Point(4, 70);
+            this.tabPage88.Location = new System.Drawing.Point(4, 37);
             this.tabPage88.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage88.Name = "tabPage88";
             this.tabPage88.Size = new System.Drawing.Size(176, 0);
@@ -5988,7 +5990,7 @@
             series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eInjectionPhasePart.Chart.Series.Add(series7);
-            this.eInjectionPhasePart.Chart.Size = new System.Drawing.Size(164, 121);
+            this.eInjectionPhasePart.Chart.Size = new System.Drawing.Size(180, 121);
             this.eInjectionPhasePart.Chart.TabIndex = 4;
             this.eInjectionPhasePart.Chart.Text = " ";
             this.eInjectionPhasePart.Dock = System.Windows.Forms.DockStyle.Fill;
