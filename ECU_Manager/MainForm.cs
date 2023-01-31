@@ -801,6 +801,7 @@ namespace ECU_Manager
             eStartAsyncInject.UpdateChart();
             eStartLargeInject.UpdateChart();
             eStartSmallInject.UpdateChart();
+            eStartFillingTime.UpdateChart();
             eStartInjPhase.UpdateChart();
             eStartTpsCorrs.UpdateChart();
             eStartIgnition.UpdateChart();

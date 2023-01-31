@@ -5802,7 +5802,7 @@
             // 
             this.tabPage87.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage87.Controls.Add(this.eFuelMixturesPart);
-            this.tabPage87.Location = new System.Drawing.Point(4, 37);
+            this.tabPage87.Location = new System.Drawing.Point(4, 70);
             this.tabPage87.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage87.Name = "tabPage87";
             this.tabPage87.Size = new System.Drawing.Size(168, 0);
@@ -5912,7 +5912,7 @@
             // 
             this.tabPage88.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage88.Controls.Add(this.eInjectionPhasePart);
-            this.tabPage88.Location = new System.Drawing.Point(4, 37);
+            this.tabPage88.Location = new System.Drawing.Point(4, 70);
             this.tabPage88.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage88.Name = "tabPage88";
             this.tabPage88.Size = new System.Drawing.Size(176, 0);
@@ -5990,7 +5990,7 @@
             series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eInjectionPhasePart.Chart.Series.Add(series7);
-            this.eInjectionPhasePart.Chart.Size = new System.Drawing.Size(180, 121);
+            this.eInjectionPhasePart.Chart.Size = new System.Drawing.Size(164, 121);
             this.eInjectionPhasePart.Chart.TabIndex = 4;
             this.eInjectionPhasePart.Chart.Text = " ";
             this.eInjectionPhasePart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -7420,10 +7420,10 @@
             // 
             this.tabPage26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage26.Controls.Add(this.tabControl234);
-            this.tabPage26.Location = new System.Drawing.Point(4, 268);
+            this.tabPage26.Location = new System.Drawing.Point(4, 37);
             this.tabPage26.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage26.Name = "tabPage26";
-            this.tabPage26.Size = new System.Drawing.Size(184, 0);
+            this.tabPage26.Size = new System.Drawing.Size(1161, 480);
             this.tabPage26.TabIndex = 7;
             this.tabPage26.Text = "Start & Warmup";
             // 
@@ -7449,17 +7449,17 @@
             this.tabControl234.Name = "tabControl234";
             this.tabControl234.Padding = new System.Drawing.Point(20, 5);
             this.tabControl234.SelectedIndex = 0;
-            this.tabControl234.Size = new System.Drawing.Size(184, 0);
+            this.tabControl234.Size = new System.Drawing.Size(1161, 480);
             this.tabControl234.TabIndex = 6;
             // 
             // tabPage57
             // 
             this.tabPage57.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage57.Controls.Add(this.eStartIgnition);
-            this.tabPage57.Location = new System.Drawing.Point(4, 433);
+            this.tabPage57.Location = new System.Drawing.Point(4, 103);
             this.tabPage57.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage57.Name = "tabPage57";
-            this.tabPage57.Size = new System.Drawing.Size(176, 0);
+            this.tabPage57.Size = new System.Drawing.Size(1153, 373);
             this.tabPage57.TabIndex = 16;
             this.tabPage57.Text = "Start Ignition";
             // 
@@ -7497,7 +7497,7 @@
             this.eStartIgnition.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eStartIgnition.Chart.Location = new System.Drawing.Point(3, 33);
             this.eStartIgnition.Chart.Name = "chart1DChart";
-            this.eStartIgnition.Chart.Size = new System.Drawing.Size(170, 1);
+            this.eStartIgnition.Chart.Size = new System.Drawing.Size(1147, 299);
             this.eStartIgnition.Chart.TabIndex = 2;
             this.eStartIgnition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eStartIgnition.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -7505,7 +7505,7 @@
             this.eStartIgnition.Location = new System.Drawing.Point(0, 0);
             this.eStartIgnition.Margin = new System.Windows.Forms.Padding(6);
             this.eStartIgnition.Name = "eStartIgnition";
-            this.eStartIgnition.Size = new System.Drawing.Size(176, 0);
+            this.eStartIgnition.Size = new System.Drawing.Size(1153, 373);
             this.eStartIgnition.TabIndex = 4;
             // 
             // tabPage77
@@ -8128,10 +8128,10 @@
             // 
             this.tabPage86.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage86.Controls.Add(this.eStartFillingTime);
-            this.tabPage86.Location = new System.Drawing.Point(4, 433);
+            this.tabPage86.Location = new System.Drawing.Point(4, 103);
             this.tabPage86.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage86.Name = "tabPage86";
-            this.tabPage86.Size = new System.Drawing.Size(184, 0);
+            this.tabPage86.Size = new System.Drawing.Size(1153, 373);
             this.tabPage86.TabIndex = 25;
             this.tabPage86.Text = "Start Filling Time";
             // 
@@ -8169,7 +8169,7 @@
             this.eStartFillingTime.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eStartFillingTime.Chart.Location = new System.Drawing.Point(3, 33);
             this.eStartFillingTime.Chart.Name = "chart1DChart";
-            this.eStartFillingTime.Chart.Size = new System.Drawing.Size(178, 1);
+            this.eStartFillingTime.Chart.Size = new System.Drawing.Size(1147, 299);
             this.eStartFillingTime.Chart.TabIndex = 2;
             this.eStartFillingTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eStartFillingTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -8177,7 +8177,7 @@
             this.eStartFillingTime.Location = new System.Drawing.Point(0, 0);
             this.eStartFillingTime.Margin = new System.Windows.Forms.Padding(6);
             this.eStartFillingTime.Name = "eStartFillingTime";
-            this.eStartFillingTime.Size = new System.Drawing.Size(184, 0);
+            this.eStartFillingTime.Size = new System.Drawing.Size(1153, 373);
             this.eStartFillingTime.TabIndex = 2;
             // 
             // tabPage27
