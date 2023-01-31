@@ -770,7 +770,7 @@ namespace ECU_Manager.Controls
 
             if (size > 0 && array1d != null)
             {
-                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array1D, size);
+                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array1D, array1d, size);
 
                 DialogResult result = importCCodeForm.ShowDialog();
                 if (result == DialogResult.OK)

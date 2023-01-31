@@ -1363,6 +1363,7 @@ namespace ECU_Manager.Controls
             int sizex = 0;
             int sizey = 0;
             float[] array2d = null;
+            float[] array_initial = null;
             int index_array;
             int index_output;
 
@@ -1399,7 +1400,18 @@ namespace ECU_Manager.Controls
 
             if (sizex > 0 && sizey > 0 && array2d != null)
             {
-                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array2D, sizex, sizey);
+                array_initial = new float[sizey * sizex];
+                for (int y = 0; y < sizey; y++)
+                {
+                    for (int x = 0; x < sizex; x++)
+                    {
+                        index_array = y * iArraySizeX + x;
+                        index_output = y * sizex + x;
+                        array_initial[index_output] = array2d[index_array];
+                    }
+                }
+
+                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array2D, array_initial, sizex, sizey);
 
                 DialogResult result = importCCodeForm.ShowDialog();
                 if (result == DialogResult.OK)
