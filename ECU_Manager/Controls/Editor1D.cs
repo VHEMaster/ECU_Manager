@@ -1,4 +1,5 @@
-﻿using ECU_Manager.Structs;
+﻿using ECU_Manager.Dialogs;
+using ECU_Manager.Structs;
 using ECU_Manager.Tools;
 using System;
 using System.Collections.Generic;
@@ -744,6 +745,42 @@ namespace ECU_Manager.Controls
                 }
                 text += "\r\n";
                 Clipboard.SetText(text);
+            }
+        }
+
+        private void btnImportFromCCode_Click(object sender, EventArgs e)
+        {
+            float[] array1d = null;
+            int size = 0;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSize != null)
+                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                if (fieldArrayX != null)
+                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+
+            if (size > 0 && array1d != null)
+            {
+                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array1D, size);
+
+                DialogResult result = importCCodeForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    float[] output = importCCodeForm.GetResult();
+                    for (int x = 0; x < size; x++)
+                    {
+                        array1d[x] = output[x];
+                    }
+                }
             }
         }
     }

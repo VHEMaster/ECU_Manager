@@ -242,7 +242,7 @@ namespace ECU_Manager
                     if (!lastpcconnected.IsRunning || lastpcconnected.ElapsedMilliseconds > 100)
                     {
                         lastpcconnected.Restart();
-                        PacketHandler.SendPcConnected();
+                        //PacketHandler.SendPcConnected();
                     }
                 }
                 lock (SyncMutex)

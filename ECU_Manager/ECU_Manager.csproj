@@ -86,6 +86,12 @@
     <Compile Include="DiagForm.Designer.cs">
       <DependentUpon>DiagForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ImportCCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImportCCode.Designer.cs">
+      <DependentUpon>ImportCCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="IEcuEventHandler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DiagForm.resx">
       <DependentUpon>DiagForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImportCCode.resx">
+      <DependentUpon>ImportCCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

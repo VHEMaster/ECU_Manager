@@ -47,15 +47,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tpTools = new System.Windows.Forms.TabPage();
+            this.btnExport2DChart = new System.Windows.Forms.Button();
+            this.btnImport2DChart = new System.Windows.Forms.Button();
             this.btnCopyToC = new System.Windows.Forms.Button();
             this.chart2DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnImport2DChart = new System.Windows.Forms.Button();
-            this.btnExport2DChart = new System.Windows.Forms.Button();
             this.dlgExport2DChart = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport2DChart = new System.Windows.Forms.OpenFileDialog();
+            this.btnImportFromCCode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -320,6 +321,7 @@
             // tpTools
             // 
             this.tpTools.BackColor = System.Drawing.Color.Transparent;
+            this.tpTools.Controls.Add(this.btnImportFromCCode);
             this.tpTools.Controls.Add(this.btnExport2DChart);
             this.tpTools.Controls.Add(this.btnImport2DChart);
             this.tpTools.Controls.Add(this.btnCopyToC);
@@ -329,6 +331,28 @@
             this.tpTools.Size = new System.Drawing.Size(365, 302);
             this.tpTools.TabIndex = 2;
             this.tpTools.Text = "Tools";
+            // 
+            // btnExport2DChart
+            // 
+            this.btnExport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport2DChart.Location = new System.Drawing.Point(109, 45);
+            this.btnExport2DChart.Name = "btnExport2DChart";
+            this.btnExport2DChart.Size = new System.Drawing.Size(98, 33);
+            this.btnExport2DChart.TabIndex = 11;
+            this.btnExport2DChart.Text = "Export";
+            this.btnExport2DChart.UseVisualStyleBackColor = true;
+            this.btnExport2DChart.Click += new System.EventHandler(this.btnExport2DChart_Click);
+            // 
+            // btnImport2DChart
+            // 
+            this.btnImport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImport2DChart.Location = new System.Drawing.Point(6, 45);
+            this.btnImport2DChart.Name = "btnImport2DChart";
+            this.btnImport2DChart.Size = new System.Drawing.Size(98, 33);
+            this.btnImport2DChart.TabIndex = 10;
+            this.btnImport2DChart.Text = "Import";
+            this.btnImport2DChart.UseVisualStyleBackColor = true;
+            this.btnImport2DChart.Click += new System.EventHandler(this.btnImport2DChart_Click);
             // 
             // btnCopyToC
             // 
@@ -416,28 +440,6 @@
             this.lblTitle.Text = "Chart 1D";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnImport2DChart
-            // 
-            this.btnImport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImport2DChart.Location = new System.Drawing.Point(6, 45);
-            this.btnImport2DChart.Name = "btnImport2DChart";
-            this.btnImport2DChart.Size = new System.Drawing.Size(98, 33);
-            this.btnImport2DChart.TabIndex = 10;
-            this.btnImport2DChart.Text = "Import";
-            this.btnImport2DChart.UseVisualStyleBackColor = true;
-            this.btnImport2DChart.Click += new System.EventHandler(this.btnImport2DChart_Click);
-            // 
-            // btnExport2DChart
-            // 
-            this.btnExport2DChart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExport2DChart.Location = new System.Drawing.Point(109, 45);
-            this.btnExport2DChart.Name = "btnExport2DChart";
-            this.btnExport2DChart.Size = new System.Drawing.Size(98, 33);
-            this.btnExport2DChart.TabIndex = 11;
-            this.btnExport2DChart.Text = "Export";
-            this.btnExport2DChart.UseVisualStyleBackColor = true;
-            this.btnExport2DChart.Click += new System.EventHandler(this.btnExport2DChart_Click);
-            // 
             // dlgExport2DChart
             // 
             this.dlgExport2DChart.DefaultExt = "xml";
@@ -449,6 +451,17 @@
             this.dlgImport2DChart.DefaultExt = "xml";
             this.dlgImport2DChart.Filter = "AutoECU 2D Chart|*.ecu2dchart";
             this.dlgImport2DChart.RestoreDirectory = true;
+            // 
+            // btnImportFromCCode
+            // 
+            this.btnImportFromCCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportFromCCode.Location = new System.Drawing.Point(6, 84);
+            this.btnImportFromCCode.Name = "btnImportFromCCode";
+            this.btnImportFromCCode.Size = new System.Drawing.Size(201, 33);
+            this.btnImportFromCCode.TabIndex = 12;
+            this.btnImportFromCCode.Text = "Import from C code";
+            this.btnImportFromCCode.UseVisualStyleBackColor = true;
+            this.btnImportFromCCode.Click += new System.EventHandler(this.btnImportFromCCode_Click);
             // 
             // Editor2D
             // 
@@ -509,5 +522,6 @@
         private System.Windows.Forms.Button btnImport2DChart;
         private System.Windows.Forms.SaveFileDialog dlgExport2DChart;
         private System.Windows.Forms.OpenFileDialog dlgImport2DChart;
+        private System.Windows.Forms.Button btnImportFromCCode;
     }
 }
