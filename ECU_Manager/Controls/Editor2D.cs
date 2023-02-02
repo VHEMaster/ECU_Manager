@@ -770,7 +770,14 @@ namespace ECU_Manager.Controls
                                     if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
                                         chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
                                     if (!nud.Focused && nud.Value != (decimal)array2d[index])
-                                        nud.Value = (decimal)array2d[index];
+                                    {
+                                        decimal value = (decimal)array2d[index];
+                                        if (value > nud.Maximum)
+                                            value = nud.Maximum;
+                                        else if (value < nud.Minimum)
+                                            value = nud.Minimum;
+                                        nud.Value = value;
+                                    }
 
                                     if (!string.IsNullOrWhiteSpace(sCalibrationTable) && bCalibrationEnabled)
                                     {
@@ -1407,6 +1414,10 @@ namespace ECU_Manager.Controls
                     {
                         index_array = y * iArraySizeX + x;
                         index_output = y * sizex + x;
+                        if (array2d[index_array] > (float)dMaxY)
+                            array2d[index_array] = (float)dMaxY;
+                        if (array2d[index_array] < (float)dMinY)
+                            array2d[index_array] = (float)dMinY;
                         array_initial[index_output] = array2d[index_array];
                     }
                 }

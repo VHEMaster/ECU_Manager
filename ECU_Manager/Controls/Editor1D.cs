@@ -778,6 +778,10 @@ namespace ECU_Manager.Controls
                     float[] output = importCCodeForm.GetResult();
                     for (int x = 0; x < size; x++)
                     {
+                        if (output[x] > (float)dMaxY)
+                            output[x] = (float)dMaxY;
+                        if (output[x] < (float)dMinY)
+                            output[x] = (float)dMinY;
                         array1d[x] = output[x];
                     }
                 }

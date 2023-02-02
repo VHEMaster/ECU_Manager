@@ -1657,9 +1657,9 @@ namespace ECU_Manager
                 toolStripProgressBar1.Style = middleLayer.IsSynchronizing ? ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
                 if (parametersReceived || (DateTime.Now - lastReceivedarameters).TotalMilliseconds > 200)
                 {
+                    middleLayer.PacketHandler.SendParametersRequest();
                     parametersReceived = false;
                     lastReceivedarameters = DateTime.Now;
-                    middleLayer.PacketHandler.SendParametersRequest();
                 }
                 if ((tabControl1.Visible && tabControl1.SelectedTab == tabPage18) || eDragStatus == DragStatusType.Set || eDragStatus == DragStatusType.Go)
                 {
