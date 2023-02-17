@@ -346,7 +346,16 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("corr")]
         public float[] cy_corr_ignition;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 143)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("tsps_relative_pos")]
+        [XmlArrayItem("angle")]
+        public float[] tsps_relative_pos;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("tsps_desync_thr")]
+        [XmlArrayItem("angle")]
+        public float[] tsps_desync_thr;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 111)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

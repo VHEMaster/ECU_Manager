@@ -723,7 +723,16 @@ namespace ECU_Manager
             eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
             eIdleIgnPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
-
+            
+            eTspsRelativePosition.Initialize(cs, -175D, 175D, 0.1D, 2D, -120D, -110D, 500, 1D, 1);
+            eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates_count", "rotates");
+            eTspsRelativePosition.SetX("RPM", "RPM", "F0");
+            eTspsRelativePosition.SetTableEventHandler(ChartUpdateEvent);
+            
+            eTspsDesyncThr.Initialize(cs, 0.1D, 100D, 0.1D, 0.1D, 0D, 5D, 500, 0.1D, 1);
+            eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates_count", "rotates");
+            eTspsDesyncThr.SetX("RPM", "RPM", "F0");
+            eTspsDesyncThr.SetTableEventHandler(ChartUpdateEvent);
 
             SynchronizeCharts();
         }
@@ -823,6 +832,9 @@ namespace ECU_Manager
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
             eAirTempIgnCorr.UpdateChart();
+
+            eTspsRelativePosition.UpdateChart();
+            eTspsDesyncThr.UpdateChart();
         }
 
         private void CorrStart()
@@ -1092,8 +1104,6 @@ namespace ECU_Manager
                 nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
                 nudSpeedInputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedInputCorrection;
                 nudSpeedOutputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedOutputCorrection;
-                nudTspsRelPos.Value = (decimal)cs.ConfigStruct.parameters.tspsRelPos;
-                nudTspsDsThr.Value = (decimal)cs.ConfigStruct.parameters.tspsDesyncThr;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
@@ -2028,24 +2038,6 @@ namespace ECU_Manager
         private void nudSpeedOutputCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.speedOutputCorrection = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateConfig();
-            }
-        }
-
-        private void nudTspsRelPos_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.parameters.tspsRelPos = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateConfig();
-            }
-        }
-
-        private void nudTspsDsThr_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.parameters.tspsDesyncThr = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();

@@ -55,8 +55,8 @@ namespace ECU_Manager.Structs
         public float shiftAngle;
         public float shiftMixture;
 
-        public float tspsRelPos;
-        public float tspsDesyncThr;
+        public float res1;
+        public float res2;
 
         public int useShortTermCorr;
         public int useLongTermCorr;
