@@ -42,6 +42,7 @@ namespace ECU_Manager
                 comboBox1.Enabled = false;
                 btnEnter.Enabled = false;
             }
+            cbWithCtrl.Checked = Properties.Settings.Default.WithCtrl;
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
@@ -49,10 +50,11 @@ namespace ECU_Manager
             string portname = comboBox1.SelectedItem.ToString();
             if (SerialPort.GetPortNames().Contains(portname))
             {
+                Properties.Settings.Default.WithCtrl = cbWithCtrl.Checked;
                 Properties.Settings.Default.ComPortName = portname;
                 Properties.Settings.Default.Save();
                 this.Hide();
-                MiddleLayer middleLayer = new MiddleLayer(portname);
+                MiddleLayer middleLayer = new MiddleLayer(portname, cbWithCtrl.Checked);
                 MainForm mainForm = new MainForm(middleLayer);
                 mainForm.Show();
 

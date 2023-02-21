@@ -42,8 +42,10 @@ namespace ECU_Manager
         bool bSyncFlash = false;
         byte[] bSyncArray = null;
 
-        public MiddleLayer(string portname)
+        public MiddleLayer(string portname, bool ctrlconnected)
         {
+            IsCtrlConnected = ctrlconnected;
+
             eventHandlers = new List<IEcuEventHandler>();
             protocolHandler = new ProtocolHandler(portname, ReceivedEvent, SentEvent, TimeoutEvent);
             PacketHandler = new PacketHandler(protocolHandler);

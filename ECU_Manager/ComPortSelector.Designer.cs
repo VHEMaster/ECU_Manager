@@ -37,6 +37,7 @@
             this.btnStandalone = new System.Windows.Forms.Button();
             this.ofdLogReader = new System.Windows.Forms.OpenFileDialog();
             this.ofdStandalone = new System.Windows.Forms.OpenFileDialog();
+            this.cbWithCtrl = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -89,11 +90,20 @@
             resources.ApplyResources(this.ofdStandalone, "ofdStandalone");
             this.ofdStandalone.ReadOnlyChecked = true;
             // 
+            // cbWithCtrl
+            // 
+            resources.ApplyResources(this.cbWithCtrl, "cbWithCtrl");
+            this.cbWithCtrl.Checked = true;
+            this.cbWithCtrl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbWithCtrl.Name = "cbWithCtrl";
+            this.cbWithCtrl.UseVisualStyleBackColor = true;
+            // 
             // ComPortSelector
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.Controls.Add(this.cbWithCtrl);
             this.Controls.Add(this.btnStandalone);
             this.Controls.Add(this.btnLogReader);
             this.Controls.Add(this.btnEnter);
@@ -119,6 +129,7 @@
         private System.Windows.Forms.Button btnStandalone;
         private System.Windows.Forms.OpenFileDialog ofdLogReader;
         private System.Windows.Forms.OpenFileDialog ofdStandalone;
+        private System.Windows.Forms.CheckBox cbWithCtrl;
     }
 }
 

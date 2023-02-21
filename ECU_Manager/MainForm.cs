@@ -392,7 +392,7 @@ namespace ECU_Manager
             eIdleWishIgnition.SetY("IgnitionAngle", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 500D, 2D, 1);
+            eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 100D, 2D, 1);
             eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "idle_rotates_count", "idle_rotates");
             eIdleIgnitionStatic.SetX("RPM", "RPM", "F0");
             eIdleIgnitionStatic.SetY("IgnitionAngle", "Ignition", "F1");
