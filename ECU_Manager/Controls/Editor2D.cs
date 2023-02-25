@@ -1438,6 +1438,7 @@ namespace ECU_Manager.Controls
                             array2d[index_array] = output[index_output];
                         }
                     }
+                    this.UpdateChart();
                 }
             }
         }
