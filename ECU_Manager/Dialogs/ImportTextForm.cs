@@ -10,19 +10,13 @@ using System.Windows.Forms;
 
 namespace ECU_Manager.Dialogs
 {
-    public enum ArrayType
-    {
-        Array1D,
-        Array2D
-    }
-
-    public partial class ImportCCode : Form
+    public partial class ImportTextForm : Form
     {
         private ArrayType arrayType;
         private int sizex, sizey;
         private float[] result;
 
-        public ImportCCode(ArrayType arrayType, float[] initial, int sizex, int sizey = 1)
+        public ImportTextForm(ArrayType arrayType, float[] initial, int sizex, int sizey = 1)
         {
             InitializeComponent();
 
@@ -42,15 +36,14 @@ namespace ECU_Manager.Dialogs
 
             if (this.arrayType == ArrayType.Array1D)
             {
-               decplaces = "." + Enumerable.Repeat("0", 4).Aggregate((sum, next) => sum + next);
-
-                text = "\t";
+                decplaces = "." + Enumerable.Repeat("0", 4).Aggregate((sum, next) => sum + next);
+                line = string.Empty;
                 for (int x = 0; x < sizex; x++)
                 {
-                    text += string.Format("{0:0" + decplaces + "}f, ", initial[x]);
-                    if ((x + 1) % 8 == 0 && (x + 1) < sizex && x > 0)
-                        text += "\r\n\t";
+                    line += string.Format("{0:0" + decplaces + "}\t", initial[x]);
                 }
+                line = line.TrimEnd('\t');
+                text += line;
                 text += "\r\n";
 
                 this.textBox1.Text = text;
@@ -63,14 +56,14 @@ namespace ECU_Manager.Dialogs
                 for (int y = 0; y < sizey; y++)
                 {
                     line = string.Empty;
-                    text += "\t{ ";
                     for (int x = 0; x < sizex; x++)
                     {
                         index = y * sizex + x;
-                        line += string.Format("{0:0" + decplaces + "}f, ", initial[index]);
+                        line += string.Format("{0:0" + decplaces + "}\t", initial[index]);
                     }
+                    line = line.TrimEnd('\t');
                     text += line;
-                    text += "},\r\n";
+                    text += "\r\n";
                 }
 
                 this.textBox1.Text = text;
@@ -88,17 +81,20 @@ namespace ECU_Manager.Dialogs
             try
             {
                 string text = textBox1.Text;
+                text = text.Replace(",", ".");
                 text = text.Replace(" ", "");
-                text = text.Replace("\t", "");
-                text = text.Replace("\r", "");
-                text = text.Replace("\n", "");
                 text = text.Replace("f", "");
                 text = text.Replace("D", "");
                 text = text.Replace("d", "");
                 text = text.Replace("u", "");
                 text = text.Replace("l", "");
 
-                text = text.Replace("},{", "|");
+                text = text.Replace("\r", "|");
+                text = text.Replace("\n", "|");
+
+                text = text.Replace("||", "|");
+                text = text.Replace("||", "|");
+                text = text.Replace("||", "|");
 
                 string[] lines_n = text.Split('|');
                 List<string> lines = new List<string>();
@@ -107,8 +103,6 @@ namespace ECU_Manager.Dialogs
                 for (int i = 0; i < lines_n.Length; i++)
                 {
                     string tmp = lines_n[i];
-                    tmp = tmp.Replace("{", "");
-                    tmp = tmp.Replace("}", "");
                     if (tmp.Length > 0)
                     {
                         lines.Add(tmp);
@@ -119,7 +113,7 @@ namespace ECU_Manager.Dialogs
 
                 for (int i = 0; i < lines.Count; i++)
                 {
-                    string[] vars = lines[i].Split(',');
+                    string[] vars = lines[i].Split('\t');
                     List<string> tmp1 = new List<string>();
                     for (int j = 0; j < vars.Length; j++)
                     {
@@ -155,7 +149,7 @@ namespace ECU_Manager.Dialogs
             }
             catch
             {
-                MessageBox.Show("Failed to parse C code!", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                MessageBox.Show("Failed to parse the text!", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
 

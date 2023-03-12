@@ -1422,12 +1422,151 @@ namespace ECU_Manager.Controls
                     }
                 }
 
-                ImportCCode importCCodeForm = new ImportCCode(ArrayType.Array2D, array_initial, sizex, sizey);
+                ImportCCodeForm importCCodeForm = new ImportCCodeForm(ArrayType.Array2D, array_initial, sizex, sizey);
 
                 DialogResult result = importCCodeForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     float[] output = importCCodeForm.GetResult();
+
+                    for (int y = 0; y < sizey; y++)
+                    {
+                        for (int x = 0; x < sizex; x++)
+                        {
+                            index_array = y * iArraySizeX + x;
+                            index_output = y * sizex + x;
+                            array2d[index_array] = output[index_output];
+                        }
+                    }
+                    this.UpdateChart();
+                }
+            }
+        }
+
+        private void btnCopyToText_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
+            float[] array2d = null;
+            int index;
+            string text = string.Empty;
+            string line = string.Empty;
+            string decplaces = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+                else if (eMode == Editor2DMode.CorrectionsTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
+            }
+
+            if (sizex > 0 && sizey > 0 && array2d != null)
+            {
+                if (iDecPlaces > 0)
+                    decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
+
+                for (int y = 0; y < sizey; y++)
+                {
+                    line = string.Empty;
+                    for (int x = 0; x < sizex; x++)
+                    {
+                        index = y * iArraySizeX + x;
+                        line += string.Format("{0:0" + decplaces + "}\t", array2d[index]);
+                    }
+                    line = line.TrimEnd('\t');
+                    text += line;
+                    text += "\r\n";
+                }
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void btnImportFromText_Click(object sender, EventArgs e)
+        {
+            int sizex = 0;
+            int sizey = 0;
+            float[] array2d = null;
+            float[] array_initial = null;
+            int index_array;
+            int index_output;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            {
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+                else if (eMode == Editor2DMode.CorrectionsTable)
+                {
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                }
+            }
+
+
+            if (sizex > 0 && sizey > 0 && array2d != null)
+            {
+                array_initial = new float[sizey * sizex];
+                for (int y = 0; y < sizey; y++)
+                {
+                    for (int x = 0; x < sizex; x++)
+                    {
+                        index_array = y * iArraySizeX + x;
+                        index_output = y * sizex + x;
+                        if (array2d[index_array] > (float)dMaxY)
+                            array2d[index_array] = (float)dMaxY;
+                        if (array2d[index_array] < (float)dMinY)
+                            array2d[index_array] = (float)dMinY;
+                        array_initial[index_output] = array2d[index_array];
+                    }
+                }
+
+                ImportTextForm importTextForm = new ImportTextForm(ArrayType.Array2D, array_initial, sizex, sizey);
+
+                DialogResult result = importTextForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    float[] output = importTextForm.GetResult();
 
                     for (int y = 0; y < sizey; y++)
                     {

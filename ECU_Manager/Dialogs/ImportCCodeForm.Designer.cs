@@ -1,6 +1,6 @@
 ﻿namespace ECU_Manager.Dialogs
 {
-    partial class ImportCCode
+    partial class ImportCCodeForm
     {
         /// <summary>
         /// Required designer variable.

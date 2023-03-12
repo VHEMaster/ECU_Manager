@@ -86,11 +86,17 @@
     <Compile Include="DiagForm.Designer.cs">
       <DependentUpon>DiagForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ImportCCode.cs">
+    <Compile Include="Dialogs\ImportTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ImportCCode.Designer.cs">
-      <DependentUpon>ImportCCode.cs</DependentUpon>
+    <Compile Include="Dialogs\ImportTextForm.Designer.cs">
+      <DependentUpon>ImportTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImportCCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImportCCodeForm.Designer.cs">
+      <DependentUpon>ImportCCodeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IEcuEventHandler.cs" />
     <Compile Include="MainForm.cs">
@@ -186,8 +192,11 @@
     <EmbeddedResource Include="DiagForm.resx">
       <DependentUpon>DiagForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ImportCCode.resx">
-      <DependentUpon>ImportCCode.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\ImportTextForm.resx">
+      <DependentUpon>ImportTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImportCCodeForm.resx">
+      <DependentUpon>ImportCCodeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
