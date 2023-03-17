@@ -775,6 +775,7 @@ namespace ECU_Manager
             eEnrichmentByTPS.UpdateChart();
             eEnrichmentMAPHPF.UpdateChart();
             eEnrichmentTPSHPF.UpdateChart();
+            eEnrichmentTempMult.UpdateChart();
 
             ePressures.UpdateChart();
             eRotates.UpdateChart();
