@@ -355,7 +355,12 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("angle")]
         public float[] tsps_desync_thr;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 111)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX)]
+        [XmlArray("default_idle_ignition_time_by_tps")]
+        [XmlArrayItem("time")]
+        public float[] idle_ignition_time_by_tps;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 95)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
