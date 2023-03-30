@@ -1128,6 +1128,7 @@ namespace ECU_Manager
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
                 cbIsEconEnabled.Checked = cs.ConfigStruct.parameters.isEconEnabled > 0;
+                cbPerformIdleAdaptation.Checked = cs.ConfigStruct.parameters.performIdleAdaptation > 0;
                 btnCorrStop.Enabled = cs.ConfigStruct.parameters.performAdaptation > 0;
                 btnCorrStart.Enabled = cs.ConfigStruct.parameters.performAdaptation == 0;
                 if (cs.ConfigStruct.parameters.performAdaptation > 0)
@@ -2113,6 +2114,15 @@ namespace ECU_Manager
         private void cbUseKnock_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useKnockSensor = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbPerformIdleAdaptation_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.performIdleAdaptation = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
