@@ -356,11 +356,16 @@ namespace ECU_Manager.Structs
         public float[] tsps_desync_thr;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX)]
-        [XmlArray("default_idle_ignition_time_by_tps")]
+        [XmlArray("idle_ignition_time_by_tps")]
         [XmlArrayItem("time")]
         public float[] idle_ignition_time_by_tps;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 95)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_econ_delay")]
+        [XmlArrayItem("time")]
+        public float[] idle_econ_delay;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 79)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

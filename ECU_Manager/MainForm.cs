@@ -687,7 +687,12 @@ namespace ECU_Manager
             eIgnitionTimeByTPS.SetConfig("idle_ignition_time_by_tps", "throttles_count", "throttles");
             eIgnitionTimeByTPS.SetX("ThrottlePosition", "TPS", "F1");
             eIgnitionTimeByTPS.SetTableEventHandler(ChartUpdateEvent);
-       
+
+            eIdleEconDelay.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
+            eIdleEconDelay.SetConfig("idle_econ_delay", "throttles_count", "throttles");
+            eIdleEconDelay.SetX("EngineTemp", "Temperature", "F0");
+            eIdleEconDelay.SetTableEventHandler(ChartUpdateEvent);
+            
             eIdleRegThr1.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
             eIdleRegThr1.SetConfig("idle_rpm_pid_act_1", "engine_temp_count", "engine_temps");
             eIdleRegThr1.SetX("EngineTemp", "Temperature", "F0");
@@ -817,6 +822,7 @@ namespace ECU_Manager
             eStartSmallInject.UpdateChart();
             eStartFillingTime.UpdateChart();
             eIgnitionTimeByTPS.UpdateChart();
+            eIdleEconDelay.UpdateChart();
             eStartInjPhase.UpdateChart();
             eStartTpsCorrs.UpdateChart();
             eStartIgnition.UpdateChart();
