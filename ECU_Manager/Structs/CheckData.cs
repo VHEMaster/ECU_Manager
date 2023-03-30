@@ -63,7 +63,7 @@ namespace ECU_Manager.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[88]
+        private static readonly string[] ErrorStrings = new string[90]
         {
             "Invalid",
             "Flash: Load failure",
@@ -148,6 +148,8 @@ namespace ECU_Manager.Structs
             "Lambda: DIAHGD ShortToBat",
             "Lambda: DIAHGD OpenCircuit",
             "Lambda: DIAHGD ShortToGnd",
+            "Lambda: Temperature failure",
+            "Lambda: Heater failure",
 
             "Knock: Detonation Found",
             "Knock: Low Noise Level",
@@ -253,6 +255,8 @@ namespace ECU_Manager.Structs
         LambdaDIAHGDShortToBat,
         LambdaDIAHGDOpenCirtuit,
         LambdaDIAHGDShortToGND,
+        CheckLambdaTemperatureFailure,
+        CheckLambdaHeaterFailure,
         KnockDetonationFound,
         KnockLowNoiseLevel,
         TspsDesynchronized,
