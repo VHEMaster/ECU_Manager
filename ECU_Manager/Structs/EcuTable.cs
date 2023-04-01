@@ -365,7 +365,12 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("time")]
         public float[] idle_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 79)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_econ_delay")]
+        [XmlArrayItem("time")]
+        public float[] start_econ_delay;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 63)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
