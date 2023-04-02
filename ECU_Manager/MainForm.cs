@@ -152,7 +152,7 @@ namespace ECU_Manager
 
             eCyclicFilling.SetTableColorTrans(colorTransience);
             eCyclicFilling.SynchronizeChart();
-            
+
             colorTransience = new ColorTransience(5.0F, 20.0F, Color.Gray);
             colorTransience.Add(Color.Black, 5.0F);
             colorTransience.Add(Color.Red, 12.0F);
@@ -297,7 +297,7 @@ namespace ECU_Manager
             eEnrichmentTPSHPF.SetConfig("enrichment_by_thr_hpf", "rotates_count", "rotates");
             eEnrichmentTPSHPF.SetX("RPM", "RPM", "F0");
             eEnrichmentTPSHPF.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 0D, 0.5F, 10D, 0.05D, 2);
             eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
@@ -696,18 +696,18 @@ namespace ECU_Manager
             eStartEconDelay.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
             eStartEconDelay.SetConfig("start_econ_delay", "throttles_count", "throttles");
             eStartEconDelay.SetX("EngineTemp", "Temperature", "F0");
-            eStartEconDelay.SetTableEventHandler(ChartUpdateEvent); 
-            
+            eStartEconDelay.SetTableEventHandler(ChartUpdateEvent);
+
             eIdleRegThr1.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
             eIdleRegThr1.SetConfig("idle_rpm_pid_act_1", "engine_temp_count", "engine_temps");
             eIdleRegThr1.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr1.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eIdleRegThr2.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
             eIdleRegThr2.SetConfig("idle_rpm_pid_act_2", "engine_temp_count", "engine_temps");
             eIdleRegThr2.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
-        
+
             eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
             eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
             eIdleValvePidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
@@ -737,18 +737,128 @@ namespace ECU_Manager
             eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
             eIdleIgnPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eTspsRelativePosition.Initialize(cs, -175D, 175D, 0.1D, 2D, -120D, -110D, 500, 1D, 1);
             eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates_count", "rotates");
             eTspsRelativePosition.SetX("RPM", "RPM", "F0");
             eTspsRelativePosition.SetTableEventHandler(ChartUpdateEvent);
-            
+
             eTspsDesyncThr.Initialize(cs, 0.1D, 100D, 0.1D, 0.1D, 0D, 5D, 500, 0.1D, 1);
             eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates_count", "rotates");
             eTspsDesyncThr.SetX("RPM", "RPM", "F0");
             eTspsDesyncThr.SetTableEventHandler(ChartUpdateEvent);
 
             SynchronizeCharts();
+
+            int index, subindex1, subindex2, subindex3, subindex4;
+
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage1), Text = "General status" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage12), Text = "Tools" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage2), Text = "Basic parameters" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage3), Text = "Table setup" });
+            subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage8), Text = "Parameters" });
+            subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage4), Text = "Basic setup" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage6), Text = "Pressures" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl8, tabPage11), Text = "MAP Sensor" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl8, tabPage37), Text = "RPM vs. TPS" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage7), Text = "Rotates" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage92), Text = "Idle rotates" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage13), Text = "Throttles" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage14), Text = "Voltages" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage15), Text = "Fillings" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage42), Text = "Speeds" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage16), Text = "Engine temperatures" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage55), Text = "Air temperatures" });
+            subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage9), Text = "Setup" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage10), Text = "Cyclic filling" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage17), Text = "Enrichment" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage34), Text = "By MAP" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage23), Text = "MAP HPF" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "By TPS" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "TPS HPF" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnPart), Text = "Part load" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Full load" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage31), Text = "Saturation pulse" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage32), Text = "Saturation by RPM" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage59), Text = "Correction by Air Temperature" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage24), Text = "Injection" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tpInjPart), Text = "Part load" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage87), Text = "Mixture" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage88), Text = "Phase" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tpInjFull), Text = "Full load" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage33), Text = "Mixture" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage36), Text = "Phase" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage74), Text = "Injection phase LPF" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve vs. RPM" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage39), Text = "Mass air flow" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage40), Text = "Ignition" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage80), Text = "Static ignition" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage43), Text = "Shift by Speed" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage71), Text = "Regulation Low Threshold" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage79), Text = "Regulation High Threshold" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage63), Text = "Valve PID" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage69), Text = "Proportional" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage65), Text = "Integral" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage66), Text = "Differentional" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage64), Text = "Ignition PID" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1245, tabPage67), Text = "Proportional" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1245, tabPage68), Text = "Integral" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1245, tabPage70), Text = "Differentional" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage94), Text = "HPF by TPS" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage95), Text = "Economizer delay" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage26), Text = "Startup" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage57), Text = "Ignition" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage77), Text = "Injection phase" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage78), Text = "Mixture correction by TPS" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage58), Text = "Idle valve position" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage44), Text = "Async filling" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage76), Text = "Large filling" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage75), Text = "Small filling" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage86), Text = "Filling change time" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage72), Text = "Cold mixture correction" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage73), Text = "Cold mixture change time" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage98), Text = "Economizer delay" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage26), Text = "Warmup" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage45), Text = "Mixture" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage46), Text = "Mixture koff" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage54), Text = "Mixture correction" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage27), Text = "Knock" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage47), Text = "Noise level" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage48), Text = "Threshold" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage60), Text = "Zone" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage62), Text = "Gain" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage61), Text = "Filter frequency" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage30), Text = "Part/Full load LPFs" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage89), Text = "Ignition" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage90), Text = "Injection" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage91), Text = "Injection Phase" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage93), Text = "TSPS" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage49), Text = "Corrections" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage18), Text = "Drag measure" });
+            index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage5), Text = "Failure codes" });
+        }
+
+        private class TreeNodeListInfo
+        {
+            public TabControl TabControl;
+            public TabPage TabPage;
+
+            public TreeNodeListInfo(TabControl tabControl, TabPage tabPage)
+            {
+                TabControl = tabControl;
+                TabPage = tabPage;
+                tabControl.Appearance = TabAppearance.FlatButtons;
+                tabControl.ItemSize = new Size(0, 1);
+                tabControl.SizeMode = TabSizeMode.Fixed;
+            }
         }
 
         private void SynchronizeCharts()
@@ -3019,5 +3129,20 @@ namespace ECU_Manager
         {
             middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(0, 0, 0, 0, 0, 0);
         }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNodeListInfo tnli = e.Node.Tag as TreeNodeListInfo;
+            if(tnli != null)
+            {
+                tnli.TabControl.SelectedTab = tnli.TabPage;
+                if(e.Node.Parent != null)
+                {
+                    treeView_AfterSelect(sender, new TreeViewEventArgs(e.Node.Parent));
+
+                }
+            }
+        }
     }
 }
+
