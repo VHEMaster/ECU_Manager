@@ -294,7 +294,7 @@ namespace ECU_Manager
             eEnrichmentAsyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentAsyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 0D, 0.5D, 10D, 0.05D, 2);
+            eEnrichmentTempMult.Initialize(cs, -1, 5, 0.01D, 0.1D, 0D, 0.5D, 10D, 0.05D, 2);
             eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
             eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
@@ -1343,7 +1343,9 @@ namespace ECU_Manager
             nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
             nudParamsCntAirTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count;
             nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
-            
+            nudParamsCntEnrichmentStartLoad.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count;
+            nudParamsCntEnrichmentLoadDerivative.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count;
+
             nudParamsEnrichmentLoadDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band;
             nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
             nudParamsEnrichmentDetectDuration.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration;
