@@ -57,8 +57,7 @@ namespace ECU_Manager.Structs
         [XmlArray("throttles")]
         [XmlArrayItem("throttle")]
         public float[] throttles;
-
-        public float enrichment_proportion_map_vs_thr;
+        
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("fill_by_map")]
         [XmlArrayItem("filling")]
@@ -67,22 +66,46 @@ namespace ECU_Manager.Structs
         [XmlArray("map_by_thr")]
         [XmlArrayItem("pressure")]
         public float[] map_by_thr;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX)]
-        [XmlArray("enrichment_by_map_sens")]
-        [XmlArrayItem("enrichemt")]
-        public float[] enrichment_by_map_sens;
+
+        public int enrichment_load_type;
+        public float enrichment_load_dead_band;
+        public float enrichment_accel_dead_band;
+        public float enrichment_ign_corr_decay_time;
+        public float enrichment_detect_duration;
+
+        public int enrichment_rate_start_load_count;
+        public int enrichment_rate_load_derivative_count;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ENRICHMENT_PERCENTS_MAX)]
+        [XmlArray("enrichment_rate_start_load")]
+        [XmlArrayItem("percentage")]
+        public float[] enrichment_rate_start_load;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ENRICHMENT_PERCENTS_MAX)]
+        [XmlArray("enrichment_rate_load_derivative")]
+        [XmlArrayItem("percentage")]
+        public float[] enrichment_rate_load_derivative;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ENRICHMENT_PERCENTS_MAX * Consts.TABLE_ENRICHMENT_PERCENTS_MAX)]
+        [XmlArray("enrichment_rate")]
+        [XmlArrayItem("rate")]
+        public float[] enrichment_rate;
+        
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("enrichment_by_map_hpf")]
-        [XmlArrayItem("filter")]
-        public float[] enrichment_by_map_hpf;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX)]
-        [XmlArray("enrichment_by_thr_sens")]
-        [XmlArrayItem("enrichemt")]
-        public float[] enrichment_by_thr_sens;
+        [XmlArray("enrichment_sync_amount")]
+        [XmlArrayItem("amount")]
+        public float[] enrichment_sync_amount;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("enrichment_by_thr_hpf")]
-        [XmlArrayItem("filter")]
-        public float[] enrichment_by_thr_hpf;
+        [XmlArray("enrichment_async_amount")]
+        [XmlArrayItem("amount")]
+        public float[] enrichment_async_amount;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX * Consts.TABLE_ENRICHMENT_PERCENTS_MAX)]
+        [XmlArray("enrichment_ign_corr")]
+        [XmlArrayItem("corr")]
+        public float[] enrichment_ign_corr;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("enrichment_temp_mult")]
         [XmlArrayItem("mult")]
@@ -370,7 +393,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 63)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 905)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

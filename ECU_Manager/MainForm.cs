@@ -276,32 +276,50 @@ namespace ECU_Manager
             eInjectionPhaseLPF.SetX("RPM", "RPM", "F0");
             eInjectionPhaseLPF.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentByMAP.Initialize(cs, -1, 5, 0.001D, 0.1D, 0D, 1.0F, 5000, 0.1D, 3);
-            eEnrichmentByMAP.SetConfig("enrichment_by_map_sens", "pressures_count", "pressures");
-            eEnrichmentByMAP.SetX("ManifoldAirPressure", "MAP", "F0");
-            eEnrichmentByMAP.SetY("InjectionEnrichment", "Enr.", "F3");
-            eEnrichmentByMAP.SetTableEventHandler(ChartUpdateEvent);
+            eEnrichmentStartLoad.Initialize(cs, 0, 100000, 1, 1D, 0D, 10D, 1D, 10D, 0);
+            eEnrichmentStartLoad.SetConfig("enrichment_rate_start_load", "enrichment_rate_start_load_count", string.Empty);
+            eEnrichmentStartLoad.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentByTPS.Initialize(cs, -1, 5, 0.001D, 0.1D, 0D, 1.0F, 5, 0.1D, 3);
-            eEnrichmentByTPS.SetConfig("enrichment_by_thr_sens", "throttles_count", "throttles");
-            eEnrichmentByTPS.SetX("ThrottlePosition", "TPS", "F0");
-            eEnrichmentByTPS.SetY("InjectionEnrichment", "Enr.", "F3");
-            eEnrichmentByTPS.SetTableEventHandler(ChartUpdateEvent);
+            eEnrichmentLoadDerivative.Initialize(cs, 0, 1000000, 100, 10D, 0D, 100D, 1D, 100D, 0);
+            eEnrichmentLoadDerivative.SetConfig("enrichment_rate_load_derivative", "enrichment_rate_load_derivative_count", string.Empty);
+            eEnrichmentLoadDerivative.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentMAPHPF.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            eEnrichmentMAPHPF.SetConfig("enrichment_by_map_hpf", "rotates_count", "rotates");
-            eEnrichmentMAPHPF.SetX("RPM", "RPM", "F0");
-            eEnrichmentMAPHPF.SetTableEventHandler(ChartUpdateEvent);
+            eEnrichmentSyncAmount.Initialize(cs, 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentSyncAmount.SetConfig("enrichment_sync_amount", "rotates_count", "rotates");
+            eEnrichmentSyncAmount.SetX("RPM", "RPM", "F0");
+            eEnrichmentSyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentTPSHPF.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            eEnrichmentTPSHPF.SetConfig("enrichment_by_thr_hpf", "rotates_count", "rotates");
-            eEnrichmentTPSHPF.SetX("RPM", "RPM", "F0");
-            eEnrichmentTPSHPF.SetTableEventHandler(ChartUpdateEvent);
+            eEnrichmentAsyncAmount.Initialize(cs, 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentAsyncAmount.SetConfig("enrichment_async_amount", "rotates_count", "rotates");
+            eEnrichmentAsyncAmount.SetX("RPM", "RPM", "F0");
+            eEnrichmentAsyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 0D, 0.5F, 10D, 0.05D, 2);
+            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 0D, 0.5D, 10D, 0.05D, 2);
             eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
             eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
+
+            
+            eEnrichmentRate.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
+                0.0D, 5.0D, 0.01D, 0.5D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, 2);
+
+            eEnrichmentRate.SetConfig("enrichment_rate", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentRate.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.5F);
+            colorTransience.Add(Color.Blue, 0.7F);
+            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.75F);
+            colorTransience.Add(Color.Green, 1.0F);
+            colorTransience.Add(Color.FromArgb(128, 96, 0), 1.05F);
+            colorTransience.Add(Color.DarkRed, 1.12F);
+            colorTransience.Add(Color.Black, 1.5F);
+
+            eEnrichmentRate.SetTableColorTrans(colorTransience);
+            eEnrichmentRate.SynchronizeChart();
+
 
             ePressures.Initialize(cs, 0, 1000000, 200, 500, 0, 100000, 1, 10000, 0);
             ePressures.SetConfig("pressures", "pressures_count", string.Empty);
@@ -772,10 +790,13 @@ namespace ECU_Manager
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage9), Text = "Setup" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage10), Text = "Cyclic filling" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage17), Text = "Enrichment" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage34), Text = "By MAP" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage23), Text = "MAP HPF" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "By TPS" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "TPS HPF" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage99), Text = "Basic" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage34), Text = "Start Load" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage23), Text = "Load Derivative" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "Rate" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "Sync Amount" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage100), Text = "Async Amount" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage101), Text = "Ignition Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnPart), Text = "Part load" });
@@ -879,6 +900,8 @@ namespace ECU_Manager
             eAirTempMixCorr.SynchronizeChart();
             eAirTempIgnCorr.SynchronizeChart();
             eKnockZone.SynchronizeChart();
+            eEnrichmentRate.SynchronizeChart();
+            eEnrichmentIgnCorr.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -895,10 +918,12 @@ namespace ECU_Manager
             eInjectorLag.UpdateChart();
             eInjectionPhaseLPF.UpdateChart();
             eSaturationPulse.UpdateChart();
-            eEnrichmentByMAP.UpdateChart();
-            eEnrichmentByTPS.UpdateChart();
-            eEnrichmentMAPHPF.UpdateChart();
-            eEnrichmentTPSHPF.UpdateChart();
+            eEnrichmentStartLoad.UpdateChart();
+            eEnrichmentLoadDerivative.UpdateChart();
+            eEnrichmentRate.UpdateChart();
+            eEnrichmentSyncAmount.UpdateChart();
+            eEnrichmentAsyncAmount.UpdateChart();
+            eEnrichmentIgnCorr.UpdateChart();
             eEnrichmentTempMult.UpdateChart();
 
             ePressures.UpdateChart();
@@ -1283,6 +1308,13 @@ namespace ECU_Manager
                 default: break;
             }
 
+            switch (cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_type)
+            {
+                case 0: rbEnrichTypeTPS.Checked = true; break;
+                case 1: rbEnrichTypeMAP.Checked = true; break;
+                default: break;
+            }
+
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
             cbParamsIsFullThrottleUsed.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_full_thr_used > 0;
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
@@ -1299,6 +1331,8 @@ namespace ECU_Manager
             nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
             nudParamsCntAirTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
             nudParamsCntSpeeds.Maximum = Consts.TABLE_SPEEDS_MAX;
+            nudParamsCntEnrichmentStartLoad.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS_MAX;
+            nudParamsCntEnrichmentLoadDerivative.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS_MAX;
 
             nudParamsCntPress.Value = cs.ConfigStruct.tables[cs.CurrentTable].pressures_count;
             nudParamsCntRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].rotates_count;
@@ -1309,6 +1343,11 @@ namespace ECU_Manager
             nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
             nudParamsCntAirTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count;
             nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
+            
+            nudParamsEnrichmentLoadDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band;
+            nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
+            nudParamsEnrichmentDetectDuration.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration;
+            nudParamsEnrichmentIgnitionDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
@@ -1318,8 +1357,7 @@ namespace ECU_Manager
             nudParamsPidShortCorrP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p;
             nudParamsPidShortCorrI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i;
             nudParamsPidShortCorrD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d;
-
-            nudParamsEnrPMapTps.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr;
+            
             nudParamsIdleIgnDevMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min;
             nudParamsIdleIgnDevMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max;
             nudParamsIdleIgnFanLCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_low_corr;
@@ -2928,15 +2966,7 @@ namespace ECU_Manager
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
-
-        private void nudParamsEnrPMapTps_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_proportion_map_vs_thr = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
+       
 
         private void nudParamsKnockIgnCorr_ValueChanged(object sender, EventArgs e)
         {
@@ -3141,6 +3171,93 @@ namespace ECU_Manager
                     treeView_AfterSelect(sender, new TreeViewEventArgs(e.Node.Parent));
 
                 }
+            }
+        }
+
+
+        private void rbEnrichTypeTPS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_type = 0;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateTable(cs.CurrentTable);
+                }
+            }
+        }
+
+        private void rbEnrichTypeMAP_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_type = 1;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateTable(cs.CurrentTable);
+                }
+            }
+        }
+
+        private void nudParamsCntEnrichmentStartLoad_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i] + 1;
+            UpdateEcuTableValues();
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsCntEnrichmentLoadDerivative_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i] + 10;
+            UpdateEcuTableValues();
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentLoadDeadBand_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentAccelDeadBand_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentDetectDuration_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentIgnitionDecayTime_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
     }
