@@ -19,6 +19,7 @@ namespace ECU_Manager.Structs
         public const int TABLE_TEMPERATURES_MAX = 16;
         public const int TABLE_VOLTAGES_MAX = 16;
         public const int TABLE_STRING_MAX = 16;
+        public const int TABLE_ENRICHMENT_PERCENTS_MAX = 8;
 
         public const int IDLE_VALVE_POS_MAX = 160;
 

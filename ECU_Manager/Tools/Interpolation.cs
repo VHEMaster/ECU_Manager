@@ -73,6 +73,9 @@ namespace ECU_Manager.Tools
             if (double.IsNaN(this.mult))
                 return 0;
 
+            if (table == null)
+                return 0;
+
             output[0] = table[this.indexes[0]];
             output[1] = table[this.indexes[1]];
 
