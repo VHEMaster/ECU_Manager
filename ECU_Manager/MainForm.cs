@@ -319,6 +319,29 @@ namespace ECU_Manager
 
             eEnrichmentRate.SetTableColorTrans(colorTransience);
             eEnrichmentRate.SynchronizeChart();
+            
+
+            colorTransience = new ColorTransience(-5F, 5F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -5.0F);
+            colorTransience.Add(Color.Blue, -3.0F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -2.0F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
+            colorTransience.Add(Color.Red, 3.0F);
+            colorTransience.Add(Color.DarkRed, 4.0F);
+            colorTransience.Add(Color.Black, 5.0F);
+
+            eEnrichmentIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
+                -25.0D, 25.0D, 0.1D, 10D, 1D, -5D, 5D, 10, 1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ROTATES_MAX, 1);
+
+            eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load_count", "rotates_count", "enrichment_rate_start_load", "rotates");
+            eEnrichmentIgnCorr.SetTableEventHandler(ChartUpdateEvent);
+            eEnrichmentIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempIgnCorr.scHorisontal.Width * 0.65);
+
+            eEnrichmentIgnCorr.SetTableColorTrans(colorTransience);
+            eEnrichmentIgnCorr.SynchronizeChart();
 
 
             ePressures.Initialize(cs, 0, 1000000, 200, 500, 0, 100000, 1, 10000, 0);
