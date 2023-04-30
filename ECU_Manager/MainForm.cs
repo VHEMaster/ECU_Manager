@@ -280,7 +280,7 @@ namespace ECU_Manager
             eEnrichmentStartLoad.SetConfig("enrichment_rate_start_load", "enrichment_rate_start_load_count", string.Empty);
             eEnrichmentStartLoad.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentLoadDerivative.Initialize(cs, 0, 1000000, 100, 10D, 0D, 100D, 1D, 100D, 0);
+            eEnrichmentLoadDerivative.Initialize(cs, 0, 1000000, 100, 10D, 0D, 1000D, 1D, 200D, 0);
             eEnrichmentLoadDerivative.SetConfig("enrichment_rate_load_derivative", "enrichment_rate_load_derivative_count", string.Empty);
             eEnrichmentLoadDerivative.SetTableEventHandler(ChartUpdateEvent);
 
@@ -306,6 +306,8 @@ namespace ECU_Manager
                 0.0D, 5.0D, 0.01D, 0.5D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, 2);
 
             eEnrichmentRate.SetConfig("enrichment_rate", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentRate.SetX("EnrichmentLoadDerivative", "Load Derivative", "F0");
+            eEnrichmentRate.SetD("EnrichmentStartLoad", "Start Load", "F1");
             eEnrichmentRate.SetTableEventHandler(ChartUpdateEvent);
 
             colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
