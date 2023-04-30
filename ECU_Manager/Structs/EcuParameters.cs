@@ -77,6 +77,11 @@ namespace ECU_Manager.Structs
         public float IgnitionPulse;
         public float IdleSpeedShift;
 
+        public float EnrichmentSyncAmount;
+        public float EnrichmentAsyncAmount;
+        public float EnrichmentStartLoad;
+        public float EnrichmentLoadDerivative;
+
         public float DrivenKilometers;
         public float FuelConsumed;
         public float FuelConsumption;
