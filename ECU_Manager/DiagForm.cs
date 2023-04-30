@@ -401,6 +401,10 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "InjectionEnrichment") parameter.FloatFormat = "F3"; //&ecu_parameters.InjectionEnrichment, .title = "%s%0.3f"},
                 if (fieldInfo.Name == "IgnitionPulse") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionPulse, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "IdleSpeedShift") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleSpeedShift, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "EnrichmentSyncAmount") parameter.FloatFormat = "F3"; //&ecu_parameters.EnrichmentSyncAmount, .title = "%s%0.3f"},
+                if (fieldInfo.Name == "EnrichmentAsyncAmount") parameter.FloatFormat = "F3"; //&ecu_parameters.EnrichmentAsyncAmount, .title = "%s%0.3f"},
+                if (fieldInfo.Name == "EnrichmentStartLoad") parameter.FloatFormat = "F1"; //&ecu_parameters.EnrichmentStartLoad, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "EnrichmentLoadDerivative") parameter.FloatFormat = "F0"; //&ecu_parameters.EnrichmentLoadDerivative, .title = "%s%00f"},
                 if (fieldInfo.Name == "DrivenKilometers") parameter.FloatFormat = "F2"; //&ecu_parameters.DrivenKilometers, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "FuelConsumed") parameter.FloatFormat = "F3"; //&ecu_parameters.FuelConsumed, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "FuelConsumption") continue;
