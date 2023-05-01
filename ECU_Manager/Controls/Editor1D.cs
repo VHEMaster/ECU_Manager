@@ -784,6 +784,7 @@ namespace ECU_Manager.Controls
                             output[x] = (float)dMinY;
                         array1d[x] = output[x];
                     }
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }
             }
         }
