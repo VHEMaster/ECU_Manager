@@ -299,6 +299,11 @@ namespace ECU_Manager
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
             eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
 
+            eEnrichmentInjectionPhase.Initialize(cs, 0, 720, 10, 50, 0D, 600, 500D, 50, 0);
+            eEnrichmentInjectionPhase.SetConfig("enrichment_injection_phase", "rotates_count", "rotates");
+            eEnrichmentInjectionPhase.SetX("RPM", "RPM", "F0");
+            eEnrichmentInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
+
             
             eEnrichmentRate.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
@@ -822,6 +827,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "Sync Amount" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage100), Text = "Async Amount" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage101), Text = "Ignition Correction" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage102), Text = "Enrichment Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnPart), Text = "Part load" });
@@ -950,6 +956,7 @@ namespace ECU_Manager
             eEnrichmentAsyncAmount.UpdateChart();
             eEnrichmentIgnCorr.UpdateChart();
             eEnrichmentTempMult.UpdateChart();
+            eEnrichmentInjectionPhase.UpdateChart();
 
             ePressures.UpdateChart();
             eRotates.UpdateChart();
@@ -1375,6 +1382,8 @@ namespace ECU_Manager
             nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
             nudParamsEnrichmentDetectDuration.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration;
             nudParamsEnrichmentIgnitionDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time;
+            nudParamsEnrichmentInjectionPhaseDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_injection_phase_decay_time;
+            nudParamsEnrichmentAsyncPulsesDivider.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
@@ -3282,6 +3291,24 @@ namespace ECU_Manager
         private void nudParamsEnrichmentIgnitionDecayTime_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentInjectionPhaseDecayTime_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_injection_phase_decay_time = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentAsyncPulsesDivider_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider = (int)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

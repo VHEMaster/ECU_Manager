@@ -393,7 +393,15 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 905)]
+        public int enrichment_async_pulses_divider;
+        public float enrichment_injection_phase_decay_time;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("enrichment_injection_phase")]
+        [XmlArrayItem("phase")]
+        public float[] enrichment_injection_phase;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 887)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
