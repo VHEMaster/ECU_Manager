@@ -1578,6 +1578,7 @@ namespace ECU_Manager.Controls
                         }
                     }
                     this.UpdateChart();
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }
             }
         }
