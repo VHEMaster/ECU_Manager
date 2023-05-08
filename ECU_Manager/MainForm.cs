@@ -1352,8 +1352,10 @@ namespace ECU_Manager
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
+            cbParamsIsPhPostEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_post_injection_enabled > 0;
             cbParamsIsPpAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_async_enabled > 0;
             cbParamsIsPpSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_sync_enabled > 0;
+            cbParamsIsPpPostEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_post_injection_enabled > 0;
             nudParamsCntPress.Maximum = Consts.TABLE_PRESSURES_MAX;
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntIdleRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
@@ -1383,7 +1385,8 @@ namespace ECU_Manager
             nudParamsEnrichmentDetectDuration.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration;
             nudParamsEnrichmentIgnitionDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time;
             nudParamsEnrichmentInjectionPhaseDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_injection_phase_decay_time;
-            nudParamsEnrichmentAsyncPulsesDivider.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider;
+            nudParamsEnrichmentAsyncPulsesDivider.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider;
+            nudParamsEnrichmentPostInjectionFinalPhase.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_end_injection_final_phase;
 
             nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
@@ -3309,6 +3312,33 @@ namespace ECU_Manager
         private void nudParamsEnrichmentAsyncPulsesDivider_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsEnrichmentPostInjectionFinalPhase_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_end_injection_final_phase = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsIsPhPostEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_post_injection_enabled = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsIsPpPostEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_post_injection_enabled = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

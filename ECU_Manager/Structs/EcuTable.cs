@@ -401,7 +401,11 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("phase")]
         public float[] enrichment_injection_phase;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 887)]
+        public float enrichment_end_injection_final_phase;
+        public int enrichment_ph_post_injection_enabled;
+        public int enrichment_pp_post_injection_enabled;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 884)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
