@@ -72,6 +72,19 @@ namespace ECU_Manager.Structs
         public float enrichment_ign_corr_decay_time;
         public float enrichment_detect_duration;
 
+        public int enrichment_async_pulses_divider;
+        public float enrichment_injection_phase_decay_time;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("enrichment_injection_phase")]
+        [XmlArrayItem("phase")]
+        public float[] enrichment_injection_phase;
+
+        public float enrichment_end_injection_final_phase;
+        public int enrichment_ph_post_injection_enabled;
+        public int enrichment_pp_post_injection_enabled;
+        public float enrichment_end_injection_final_amount;
+
         public int enrichment_rate_start_load_count;
         public int enrichment_rate_load_derivative_count;
 
@@ -365,18 +378,6 @@ namespace ECU_Manager.Structs
         [XmlArray("start_econ_delay")]
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
-
-        public int enrichment_async_pulses_divider;
-        public float enrichment_injection_phase_decay_time;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("enrichment_injection_phase")]
-        [XmlArrayItem("phase")]
-        public float[] enrichment_injection_phase;
-
-        public float enrichment_end_injection_final_phase;
-        public int enrichment_ph_post_injection_enabled;
-        public int enrichment_pp_post_injection_enabled;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1700)]
         [XmlArray("Reserved")]
