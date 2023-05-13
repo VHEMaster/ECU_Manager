@@ -162,60 +162,27 @@ namespace ECU_Manager
             colorTransience.Add(Color.Blue, 18.0F);
             colorTransience.Add(Color.DeepSkyBlue, 20.0F);
 
-            eFuelMixturesPart.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
-
-            eFuelMixturesPart.SetConfig("fuel_mixtures_part", "rotates_count", "fillings_count", "rotates", "fillings");
-            eFuelMixturesPart.SetX("RPM", "RPM", "F0");
-            eFuelMixturesPart.SetY("WishFuelRatio", "FuelRatio", "F1");
-            eFuelMixturesPart.SetD("CyclicAirFlow", "Filling", "F1");
-            eFuelMixturesPart.SetTableEventHandler(ChartUpdateEvent);
-
-            eFuelMixturesPart.SetTableColorTrans(colorTransience);
 
             eFuelMixturesFull.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
                 1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1, true);
 
-            eFuelMixturesFull.SetConfig("fuel_mixtures_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eFuelMixturesFull.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
             eFuelMixturesFull.SetX("RPM", "RPM", "F0");
             eFuelMixturesFull.SetY("WishFuelRatio", "FuelRatio", "F1");
             eFuelMixturesFull.SetD("CyclicAirFlow", "Filling", "F1");
             eFuelMixturesFull.SetTableEventHandler(ChartUpdateEvent);
 
             eFuelMixturesFull.SetTableColorTrans(colorTransience);
-
-            colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
-            colorTransience.Add(Color.DeepSkyBlue, 100);
-            colorTransience.Add(Color.Blue, 170);
-            colorTransience.Add(Color.FromArgb(0, 72, 180), 200);
-            colorTransience.Add(Color.Green, 250);
-            colorTransience.Add(Color.FromArgb(128, 128, 0), 280);
-            colorTransience.Add(Color.Red, 350);
-            colorTransience.Add(Color.Black, 600);
-
-            eInjectionPhasePart.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
-
-            eInjectionPhasePart.SetConfig("injection_phase_part", "rotates_count", "fillings_count", "rotates", "fillings");
-            eInjectionPhasePart.SetX("RPM", "RPM", "F0");
-            eInjectionPhasePart.SetY("InjectionPhase", "Phase", "F0");
-            eInjectionPhasePart.SetD("CyclicAirFlow", "Filling", "F1");
-            eInjectionPhasePart.SetTableEventHandler(ChartUpdateEvent);
-
-            eInjectionPhasePart.SetTableColorTrans(colorTransience);
+            
 
             eInjectionPhaseFull.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
                 0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 0);
 
-            eInjectionPhaseFull.SetConfig("injection_phase_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionPhaseFull.SetConfig("injection_phase", "rotates_count", "fillings_count", "rotates", "fillings");
             eInjectionPhaseFull.SetX("RPM", "RPM", "F0");
             eInjectionPhaseFull.SetY("InjectionPhase", "Phase", "F0");
             eInjectionPhaseFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -227,26 +194,14 @@ namespace ECU_Manager
             colorTransience.Add(Color.DeepSkyBlue, -15);
             colorTransience.Add(Color.Orange, 15);
             colorTransience.Add(Color.Red, 45);
-
-            eIgnitionPart.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
-
-            eIgnitionPart.SetConfig("ignitions_part", "rotates_count", "fillings_count", "rotates", "fillings");
-            eIgnitionPart.SetX("RPM", "RPM", "F0");
-            eIgnitionPart.SetY("IgnitionAngle", "Ignition", "F1");
-            eIgnitionPart.SetD("CyclicAirFlow", "Filling", "F1");
-            eIgnitionPart.SetTableEventHandler(ChartUpdateEvent);
-
-            eIgnitionPart.SetTableColorTrans(colorTransience);
+            
 
             eIgnitionFull.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
                 -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
 
-            eIgnitionFull.SetConfig("ignitions_full", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFull.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
             eIgnitionFull.SetX("RPM", "RPM", "F0");
             eIgnitionFull.SetY("IgnitionAngle", "Ignition", "F1");
             eIgnitionFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -830,18 +785,13 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage102), Text = "Inj.Phase Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnPart), Text = "Part load" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Full load" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Angles" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage31), Text = "Saturation pulse" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage32), Text = "Saturation by RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage59), Text = "Correction by Air Temperature" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage24), Text = "Injection" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tpInjPart), Text = "Part load" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage87), Text = "Mixture" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage88), Text = "Phase" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tpInjFull), Text = "Full load" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage33), Text = "Mixture" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage36), Text = "Phase" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage33), Text = "Mixture" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage36), Text = "Phase" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage74), Text = "Injection phase LPF" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
@@ -916,11 +866,8 @@ namespace ECU_Manager
         private void SynchronizeCharts()
         {
             eCyclicFilling.SynchronizeChart();
-            eFuelMixturesPart.SynchronizeChart();
-            eInjectionPhasePart.SynchronizeChart();
             eFuelMixturesFull.SynchronizeChart();
             eInjectionPhaseFull.SynchronizeChart();
-            eIgnitionPart.SynchronizeChart();
             eIgnitionFull.SynchronizeChart();
             ePressureByRPMvsTPS.SynchronizeChart();
             eIdleValveVsRpm.SynchronizeChart();
@@ -938,11 +885,8 @@ namespace ECU_Manager
         private void UpdateCharts()
         {
             eCyclicFilling.UpdateChart();
-            eFuelMixturesPart.UpdateChart();
-            eInjectionPhasePart.UpdateChart();
             eFuelMixturesFull.UpdateChart();
             eInjectionPhaseFull.UpdateChart();
-            eIgnitionPart.UpdateChart();
             eIgnitionFull.UpdateChart();
             ePressureByRPMvsTPS.UpdateChart();
             eSatByRPM.UpdateChart();
@@ -1348,7 +1292,6 @@ namespace ECU_Manager
             }
 
             cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
-            cbParamsIsFullThrottleUsed.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_full_thr_used > 0;
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
@@ -2707,15 +2650,7 @@ namespace ECU_Manager
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
-
-        private void cbParamsIsFullThrottleUsed_CheckedChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].is_full_thr_used = ((CheckBox)sender).Checked ? 1 : 0;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
+        
 
         private void cbParamsIsPhAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
         {
