@@ -495,21 +495,6 @@ namespace ECU_Manager
 
             eKnockZone.SetTableColorTrans(colorTransience);
 
-            ePartFullLPFIgnition.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            ePartFullLPFIgnition.SetConfig("switch_ign_lpf", "rotates_count", "rotates");
-            ePartFullLPFIgnition.SetX("RPM", "RPM", "F0");
-            ePartFullLPFIgnition.SetTableEventHandler(ChartUpdateEvent);
-
-            ePartFullLPFMixture.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            ePartFullLPFMixture.SetConfig("switch_mix_lpf", "rotates_count", "rotates");
-            ePartFullLPFMixture.SetX("RPM", "RPM", "F0");
-            ePartFullLPFMixture.SetTableEventHandler(ChartUpdateEvent);
-
-            ePartFullLPFInjPhase.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            ePartFullLPFInjPhase.SetConfig("switch_phase_lpf", "rotates_count", "rotates");
-            ePartFullLPFInjPhase.SetX("RPM", "RPM", "F0");
-            ePartFullLPFInjPhase.SetTableEventHandler(ChartUpdateEvent);
-
             colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -1.0F);
             colorTransience.Add(Color.Blue, -0.5F);
@@ -836,10 +821,6 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage60), Text = "Zone" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage62), Text = "Gain" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage61), Text = "Filter frequency" });
-            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage30), Text = "Part/Full load LPFs" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage89), Text = "Ignition" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage90), Text = "Injection" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage91), Text = "Injection Phase" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage93), Text = "TSPS" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
@@ -950,10 +931,6 @@ namespace ECU_Manager
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
             eKnockGain.UpdateChart();
-
-            ePartFullLPFIgnition.UpdateChart();
-            ePartFullLPFMixture.UpdateChart();
-            ePartFullLPFInjPhase.UpdateChart();
 
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
