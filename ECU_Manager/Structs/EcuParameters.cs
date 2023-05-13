@@ -33,6 +33,10 @@ namespace ECU_Manager.Structs
         public float KnockZone;
         public float KnockAdvance;
         public int KnockCount;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
+        [XmlArray("KnockCountCy")]
+        [XmlArrayItem("count")]
+        public int[] KnockCountCy;
         public float AirTemp;
         public float EngineTemp;
         public float ManifoldAirPressure;
