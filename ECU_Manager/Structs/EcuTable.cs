@@ -27,6 +27,12 @@ namespace ECU_Manager.Structs
         public float fuel_mass_per_cc;
         public float fuel_afr;
 
+        public int cylinders_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
+        [XmlArray("cylinders")]
+        [XmlArrayItem("number")]
+        public float[] cylinders;
+
         public int voltages_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_VOLTAGES_MAX)]
         [XmlArray("voltages")]
@@ -345,6 +351,10 @@ namespace ECU_Manager.Structs
         [XmlArray("knock_filter_frequency")]
         [XmlArrayItem("frequency")]
         public float[] knock_filter_frequency;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_cy_level_multiplier")]
+        [XmlArrayItem("multiplier")]
+        public float[] knock_cy_level_multiplier;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("cy_corr_injection")]
@@ -379,7 +389,7 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1700)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1631)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

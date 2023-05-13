@@ -495,6 +495,30 @@ namespace ECU_Manager
 
             eKnockZone.SetTableColorTrans(colorTransience);
 
+
+            eKnockCyLevelMultiplier.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].cylinders_count,
+                0.0D, 5.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.ECU_CYLINDERS_COUNT, 2);
+
+            eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates_count", "cylinders_count", "rotates", "cylinders");
+            eKnockCyLevelMultiplier.SetX("RPM", "RPM", "F0");
+            eKnockCyLevelMultiplier.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(0.0F, 5.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, 0.0F);
+            colorTransience.Add(Color.DeepSkyBlue, 0.4F);
+            colorTransience.Add(Color.Blue, 0.6F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.8F);
+            colorTransience.Add(Color.Green, 1.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 1.2F);
+            colorTransience.Add(Color.Red, 1.4F);
+            colorTransience.Add(Color.DarkRed, 1.6F);
+            colorTransience.Add(Color.DarkRed, 5.0F);
+
+            eKnockCyLevelMultiplier.SetTableColorTrans(colorTransience);
+
+
             colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -1.0F);
             colorTransience.Add(Color.Blue, -0.5F);
@@ -821,6 +845,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage60), Text = "Zone" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage62), Text = "Gain" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage61), Text = "Filter frequency" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage30), Text = "Cy Noise Level Mult." });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage93), Text = "TSPS" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
@@ -859,6 +884,7 @@ namespace ECU_Manager
             eAirTempMixCorr.SynchronizeChart();
             eAirTempIgnCorr.SynchronizeChart();
             eKnockZone.SynchronizeChart();
+            eKnockCyLevelMultiplier.SynchronizeChart();
             eEnrichmentRate.SynchronizeChart();
             eEnrichmentIgnCorr.SynchronizeChart();
             UpdateCharts();
@@ -931,6 +957,7 @@ namespace ECU_Manager
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
             eKnockGain.UpdateChart();
+            eKnockCyLevelMultiplier.UpdateChart();
 
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
