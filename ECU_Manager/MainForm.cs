@@ -560,6 +560,21 @@ namespace ECU_Manager
             eCorrsPressureByTPS.SynchronizeChart();
 
 
+            eCorrsKnockCyNoiseLevelMult.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].cylinders_count,
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.ECU_CYLINDERS_COUNT, 3);
+
+            eCorrsKnockCyNoiseLevelMult.SetConfig("knock_cy_level_multiplier", "rotates_count", "cylinders_count", "rotates", "cylinders");
+            eCorrsKnockCyNoiseLevelMult.SetX("RPM", "RPM", "F0");
+            eCorrsKnockCyNoiseLevelMult.SetY(string.Empty, "Correction", "F3");
+            eCorrsKnockCyNoiseLevelMult.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsKnockCyNoiseLevelMult.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsKnockCyNoiseLevelMult.scHorisontal.Width * 0.75);
+
+            eCorrsKnockCyNoiseLevelMult.SetTableColorTrans(colorTransience);
+            eCorrsKnockCyNoiseLevelMult.SynchronizeChart();
+
+
             eCorrsIdleValveToRPM.Initialize(cs, Editor2DMode.CorrectionsTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
@@ -981,11 +996,13 @@ namespace ECU_Manager
             eCorrsIdleValveToRPM.SetCalibrationTable("progress_idle_valve_to_rpm");
             eCorrsIgnition.SetCalibrationTable("progress_ignitions");
             eCorrsPressureByTPS.SetCalibrationTable("progress_map_by_thr");
+            eCorrsKnockCyNoiseLevelMult.SetCalibrationTable("progress_knock_cy_level_multiplier");
 
             btnCorrAppendFillingByMAP.Enabled = false;
             btnCorrAppendIdleValve.Enabled = false;
             btnCorrAppendIgnitions.Enabled = false;
             btnCorrAppendPressureByTPS.Enabled = false;
+            btnCorrAppendKnockNoise.Enabled = false;
 
             rbCorrInterpolationFunc.Enabled = false;
             rbCorrPointFunc.Enabled = false;
@@ -1006,6 +1023,7 @@ namespace ECU_Manager
             btnCorrAppendIdleValve.Enabled = true;
             btnCorrAppendIgnitions.Enabled = true;
             btnCorrAppendPressureByTPS.Enabled = true;
+            btnCorrAppendKnockNoise.Enabled = true;
 
             rbCorrInterpolationFunc.Enabled = true;
             rbCorrPointFunc.Enabled = true;
@@ -1096,7 +1114,7 @@ namespace ECU_Manager
             {
                 string text = string.Empty;
 
-                int count = 4;
+                int count = 5;
                 byte[][] array = new byte[count][];
                 double[] stats = new double[count];
                 int size;
@@ -1106,6 +1124,7 @@ namespace ECU_Manager
                 array[1] = cs.ConfigStruct.corrections.progress_idle_valve_to_rpm;
                 array[2] = cs.ConfigStruct.corrections.progress_ignitions;
                 array[3] = cs.ConfigStruct.corrections.progress_map_by_thr;
+                array[4] = cs.ConfigStruct.corrections.progress_knock_cy_level_multiplier;
 
 
                 for (int i = 0; i < count; i++)
@@ -1128,6 +1147,7 @@ namespace ECU_Manager
                 text += $"Idle Valve: {stats[1].ToString("F2")}%\r\n";
                 text += $"Ignitions: {stats[2].ToString("F2")}%\r\n";
                 text += $"Press.by TPS: {stats[3].ToString("F2")}%\r\n";
+                text += $"Knock Noise: {stats[4].ToString("F2")}%\r\n";
 
                 text += $"\r\nTotal: {total.ToString("F2")}%\r\n";
 
@@ -3111,6 +3131,24 @@ namespace ECU_Manager
                 middleLayer?.SyncSave(false);
             }
         }
+        private void btnCorrAppendKnockNoise_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Knock Noise Level?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].knock_cy_level_multiplier;
+                float[] corrs2d = cs.ConfigStruct.corrections.knock_cy_level_multiplier;
+                int size = array2d.Length;
+
+                for (int i = 0; i < size; i++)
+                {
+                    array2d[i] *= corrs2d[i] + 1.0F;
+                    corrs2d[i] = 0.0F;
+                }
+
+                middleLayer?.SyncSave(false);
+            }
+        }
 
         private void btnIITestRun_Click(object sender, EventArgs e)
         {
@@ -3292,6 +3330,7 @@ namespace ECU_Manager
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
+
     }
 }
 
