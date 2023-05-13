@@ -3071,22 +3071,21 @@ namespace ECU_Manager
 
         private void btnCorrAppendIgnitions_Click(object sender, EventArgs e)
         {
-            //TODO: keep or refactor it? Part/Full throttle feature
-            //DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            //if (dialogResult == DialogResult.Yes)
-            //{
-            //    float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
-            //    float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
-            //    int size = array2d.Length;
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
+                float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
+                int size = array2d.Length;
 
-            //    for (int i = 0; i < size; i++)
-            //    {
-            //        array2d[i] += corrs2d[i];
-            //        corrs2d[i] = 0.0F;
-            //    }
+                for (int i = 0; i < size; i++)
+                {
+                    array2d[i] += corrs2d[i];
+                    corrs2d[i] = 0.0F;
+                }
 
-            //    middleLayer?.SyncSave(false);
-            //}
+                middleLayer?.SyncSave(false);
+            }
         }
 
         private void btnCorrAppendPressureByTPS_Click(object sender, EventArgs e)
