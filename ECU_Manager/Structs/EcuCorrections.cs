@@ -37,6 +37,11 @@ namespace ECU_Manager.Structs
         public float[] knock_cy_level_multiplier;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_detonation_counter")]
+        [XmlArrayItem("count")]
+        public float[] knock_detonation_counter;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("progress_ignitions")]
         [XmlArrayItem("angle")]
         public byte[] progress_ignitions;

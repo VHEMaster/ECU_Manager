@@ -616,6 +616,29 @@ namespace ECU_Manager
             eCorrsIgnition.SynchronizeChart();
 
 
+            colorTransience = new ColorTransience(0.0F, 10.0F, Color.Gray);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
+            colorTransience.Add(Color.Red, 3.0F);
+            colorTransience.Add(Color.DarkRed, 5.0F);
+            colorTransience.Add(Color.Black, 10.0F);
+
+            eCorrsKnockDetonationCounter.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                0D, 10.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+
+            eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsKnockDetonationCounter.SetX("RPM", "RPM", "F0");
+            eCorrsKnockDetonationCounter.SetY(string.Empty, "DetonationCounter", "F1");
+            eCorrsKnockDetonationCounter.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsKnockDetonationCounter.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsKnockDetonationCounter.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsKnockDetonationCounter.scHorisontal.Width * 0.7);
+
+            eCorrsKnockDetonationCounter.SetTableColorTrans(colorTransience);
+            eCorrsKnockDetonationCounter.SynchronizeChart();
+
+
             colorTransience = new ColorTransience(-0.2F, 0.3F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -0.2F);
             colorTransience.Add(Color.Blue, -0.1F);
@@ -895,6 +918,7 @@ namespace ECU_Manager
             eCorrsFillByMAP.SynchronizeChart();
             eCorrsIdleValveToRPM.SynchronizeChart();
             eCorrsIgnition.SynchronizeChart();
+            eCorrsKnockDetonationCounter.SynchronizeChart();
             eCorrsPressureByTPS.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
             eAirTempIgnCorr.SynchronizeChart();
@@ -977,6 +1001,7 @@ namespace ECU_Manager
             eCorrsFillByMAP.UpdateChart();
             eCorrsIdleValveToRPM.UpdateChart();
             eCorrsIgnition.UpdateChart();
+            eCorrsKnockDetonationCounter.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
             eAirTempIgnCorr.UpdateChart();
@@ -995,6 +1020,7 @@ namespace ECU_Manager
             eCorrsFillByMAP.SetCalibrationTable("progress_fill_by_map");
             eCorrsIdleValveToRPM.SetCalibrationTable("progress_idle_valve_to_rpm");
             eCorrsIgnition.SetCalibrationTable("progress_ignitions");
+            eCorrsKnockDetonationCounter.SetCalibrationTable("progress_ignitions");
             eCorrsPressureByTPS.SetCalibrationTable("progress_map_by_thr");
             eCorrsKnockCyNoiseLevelMult.SetCalibrationTable("progress_knock_cy_level_multiplier");
 
@@ -1017,6 +1043,8 @@ namespace ECU_Manager
             eCorrsFillByMAP.ClearCalibrationTable();
             eCorrsIdleValveToRPM.ClearCalibrationTable();
             eCorrsIgnition.ClearCalibrationTable();
+            eCorrsKnockCyNoiseLevelMult.ClearCalibrationTable();
+            eCorrsKnockDetonationCounter.ClearCalibrationTable();
             eCorrsPressureByTPS.ClearCalibrationTable();
 
             btnCorrAppendFillingByMAP.Enabled = true;
