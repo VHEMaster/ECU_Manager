@@ -388,8 +388,26 @@ namespace ECU_Manager.Structs
         [XmlArray("start_econ_delay")]
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
+        
+        public int use_idle_filling;
+        public int idle_filling_rotates_count;
+        public int idle_filling_pressures_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_filling_rotates")]
+        [XmlArrayItem("rotate")]
+        public float[] idle_filling_rotates;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1631)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX)]
+        [XmlArray("idle_filling_pressures")]
+        [XmlArrayItem("pressure")]
+        public float[] idle_filling_pressures;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_filling_by_map")]
+        [XmlArrayItem("filling")]
+        public float[] idle_filling_by_map;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1340)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

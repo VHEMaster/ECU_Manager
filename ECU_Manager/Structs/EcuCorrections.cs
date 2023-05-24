@@ -41,6 +41,11 @@ namespace ECU_Manager.Structs
         [XmlArrayItem("count")]
         public float[] knock_detonation_counter;
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_filling_by_map")]
+        [XmlArrayItem("filling")]
+        public float[] idle_filling_by_map;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("progress_ignitions")]
         [XmlArrayItem("angle")]
@@ -65,6 +70,11 @@ namespace ECU_Manager.Structs
         [XmlArray("progress_knock_cy_level_multiplier")]
         [XmlArrayItem("value")]
         public byte[] progress_knock_cy_level_multiplier;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("progress_idle_filling_by_map")]
+        [XmlArrayItem("value")]
+        public byte[] progress_idle_filling_by_map;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("knock_ignition_correctives")]
