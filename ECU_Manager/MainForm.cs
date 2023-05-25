@@ -324,7 +324,7 @@ namespace ECU_Manager
 
             eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load_count", "rotates_count", "enrichment_rate_start_load", "rotates");
             eEnrichmentIgnCorr.SetTableEventHandler(ChartUpdateEvent);
-            eEnrichmentIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempIgnCorr.scHorisontal.Width * 0.65);
+            eEnrichmentIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eEnrichmentIgnCorr.scHorisontal.Width * 0.65);
 
             eEnrichmentIgnCorr.SetTableColorTrans(colorTransience);
             eEnrichmentIgnCorr.SynchronizeChart();
@@ -713,6 +713,21 @@ namespace ECU_Manager
             eAirTempMixCorr.SetTableColorTrans(colorTransience);
             eAirTempMixCorr.SynchronizeChart();
 
+            eEngineTempMixCorr.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
+                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_FILLING_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
+
+            eEngineTempMixCorr.SetConfig("engine_temp_mix_corr", "fillings_count", "engine_temp_count", "fillings", "engine_temps");
+            eEngineTempMixCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
+            eEngineTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
+            eEngineTempMixCorr.SetD("EngineTemp", "EngineTemp", "F1");
+            eEngineTempMixCorr.SetTableEventHandler(ChartUpdateEvent);
+            eEngineTempMixCorr.scHorisontal.SplitterDistance = (int)Math.Round(eEngineTempMixCorr.scHorisontal.Width * 0.65);
+
+            eEngineTempMixCorr.SetTableColorTrans(colorTransience);
+            eEngineTempMixCorr.SynchronizeChart();
+
 
             colorTransience = new ColorTransience(-5F, 5F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -5.0F);
@@ -738,6 +753,21 @@ namespace ECU_Manager
 
             eAirTempIgnCorr.SetTableColorTrans(colorTransience);
             eAirTempIgnCorr.SynchronizeChart();
+
+            eEngineTempIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
+                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, Consts.TABLE_FILLING_MAX, Consts.TABLE_TEMPERATURES_MAX, 1);
+
+            eEngineTempIgnCorr.SetConfig("engine_temp_ign_corr", "fillings_count", "engine_temp_count", "fillings", "engine_temps");
+            eEngineTempIgnCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
+            eEngineTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
+            eEngineTempIgnCorr.SetD("EngineTemp", "EngineTemp", "F1");
+            eEngineTempIgnCorr.SetTableEventHandler(ChartUpdateEvent);
+            eEngineTempIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eEngineTempIgnCorr.scHorisontal.Width * 0.65);
+
+            eEngineTempIgnCorr.SetTableColorTrans(colorTransience);
+            eEngineTempIgnCorr.SynchronizeChart();
 
 
             eStartIgnition.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
@@ -885,12 +915,14 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage31), Text = "Saturation pulse" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage32), Text = "Saturation by RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage59), Text = "Correction by Air Temperature" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage105), Text = "Correction by Engine Temperature" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage24), Text = "Injection" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage33), Text = "Mixture" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage36), Text = "Phase" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage74), Text = "Injection phase LPF" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage106), Text = "Correction by Engine Temperature" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve vs. RPM" });
@@ -911,9 +943,9 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage94), Text = "HPF by TPS" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage95), Text = "Economizer delay" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage89), Text = "Cyclic Filling" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage91),  Text = "Cyclic Fillings" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage91), Text = "Cyclic Fillings" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage103), Text = "Rotates" });
-            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage90),  Text = "Pressures" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage90), Text = "Pressures" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage26), Text = "Startup" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage57), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage77), Text = "Injection phase" });
@@ -977,6 +1009,8 @@ namespace ECU_Manager
             eCorrsPressureByTPS.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
             eAirTempIgnCorr.SynchronizeChart();
+            eEngineTempMixCorr.SynchronizeChart();
+            eEngineTempIgnCorr.SynchronizeChart();
             eKnockZone.SynchronizeChart();
             eKnockCyLevelMultiplier.SynchronizeChart();
             eEnrichmentRate.SynchronizeChart();
@@ -1064,6 +1098,8 @@ namespace ECU_Manager
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
             eAirTempIgnCorr.UpdateChart();
+            eEngineTempMixCorr.UpdateChart();
+            eEngineTempIgnCorr.UpdateChart();
 
             eTspsRelativePosition.UpdateChart();
             eTspsDesyncThr.UpdateChart();
