@@ -33,10 +33,10 @@ namespace ECU_Manager.Structs
         public float KnockZone;
         public float KnockAdvance;
         public int KnockCount;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
-        [XmlArray("KnockCountCy")]
-        [XmlArrayItem("count")]
-        public int[] KnockCountCy;
+        public int KnockCountCy1;
+        public int KnockCountCy2;
+        public int KnockCountCy3;
+        public int KnockCountCy4;
         public float AirTemp;
         public float EngineTemp;
         public float ManifoldAirPressure;
@@ -70,8 +70,8 @@ namespace ECU_Manager.Structs
         public float WishIdleRPM;
         public float WishIdleMassAirFlow;
         public float WishIdleValvePosition;
-        public float WishIdleIgnitionAngle;
-        public float IgnitionAngle;
+        public float WishIdleIgnitionAdvance;
+        public float IgnitionAdvance;
         public float InjectionPhase;
         public float InjectionPhaseDuration;
         public float InjectionPulse;

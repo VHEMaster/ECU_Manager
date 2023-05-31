@@ -11,7 +11,7 @@ namespace ECU_Manager.Structs
     [Serializable]
     public struct EcuForceParameters
     {
-        public float IgnitionAngle;
+        public float IgnitionAdvance;
         public float InjectionPhase;
         public float IgnitionOctane;
         public float IgnitionPulse;
@@ -19,14 +19,14 @@ namespace ECU_Manager.Structs
         public float WishFuelRatio;
         public float WishIdleRPM;
         public float WishIdleValvePosition;
-        public float WishIdleIgnitionAngle;
+        public float WishIdleIgnitionAdvance;
         public float WishIdleMassAirFlow;
         public int FanRelay;
         public int FanSwitch;
         public int FuelPumpRelay;
         public int CheckEngine;
 
-        public byte EnableIgnitionAngle;
+        public byte EnableIgnitionAdvance;
         public byte EnableInjectionPhase;
         public byte EnableIgnitionOctane;
         public byte EnableIgnitionPulse;
@@ -34,7 +34,7 @@ namespace ECU_Manager.Structs
         public byte EnableWishFuelRatio;
         public byte EnableWishIdleRPM;
         public byte EnableWishIdleValvePosition;
-        public byte EnableWishIdleIgnitionAngle;
+        public byte EnableWishIdleIgnitionAdvance;
         public byte EnableWishIdleMassAirFlow;
         public byte EnableFanRelay;
         public byte EnableFanSwitch;

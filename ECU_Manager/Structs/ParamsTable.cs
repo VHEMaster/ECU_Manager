@@ -23,7 +23,7 @@ namespace ECU_Manager.Structs
 
         public int cutoffMode;
         public float cutoffRPM;
-        public float cutoffAngle;
+        public float cutoffAdvance;
         public float cutoffMixture;
         public float oilPressureCutoffRPM;
 
@@ -52,7 +52,7 @@ namespace ECU_Manager.Structs
         public float shiftThrThr;
         public float shiftRpmThr;
         public float shiftRpmTill;
-        public float shiftAngle;
+        public float shiftAdvance;
         public float shiftMixture;
 
         public float res1;

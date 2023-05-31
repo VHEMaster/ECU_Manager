@@ -103,7 +103,7 @@ namespace ECU_Manager
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "RPM").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "ManifoldAirPressure").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "ThrottlePosition").First());
-            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "IgnitionAngle").First());
+            lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "IgnitionAdvance").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "FuelRatio").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "CyclicAirFlow").First());
             lbParamsUsed.Items.Add(ChartParameters.Where(p => p.Name == "InjectionPulse").First());
@@ -392,8 +392,8 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "WishIdleRPM") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleRPM, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "WishIdleMassAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.WishIdleMassAirFlow, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "WishIdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleValvePosition, .title = "%s%0.0f"},
-                if (fieldInfo.Name == "WishIdleIgnitionAngle") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleIgnitionAngle, .title = "%s%0.0f"},
-                if (fieldInfo.Name == "IgnitionAngle") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionAngle, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishIdleIgnitionAdvance") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleIgnitionAdvance, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "IgnitionAdvance") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionAdvance, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPhase") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhase, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPhaseDuration") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhaseDuration, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPulse") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPulse, .title = "%s%0.0f"},
@@ -427,7 +427,7 @@ namespace ECU_Manager
 
                 if (parameter.Type != typeof(byte))
                 {
-                    if (parameter.Name == "IgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
+                    if (parameter.Name == "IgnitionAdvance") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "InjectionPhase") { parameter.Min = 0; parameter.Max = 720; parameter.Step = 1.0F; }
                     else if (parameter.Name == "IgnitionOctane") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "IgnitionPulse") { parameter.Min = 300; parameter.Max = 10000; parameter.Step = 100F; }
@@ -435,7 +435,7 @@ namespace ECU_Manager
                     else if (parameter.Name == "WishFuelRatio") { parameter.Min = 1; parameter.Max = 20; parameter.Step = 0.1F; }
                     else if (parameter.Name == "WishIdleRPM") { parameter.Min = 200; parameter.Max = 5000; parameter.Step = 20.0F; }
                     else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = Consts.IDLE_VALVE_POS_MAX; parameter.Step = 1.0F; }
-                    else if (parameter.Name == "WishIdleIgnitionAngle") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
+                    else if (parameter.Name == "WishIdleIgnitionAdvance") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FanSwitch") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
@@ -653,7 +653,7 @@ namespace ECU_Manager
                                     float valuef = (float)parameter.FieldInfo.GetValue(closest.Parameters);
                                     label.Text = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
                                 }
-                                else
+                                else if(parameter.Type == typeof(int))
                                 {
                                     label.Text = parameter.FieldInfo.GetValue(closest.Parameters).ToString();
                                 }
@@ -812,7 +812,7 @@ namespace ECU_Manager
                                     valuef = (float)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
                                     chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuef);
                                 }
-                                else
+                                else if(parameter.Type == typeof(int))
                                 {
                                     valuei = (int)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
                                     chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuei);

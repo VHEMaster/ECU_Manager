@@ -227,7 +227,7 @@ namespace ECU_Manager
 
             eIgnitionFull.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
             eIgnitionFull.SetX("RPM", "RPM", "F0");
-            eIgnitionFull.SetY("IgnitionAngle", "Ignition", "F1");
+            eIgnitionFull.SetY("IgnitionAdvance", "Ignition", "F1");
             eIgnitionFull.SetD("CyclicAirFlow", "Filling", "F1");
             eIgnitionFull.SetTableEventHandler(ChartUpdateEvent);
 
@@ -426,13 +426,13 @@ namespace ECU_Manager
             eIdleWishIgnition.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 10D, 2D, 1);
             eIdleWishIgnition.SetConfig("idle_wish_ignition", "engine_temp_count", "engine_temps");
             eIdleWishIgnition.SetX("EngineTemp", "Temp", "F1");
-            eIdleWishIgnition.SetY("IgnitionAngle", "Ignition", "F1");
+            eIdleWishIgnition.SetY("IgnitionAdvance", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 100D, 2D, 1);
             eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "idle_rotates_count", "idle_rotates");
             eIdleIgnitionStatic.SetX("RPM", "RPM", "F0");
-            eIdleIgnitionStatic.SetY("IgnitionAngle", "Ignition", "F1");
+            eIdleIgnitionStatic.SetY("IgnitionAdvance", "Ignition", "F1");
             eIdleIgnitionStatic.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleSpeedShift.Initialize(cs, 0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
@@ -773,7 +773,7 @@ namespace ECU_Manager
             eStartIgnition.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
             eStartIgnition.SetConfig("start_ignition", "engine_temp_count", "engine_temps");
             eStartIgnition.SetX("EngineTemp", "Temperature", "F0");
-            eStartIgnition.SetY("IgnitionAngle", "Ignition", "F0");
+            eStartIgnition.SetY("IgnitionAdvance", "Ignition", "F0");
             eStartIgnition.SetTableEventHandler(ChartUpdateEvent);
 
             eStartIdleValvePos.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
@@ -911,7 +911,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage102), Text = "Inj.Phase Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Angles" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Advances" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage31), Text = "Saturation pulse" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage32), Text = "Saturation by RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage59), Text = "Correction by Air Temperature" });
@@ -1353,8 +1353,8 @@ namespace ECU_Manager
                 lblCutoffRPM.Text = cs.ConfigStruct.parameters.cutoffRPM.ToString("F0");
                 tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffRPM);
 
-                lblCutoffAngle.Text = cs.ConfigStruct.parameters.cutoffAngle.ToString("F1");
-                tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAngle * 10.0f);
+                lblCutoffAngle.Text = cs.ConfigStruct.parameters.cutoffAdvance.ToString("F1");
+                tbCutoffAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffAdvance * 10.0f);
 
                 lblCutoffMixture.Text = cs.ConfigStruct.parameters.cutoffMixture.ToString("F1");
                 tbCutoffMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffMixture * 10.0f);
@@ -1371,8 +1371,8 @@ namespace ECU_Manager
                 lblShiftRpmTill.Text = cs.ConfigStruct.parameters.shiftRpmTill.ToString("F0");
                 tbShiftRpmTill.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftRpmTill);
 
-                lblShiftAngle.Text = cs.ConfigStruct.parameters.shiftAngle.ToString("F1");
-                tbShiftAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftAngle * 10.0f);
+                lblShiftAngle.Text = cs.ConfigStruct.parameters.shiftAdvance.ToString("F1");
+                tbShiftAngle.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftAdvance * 10.0f);
 
                 lblShiftMixture.Text = cs.ConfigStruct.parameters.shiftMixture.ToString("F1");
                 tbShiftMixture.Value = Convert.ToInt32(cs.ConfigStruct.parameters.shiftMixture * 10.0f);
@@ -1930,7 +1930,7 @@ namespace ECU_Manager
             gParameters = parameters;
             //if (tableLayoutPanel3.Visible)
             {
-                mGenIgn.NeedleVal = parameters.IgnitionAngle;
+                mGenIgn.NeedleVal = parameters.IgnitionAdvance;
                 mGenPress.NeedleVal = parameters.ManifoldAirPressure;
                 mGenRPM.NeedleVal = parameters.RPM;
                 mGenTemp.NeedleVal = parameters.EngineTemp;
@@ -2188,7 +2188,7 @@ namespace ECU_Manager
         private void tbCutoffAngle_Scroll(object sender, EventArgs e)
         {
             lblCutoffAngle.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
-            cs.ConfigStruct.parameters.cutoffAngle = ((float)((TrackBar)sender).Value / 10.0f);
+            cs.ConfigStruct.parameters.cutoffAdvance = ((float)((TrackBar)sender).Value / 10.0f);
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
@@ -2284,7 +2284,7 @@ namespace ECU_Manager
         private void tbShiftAngle_Scroll(object sender, EventArgs e)
         {
             lblShiftAngle.Text = ((float)((TrackBar)sender).Value / 10.0f).ToString("F1");
-            cs.ConfigStruct.parameters.shiftAngle = ((float)((TrackBar)sender).Value / 10.0f);
+            cs.ConfigStruct.parameters.shiftAdvance = ((float)((TrackBar)sender).Value / 10.0f);
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();

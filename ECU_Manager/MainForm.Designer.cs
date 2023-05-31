@@ -1460,7 +1460,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 50);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Ignition Angle";
+            this.label2.Text = "Ignition Advance";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -6170,7 +6170,7 @@
             this.tpIgnFull.Name = "tpIgnFull";
             this.tpIgnFull.Size = new System.Drawing.Size(1127, 437);
             this.tpIgnFull.TabIndex = 17;
-            this.tpIgnFull.Text = "Angles";
+            this.tpIgnFull.Text = "Advances";
             // 
             // eIgnitionFull
             // 
@@ -6264,7 +6264,7 @@
             this.eIgnitionFull.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
             this.eIgnitionFull.Graph3D.TabIndex = 0;
             this.eIgnitionFull.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
-            this.eIgnitionFull.LabelTitle = "Ignition Angle";
+            this.eIgnitionFull.LabelTitle = "Ignition Advance";
             this.eIgnitionFull.Location = new System.Drawing.Point(0, 0);
             this.eIgnitionFull.Margin = new System.Windows.Forms.Padding(6);
             this.eIgnitionFull.Name = "eIgnitionFull";
