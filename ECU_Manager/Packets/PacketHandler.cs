@@ -109,6 +109,14 @@ namespace ECU_Manager.Packets
                     case Packets.IgnitionInjectionTestResponseID:
                         StructCopy<PK_IgnitionInjectionTestResponse> pc40 = new StructCopy<PK_IgnitionInjectionTestResponse>();
                         result = pc40.FromBytes(bytes);
+                        break; 
+                    case Packets.SpecificParameterArrayConfigureResponseID:
+                        StructCopy<PK_SpecificParameterArrayConfigureResponse> pc44 = new StructCopy<PK_SpecificParameterArrayConfigureResponse>();
+                        result = pc44.FromBytes(bytes);
+                        break;
+                    case Packets.SpecificParameterArrayResponseID:
+                        StructCopy<PK_SpecificParameterArrayResponse> pc46 = new StructCopy<PK_SpecificParameterArrayResponse>();
+                        result = pc46.FromBytes(bytes);
                         break;
                     default:
                         break;

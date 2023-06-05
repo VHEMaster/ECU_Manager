@@ -51,5 +51,9 @@ namespace ECU_Manager.Packets
         IgnitionInjectionTestResponseID = 40,
         SpecificParameterRequestID = 41,
         SpecificParameterResponseID = 42,
+        SpecificParameterArrayConfigureRequestID = 43,
+        SpecificParameterArrayConfigureResponseID = 44,
+        SpecificParameterArrayRequestID = 45,
+        SpecificParameterArrayResponseID = 46,
     }
 }

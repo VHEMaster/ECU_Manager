@@ -125,9 +125,13 @@
     <Compile Include="Packets\PK_ForceParametersData.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestRequest.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayConfigureResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayConfigureRequest.cs" />
     <Compile Include="Packets\PK_SpecificParameterRequest.cs" />
     <Compile Include="Packets\PK_SpecificParameterResponse.cs" />
     <Compile Include="Packets\PK_ResetStatusRequest.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayRequest.cs" />
     <Compile Include="Packets\PK_StatusRequest.cs" />
     <Compile Include="Packets\PK_ResetStatusResponse.cs" />
     <Compile Include="Packets\PK_StatusResponse.cs" />

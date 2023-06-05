@@ -30,6 +30,10 @@ namespace ECU_Manager.Structs
         public const int PACKET_CONFIG_MAX_SIZE = PACKET_TABLE_MAX_SIZE;
         public const int PACKET_CRITICAL_MAX_SIZE = PACKET_TABLE_MAX_SIZE;
         public const int PACKET_CORRECTION_MAX_SIZE = PACKET_TABLE_MAX_SIZE;
+        public const int PACKET_SPECIFIC_PARAMETERS_ARRAY_MAX_SIZE = 224;
+
+        public const int SPECIFIC_PARAMETERS_ARRAY_MAX_ITEMS = 4;
+        public const int SPECIFIC_PARAMETERS_ARRAY_POINTS = 1024;
 
         public const int DRAG_MAX_POINTS = 3072;
         public const int DRAG_POINTS_DISTANCE = 20000;
