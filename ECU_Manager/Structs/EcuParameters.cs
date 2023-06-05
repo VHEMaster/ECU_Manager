@@ -112,5 +112,8 @@ namespace ECU_Manager.Structs
         public int StartAllowed;
         public int IsRunning;
         public int IsCheckEngine;
+
+        public int CylinderIgnitionBitmask;
+        public int CylinderInjectionBitmask;
     }
 }
