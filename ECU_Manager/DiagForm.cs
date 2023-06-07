@@ -246,6 +246,7 @@ namespace ECU_Manager
                     parameter.NumericUpDown.Enabled = parameter.Enabled;
                     parameter.TrackBar.Enabled = parameter.Enabled;
                     UpdateForceElements(middleLayer.ComponentStructure.EcuParameters);
+                    middleLayer.UpdateForceParameters();
                 }
             }
             else
@@ -449,45 +450,43 @@ namespace ECU_Manager
         }
         private void UpdateForceElements(EcuParameters parameters)
         {
-            foreach(Parameter parameter in ForceParameters)
+            foreach (Parameter parameter in ForceParameters)
             {
-                if(!parameter.Enabled)
+                if (parameter.Type == typeof(float))
                 {
-                    if (parameter.Type == typeof(float))
-                    {
-                        float value = (float)parameter.Value;
+                    float value = (float)parameter.Value;
 
-                        if ((decimal)value > parameter.NumericUpDown.Maximum)
-                            value = (float)parameter.NumericUpDown.Maximum;
-                        else if ((decimal)value < parameter.NumericUpDown.Minimum)
-                            value = (float)parameter.NumericUpDown.Minimum;
-                        parameter.NumericUpDown.Value = (decimal)value;
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (float)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (float)parameter.NumericUpDown.Minimum;
+                    parameter.NumericUpDown.Value = (decimal)value;
 
-                        value /= parameter.Step;
-                        if (value > parameter.TrackBar.Maximum)
-                            value = parameter.TrackBar.Maximum;
-                        else if (value < parameter.TrackBar.Minimum)
-                            value = parameter.TrackBar.Minimum;
-                        parameter.TrackBar.Value = (int)value;
-                    }
-                    else 
-                    {
-                        int value = (int)parameter.Value;
-
-                        if ((decimal)value > parameter.NumericUpDown.Maximum)
-                            value = (int)parameter.NumericUpDown.Maximum;
-                        else if ((decimal)value < parameter.NumericUpDown.Minimum)
-                            value = (int)parameter.NumericUpDown.Minimum;
-                        parameter.NumericUpDown.Value = (decimal)value;
-
-                        value = (int)((float)value / parameter.Step);
-                        if (value > parameter.TrackBar.Maximum)
-                            value = parameter.TrackBar.Maximum;
-                        else if (value < parameter.TrackBar.Minimum)
-                            value = parameter.TrackBar.Minimum;
-                        parameter.TrackBar.Value = (int)value;
-                    }
+                    value /= parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
                 }
+                else
+                {
+                    int value = (int)parameter.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (int)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (int)parameter.NumericUpDown.Minimum;
+                    parameter.NumericUpDown.Value = (decimal)value;
+
+                    value = (int)((float)value / parameter.Step);
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+
             }
         }
 
