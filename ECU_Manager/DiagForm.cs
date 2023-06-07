@@ -496,7 +496,7 @@ namespace ECU_Manager
             int updated = 0;
             foreach (Parameter parameter in ForceParameters)
             {
-                if (!parameter.Enabled)
+                if (parameter.Enabled)
                 {
                     if (parameter.Type == typeof(float))
                     {
