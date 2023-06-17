@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.IO.Ports;
+using ECU_Manager.Tools;
+using System.IO;
 
 namespace ECU_Manager.Protocol
 {
@@ -12,15 +14,13 @@ namespace ECU_Manager.Protocol
     {
         private SerialPort sp;
         private Sender sender;
-        private Queue<byte> rxfifo;
+        private InternalQueue<byte> rxfifo;
         private Thread rxthread;
-        private Mutex fifomutex;
         public Getter(SerialPort sp, Sender sender)
         {
             this.sender = sender;
             this.sp = sp;
-            rxfifo = new Queue<byte>(20480);
-            fifomutex = new Mutex();
+            rxfifo = new InternalQueue<byte>(65536);
             rxthread = new Thread(RxThread);
             rxthread.Name = "RX Thread";
             rxthread.IsBackground = true;
@@ -42,20 +42,15 @@ namespace ECU_Manager.Protocol
                             {
                                 int bytestoread = sp.BytesToRead;
                                 byte[] data = new byte[bytestoread];
-                                sp.Read(data, 0, bytestoread);
-                                fifomutex.WaitOne();
-                                foreach (byte b in data)
-                                    rxfifo.Enqueue(b);
-                                fifomutex.ReleaseMutex();
+                                bytestoread = sp.Read(data, 0, bytestoread);
+                                for (int i = 0; i < bytestoread; i++)
+                                    rxfifo.Enqueue(data[i]);
                             }
                             else
                             {
                                 byte data = (byte)sp.ReadByte();
-                                fifomutex.WaitOne();
                                 rxfifo.Enqueue(data);
-                                fifomutex.ReleaseMutex();
                             }
-
                         }
                     }
                 }
@@ -63,16 +58,11 @@ namespace ECU_Manager.Protocol
             }
         }
 
-        private byte PeekElement(Queue<byte> queue, int index)
+        private byte PeekElement(InternalQueue<byte> queue, int index)
         {
             byte result;
-            while (queue.Count < index + 1) Thread.Sleep(1);
-            fifomutex.WaitOne();
             result = rxfifo.ElementAt(index);
-            fifomutex.ReleaseMutex();
             return result;
-
-
         }
 
         private int wrongheadercounter = 0;
@@ -160,9 +150,8 @@ namespace ECU_Manager.Protocol
                     rxfifo.Dequeue();
                     continue;
                 }
-
-                for (int i = 0; i < packet.Length; i++)
-                    rxfifo.Dequeue();
+                
+                rxfifo.Dequeue(packet.Length);
 
                 if (packet.Destination != Channel.etrPC)
                 {

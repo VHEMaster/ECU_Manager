@@ -164,6 +164,7 @@
     <Compile Include="Structs\EcuCriticalBackup.cs" />
     <Compile Include="Tools\BinarySearch.cs" />
     <Compile Include="Tools\EcuLog.cs" />
+    <Compile Include="Tools\InternalQueue.cs" />
     <Compile Include="Tools\Interpolation.cs" />
     <Compile Include="Tools\Serializator.cs" />
     <Compile Include="Tools\StructCopy.cs" />
