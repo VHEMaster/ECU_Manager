@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67E58F62-20EE-47AA-913E-E01C2F7A08BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ECU_Framework</RootNamespace>
+    <AssemblyName>ECU_Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IEcuEventHandler.cs" />
+    <Compile Include="MiddleLayer.cs" />
+    <Compile Include="Packets\Enums.cs" />
+    <Compile Include="Packets\PacketHandler.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryData.cs" />
+    <Compile Include="Packets\PK_ConfigMemoryRequest.cs" />
+    <Compile Include="Packets\PK_CorrectionsMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_CorrectionsMemoryData.cs" />
+    <Compile Include="Packets\PK_CorrectionsMemoryRequest.cs" />
+    <Compile Include="Packets\PK_CriticalMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_CriticalMemoryData.cs" />
+    <Compile Include="Packets\PK_CriticalMemoryRequest.cs" />
+    <Compile Include="Packets\PK_DragPointRequest.cs" />
+    <Compile Include="Packets\PK_DragPointResponse.cs" />
+    <Compile Include="Packets\PK_DragStart.cs" />
+    <Compile Include="Packets\PK_DragStartAcknowledge.cs" />
+    <Compile Include="Packets\PK_DragStop.cs" />
+    <Compile Include="Packets\PK_DragStopAcknowledge.cs" />
+    <Compile Include="Packets\PK_DragUpdateRequest.cs" />
+    <Compile Include="Packets\PK_DragUpdateResponse.cs" />
+    <Compile Include="Packets\PK_ForceParametersData.cs" />
+    <Compile Include="Packets\PK_ForceParametersDataAcknowledge.cs" />
+    <Compile Include="Packets\PK_IgnitionInjectionTestRequest.cs" />
+    <Compile Include="Packets\PK_IgnitionInjectionTestResponse.cs" />
+    <Compile Include="Packets\PK_ParametersRequest.cs" />
+    <Compile Include="Packets\PK_ParametersResponse.cs" />
+    <Compile Include="Packets\PK_PcConnected.cs" />
+    <Compile Include="Packets\PK_Ping.cs" />
+    <Compile Include="Packets\PK_Pong.cs" />
+    <Compile Include="Packets\PK_ResetStatusRequest.cs" />
+    <Compile Include="Packets\PK_ResetStatusResponse.cs" />
+    <Compile Include="Packets\PK_RestoreConfig.cs" />
+    <Compile Include="Packets\PK_RestoreConfigAcknowledge.cs" />
+    <Compile Include="Packets\PK_SaveConfig.cs" />
+    <Compile Include="Packets\PK_SaveConfigAcknowledge.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayConfigureRequest.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayConfigureResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayRequest.cs" />
+    <Compile Include="Packets\PK_SpecificParameterArrayResponse.cs" />
+    <Compile Include="Packets\PK_SpecificParameterRequest.cs" />
+    <Compile Include="Packets\PK_SpecificParameterResponse.cs" />
+    <Compile Include="Packets\PK_StatusRequest.cs" />
+    <Compile Include="Packets\PK_StatusResponse.cs" />
+    <Compile Include="Packets\PK_TableMemoryAcknowledge.cs" />
+    <Compile Include="Packets\PK_TableMemoryData.cs" />
+    <Compile Include="Packets\PK_TableMemoryRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol\Getter.cs" />
+    <Compile Include="Protocol\Packet.cs" />
+    <Compile Include="Protocol\ProtocolHandler.cs" />
+    <Compile Include="Protocol\Sender.cs" />
+    <Compile Include="Structs\CheckData.cs" />
+    <Compile Include="Structs\ColorTransience.cs" />
+    <Compile Include="Structs\ComponentStructure.cs" />
+    <Compile Include="Structs\ConfigStruct.cs" />
+    <Compile Include="Structs\Consts.cs" />
+    <Compile Include="Structs\DragPoint.cs" />
+    <Compile Include="Structs\EcuCorrections.cs" />
+    <Compile Include="Structs\EcuCriticalBackup.cs" />
+    <Compile Include="Structs\EcuForceParameters.cs" />
+    <Compile Include="Structs\EcuParameters.cs" />
+    <Compile Include="Structs\EcuStatus.cs" />
+    <Compile Include="Structs\EcuTable.cs" />
+    <Compile Include="Structs\Parameter.cs" />
+    <Compile Include="Structs\ParameterUnion.cs" />
+    <Compile Include="Structs\ParamsTable.cs" />
+    <Compile Include="Structs\PointData.cs" />
+    <Compile Include="Tools\BinarySearch.cs" />
+    <Compile Include="Tools\Crc.cs" />
+    <Compile Include="Tools\EcuLog.cs" />
+    <Compile Include="Tools\InternalQueue.cs" />
+    <Compile Include="Tools\Interpolation.cs" />
+    <Compile Include="Tools\Serializator.cs" />
+    <Compile Include="Tools\StructCopy.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,6 +1,6 @@
-﻿using ECU_Manager.Dialogs;
-using ECU_Manager.Structs;
-using ECU_Manager.Tools;
+﻿using ECU_Framework.Tools;
+using ECU_Manager.Dialogs;
+using ECU_Framework.Structs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ECU_Manager.Controls;
-using ECU_Manager.Packets;
-using ECU_Manager.Structs;
-using ECU_Manager.Tools;
+using ECU_Framework.Packets;
+using ECU_Framework.Structs;
+using ECU_Framework.Tools;
+using ECU_Framework;
 
 namespace ECU_Manager
 {

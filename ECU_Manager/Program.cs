@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
-using ECU_Manager.Packets;
-using ECU_Manager.Protocol;
+using ECU_Framework.Packets;
+using ECU_Framework.Protocol;
 
 namespace ECU_Manager
 {

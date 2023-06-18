@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using ECU_Framework;
 
 namespace ECU_Manager
 {

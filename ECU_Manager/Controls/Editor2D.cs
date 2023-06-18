@@ -1,5 +1,5 @@
-﻿using ECU_Manager.Structs;
-using ECU_Manager.Tools;
+﻿using ECU_Framework.Structs;
+using ECU_Framework.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
