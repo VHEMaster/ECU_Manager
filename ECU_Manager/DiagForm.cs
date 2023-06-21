@@ -798,7 +798,15 @@ namespace ECU_Manager
                     
                     chart.ChartAreas[0].AxisX.Minimum = posmin;
                     chart.ChartAreas[0].AxisX.Maximum = posmax;
-                    
+
+                    IEnumerable<DataPoint> toberemoved_min = chart.Series[0].Points.Where(p => p.XValue < chart.ChartAreas[0].AxisX.Minimum).ToList();
+                    foreach (DataPoint point in toberemoved_min)
+                        chart.Series[0].Points.Remove(point);
+
+                    IEnumerable<DataPoint> toberemoved_max = chart.Series[0].Points.Where(p => p.XValue > chart.ChartAreas[0].AxisX.Maximum).ToList();
+                    foreach (DataPoint point in toberemoved_max)
+                        chart.Series[0].Points.Remove(point);
+
                     for (int i = index_first; i <= index_last; i++)
                     {
                         if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints.ElementAt(i).Seconds)
@@ -819,8 +827,28 @@ namespace ECU_Manager
                                 }
                             }
                         }
+                    }
 
+                    for (int i = index_last; i >= index_first; i--)
+                    {
+                        if (chart.Series[0].Points.First().XValue > dataPoints.ElementAt(i).Seconds)
+                        {
+                            if (chart.Tag != null)
+                            {
+                                parameter = (Parameter)chart.Tag;
 
+                                if (parameter.Type == typeof(float))
+                                {
+                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints.ElementAt(i).Seconds, valuef);
+                                }
+                                else
+                                {
+                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints.ElementAt(i).Seconds, valuei);
+                                }
+                            }
+                        }
                     }
 
                     double min = 0;
