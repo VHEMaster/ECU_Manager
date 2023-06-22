@@ -62,7 +62,7 @@ namespace ECU_Framework.Structs
         public float MassAirFlow;
         public float CyclicAirFlow;
         public float EffectiveVolume;
-        public float AirDestiny;
+        public float AirDensity;
         public float RelativeFilling;
         public float WishFuelRatio;
         public float IdleValvePosition;

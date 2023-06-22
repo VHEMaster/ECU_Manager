@@ -39,11 +39,11 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("voltage")]
         public float[] voltages;
 
-        public int pressures_count;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX)]
-        [XmlArray("pressures")]
-        [XmlArrayItem("pressure")]
-        public float[] pressures;
+        public int densities_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_DENSITIES_MAX)]
+        [XmlArray("densities")]
+        [XmlArrayItem("density")]
+        public float[] densities;
 
         public int rotates_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
@@ -63,10 +63,10 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("throttle")]
         public float[] throttles;
         
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("fill_by_map")]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_DENSITIES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("fill_by_density")]
         [XmlArrayItem("filling")]
-        public float[] fill_by_map;
+        public float[] fill_by_density;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("map_by_thr")]
         [XmlArrayItem("pressure")]
@@ -74,21 +74,21 @@ namespace ECU_Framework.Structs
 
         public int use_idle_filling;
         public int idle_filling_rotates_count;
-        public int idle_filling_pressures_count;
+        public int idle_filling_densities_count;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_filling_rotates")]
         [XmlArrayItem("rotate")]
         public float[] idle_filling_rotates;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX)]
-        [XmlArray("idle_filling_pressures")]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_DENSITIES_MAX)]
+        [XmlArray("idle_filling_densities")]
         [XmlArrayItem("pressure")]
-        public float[] idle_filling_pressures;
+        public float[] idle_filling_densities;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("idle_filling_by_map")]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_DENSITIES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_filling_by_density")]
         [XmlArrayItem("filling")]
-        public float[] idle_filling_by_map;
+        public float[] idle_filling_by_density;
 
         public int enrichment_load_type;
         public float enrichment_load_dead_band;
@@ -228,10 +228,10 @@ namespace ECU_Framework.Structs
         [XmlArray("idle_wish_ignition_static")]
         [XmlArrayItem("angle")]
         public float[] idle_wish_ignition_static;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("idle_valve_to_rpm")]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_valve_position")]
         [XmlArrayItem("valve")]
-        public float[] idle_valve_to_rpm;
+        public float[] idle_valve_position;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_rpm_pid_act_1")]
@@ -415,7 +415,7 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 828)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1068)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

@@ -18,7 +18,6 @@ namespace ECU_Debugger
         static PacketHandler packetHandler;
         static bool packetHandled = false;
         static Stopwatch packetTimer = new Stopwatch();
-        static CancellationToken cancellationToken = new CancellationToken();
 
         static void Main(string[] args)
         {
