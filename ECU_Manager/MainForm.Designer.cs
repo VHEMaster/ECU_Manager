@@ -1918,6 +1918,7 @@
             this.cbPerformIdleAdaptation.TabIndex = 24;
             this.cbPerformIdleAdaptation.Text = "Allow Idle Correction";
             this.cbPerformIdleAdaptation.UseVisualStyleBackColor = true;
+            this.cbPerformIdleAdaptation.CheckedChanged += new System.EventHandler(this.cbPerformIdleAdaptation_CheckedChanged);
             // 
             // cbIsEconEnabled
             // 
