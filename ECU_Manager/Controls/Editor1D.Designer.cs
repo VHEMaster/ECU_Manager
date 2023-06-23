@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lblParams = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnImportFromCCode = new System.Windows.Forms.Button();
             this.btnCopyToC = new System.Windows.Forms.Button();
             this.lblItemValue = new System.Windows.Forms.Label();
-            this.nudValue = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label22 = new System.Windows.Forms.Label();
             this.btnPressApply = new System.Windows.Forms.Button();
-            this.nudItem = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label21 = new System.Windows.Forms.Label();
             this.chart1DChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnImportFromCCode = new System.Windows.Forms.Button();
+            this.nudValue = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.nudItem = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1DChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudItem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1DChart)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel5
@@ -99,6 +99,17 @@
             this.panel2.Size = new System.Drawing.Size(1116, 38);
             this.panel2.TabIndex = 1;
             // 
+            // btnImportFromCCode
+            // 
+            this.btnImportFromCCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportFromCCode.Location = new System.Drawing.Point(917, 3);
+            this.btnImportFromCCode.Name = "btnImportFromCCode";
+            this.btnImportFromCCode.Size = new System.Drawing.Size(184, 31);
+            this.btnImportFromCCode.TabIndex = 13;
+            this.btnImportFromCCode.Text = "Import from C code";
+            this.btnImportFromCCode.UseVisualStyleBackColor = true;
+            this.btnImportFromCCode.Click += new System.EventHandler(this.btnImportFromCCode_Click);
+            // 
             // btnCopyToC
             // 
             this.btnCopyToC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -118,6 +129,87 @@
             this.lblItemValue.Size = new System.Drawing.Size(94, 24);
             this.lblItemValue.TabIndex = 5;
             this.lblItemValue.Text = "ItemValue";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(422, 5);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(64, 24);
+            this.label22.TabIndex = 3;
+            this.label22.Text = "Value:";
+            // 
+            // btnPressApply
+            // 
+            this.btnPressApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPressApply.Location = new System.Drawing.Point(636, 2);
+            this.btnPressApply.Name = "btnPressApply";
+            this.btnPressApply.Size = new System.Drawing.Size(99, 31);
+            this.btnPressApply.TabIndex = 2;
+            this.btnPressApply.Text = "Apply";
+            this.btnPressApply.UseVisualStyleBackColor = true;
+            this.btnPressApply.Click += new System.EventHandler(this.btnPressApply_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(64, 5);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(50, 24);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Item:";
+            // 
+            // chart1DChart
+            // 
+            chartArea1.AxisX.Interval = 1D;
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.Minimum = 1D;
+            chartArea1.AxisY.Interval = 20000D;
+            chartArea1.AxisY.Maximum = 120000D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chart1DChart.ChartAreas.Add(chartArea1);
+            this.tableLayoutPanel5.SetColumnSpan(this.chart1DChart, 2);
+            this.chart1DChart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chart1DChart.Location = new System.Drawing.Point(3, 33);
+            this.chart1DChart.Name = "chart1DChart";
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Brown;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelBorderWidth = 0;
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series1.SmartLabelStyle.MaxMovingDistance = 100D;
+            series1.SmartLabelStyle.MinMovingDistance = 10D;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series1.YValuesPerPoint = 2;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart1DChart.Series.Add(series1);
+            this.chart1DChart.Size = new System.Drawing.Size(1110, 457);
+            this.chart1DChart.TabIndex = 2;
+            this.chart1DChart.Text = " ";
+            this.chart1DChart.Click += new System.EventHandler(this.chart1DChart_Click);
+            this.chart1DChart.Paint += new System.Windows.Forms.PaintEventHandler(this.chart1DChart_Paint);
+            this.chart1DChart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseDown);
+            this.chart1DChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseMove);
+            this.chart1DChart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseUp);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitle.Location = new System.Drawing.Point(3, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(552, 30);
+            this.lblTitle.TabIndex = 3;
+            this.lblTitle.Text = "Chart 1D";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudValue
             // 
@@ -147,26 +239,6 @@
             0});
             this.nudValue.ValueChanged += new System.EventHandler(this.nudValue_ValueChanged);
             // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(422, 5);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(64, 24);
-            this.label22.TabIndex = 3;
-            this.label22.Text = "Value:";
-            // 
-            // btnPressApply
-            // 
-            this.btnPressApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPressApply.Location = new System.Drawing.Point(636, 2);
-            this.btnPressApply.Name = "btnPressApply";
-            this.btnPressApply.Size = new System.Drawing.Size(99, 31);
-            this.btnPressApply.TabIndex = 2;
-            this.btnPressApply.Text = "Apply";
-            this.btnPressApply.UseVisualStyleBackColor = true;
-            this.btnPressApply.Click += new System.EventHandler(this.btnPressApply_Click);
-            // 
             // nudItem
             // 
             this.nudItem.Location = new System.Drawing.Point(120, 3);
@@ -185,78 +257,6 @@
             0});
             this.nudItem.ValueChanged += new System.EventHandler(this.nudItem_ValueChanged);
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(64, 5);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(50, 24);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "Item:";
-            // 
-            // chart1DChart
-            // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.AxisX.IsMarginVisible = false;
-            chartArea2.AxisX.Minimum = 1D;
-            chartArea2.AxisY.Interval = 20000D;
-            chartArea2.AxisY.Maximum = 120000D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.Name = "ChartArea1";
-            this.chart1DChart.ChartAreas.Add(chartArea2);
-            this.tableLayoutPanel5.SetColumnSpan(this.chart1DChart, 2);
-            this.chart1DChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chart1DChart.Location = new System.Drawing.Point(3, 33);
-            this.chart1DChart.Name = "chart1DChart";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Brown;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series2.IsValueShownAsLabel = true;
-            series2.LabelBorderWidth = 0;
-            series2.MarkerColor = System.Drawing.Color.Black;
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series2.SmartLabelStyle.MaxMovingDistance = 100D;
-            series2.SmartLabelStyle.MinMovingDistance = 10D;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series2.YValuesPerPoint = 2;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart1DChart.Series.Add(series2);
-            this.chart1DChart.Size = new System.Drawing.Size(1110, 457);
-            this.chart1DChart.TabIndex = 2;
-            this.chart1DChart.Text = " ";
-            this.chart1DChart.Click += new System.EventHandler(this.chart1DChart_Click);
-            this.chart1DChart.Paint += new System.Windows.Forms.PaintEventHandler(this.chart1DChart_Paint);
-            this.chart1DChart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseDown);
-            this.chart1DChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseMove);
-            this.chart1DChart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1DChart_MouseUp);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Location = new System.Drawing.Point(3, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(552, 30);
-            this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "Chart 1D";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnImportFromCCode
-            // 
-            this.btnImportFromCCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportFromCCode.Location = new System.Drawing.Point(917, 3);
-            this.btnImportFromCCode.Name = "btnImportFromCCode";
-            this.btnImportFromCCode.Size = new System.Drawing.Size(184, 31);
-            this.btnImportFromCCode.TabIndex = 13;
-            this.btnImportFromCCode.Text = "Import from C code";
-            this.btnImportFromCCode.UseVisualStyleBackColor = true;
-            this.btnImportFromCCode.Click += new System.EventHandler(this.btnImportFromCCode_Click);
-            // 
             // Editor1D
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -270,9 +270,9 @@
             this.tableLayoutPanel5.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1DChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1DChart)).EndInit();
             this.ResumeLayout(false);
 
         }

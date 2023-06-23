@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Input;
+using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace ECU_Manager.Controls
 {
@@ -105,7 +107,10 @@ namespace ECU_Manager.Controls
 
             nudValue.DecimalPlaces = decplaces;
 
+            chart1DChart.MouseWheel += chart1DChart_MouseWheel;
+
             cs = componentStructure;
+            
         }
 
         public void SetTableEventHandler(EventHandler eventHandler)
@@ -700,6 +705,59 @@ namespace ECU_Manager.Controls
 
             if(refresh)
                 this.Refresh();
+        }
+
+        private void chart1DChart_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.None)
+            {
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    if (e.Delta > 0)
+                    {
+                        decimal value = nudItem.Value;
+                        value += nudItem.Increment;
+                        if (value > nudItem.Maximum)
+                            value = nudItem.Maximum;
+                        else if (value < nudItem.Minimum)
+                            value = nudItem.Minimum;
+                        nudItem.Value = value;
+                    }
+                    else
+                    {
+                        decimal value = nudItem.Value;
+                        value -= nudItem.Increment;
+                        if (value > nudItem.Maximum)
+                            value = nudItem.Maximum;
+                        else if (value < nudItem.Minimum)
+                            value = nudItem.Minimum;
+                        nudItem.Value = value;
+                    }
+                }
+                else
+                {
+                    if (e.Delta > 0)
+                    {
+                        decimal value = nudValue.Value;
+                        value += nudValue.Increment;
+                        if (value > nudValue.Maximum)
+                            value = nudValue.Maximum;
+                        else if (value < nudValue.Minimum)
+                            value = nudValue.Minimum;
+                        nudValue.Value = value;
+                    }
+                    else
+                    {
+                        decimal value = nudValue.Value;
+                        value -= nudValue.Increment;
+                        if (value > nudValue.Maximum)
+                            value = nudValue.Maximum;
+                        else if (value < nudValue.Minimum)
+                            value = nudValue.Minimum;
+                        nudValue.Value = value;
+                    }
+                }
+            }
         }
 
         private void chart1DChart_Click(object sender, EventArgs e)
