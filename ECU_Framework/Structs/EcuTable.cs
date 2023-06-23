@@ -262,6 +262,19 @@ namespace ECU_Framework.Structs
         public float[] idle_valve_to_massair_pid_d;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_rpm_pid_p")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_rpm_pid_p;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_rpm_pid_i")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_rpm_pid_i;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_to_rpm_pid_d")]
+        [XmlArrayItem("koff")]
+        public float[] idle_valve_to_rpm_pid_d;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_ign_to_rpm_pid_p")]
         [XmlArrayItem("koff")]
         public float[] idle_ign_to_rpm_pid_p;
@@ -415,7 +428,7 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1068)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1020)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

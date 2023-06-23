@@ -823,20 +823,35 @@ namespace ECU_Manager
             eIdleRegThr2.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValvePidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
-            eIdleValvePidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
-            eIdleValvePidP.SetTableEventHandler(ChartUpdateEvent);
+            eIdleValveAirPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveAirPidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveAirPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValvePidI.SetConfig("idle_valve_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
-            eIdleValvePidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
-            eIdleValvePidI.SetTableEventHandler(ChartUpdateEvent);
+            eIdleValveAirPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveAirPidI.SetConfig("idle_valve_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveAirPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleValvePidD.SetConfig("idle_valve_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
-            eIdleValvePidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
-            eIdleValvePidD.SetTableEventHandler(ChartUpdateEvent);
+            eIdleValveAirPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleValveAirPidD.SetConfig("idle_valve_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveAirPidD.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValveRpmPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveRpmPidP.SetConfig("idle_valve_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveRpmPidP.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValveRpmPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveRpmPidI.SetConfig("idle_valve_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveRpmPidI.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleValveRpmPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleValveRpmPidD.SetConfig("idle_valve_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleValveRpmPidD.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
             eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
@@ -918,10 +933,14 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage43), Text = "Shift by Speed" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage71), Text = "Regulation Low Threshold" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage79), Text = "Regulation High Threshold" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage63), Text = "Valve PID" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage63), Text = "Valve Air PID" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage69), Text = "Proportional" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage65), Text = "Integral" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl11, tabPage66), Text = "Differentional" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage107), Text = "Valve RPM PID" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage108), Text = "Proportional" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage109), Text = "Integral" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl14, tabPage110), Text = "Differentional" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage64), Text = "Ignition PID" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1245, tabPage67), Text = "Proportional" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1245, tabPage68), Text = "Integral" });
@@ -1043,9 +1062,12 @@ namespace ECU_Manager
 
             eIdleRegThr1.UpdateChart();
             eIdleRegThr2.UpdateChart();
-            eIdleValvePidP.UpdateChart();
-            eIdleValvePidI.UpdateChart();
-            eIdleValvePidD.UpdateChart();
+            eIdleValveAirPidP.UpdateChart();
+            eIdleValveAirPidI.UpdateChart();
+            eIdleValveAirPidD.UpdateChart();
+            eIdleValveRpmPidP.UpdateChart();
+            eIdleValveRpmPidI.UpdateChart();
+            eIdleValveRpmPidD.UpdateChart();
             eIdleIgnPidP.UpdateChart();
             eIdleIgnPidI.UpdateChart();
             eIdleIgnPidD.UpdateChart();
