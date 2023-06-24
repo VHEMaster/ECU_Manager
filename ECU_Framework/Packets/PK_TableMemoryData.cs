@@ -31,7 +31,11 @@ namespace ECU_Framework.Packets
             Offset = (uint)offset;
             Size = (uint)size;
             ErrorCode = 0;
-            Data = new byte[Consts.PACKET_CONFIG_MAX_SIZE];
+
+            if (size > Consts.PACKET_TABLE_MAX_SIZE)
+                throw new Exception("Size is too large!");
+
+            Data = new byte[Consts.PACKET_TABLE_MAX_SIZE];
 
             for (int i = 0; i < size; i++)
                 Data[i] = data[i];

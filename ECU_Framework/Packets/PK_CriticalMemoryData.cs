@@ -29,6 +29,10 @@ namespace ECU_Framework.Packets
             Offset = (uint)offset;
             Size = (uint)size;
             ErrorCode = 0;
+
+            if (size > Consts.PACKET_CRITICAL_MAX_SIZE)
+                throw new Exception("Size is too large!");
+
             Data = new byte[Consts.PACKET_CRITICAL_MAX_SIZE];
 
             for (int i = 0; i < size; i++)
