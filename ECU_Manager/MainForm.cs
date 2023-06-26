@@ -200,7 +200,16 @@ namespace ECU_Manager
             eFuelMixturesFull.SetTableEventHandler(ChartUpdateEvent);
 
             eFuelMixturesFull.SetTableColorTrans(colorTransience);
-            
+
+
+            colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, 100);
+            colorTransience.Add(Color.Blue, 170);
+            colorTransience.Add(Color.FromArgb(0, 72, 180), 200);
+            colorTransience.Add(Color.Green, 250);
+            colorTransience.Add(Color.FromArgb(128, 128, 0), 280);
+            colorTransience.Add(Color.Red, 350);
+            colorTransience.Add(Color.Black, 600);
 
             eInjectionPhaseFull.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
