@@ -32,7 +32,7 @@ namespace ECU_Framework.Structs
 
         public int useLambdaSensor;
         public int isLambdaForceEnabled;
-        public int useTSPS;
+        public int phasedMode;
         public int useKnockSensor;
         public int performAdaptation;
         public int isSingleCoil;

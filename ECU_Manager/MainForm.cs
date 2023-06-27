@@ -1368,6 +1368,27 @@ namespace ECU_Manager
                     MessageBox.Show("Wrong Coils configuration!", "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
+                rbPhasedDisabled.Checked = false;
+                rbPhasedWithSensor.Checked = false;
+                rbPhasedWithoutSensor.Checked = false;
+
+                if (cs.ConfigStruct.parameters.phasedMode == 0)
+                {
+                    rbPhasedDisabled.Checked = true;
+                }
+                else if (cs.ConfigStruct.parameters.phasedMode == 1)
+                {
+                    rbPhasedWithoutSensor.Checked = true;
+                }
+                else if (cs.ConfigStruct.parameters.phasedMode == 2)
+                {
+                    rbIgnitionModule.Checked = true;
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Phased configuration!", "Engine Control Unit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 lblCutoffRPM.Text = cs.ConfigStruct.parameters.cutoffRPM.ToString("F0");
                 tbCutoffRPM.Value = Convert.ToInt32(cs.ConfigStruct.parameters.cutoffRPM);
 
@@ -1406,8 +1427,7 @@ namespace ECU_Manager
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
                 nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
-
-                cbUseTSPS.Checked = cs.ConfigStruct.parameters.useTSPS > 0;
+                
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambdaAC.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
                 cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
@@ -2409,15 +2429,6 @@ namespace ECU_Manager
             }
         }
 
-        private void cbUseTSPS_CheckedChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.parameters.useTSPS = ((CheckBox)sender).Checked ? 1 : 0;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateConfig();
-            }
-        }
-
         private void cbUseKnock_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useKnockSensor = ((CheckBox)sender).Checked ? 1 : 0;
@@ -2550,6 +2561,48 @@ namespace ECU_Manager
                 rbIndividualCoils.Checked = false;
                 cs.ConfigStruct.parameters.isIndividualCoils = 0;
                 cs.ConfigStruct.parameters.isSingleCoil = 1;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbPhasedDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                rbPhasedWithSensor.Checked = false;
+                rbPhasedWithoutSensor.Checked = false;
+                cs.ConfigStruct.parameters.phasedMode = 0;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbPhasedWithSensor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                rbPhasedDisabled.Checked = false;
+                rbPhasedWithoutSensor.Checked = false;
+                cs.ConfigStruct.parameters.phasedMode = 1;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateConfig();
+                }
+            }
+        }
+
+        private void rbPhasedWithoutSensor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                rbPhasedWithSensor.Checked = false;
+                rbPhasedDisabled.Checked = false;
+                cs.ConfigStruct.parameters.phasedMode = 2;
                 if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
                 {
                     middleLayer.UpdateConfig();
