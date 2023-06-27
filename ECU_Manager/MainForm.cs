@@ -1378,11 +1378,11 @@ namespace ECU_Manager
                 }
                 else if (cs.ConfigStruct.parameters.phasedMode == 1)
                 {
-                    rbPhasedWithoutSensor.Checked = true;
+                    rbPhasedWithSensor.Checked = true;
                 }
                 else if (cs.ConfigStruct.parameters.phasedMode == 2)
                 {
-                    rbIgnitionModule.Checked = true;
+                    rbPhasedWithoutSensor.Checked = true;
                 }
                 else
                 {
