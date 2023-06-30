@@ -1257,7 +1257,7 @@ namespace ECU_Manager
             {
                 string text = string.Empty;
 
-                int count = 5;
+                int count = 6;
                 byte[][] array = new byte[count][];
                 double[] stats = new double[count];
                 int size;
