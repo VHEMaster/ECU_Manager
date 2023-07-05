@@ -1017,6 +1017,7 @@ namespace ECU_Manager
             eCorrsFillByDensity.SynchronizeChart();
             eCorrsIdleFillByDensity.SynchronizeChart();
             eCorrsIgnition.SynchronizeChart();
+            eCorrsKnockCyNoiseLevelMult.SynchronizeChart();
             eCorrsKnockDetonationCounter.SynchronizeChart();
             eCorrsPressureByTPS.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
@@ -1111,6 +1112,7 @@ namespace ECU_Manager
             //eCorrsFillByDensity.UpdateChart();
             eCorrsIgnition.UpdateChart();
             eCorrsKnockDetonationCounter.UpdateChart();
+            eCorrsKnockCyNoiseLevelMult.UpdateChart();
             eCorrsPressureByTPS.UpdateChart();
             eAirTempMixCorr.UpdateChart();
             eAirTempIgnCorr.UpdateChart();
@@ -2499,7 +2501,7 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Previous calibration result will be lost!\r\nAre you sure you want to perform calibration?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                if (!middleLayer.IsSynchronizing)
+                if (middleLayer == null || !middleLayer.IsSynchronizing)
                 {
                     if (rbCorrInterpolationFunc.Checked && !rbCorrPointFunc.Checked)
                         cs.ConfigStruct.parameters.performAdaptation = 1;
@@ -2509,7 +2511,7 @@ namespace ECU_Manager
                     if (cs.ConfigStruct.parameters.performAdaptation > 0)
                     {
                         CorrStart();
-                        middleLayer.UpdateConfig();
+                        middleLayer?.UpdateConfig();
                     }
                 }
             }
@@ -2517,11 +2519,11 @@ namespace ECU_Manager
 
         private void btnCorrStop_Click(object sender, EventArgs e)
         {
-             if (!middleLayer.IsSynchronizing)
+            if (middleLayer == null || !middleLayer.IsSynchronizing)
             {
                 cs.ConfigStruct.parameters.performAdaptation = 0;
                 CorrStop();
-                middleLayer.UpdateConfig();
+                middleLayer?.UpdateConfig();
             }
         }
 
