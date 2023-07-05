@@ -1138,6 +1138,7 @@ namespace ECU_Manager
             eCorrsKnockCyNoiseLevelMult.SetCalibrationTable("progress_knock_cy_level_multiplier");
 
             btnCorrAppendFillingByMAP.Enabled = false;
+            btnCorrAppendIdleFillingByMAP.Enabled = false;
             btnCorrAppendIdleValve.Enabled = false;
             btnCorrAppendIgnitions.Enabled = false;
             btnCorrAppendPressureByTPS.Enabled = false;
@@ -1163,6 +1164,7 @@ namespace ECU_Manager
             eCorrsPressureByTPS.ClearCalibrationTable();
 
             btnCorrAppendFillingByMAP.Enabled = true;
+            btnCorrAppendIdleFillingByMAP.Enabled = true;
             btnCorrAppendIdleValve.Enabled = true;
             btnCorrAppendIgnitions.Enabled = true;
             btnCorrAppendPressureByTPS.Enabled = true;
