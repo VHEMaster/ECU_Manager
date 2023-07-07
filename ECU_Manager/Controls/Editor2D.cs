@@ -757,8 +757,8 @@ namespace ECU_Manager.Controls
 
                                 int r, g, b;
                                 int index = (int)nud.Tag;
-                                int xpos = index % iArraySizeY;
-                                int ypos = index / iArraySizeY;
+                                int xpos = index % iArraySizeX;
+                                int ypos = index / iArraySizeX;
                                 Color color;
                                 Color original = Color.DarkGray;
                                 double[] mult = new double[4];
@@ -848,12 +848,12 @@ namespace ECU_Manager.Controls
                                                 }
                                             }
                                         }
-                                        if (!handled && nud.BackColor != original)
-                                        {
-                                            nud.BackColor = original;
-                                            if (!nud.Focused)
-                                                nudTableItem_ValueChanged(nud, new EventArgs());
-                                        }
+                                    }
+                                    if (!handled && nud.BackColor != original)
+                                    {
+                                        nud.BackColor = original;
+                                        if (!nud.Focused)
+                                            nudTableItem_ValueChanged(nud, new EventArgs());
                                     }
                                 }
                             }
