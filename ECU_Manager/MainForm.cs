@@ -451,9 +451,9 @@ namespace ECU_Manager
             eIdleSpeedShift.SetY("IdleSpeedShift", "RPM Shift", "F0");
             eIdleSpeedShift.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 10D, 10, 0);
-            eIdleValvePos.SetConfig("idle_valve_position", "densities_count", "densities");
-            eIdleValvePos.SetX("AirDensity", "Density", "F3");
+            eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 500D, 10, 0);
+            eIdleValvePos.SetConfig("idle_valve_position", "rotates_count", "rotates");
+            eIdleValvePos.SetX("RPM", "RPM", "F0");
             eIdleValvePos.SetY("WishIdleValvePosition", "Valve Pos", "F0");
             eIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
             
@@ -619,20 +619,20 @@ namespace ECU_Manager
             eCorrsKnockCyNoiseLevelMult.SynchronizeChart();
 
             //TODO:
-            //eCorrsIdleValveToRPM.Initialize(cs, Editor2DMode.CorrectionsTable,
+            //eCorrIdleValvePos.Initialize(cs, Editor2DMode.CorrectionsTable,
             //    cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
             //    cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
             //    -10.0D, 10.0D, 0.02D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
 
-            //eCorrsIdleValveToRPM.SetConfig("idle_valve_position", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
-            //eCorrsIdleValveToRPM.SetX("RPM", "RPM", "F0");
-            //eCorrsIdleValveToRPM.SetY(string.Empty, "Correction", "F3");
-            //eCorrsIdleValveToRPM.SetD("EngineTemp", "Temperature", "F1");
-            //eCorrsIdleValveToRPM.SetTableEventHandler(ChartCorrectionEvent);
-            //eCorrsIdleValveToRPM.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIdleValveToRPM.scHorisontal.Width * 0.75);
+            //eCorrIdleValvePos.SetConfig("idle_valve_position", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
+            //eCorrIdleValvePos.SetX("RPM", "RPM", "F0");
+            //eCorrIdleValvePos.SetY(string.Empty, "Correction", "F3");
+            //eCorrIdleValvePos.SetD("EngineTemp", "Temperature", "F1");
+            //eCorrIdleValvePos.SetTableEventHandler(ChartCorrectionEvent);
+            //eCorrIdleValvePos.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIdleValveToRPM.scHorisontal.Width * 0.75);
 
-            //eCorrsIdleValveToRPM.SetTableColorTrans(colorTransience);
-            //eCorrsIdleValveToRPM.SynchronizeChart();
+            //eCorrIdleValvePos.SetTableColorTrans(colorTransience);
+            //eCorrIdleValvePos.SynchronizeChart();
 
             colorTransience = new ColorTransience(-10.0F, 10.0F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -10.0F);
@@ -1109,7 +1109,7 @@ namespace ECU_Manager
             eCorrsFillByDensity.UpdateChart();
             eCorrsIdleFillByDensity.UpdateChart();
             //TODO:
-            //eCorrsFillByDensity.UpdateChart();
+            //eCorrIdleValvePos.UpdateChart();
             eCorrsIgnition.UpdateChart();
             eCorrsKnockDetonationCounter.UpdateChart();
             eCorrsKnockCyNoiseLevelMult.UpdateChart();
