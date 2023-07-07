@@ -428,7 +428,15 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public float[] start_econ_delay;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1020)]
+        public float fan_advance_control_low;
+        public float fan_advance_control_mid;
+        public float fan_advance_control_high;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX * Consts.TABLE_SPEEDS_MAX)]
+        [XmlArray("fan_advance_control")]
+        [XmlArrayItem("value")]
+        public float[] fan_advance_control;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 761)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

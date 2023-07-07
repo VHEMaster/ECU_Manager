@@ -724,6 +724,31 @@ namespace ECU_Manager
             eEngineTempMixCorr.SynchronizeChart();
 
 
+            colorTransience = new ColorTransience(-1.0F, 1.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -1.0F);
+            colorTransience.Add(Color.Blue, -0.5F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -0.1F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 0.1F);
+            colorTransience.Add(Color.Red, 0.5F);
+            colorTransience.Add(Color.DarkRed, 1.0F);
+
+            eAdvancedFanControl.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
+                -5.0D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_SPEEDS_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
+
+            eAdvancedFanControl.SetConfig("fan_advance_control", "idle_speeds_shift_count", "engine_temp_count", "idle_rpm_shift_speeds", "engine_temps");
+            eAdvancedFanControl.SetX("Speed", "Speed", "F1");
+            eAdvancedFanControl.SetY(string.Empty, "FanValue", "F2");
+            eAdvancedFanControl.SetD("EngineTemp", "EngineTemp", "F1");
+            eAdvancedFanControl.SetTableEventHandler(ChartUpdateEvent);
+            eAdvancedFanControl.scHorisontal.SplitterDistance = (int)Math.Round(eEngineTempMixCorr.scHorisontal.Width * 0.65);
+
+            eAdvancedFanControl.SetTableColorTrans(colorTransience);
+            eAdvancedFanControl.SynchronizeChart();
+       
+           
             colorTransience = new ColorTransience(-5F, 5F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -5.0F);
             colorTransience.Add(Color.Blue, -3.0F);
@@ -960,6 +985,7 @@ namespace ECU_Manager
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage91), Text = "Cyclic Fillings" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage103), Text = "Rotates" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl13, tabPage90), Text = "Pressures" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage111), Text = "Fan Control" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage26), Text = "Startup" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage57), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage77), Text = "Injection phase" });
@@ -1024,6 +1050,7 @@ namespace ECU_Manager
             eAirTempIgnCorr.SynchronizeChart();
             eEngineTempMixCorr.SynchronizeChart();
             eEngineTempIgnCorr.SynchronizeChart();
+            eAdvancedFanControl.SynchronizeChart();
             eKnockZone.SynchronizeChart();
             eKnockCyLevelMultiplier.SynchronizeChart();
             eEnrichmentRate.SynchronizeChart();
@@ -1118,6 +1145,7 @@ namespace ECU_Manager
             eAirTempIgnCorr.UpdateChart();
             eEngineTempMixCorr.UpdateChart();
             eEngineTempIgnCorr.UpdateChart();
+            eAdvancedFanControl.UpdateChart();
 
             eTspsRelativePosition.UpdateChart();
             eTspsDesyncThr.UpdateChart();
@@ -1530,11 +1558,15 @@ namespace ECU_Manager
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
             nudParamsFuelKgL.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc;
             nudParamsFuelAFR.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_afr;
-            
+
             nudParamsPidShortCorrP.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p;
             nudParamsPidShortCorrI.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_i;
             nudParamsPidShortCorrD.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_d;
-            
+
+            nudParamsFanLowV.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_low;
+            nudParamsFanMidV.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_mid;
+            nudParamsFanHighV.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_high;
+
             nudParamsIdleIgnDevMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_min;
             nudParamsIdleIgnDevMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_deviation_max;
             nudParamsIdleIgnFanLCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_ign_fan_low_corr;
@@ -2142,6 +2174,33 @@ namespace ECU_Manager
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsFanLowV_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_low = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsFanMidV_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_mid = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsFanHighV_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].fan_advance_control_high = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
 
