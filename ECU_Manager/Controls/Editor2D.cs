@@ -1204,7 +1204,7 @@ namespace ECU_Manager.Controls
                     for (int x = 0; x < sizex; x++)
                     {
                         index = y * iArraySizeX + x;
-                        line += string.Format("{0:0" + decplaces + "}f, ", array2d[index]);
+                        line += string.Format("{0:0" + decplaces + "}" + (iDecPlaces > 0 ? "f" : "") + ", ", array2d[index]);
                     }
                     text += line;
                     text += "},\r\n";

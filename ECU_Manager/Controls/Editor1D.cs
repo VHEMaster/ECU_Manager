@@ -797,7 +797,7 @@ namespace ECU_Manager.Controls
                 text = "\t";
                 for (int x = 0; x < size; x++)
                 {
-                    text += string.Format("{0:0" + decplaces + "}f, ", array1d[x]);
+                    text += string.Format("{0:0" + decplaces + "}"+ (iDecPlaces > 0 ? "f" : "") +", ", array1d[x]);
                     if ((x + 1) % 8 == 0 && (x + 1) < size && x > 0)
                         text += "\r\n\t";
                 }
@@ -842,6 +842,7 @@ namespace ECU_Manager.Controls
                             output[x] = (float)dMinY;
                         array1d[x] = output[x];
                     }
+                    this.UpdateChart();
                     UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }
             }

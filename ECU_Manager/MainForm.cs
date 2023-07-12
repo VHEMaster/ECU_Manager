@@ -451,9 +451,9 @@ namespace ECU_Manager
             eIdleSpeedShift.SetY("IdleSpeedShift", "RPM Shift", "F0");
             eIdleSpeedShift.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 500D, 10, 0);
-            eIdleValvePos.SetConfig("idle_valve_position", "rotates_count", "rotates");
-            eIdleValvePos.SetX("RPM", "RPM", "F0");
+            eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 10D, 10, 0);
+            eIdleValvePos.SetConfig("idle_valve_position", "engine_temp_count", "engine_temps");
+            eIdleValvePos.SetX("EngineTemp", "Temp.", "F1");
             eIdleValvePos.SetY("WishIdleValvePosition", "Valve Pos", "F0");
             eIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
             
@@ -960,7 +960,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage106), Text = "Correction by Engine Temperature" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve vs. RPM" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage39), Text = "Mass air flow" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage40), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage80), Text = "Static ignition" });
