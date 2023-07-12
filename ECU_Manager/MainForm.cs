@@ -676,7 +676,7 @@ namespace ECU_Manager
             eCorrsKnockDetonationCounter.Initialize(cs, Editor2DMode.CorrectionsTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0D, 10.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
+                -10D, 99.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 1);
 
             eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates_count", "fillings_count", "rotates", "fillings");
             eCorrsKnockDetonationCounter.SetX("RPM", "RPM", "F0");

@@ -596,7 +596,7 @@ namespace ECU_Manager.Controls
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
 
             }
