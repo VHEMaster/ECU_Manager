@@ -454,9 +454,15 @@ namespace ECU_Manager
             eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 10D, 10, 0);
             eIdleValvePos.SetConfig("idle_valve_position", "engine_temp_count", "engine_temps");
             eIdleValvePos.SetX("EngineTemp", "Temp.", "F1");
-            eIdleValvePos.SetY("WishIdleValvePosition", "Valve Pos", "F0");
+            eIdleValvePos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
-            
+
+            eIdleValveEconPos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 500D, 10, 0);
+            eIdleValveEconPos.SetConfig("idle_valve_econ_position", "rotates_count", "rotates");
+            eIdleValveEconPos.SetX("RPM", "RPM", "F0");
+            eIdleValveEconPos.SetY("IdleValvePosition", "Valve Pos", "F0");
+            eIdleValveEconPos.SetTableEventHandler(ChartUpdateEvent);
+
             eWarmupMixture.Initialize(cs, 1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
             eWarmupMixture.SetConfig("warmup_mixtures", "engine_temp_count", "engine_temps");
             eWarmupMixture.SetX("EngineTemp", "Temp.", "F1");
@@ -961,6 +967,7 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve position" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage112), Text = "Valve Econ position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage39), Text = "Mass air flow" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage40), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage80), Text = "Static ignition" });
@@ -1096,6 +1103,7 @@ namespace ECU_Manager
             eIdleWishMassAirFlow.UpdateChart();
             eIdleSpeedShift.UpdateChart();
             eIdleValvePos.UpdateChart();
+            eIdleValveEconPos.UpdateChart();
 
             eIdleRegThr1.UpdateChart();
             eIdleRegThr2.UpdateChart();

@@ -436,7 +436,12 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("value")]
         public float[] fan_advance_control;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 761)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_valve_econ_position")]
+        [XmlArrayItem("valve")]
+        public float[] idle_valve_econ_position;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 745)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
