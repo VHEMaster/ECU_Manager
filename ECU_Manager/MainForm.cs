@@ -2455,6 +2455,15 @@ namespace ECU_Manager
             }
         }
 
+        private void nudLearnCyclesDelayMult_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.learn_cycles_delay_mult = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
         private void nudSwPos0_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.switchPos0Table = (int)((NumericUpDown)sender).Value - 1;
