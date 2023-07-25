@@ -355,7 +355,7 @@ namespace ECU_Manager
             eIdleFillingRotates.SetY("RPM", "RPM", "F0");
             eIdleFillingRotates.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleFillingPressures.Initialize(cs, 0, 2, 0.001, 0.01, 0, 1, 1, 0.1, 3);
+            eIdleFillingPressures.Initialize(cs, 0, 1000000, 100, 50, 0, 100000, 1, 10000, 0);
             eIdleFillingPressures.SetConfig("idle_filling_pressures", "idle_filling_pressures_count", string.Empty);
             eIdleFillingPressures.SetY("ManifoldAirPressure", "Destiny", "F3");
             eIdleFillingPressures.SetTableEventHandler(ChartUpdateEvent);
@@ -707,7 +707,7 @@ namespace ECU_Manager
             eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
             eAirTempMixCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
-            eAirTempMixCorr.SetD("AirTemp", "AirTemp", "F1");
+            eAirTempMixCorr.SetD("CalculatedAirTemp", "CalcdAirTemp", "F1");
             eAirTempMixCorr.SetTableEventHandler(ChartUpdateEvent);
             eAirTempMixCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempMixCorr.scHorisontal.Width * 0.65);
 
@@ -773,7 +773,7 @@ namespace ECU_Manager
             eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
             eAirTempIgnCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
-            eAirTempIgnCorr.SetD("AirTemp", "AirTemp", "F1");
+            eAirTempIgnCorr.SetD("CalculatedAirTemp", "CalcAirTemp", "F1");
             eAirTempIgnCorr.SetTableEventHandler(ChartUpdateEvent);
             eAirTempIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eAirTempIgnCorr.scHorisontal.Width * 0.65);
 

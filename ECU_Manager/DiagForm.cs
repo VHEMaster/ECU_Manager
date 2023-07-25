@@ -367,6 +367,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "KnockAdvance") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "AirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.AirTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "EngineTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.EngineTemp, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "CalculatedAirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.CalculatedAirTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "Pressure") parameter.FloatFormat = "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "ThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottlePosition, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "ReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},

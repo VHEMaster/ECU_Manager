@@ -39,6 +39,7 @@ namespace ECU_Framework.Structs
         public int KnockCountCy4;
         public float AirTemp;
         public float EngineTemp;
+        public float CalculatedAirTemp;
         public float ManifoldAirPressure;
         public float ThrottlePosition;
         public float ReferenceVoltage;
