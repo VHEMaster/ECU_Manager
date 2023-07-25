@@ -64,8 +64,10 @@ namespace ECU_Framework.Structs
         public int knockIntegratorTime;
         public int performIdleAdaptation;
         public float learn_cycles_delay_mult;
+        public float air_temp_corr_koff_min;
+        public float air_temp_corr_koff_max;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 977)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 975)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

@@ -589,7 +589,7 @@ namespace ECU_Manager
             eCorrsIdleFillingGbc.SetD("ManifoldAirPressure", "Pressure", "F0");
             eCorrsIdleFillingGbc.SetTableEventHandler(ChartCorrectionEvent);
             eCorrsIdleFillingGbc.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIdleFillingGbc.scHorisontal.Width * 0.75);
-
+             
             eCorrsIdleFillingGbc.SetTableColorTrans(colorTransience);
             eCorrsIdleFillingGbc.SynchronizeChart();
 
@@ -1463,6 +1463,8 @@ namespace ECU_Manager
                 nudEngVol.Value = (decimal)cs.ConfigStruct.parameters.engineVolume;
                 nudSpeedInputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedInputCorrection;
                 nudSpeedOutputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedOutputCorrection;
+                nudParamsAirCalcKoffMin.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_min;
+                nudParamsAirCalcKoffMax.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_max;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
@@ -2449,6 +2451,24 @@ namespace ECU_Manager
         private void nudSpeedOutputCorr_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.speedOutputCorrection = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsAirCalcKoffMin_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.air_temp_corr_koff_min = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsAirCalcKoffMax_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.air_temp_corr_koff_max = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
