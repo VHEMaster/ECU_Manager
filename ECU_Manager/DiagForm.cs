@@ -387,7 +387,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "CyclicAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.CyclicAirFlow, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "EffectiveVolume") parameter.FloatFormat = "F1"; //&ecu_parameters.EffectiveVolume, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "AirDensity") parameter.FloatFormat = "F3"; //&ecu_parameters.AirDensity, .title = "%s%0.3f"},
-                if (fieldInfo.Name == "RelativeFilling") parameter.FloatFormat = "F2"; //&ecu_parameters.RelativeFilling, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "EngineLoad") parameter.FloatFormat = "F1"; //&ecu_parameters.EngineLoad, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "WishFuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.WishFuelRatio, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "IdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleValvePosition, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "IdleRegThrRPM") parameter.FloatFormat = "F0"; //&ecu_parameters.IdleRegThrRPM, .title = "%s%0.0f"},

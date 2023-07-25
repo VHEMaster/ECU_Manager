@@ -138,7 +138,7 @@ namespace ECU_Manager
 
             eCyclicFilling.SetConfig("fill_by_density", "rotates_count", "densities_count", "rotates", "densities");
             eCyclicFilling.SetX("RPM", "RPM", "F0");
-            eCyclicFilling.SetY("RelativeFilling", "Fill", "F2");
+            eCyclicFilling.SetY(string.Empty, "Fill", "F2");
             eCyclicFilling.SetD("AirDensity", "Density", "F3");
             eCyclicFilling.SetTableEventHandler(ChartUpdateEvent);
 
@@ -162,7 +162,7 @@ namespace ECU_Manager
 
             eIdleFillingByDensity.SetConfig("idle_filling_by_density", "idle_filling_rotates_count", "idle_filling_densities_count", "idle_filling_rotates", "idle_filling_densities");
             eIdleFillingByDensity.SetX("RPM", "RPM", "F0");
-            eIdleFillingByDensity.SetY("RelativeFilling", "Fill", "F2");
+            eIdleFillingByDensity.SetY(string.Empty, "Fill", "F2");
             eIdleFillingByDensity.SetD("AirDensity", "Density", "F3");
             eIdleFillingByDensity.SetTableEventHandler(ChartUpdateEvent);
 
