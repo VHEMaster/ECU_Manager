@@ -65,6 +65,8 @@ namespace ECU_Framework.Structs
         public float EffectiveVolume;
         public float AirDensity;
         public float EngineLoad;
+        public float EstimatedPower;
+        public float EstimatedTorque;
         public float WishFuelRatio;
         public float IdleValvePosition;
         public float IdleRegThrRPM;
