@@ -45,7 +45,7 @@ namespace ECU_Manager
         double dTimeFrom;
         double dTimeTo;
         TimeScaleEnum TimeScale = TimeScaleEnum.TenSeconds;
-        BlockingCollection<PointData> dataPoints = new BlockingCollection<PointData>();
+        List<PointData> dataPoints = new List<PointData>();
         Stopwatch stopwatch = new Stopwatch();
         bool widthBigPrev = false;
 
@@ -800,17 +800,17 @@ namespace ECU_Manager
                     chart.ChartAreas[0].AxisX.Minimum = posmin;
                     chart.ChartAreas[0].AxisX.Maximum = posmax;
 
-                    IEnumerable<DataPoint> toberemoved_min = chart.Series[0].Points.Where(p => p.XValue < chart.ChartAreas[0].AxisX.Minimum).ToList();
+                    IEnumerable<DataPoint> toberemoved_min = chart.Series[0].Points.Where(p => p.XValue < chart.ChartAreas[0].AxisX.Minimum).ToArray();
                     foreach (DataPoint point in toberemoved_min)
                         chart.Series[0].Points.Remove(point);
 
-                    IEnumerable<DataPoint> toberemoved_max = chart.Series[0].Points.Where(p => p.XValue > chart.ChartAreas[0].AxisX.Maximum).ToList();
+                    IEnumerable<DataPoint> toberemoved_max = chart.Series[0].Points.Where(p => p.XValue > chart.ChartAreas[0].AxisX.Maximum).ToArray();
                     foreach (DataPoint point in toberemoved_max)
                         chart.Series[0].Points.Remove(point);
 
                     for (int i = index_first; i <= index_last; i++)
                     {
-                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints.ElementAt(i).Seconds)
+                        if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints[i].Seconds)
                         {
                             if (chart.Tag != null)
                             {
@@ -818,13 +818,13 @@ namespace ECU_Manager
 
                                 if (parameter.Type == typeof(float))
                                 {
-                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuef);
+                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
                                 }
                                 else if(parameter.Type == typeof(int))
                                 {
-                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints.ElementAt(i).Seconds, valuei);
+                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
                                 }
                             }
                         }
@@ -832,7 +832,7 @@ namespace ECU_Manager
 
                     for (int i = index_last; i >= index_first; i--)
                     {
-                        if (chart.Series[0].Points.First().XValue > dataPoints.ElementAt(i).Seconds)
+                        if (chart.Series[0].Points.First().XValue > dataPoints[i].Seconds)
                         {
                             if (chart.Tag != null)
                             {
@@ -840,13 +840,13 @@ namespace ECU_Manager
 
                                 if (parameter.Type == typeof(float))
                                 {
-                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints.ElementAt(i).Seconds, valuef);
+                                    valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valuef);
                                 }
                                 else
                                 {
-                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints.ElementAt(i).Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints.ElementAt(i).Seconds, valuei);
+                                    valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valuei);
                                 }
                             }
                         }
