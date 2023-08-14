@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -46,6 +47,7 @@ namespace ECU_Manager
         double dTimeTo;
         TimeScaleEnum TimeScale = TimeScaleEnum.TenSeconds;
         List<PointData> dataPoints = new List<PointData>();
+        Mutex dataMutex = new Mutex();
         Stopwatch stopwatch = new Stopwatch();
         bool widthBigPrev = false;
 
@@ -65,10 +67,12 @@ namespace ECU_Manager
             try
             {
                 IEnumerable<PointData> points = EcuLog.ParseLog(fileInfo);
+                dataMutex.WaitOne();
                 foreach(PointData point in points)
                 {
                     dataPoints.Add(point);
                 }
+                dataMutex.ReleaseMutex();
             }
             catch (Exception ex)
             {
@@ -640,7 +644,9 @@ namespace ECU_Manager
                     chart_point_prev = new Point(e.X, e.Y);
 
                     double time_nrst = chart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                    dataMutex.WaitOne();
                     PointData closest = dataPoints.OrderBy(p => Math.Abs(p.Seconds - time_nrst)).FirstOrDefault();
+                    dataMutex.ReleaseMutex();
                     if (closest != null)
                     {
                         Parameter parameter = chart.Tag as Parameter;
@@ -679,9 +685,11 @@ namespace ECU_Manager
             float valuef;
             int valuei;
 
+            dataMutex.WaitOne();
             if (dataPoints.Count > 0)
             {
                 PointData current = dataPoints.LastOrDefault();
+                dataMutex.ReleaseMutex();
                 if (current != null && cbLiveView.Checked)
                 {
                     foreach (Label label in lblValues)
@@ -700,8 +708,8 @@ namespace ECU_Manager
                             }
                         }
                     }
-                }
-
+                } 
+             
 
                 if (cbLiveView.Checked)
                 {
@@ -722,6 +730,7 @@ namespace ECU_Manager
 
                 int index_first = 0;
                 int index_last = 0;
+                dataMutex.WaitOne();
                 double[] seconds = dataPoints.Select(p => p.Seconds).ToArray();
 
                 if (dTimeFrom <= dataPoints.First().Seconds)
@@ -746,8 +755,9 @@ namespace ECU_Manager
                         index_last = index_first;
                     else if(index_last + 1 < seconds.Count())
                         index_last++;
-                    
+
                 }
+                dataMutex.ReleaseMutex();
 
                 if (middleLayer == null)
                 {
@@ -884,11 +894,17 @@ namespace ECU_Manager
                     chart.ResumeLayout();
                 }
             }
+            else
+            {
+                dataMutex.ReleaseMutex();
+            }
         }
 
         public void UpdateParametersEvent(EcuParameters parameters)
         {
+            dataMutex.WaitOne();
             dataPoints.Add(new PointData { Parameters = parameters, Seconds = stopwatch.ElapsedMilliseconds * 0.001D });
+            dataMutex.ReleaseMutex();
             Action action = new Action(() => { this.UpdateParameters(parameters); });
             if (this.InvokeRequired)
                 this.BeginInvoke(action);
@@ -1083,7 +1099,9 @@ namespace ECU_Manager
                 {
                     try
                     {
+                        dataMutex.WaitOne();
                         EcuLog.SaveLog(sfdExportLog.FileName, dataPoints);
+                        dataMutex.ReleaseMutex();
                         this.Invoke(new Action(() => MessageBox.Show(this, "Log exported successfully", "ECU Manager", MessageBoxButtons.OK, MessageBoxIcon.Information)));
                     }
                     catch (Exception ex)
