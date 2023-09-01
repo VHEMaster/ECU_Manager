@@ -64,31 +64,31 @@ namespace ECU_Framework.Structs
         public float[] throttles;
         
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("filling_gbc")]
+        [XmlArray("filling_gbc_map")]
         [XmlArrayItem("filling")]
-        public float[] filling_gbc;
+        public float[] filling_gbc_map;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("map_by_thr")]
-        [XmlArrayItem("pressure")]
-        public float[] map_by_thr;
-
-        public int use_idle_filling;
-        public int idle_filling_rotates_count;
-        public int idle_filling_pressures_count;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("idle_filling_rotates")]
-        [XmlArrayItem("rotate")]
-        public float[] idle_filling_rotates;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX)]
-        [XmlArray("idle_filling_pressures")]
-        [XmlArrayItem("pressure")]
-        public float[] idle_filling_pressures;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("idle_filling_gbc")]
+        [XmlArray("filling_gbc_tps")]
         [XmlArrayItem("filling")]
-        public float[] idle_filling_gbc;
+        public float[] filling_gbc_tps;
+
+        public int RSVD1;
+        public int RSVD2;
+        public int RSVD3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("filling_select_koff_tps")]
+        [XmlArrayItem("rotate")]
+        public float[] filling_select_koff_tps;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [XmlArray("RSVD5")]
+        [XmlArrayItem("rsvd")]
+        public float[] RSVD5;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+        [XmlArray("RSVD6")]
+        [XmlArrayItem("rsvd")]
+        public float[] RSVD6;
 
         public int enrichment_load_type;
         public float enrichment_load_dead_band;

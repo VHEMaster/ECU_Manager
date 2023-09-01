@@ -17,14 +17,14 @@ namespace ECU_Framework.Structs
         public float[] ignitions;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("filling_gbc")]
+        [XmlArray("filling_gbc_map")]
         [XmlArrayItem("filling")]
-        public float[] filling_gbc;
+        public float[] filling_gbc_map;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("map_by_thr")]
-        [XmlArrayItem("pressure")]
-        public float[] map_by_thr;
+        [XmlArray("filling_gbc_tps")]
+        [XmlArrayItem("filling")]
+        public float[] filling_gbc_tps;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_valve_position")]
@@ -41,25 +41,20 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("count")]
         public float[] knock_detonation_counter;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("idle_filling_gbc")]
-        [XmlArrayItem("filling")]
-        public float[] idle_filling_gbc;
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("progress_ignitions")]
         [XmlArrayItem("angle")]
         public byte[] progress_ignitions;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("progress_filling_gbc")]
+        [XmlArray("progress_filling_gbc_map")]
         [XmlArrayItem("value")]
-        public byte[] progress_filling_gbc;
+        public byte[] progress_filling_gbc_map;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("progress_map_by_thr")]
+        [XmlArray("progress_filling_gbc_tps")]
         [XmlArrayItem("value")]
-        public byte[] progress_map_by_thr;
+        public byte[] progress_filling_gbc_tps;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("progress_idle_valve_position")]
@@ -70,11 +65,6 @@ namespace ECU_Framework.Structs
         [XmlArray("progress_knock_cy_level_multiplier")]
         [XmlArrayItem("value")]
         public byte[] progress_knock_cy_level_multiplier;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
-        [XmlArray("progress_idle_filling_gbc")]
-        [XmlArrayItem("value")]
-        public byte[] progress_idle_filling_gbc;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("knock_ignition_correctives")]
