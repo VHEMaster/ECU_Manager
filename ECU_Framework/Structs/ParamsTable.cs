@@ -67,7 +67,13 @@ namespace ECU_Framework.Structs
         public float air_temp_corr_koff_min;
         public float air_temp_corr_koff_max;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 975)]
+        public float tps_voltage_low;
+        public float tps_voltage_high;
+
+        public float map_pressure_gain;
+        public float map_pressure_offset;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 971)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

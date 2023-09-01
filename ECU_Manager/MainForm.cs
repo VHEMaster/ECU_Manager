@@ -1415,7 +1415,12 @@ namespace ECU_Manager
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
                 nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
-                
+
+                nudSensMapGain.Value = (decimal)cs.ConfigStruct.parameters.map_pressure_gain;
+                nudSensMapOffset.Value = (decimal)cs.ConfigStruct.parameters.map_pressure_offset;
+                nudSensTpsLow.Value = (decimal)cs.ConfigStruct.parameters.tps_voltage_low;
+                nudSensTpsHigh.Value = (decimal)cs.ConfigStruct.parameters.tps_voltage_high;
+
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
                 cbUseIdleValve.Checked = cs.ConfigStruct.parameters.useIdleValve > 0;
@@ -3581,6 +3586,42 @@ namespace ECU_Manager
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudSensMapGain_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.map_pressure_gain = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudSensMapOffset_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.map_pressure_offset = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudSensTpsMin_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.tps_voltage_low = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudSensTpsMax_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.tps_voltage_high = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
             }
         }
     }
