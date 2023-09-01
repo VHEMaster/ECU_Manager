@@ -55,7 +55,7 @@ namespace ECU_Framework.Structs
         public float shiftAdvance;
         public float shiftMixture;
 
-        public float res1;
+        public int useIdleValve;
         public float res2;
 
         public int useShortTermCorr;

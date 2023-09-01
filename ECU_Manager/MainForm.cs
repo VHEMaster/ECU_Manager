@@ -1417,7 +1417,8 @@ namespace ECU_Manager
                 nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
                 
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
-                cbUseLambdaAC.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
+                cbUseIdleValve.Checked = cs.ConfigStruct.parameters.useIdleValve > 0;
                 cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
@@ -2495,6 +2496,15 @@ namespace ECU_Manager
         private void cbUseLambda_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.useLambdaSensor = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
+        private void cbUseIdleValve_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.useIdleValve = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
