@@ -72,8 +72,8 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("filling")]
         public float[] filling_gbc_tps;
 
-        public int RSVD1;
-        public int RSVD2;
+        public int idle_valve_pos_min;
+        public int idle_valve_pos_max;
         public int RSVD3;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("filling_select_koff_tps")]

@@ -1491,6 +1491,8 @@ namespace ECU_Manager
             nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
             nudParamsCntAirTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
             nudParamsCntSpeeds.Maximum = Consts.TABLE_SPEEDS_MAX;
+            nudParamsIdleValveMin.Maximum = Consts.IDLE_VALVE_POS_MAX;
+            nudParamsIdleValveMax.Maximum = Consts.IDLE_VALVE_POS_MAX;
             nudParamsCntEnrichmentStartLoad.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS_MAX;
             nudParamsCntEnrichmentLoadDerivative.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS_MAX;
 
@@ -1505,6 +1507,9 @@ namespace ECU_Manager
             nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
             nudParamsCntEnrichmentStartLoad.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count;
             nudParamsCntEnrichmentLoadDerivative.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count;
+
+            nudParamsIdleValveMin.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_min;
+            nudParamsIdleValveMax.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_max;
 
             nudParamsEnrichmentLoadDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band;
             nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
@@ -3622,6 +3627,24 @@ namespace ECU_Manager
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
+            }
+        }
+
+        private void nudParamsIdleValveMin_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_min = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleValveMax_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_max = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
     }
