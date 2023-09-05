@@ -17,13 +17,13 @@ namespace ECU_Framework.Structs
         public int inj_channel;
         
         public float injector_performance;
-        public int is_fuel_pressure_const;
+        public int RSVD1;
         public int is_fuel_phase_by_end;
         public int enrichment_ph_async_enabled;
         public int enrichment_ph_sync_enabled;
         public int enrichment_pp_async_enabled;
         public int enrichment_pp_sync_enabled;
-        public float fuel_pressure;
+        public float RSVD2;
         public float fuel_mass_per_cc;
         public float fuel_afr;
 

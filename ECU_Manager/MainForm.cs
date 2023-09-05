@@ -134,7 +134,7 @@ namespace ECU_Manager
             eCyclicFillingMAP.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
+                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 4);
 
             eCyclicFillingMAP.SetConfig("filling_gbc_map", "rotates_count", "pressures_count", "rotates", "pressures");
             eCyclicFillingMAP.SetX("RPM", "RPM", "F0");
@@ -158,7 +158,7 @@ namespace ECU_Manager
             eCyclicFillingTPS.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 3);
+                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PRESSURES_MAX, 4);
 
             eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates_count", "throttles_count", "rotates", "throttles");
             eCyclicFillingTPS.SetX("RPM", "RPM", "F0");
@@ -1473,8 +1473,7 @@ namespace ECU_Manager
                 case 1: rbEnrichTypeMAP.Checked = true; break;
                 default: break;
             }
-
-            cbParamsIsFuelPressureConst.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const > 0;
+            
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
@@ -1519,8 +1518,7 @@ namespace ECU_Manager
             nudParamsEnrichmentAsyncPulsesDivider.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_async_pulses_divider;
             nudParamsEnrichmentPostInjectionFinalPhase.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_end_injection_final_phase;
             nudParamsEnrichmentPostInjectionFinalAmount.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_end_injection_final_amount; 
-
-            nudParamsFuelPressure.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure;
+            
             nudParamsInjPerformance.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].injector_performance;
             nudParamsFuelKgL.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc;
             nudParamsFuelAFR.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].fuel_afr;
@@ -2931,16 +2929,6 @@ namespace ECU_Manager
             }
         }
 
-        private void cbParamsIsFuelPressureConst_CheckedChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_pressure_const = ((CheckBox)sender).Checked ? 1 : 0;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-        
-
         private void cbParamsIsPhAsyncEnrichmentEnabled_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled = ((CheckBox)sender).Checked ? 1 : 0;
@@ -2976,16 +2964,7 @@ namespace ECU_Manager
                 middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
-
-        private void nudParamsFuelPressure_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].fuel_pressure = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
+        
         private void nudParamsFuelKgL_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].fuel_mass_per_cc = (float)((NumericUpDown)sender).Value;

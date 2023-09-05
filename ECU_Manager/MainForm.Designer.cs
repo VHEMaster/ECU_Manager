@@ -398,7 +398,6 @@
             this.label84 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.cbParamsIsInjectionPhaseByEnd = new System.Windows.Forms.CheckBox();
-            this.cbParamsIsFuelPressureConst = new System.Windows.Forms.CheckBox();
             this.label77 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
@@ -419,7 +418,6 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
@@ -454,7 +452,6 @@
             this.nudParamsCntFillings = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsCntVoltages = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsCntThrottles = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.nudParamsFuelPressure = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsInjPerformance = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsFuelKgL = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsCntEngineTemps = new ECU_Manager.Controls.NumericUpDownOneWheel();
@@ -840,7 +837,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntFillings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntVoltages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntThrottles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFuelPressure)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInjPerformance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsFuelKgL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntEngineTemps)).BeginInit();
@@ -1611,10 +1607,10 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 45);
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1097, 568);
+            this.tabPage2.Size = new System.Drawing.Size(1097, 579);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -3562,7 +3558,6 @@
             this.tabPage8.Controls.Add(this.label84);
             this.tabPage8.Controls.Add(this.label82);
             this.tabPage8.Controls.Add(this.cbParamsIsInjectionPhaseByEnd);
-            this.tabPage8.Controls.Add(this.cbParamsIsFuelPressureConst);
             this.tabPage8.Controls.Add(this.label77);
             this.tabPage8.Controls.Add(this.label73);
             this.tabPage8.Controls.Add(this.label75);
@@ -3583,7 +3578,6 @@
             this.tabPage8.Controls.Add(this.label28);
             this.tabPage8.Controls.Add(this.label27);
             this.tabPage8.Controls.Add(this.label26);
-            this.tabPage8.Controls.Add(this.label25);
             this.tabPage8.Controls.Add(this.label24);
             this.tabPage8.Controls.Add(this.label21);
             this.tabPage8.Controls.Add(this.label51);
@@ -3618,7 +3612,6 @@
             this.tabPage8.Controls.Add(this.nudParamsCntFillings);
             this.tabPage8.Controls.Add(this.nudParamsCntVoltages);
             this.tabPage8.Controls.Add(this.nudParamsCntThrottles);
-            this.tabPage8.Controls.Add(this.nudParamsFuelPressure);
             this.tabPage8.Controls.Add(this.nudParamsInjPerformance);
             this.tabPage8.Controls.Add(this.nudParamsFuelKgL);
             this.tabPage8.Controls.Add(this.nudParamsCntEngineTemps);
@@ -3882,7 +3875,7 @@
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(6, 404);
+            this.label84.Location = new System.Drawing.Point(6, 261);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(143, 24);
             this.label84.TabIndex = 91;
@@ -3891,7 +3884,7 @@
             // label82
             // 
             this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(6, 369);
+            this.label82.Location = new System.Drawing.Point(6, 226);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(150, 24);
             this.label82.TabIndex = 89;
@@ -3908,18 +3901,6 @@
             this.cbParamsIsInjectionPhaseByEnd.Text = "Injection Phase by End:";
             this.cbParamsIsInjectionPhaseByEnd.UseVisualStyleBackColor = true;
             this.cbParamsIsInjectionPhaseByEnd.CheckedChanged += new System.EventHandler(this.cbParamsIsInjectionPhaseByEnd_CheckedChanged);
-            // 
-            // cbParamsIsFuelPressureConst
-            // 
-            this.cbParamsIsFuelPressureConst.AutoSize = true;
-            this.cbParamsIsFuelPressureConst.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbParamsIsFuelPressureConst.Location = new System.Drawing.Point(6, 114);
-            this.cbParamsIsFuelPressureConst.Name = "cbParamsIsFuelPressureConst";
-            this.cbParamsIsFuelPressureConst.Size = new System.Drawing.Size(223, 28);
-            this.cbParamsIsFuelPressureConst.TabIndex = 86;
-            this.cbParamsIsFuelPressureConst.Text = "Is Fuel Pressure Const:";
-            this.cbParamsIsFuelPressureConst.UseVisualStyleBackColor = true;
-            this.cbParamsIsFuelPressureConst.CheckedChanged += new System.EventHandler(this.cbParamsIsFuelPressureConst_CheckedChanged);
             // 
             // label77
             // 
@@ -3960,7 +3941,7 @@
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(6, 296);
+            this.label71.Location = new System.Drawing.Point(6, 153);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(96, 24);
             this.label71.TabIndex = 77;
@@ -3978,7 +3959,7 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(265, 543);
+            this.label50.Location = new System.Drawing.Point(265, 432);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(119, 24);
             this.label50.TabIndex = 71;
@@ -3987,7 +3968,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(265, 508);
+            this.label52.Location = new System.Drawing.Point(265, 397);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(119, 24);
             this.label52.TabIndex = 69;
@@ -3996,7 +3977,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(265, 474);
+            this.label54.Location = new System.Drawing.Point(265, 363);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(119, 24);
             this.label54.TabIndex = 67;
@@ -4005,7 +3986,7 @@
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(265, 439);
+            this.label55.Location = new System.Drawing.Point(265, 328);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(119, 24);
             this.label55.TabIndex = 65;
@@ -4014,7 +3995,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(9, 543);
+            this.label46.Location = new System.Drawing.Point(9, 432);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(112, 24);
             this.label46.TabIndex = 63;
@@ -4023,7 +4004,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(9, 508);
+            this.label41.Location = new System.Drawing.Point(9, 397);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(112, 24);
             this.label41.TabIndex = 61;
@@ -4032,7 +4013,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(9, 474);
+            this.label40.Location = new System.Drawing.Point(9, 363);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(112, 24);
             this.label40.TabIndex = 59;
@@ -4041,7 +4022,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(9, 439);
+            this.label39.Location = new System.Drawing.Point(9, 328);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(112, 24);
             this.label39.TabIndex = 57;
@@ -4101,19 +4082,10 @@
             this.label26.TabIndex = 31;
             this.label26.Text = "Throttles Count:";
             // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 226);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(133, 24);
-            this.label25.TabIndex = 29;
-            this.label25.Text = "Fuel Pressure:";
-            // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 331);
+            this.label24.Location = new System.Drawing.Point(6, 188);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(119, 24);
             this.label24.TabIndex = 27;
@@ -4122,7 +4094,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 261);
+            this.label21.Location = new System.Drawing.Point(6, 118);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(140, 24);
             this.label21.TabIndex = 25;
@@ -4275,7 +4247,7 @@
             0,
             0,
             131072});
-            this.nudParamsKnockInjCorr.Location = new System.Drawing.Point(171, 402);
+            this.nudParamsKnockInjCorr.Location = new System.Drawing.Point(171, 259);
             this.nudParamsKnockInjCorr.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4294,7 +4266,7 @@
             0,
             0,
             65536});
-            this.nudParamsKnockIgnCorr.Location = new System.Drawing.Point(171, 367);
+            this.nudParamsKnockIgnCorr.Location = new System.Drawing.Point(171, 224);
             this.nudParamsKnockIgnCorr.Maximum = new decimal(new int[] {
             0,
             0,
@@ -4403,7 +4375,7 @@
             0,
             0,
             65536});
-            this.nudParamsFuelAFR.Location = new System.Drawing.Point(171, 294);
+            this.nudParamsFuelAFR.Location = new System.Drawing.Point(171, 151);
             this.nudParamsFuelAFR.Maximum = new decimal(new int[] {
             30,
             0,
@@ -4445,7 +4417,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(389, 541);
+            this.nudParamsCorrIgnCy4.Location = new System.Drawing.Point(389, 430);
             this.nudParamsCorrIgnCy4.Maximum = new decimal(new int[] {
             15,
             0,
@@ -4469,7 +4441,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(389, 506);
+            this.nudParamsCorrIgnCy3.Location = new System.Drawing.Point(389, 395);
             this.nudParamsCorrIgnCy3.Maximum = new decimal(new int[] {
             15,
             0,
@@ -4493,7 +4465,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(389, 472);
+            this.nudParamsCorrIgnCy2.Location = new System.Drawing.Point(389, 361);
             this.nudParamsCorrIgnCy2.Maximum = new decimal(new int[] {
             15,
             0,
@@ -4517,7 +4489,7 @@
             0,
             0,
             65536});
-            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(389, 437);
+            this.nudParamsCorrIgnCy1.Location = new System.Drawing.Point(389, 326);
             this.nudParamsCorrIgnCy1.Maximum = new decimal(new int[] {
             15,
             0,
@@ -4541,7 +4513,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(133, 541);
+            this.nudParamsCorrInjCy4.Location = new System.Drawing.Point(133, 430);
             this.nudParamsCorrInjCy4.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4565,7 +4537,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(133, 506);
+            this.nudParamsCorrInjCy3.Location = new System.Drawing.Point(133, 395);
             this.nudParamsCorrInjCy3.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4589,7 +4561,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(133, 472);
+            this.nudParamsCorrInjCy2.Location = new System.Drawing.Point(133, 361);
             this.nudParamsCorrInjCy2.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4613,7 +4585,7 @@
             0,
             0,
             196608});
-            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(133, 437);
+            this.nudParamsCorrInjCy1.Location = new System.Drawing.Point(133, 326);
             this.nudParamsCorrInjCy1.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4735,25 +4707,6 @@
             this.nudParamsCntThrottles.TabIndex = 30;
             this.nudParamsCntThrottles.ValueChanged += new System.EventHandler(this.nudParamsCntThrottles_ValueChanged);
             // 
-            // nudParamsFuelPressure
-            // 
-            this.nudParamsFuelPressure.DecimalPlaces = 1;
-            this.nudParamsFuelPressure.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nudParamsFuelPressure.Location = new System.Drawing.Point(171, 224);
-            this.nudParamsFuelPressure.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudParamsFuelPressure.Name = "nudParamsFuelPressure";
-            this.nudParamsFuelPressure.Size = new System.Drawing.Size(160, 29);
-            this.nudParamsFuelPressure.TabIndex = 28;
-            this.nudParamsFuelPressure.ValueChanged += new System.EventHandler(this.nudParamsFuelPressure_ValueChanged);
-            // 
             // nudParamsInjPerformance
             // 
             this.nudParamsInjPerformance.DecimalPlaces = 1;
@@ -4762,7 +4715,7 @@
             0,
             0,
             65536});
-            this.nudParamsInjPerformance.Location = new System.Drawing.Point(171, 329);
+            this.nudParamsInjPerformance.Location = new System.Drawing.Point(171, 186);
             this.nudParamsInjPerformance.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -4781,7 +4734,7 @@
             0,
             0,
             131072});
-            this.nudParamsFuelKgL.Location = new System.Drawing.Point(171, 259);
+            this.nudParamsFuelKgL.Location = new System.Drawing.Point(171, 116);
             this.nudParamsFuelKgL.Maximum = new decimal(new int[] {
             5,
             0,
@@ -12339,7 +12292,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntFillings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntVoltages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntThrottles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFuelPressure)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsInjPerformance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsFuelKgL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsCntEngineTemps)).EndInit();
@@ -12871,7 +12823,6 @@
         private System.Windows.Forms.Label label82;
         private Controls.NumericUpDownOneWheel nudParamsKnockIgnCorr;
         private System.Windows.Forms.CheckBox cbParamsIsInjectionPhaseByEnd;
-        private System.Windows.Forms.CheckBox cbParamsIsFuelPressureConst;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label75;
@@ -12889,7 +12840,6 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label51;
@@ -12917,7 +12867,6 @@
         private Controls.NumericUpDownOneWheel nudParamsCntFillings;
         private Controls.NumericUpDownOneWheel nudParamsCntVoltages;
         private Controls.NumericUpDownOneWheel nudParamsCntThrottles;
-        private Controls.NumericUpDownOneWheel nudParamsFuelPressure;
         private Controls.NumericUpDownOneWheel nudParamsInjPerformance;
         private Controls.NumericUpDownOneWheel nudParamsFuelKgL;
         private Controls.NumericUpDownOneWheel nudParamsCntEngineTemps;
