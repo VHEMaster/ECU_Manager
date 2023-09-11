@@ -1411,6 +1411,7 @@ namespace ECU_Manager
                 nudSpeedOutputCorr.Value = (decimal)cs.ConfigStruct.parameters.speedOutputCorrection;
                 nudParamsAirCalcKoffMin.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_min;
                 nudParamsAirCalcKoffMax.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_max;
+                nudLearnCyclesDelayMult.Value = (decimal)cs.ConfigStruct.parameters.learn_cycles_delay_mult;
                 nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;

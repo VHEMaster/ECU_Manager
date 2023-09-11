@@ -5389,7 +5389,7 @@
             // 
             this.tabPage10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage10.Controls.Add(this.eCyclicFillingMAP);
-            this.tabPage10.Location = new System.Drawing.Point(4, 37);
+            this.tabPage10.Location = new System.Drawing.Point(4, 103);
             this.tabPage10.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Size = new System.Drawing.Size(162, 0);
@@ -5503,7 +5503,7 @@
             // 
             this.tabPage37.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage37.Controls.Add(this.eCyclicFillingTPS);
-            this.tabPage37.Location = new System.Drawing.Point(4, 26);
+            this.tabPage37.Location = new System.Drawing.Point(4, 70);
             this.tabPage37.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage37.Name = "tabPage37";
             this.tabPage37.Size = new System.Drawing.Size(176, 0);
@@ -5581,7 +5581,7 @@
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCyclicFillingTPS.Chart.Series.Add(series2);
-            this.eCyclicFillingTPS.Chart.Size = new System.Drawing.Size(180, 121);
+            this.eCyclicFillingTPS.Chart.Size = new System.Drawing.Size(158, 121);
             this.eCyclicFillingTPS.Chart.TabIndex = 4;
             this.eCyclicFillingTPS.Chart.Text = " ";
             this.eCyclicFillingTPS.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5603,7 +5603,7 @@
             this.eCyclicFillingTPS.Graph3D.Name = "graph3D";
             this.eCyclicFillingTPS.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCyclicFillingTPS.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCyclicFillingTPS.Graph3D.Size = new System.Drawing.Size(53, 84);
+            this.eCyclicFillingTPS.Graph3D.Size = new System.Drawing.Size(45, 84);
             this.eCyclicFillingTPS.Graph3D.TabIndex = 0;
             this.eCyclicFillingTPS.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCyclicFillingTPS.LabelTitle = "Cyclic Filling TPS";
@@ -5617,7 +5617,7 @@
             // 
             this.tabPage90.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage90.Controls.Add(this.eFillingSelectKoffTPS);
-            this.tabPage90.Location = new System.Drawing.Point(4, 26);
+            this.tabPage90.Location = new System.Drawing.Point(4, 70);
             this.tabPage90.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage90.Name = "tabPage90";
             this.tabPage90.Size = new System.Drawing.Size(176, 0);
