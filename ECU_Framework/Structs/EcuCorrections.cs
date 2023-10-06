@@ -37,6 +37,23 @@ namespace ECU_Framework.Structs
         public float[] knock_cy_level_multiplier;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("ignition_corr_cy1")]
+        [XmlArrayItem("value")]
+        public float[] ignition_corr_cy1;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("ignition_corr_cy2")]
+        [XmlArrayItem("value")]
+        public float[] ignition_corr_cy2;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("ignition_corr_cy3")]
+        [XmlArrayItem("value")]
+        public float[] ignition_corr_cy3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("ignition_corr_cy4")]
+        [XmlArrayItem("value")]
+        public float[] ignition_corr_cy4;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("knock_detonation_counter")]
         [XmlArrayItem("count")]
         public float[] knock_detonation_counter;
@@ -65,16 +82,6 @@ namespace ECU_Framework.Structs
         [XmlArray("progress_knock_cy_level_multiplier")]
         [XmlArrayItem("value")]
         public byte[] progress_knock_cy_level_multiplier;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
-        [XmlArray("knock_ignition_correctives")]
-        [XmlArrayItem("value")]
-        public float[] knock_ignition_correctives;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
-        [XmlArray("knock_injection_correctives")]
-        [XmlArrayItem("value")]
-        public float[] knock_injection_correctives;
 
         public float long_term_correction;
         public float idle_correction;

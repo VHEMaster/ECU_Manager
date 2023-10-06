@@ -10,7 +10,7 @@ namespace ECU_Framework.Structs
     {
         public const int ECU_CYLINDERS_COUNT = 4;
 
-        public const int TABLE_SETUPS_MAX = 2;
+        public const int TABLE_SETUPS_MAX = 1;
         public const int TABLE_PRESSURES_MAX = 16;
         public const int TABLE_THROTTLES_MAX = 16;
         public const int TABLE_FILLING_MAX = 16;

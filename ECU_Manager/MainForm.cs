@@ -242,6 +242,79 @@ namespace ECU_Manager
             eIgnitionFull.SetTableEventHandler(ChartUpdateEvent);
 
             eIgnitionFull.SetTableColorTrans(colorTransience);
+            
+            colorTransience = new ColorTransience(-10.0F, 10.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -10.0F);
+            colorTransience.Add(Color.Blue, -5.0F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -2.0F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
+            colorTransience.Add(Color.Red, 3.0F);
+            colorTransience.Add(Color.DarkRed, 5.0F);
+            colorTransience.Add(Color.Black, 10.0F);
+
+            eIgnitionFullCy1.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eIgnitionFullCy1.SetConfig("ignition_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy1.SetX("RPM", "RPM", "F0");
+            eIgnitionFullCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
+            eIgnitionFullCy1.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionFullCy1.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionFullCy1.SetTableColorTrans(colorTransience);
+            eIgnitionFullCy1.SynchronizeChart();
+
+
+
+            eIgnitionFullCy2.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eIgnitionFullCy2.SetConfig("ignition_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy2.SetX("RPM", "RPM", "F0");
+            eIgnitionFullCy2.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
+            eIgnitionFullCy2.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionFullCy2.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionFullCy2.SetTableColorTrans(colorTransience);
+            eIgnitionFullCy2.SynchronizeChart();
+
+
+
+            eIgnitionFullCy3.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eIgnitionFullCy3.SetConfig("ignition_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy3.SetX("RPM", "RPM", "F0");
+            eIgnitionFullCy3.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
+            eIgnitionFullCy3.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionFullCy3.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionFullCy3.SetTableColorTrans(colorTransience);
+            eIgnitionFullCy3.SynchronizeChart();
+
+
+
+            eIgnitionFullCy4.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eIgnitionFullCy4.SetConfig("ignition_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy4.SetX("RPM", "RPM", "F0");
+            eIgnitionFullCy4.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
+            eIgnitionFullCy4.SetD("CyclicAirFlow", "Filling", "F1");
+            eIgnitionFullCy4.SetTableEventHandler(ChartUpdateEvent);
+
+            eIgnitionFullCy4.SetTableColorTrans(colorTransience);
+            eIgnitionFullCy4.SynchronizeChart();
+
 
             eSaturationPulse.Initialize(cs, 0, 10000, 100, 500, 0, 5000, 1, 500, 0);
             eSaturationPulse.SetConfig("ignition_time", "voltages_count", "voltages");
@@ -620,6 +693,73 @@ namespace ECU_Manager
             eCorrsIgnition.SynchronizeChart();
 
 
+            eCorrsIgnitionCy1.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eCorrsIgnitionCy1.SetConfig("ignition_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy1.SetX("RPM", "RPM", "F0");
+            eCorrsIgnitionCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
+            eCorrsIgnitionCy1.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsIgnitionCy1.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIgnitionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy1.scHorisontal.Width * 0.7);
+
+            eCorrsIgnitionCy1.SetTableColorTrans(colorTransience);
+            eCorrsIgnitionCy1.SynchronizeChart();
+
+
+
+            eCorrsIgnitionCy2.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+        
+            eCorrsIgnitionCy2.SetConfig("ignition_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy2.SetX("RPM", "RPM", "F0");
+            eCorrsIgnitionCy2.SetY(string.Empty, "Ignition Corr.Cy2", "F2");
+            eCorrsIgnitionCy2.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsIgnitionCy2.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIgnitionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy2.scHorisontal.Width * 0.7);
+
+            eCorrsIgnitionCy2.SetTableColorTrans(colorTransience);
+            eCorrsIgnitionCy2.SynchronizeChart();
+
+
+
+            eCorrsIgnitionCy3.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eCorrsIgnitionCy3.SetConfig("ignition_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy3.SetX("RPM", "RPM", "F0");
+            eCorrsIgnitionCy3.SetY(string.Empty, "Ignition Corr.Cy3", "F2");
+            eCorrsIgnitionCy3.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsIgnitionCy3.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIgnitionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy3.scHorisontal.Width * 0.7);
+
+            eCorrsIgnitionCy3.SetTableColorTrans(colorTransience);
+            eCorrsIgnitionCy3.SynchronizeChart();
+
+
+
+            eCorrsIgnitionCy4.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 2);
+
+            eCorrsIgnitionCy4.SetConfig("ignition_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy4.SetX("RPM", "RPM", "F0");
+            eCorrsIgnitionCy4.SetY(string.Empty, "Ignition Corr.Cy4", "F2");
+            eCorrsIgnitionCy4.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsIgnitionCy4.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsIgnitionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy4.scHorisontal.Width * 0.7);
+
+            eCorrsIgnitionCy4.SetTableColorTrans(colorTransience);
+            eCorrsIgnitionCy4.SynchronizeChart();
+
+
             colorTransience = new ColorTransience(0.0F, 10.0F, Color.Gray);
             colorTransience.Add(Color.Green, 0.0F);
             colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
@@ -908,6 +1048,11 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Advances" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage115), Text = "Cylinders" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl17, tabPage116), Text = "Cylinder 1" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl17, tabPage117), Text = "Cylinder 2" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl17, tabPage118), Text = "Cylinder 3" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl17, tabPage119), Text = "Cylinder 4" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage31), Text = "Saturation pulse" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage32), Text = "Saturation by RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage59), Text = "Correction by Air Temperature" });
@@ -975,6 +1120,11 @@ namespace ECU_Manager
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage89), Text = "Filling By TPS" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage52), Text = "Idle Valve Pos" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage50), Text = "Ignitions" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage53), Text = "Common" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage103), Text = "Cylinder 1" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage104), Text = "Cylinder 2" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage113), Text = "Cylinder 3" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage114), Text = "Cylinder 4" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage87), Text = "Cylinder Noise" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage88), Text = "Knock Counter" });
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage18), Text = "Drag measure" });
@@ -1006,6 +1156,10 @@ namespace ECU_Manager
             eCorrsFillingGbcMAP.SynchronizeChart();
             eCorrsFillingGbcTPS.SynchronizeChart();
             eCorrsIgnition.SynchronizeChart();
+            eCorrsIgnitionCy1.SynchronizeChart();
+            eCorrsIgnitionCy2.SynchronizeChart();
+            eCorrsIgnitionCy3.SynchronizeChart();
+            eCorrsIgnitionCy4.SynchronizeChart();
             eCorrsKnockCyNoiseLevelMult.SynchronizeChart();
             eCorrsKnockDetonationCounter.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
@@ -1099,6 +1253,10 @@ namespace ECU_Manager
             //TODO:
             //eCorrIdleValvePos.UpdateChart();
             eCorrsIgnition.UpdateChart();
+            eCorrsIgnitionCy1.UpdateChart();
+            eCorrsIgnitionCy2.UpdateChart();
+            eCorrsIgnitionCy3.UpdateChart();
+            eCorrsIgnitionCy4.UpdateChart();
             eCorrsKnockDetonationCounter.UpdateChart();
             eCorrsKnockCyNoiseLevelMult.UpdateChart();
             eAirTempMixCorr.UpdateChart();
@@ -1123,6 +1281,10 @@ namespace ECU_Manager
             //TODO:
             //eCorrIdleValvePos.SetCalibrationTable("progress_idle_valve_position");
             eCorrsIgnition.SetCalibrationTable("progress_ignitions");
+            eCorrsIgnitionCy1.SetCalibrationTable("progress_ignitions");
+            eCorrsIgnitionCy2.SetCalibrationTable("progress_ignitions");
+            eCorrsIgnitionCy3.SetCalibrationTable("progress_ignitions");
+            eCorrsIgnitionCy4.SetCalibrationTable("progress_ignitions");
             eCorrsKnockDetonationCounter.SetCalibrationTable("progress_ignitions");
             eCorrsKnockCyNoiseLevelMult.SetCalibrationTable("progress_knock_cy_level_multiplier");
 
@@ -1147,6 +1309,10 @@ namespace ECU_Manager
             //TODO:
             //eCorrIdleValvePos.ClearCalibrationTable();
             eCorrsIgnition.ClearCalibrationTable();
+            eCorrsIgnitionCy1.ClearCalibrationTable();
+            eCorrsIgnitionCy2.ClearCalibrationTable();
+            eCorrsIgnitionCy3.ClearCalibrationTable();
+            eCorrsIgnitionCy4.ClearCalibrationTable();
             eCorrsKnockCyNoiseLevelMult.ClearCalibrationTable();
             eCorrsKnockDetonationCounter.ClearCalibrationTable();
 
@@ -3363,12 +3529,37 @@ namespace ECU_Manager
             {
                 float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
                 float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
+                float[][] array3d = new float[Consts.ECU_CYLINDERS_COUNT][];
+                float[][] corrs3d = new float[Consts.ECU_CYLINDERS_COUNT][];
                 int size = array2d.Length;
 
                 for (int i = 0; i < size; i++)
                 {
                     array2d[i] += corrs2d[i];
                     corrs2d[i] = 0.0F;
+                }
+
+                array3d[0] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1;
+                array3d[1] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2;
+                array3d[2] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3;
+                array3d[3] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4;
+
+                corrs3d[0] = cs.ConfigStruct.corrections.ignition_corr_cy1;
+                corrs3d[1] = cs.ConfigStruct.corrections.ignition_corr_cy2;
+                corrs3d[2] = cs.ConfigStruct.corrections.ignition_corr_cy3;
+                corrs3d[3] = cs.ConfigStruct.corrections.ignition_corr_cy4;
+
+                for (int c = 0; c < Consts.ECU_CYLINDERS_COUNT; c++)
+                {
+                    array2d = array3d[c];
+                    corrs2d = corrs3d[c];
+                    size = array2d.Length;
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        array2d[i] += corrs2d[i];
+                        corrs2d[i] = 0.0F;
+                    }
                 }
 
                 middleLayer?.SyncSave(false);
