@@ -1739,7 +1739,6 @@ namespace ECU_Manager
         private void ClearDragCharts()
         {
             chartDragTime.Series.Clear();
-            chartDragAccel.Series.Clear();
             chartDragRPM.Series.Clear();
             chartDragPressure.Series.Clear();
             chartDragMAF.Series.Clear();
@@ -1764,7 +1763,6 @@ namespace ECU_Manager
             double timeMax = 1;
 
             chartDragTime.Series.Clear();
-            chartDragAccel.Series.Clear();
             chartDragRPM.Series.Clear();
             chartDragPressure.Series.Clear();
             chartDragMAF.Series.Clear();
@@ -1802,24 +1800,6 @@ namespace ECU_Manager
                             timeMax = lDragRuns[i].Time;
                         }
 
-                        series = chartDragAccel.Series.Add(lDragRuns[i].Label);
-                        series.ChartType = SeriesChartType.Line;
-                        series.XAxisType = AxisType.Primary;
-                        series.XValueType = ChartValueType.Single;
-                        series.YAxisType = AxisType.Primary;
-                        series.YValueType = ChartValueType.Single;
-                        series.LabelForeColor = Color.White;
-                        series.MarkerColor = Color.White;
-                        series.BorderWidth = 2;
-                        series.Tag = lDragRuns[i];
-                        //float trans = (float)i / (float)(lDragRuns.Count - 1);
-                        //series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-
-                        for (int j = 0; j < lDragRuns[i].Points.Count; j++)
-                        {
-                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
-                        }
-
                         series = chartDragRPM.Series.Add(lDragRuns[i].Label);
                         series.ChartType = SeriesChartType.Line;
                         series.XAxisType = AxisType.Primary;
@@ -1835,7 +1815,7 @@ namespace ECU_Manager
 
                         for (int j = 0; j < lDragRuns[i].Points.Count; j++)
                         {
-                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].Acceleration);
+                            series.Points.AddXY(lDragRuns[i].Points[j].Time, lDragRuns[i].Points[j].RPM);
                         }
 
                         series = chartDragPressure.Series.Add(lDragRuns[i].Label);
@@ -1901,12 +1881,6 @@ namespace ECU_Manager
                 chartDragTime.ChartAreas[0].AxisY.Minimum = FromSpeed;
                 chartDragTime.ChartAreas[0].AxisY.Maximum = ToSpeed;
 
-                chartDragAccel.ChartAreas[0].AxisX.Minimum = 0;
-                //chartDragAccel.ChartAreas[0].AxisX.Maximum = timeMax;
-
-                chartDragAccel.ChartAreas[0].AxisY.Minimum = 0;
-                //chartDragAccel.ChartAreas[0].AxisY.Maximum = deltaRpmMax;
-
                 chartDragRPM.ChartAreas[0].AxisX.Minimum = 0;
                 chartDragPressure.ChartAreas[0].AxisX.Minimum = 0;
                 chartDragMAF.ChartAreas[0].AxisX.Minimum = 0;
@@ -1957,7 +1931,7 @@ namespace ECU_Manager
                             }
                             if (timemax >= timemin)
                             {
-                                item.SubItems.Add($"{(timemax - timemin).ToString("F2")}s");
+                                item.SubItems.Add($"{((timemax - timemin) / 1000000.0).ToString("F2")}s");
                             }
                             else
                             {
