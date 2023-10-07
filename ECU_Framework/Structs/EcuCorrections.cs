@@ -54,6 +54,23 @@ namespace ECU_Framework.Structs
         public float[] ignition_corr_cy4;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy1")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy1;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy2")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy2;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy3")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy4")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy4;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("knock_detonation_counter")]
         [XmlArrayItem("count")]
         public float[] knock_detonation_counter;

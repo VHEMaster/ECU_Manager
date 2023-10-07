@@ -758,7 +758,7 @@ namespace ECU_Manager
 
             eCorrsIgnitionCy4.SetTableColorTrans(colorTransience);
             eCorrsIgnitionCy4.SynchronizeChart();
-
+            
 
             colorTransience = new ColorTransience(0.0F, 10.0F, Color.Gray);
             colorTransience.Add(Color.Green, 0.0F);
@@ -782,6 +782,151 @@ namespace ECU_Manager
             eCorrsKnockDetonationCounter.SetTableColorTrans(colorTransience);
             eCorrsKnockDetonationCounter.SynchronizeChart();
 
+
+            colorTransience = new ColorTransience(-0.1F, 0.2F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, -0.1F);
+            colorTransience.Add(Color.Blue, -0.05F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), -0.02F);
+            colorTransience.Add(Color.Green, 0.0F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), 0.02F);
+            colorTransience.Add(Color.Red, 0.05F);
+            colorTransience.Add(Color.DarkRed, 0.1F);
+            colorTransience.Add(Color.Black, 0.2F);
+
+            
+
+            eCorrsInjectionCy1.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eCorrsInjectionCy1.SetConfig("injection_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy1.SetX("RPM", "RPM", "F0");
+            eCorrsInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
+            eCorrsInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsInjectionCy1.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsInjectionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy1.scHorisontal.Width * 0.7);
+
+            eCorrsInjectionCy1.SetTableColorTrans(colorTransience);
+            eCorrsInjectionCy1.SynchronizeChart();
+
+
+
+            eCorrsInjectionCy2.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eCorrsInjectionCy2.SetConfig("injection_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy2.SetX("RPM", "RPM", "F0");
+            eCorrsInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
+            eCorrsInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsInjectionCy2.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsInjectionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy2.scHorisontal.Width * 0.7);
+
+            eCorrsInjectionCy2.SetTableColorTrans(colorTransience);
+            eCorrsInjectionCy2.SynchronizeChart();
+
+
+
+            eCorrsInjectionCy3.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eCorrsInjectionCy3.SetConfig("injection_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy3.SetX("RPM", "RPM", "F0");
+            eCorrsInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
+            eCorrsInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsInjectionCy3.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsInjectionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy3.scHorisontal.Width * 0.7);
+
+            eCorrsInjectionCy3.SetTableColorTrans(colorTransience);
+            eCorrsInjectionCy3.SynchronizeChart();
+
+
+
+            eCorrsInjectionCy4.Initialize(cs, Editor2DMode.CorrectionsTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eCorrsInjectionCy4.SetConfig("injection_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy4.SetX("RPM", "RPM", "F0");
+            eCorrsInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
+            eCorrsInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
+            eCorrsInjectionCy4.SetTableEventHandler(ChartCorrectionEvent);
+            eCorrsInjectionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy4.scHorisontal.Width * 0.7);
+
+            eCorrsInjectionCy4.SetTableColorTrans(colorTransience);
+            eCorrsInjectionCy4.SynchronizeChart();
+
+          
+
+
+            eInjectionCy1.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eInjectionCy1.SetConfig("injection_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy1.SetX("RPM", "RPM", "F0");
+            eInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
+            eInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionCy1.SetTableEventHandler(ChartCorrectionEvent);
+
+            eInjectionCy1.SetTableColorTrans(colorTransience);
+            eInjectionCy1.SynchronizeChart();
+
+
+
+            eInjectionCy2.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eInjectionCy2.SetConfig("injection_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy2.SetX("RPM", "RPM", "F0");
+            eInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
+            eInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionCy2.SetTableEventHandler(ChartCorrectionEvent);
+
+            eInjectionCy2.SetTableColorTrans(colorTransience);
+            eInjectionCy2.SynchronizeChart();
+
+
+
+            eInjectionCy3.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eInjectionCy3.SetConfig("injection_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy3.SetX("RPM", "RPM", "F0");
+            eInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
+            eInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionCy3.SetTableEventHandler(ChartCorrectionEvent);
+
+            eInjectionCy3.SetTableColorTrans(colorTransience);
+            eInjectionCy3.SynchronizeChart();
+
+
+
+            eInjectionCy4.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_FILLING_MAX, 3);
+
+            eInjectionCy4.SetConfig("injection_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy4.SetX("RPM", "RPM", "F0");
+            eInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
+            eInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
+            eInjectionCy4.SetTableEventHandler(ChartCorrectionEvent);
+
+            eInjectionCy4.SetTableColorTrans(colorTransience);
+            eInjectionCy4.SynchronizeChart();
+
+            
 
             colorTransience = new ColorTransience(-0.2F, 0.3F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -0.2F);
@@ -1060,6 +1205,11 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage24), Text = "Injection" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage33), Text = "Mixture" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage36), Text = "Phase" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage120), Text = "Cylinders" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage125), Text = "Cylinder 1" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage126), Text = "Cylinder 2" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage127), Text = "Cylinder 3" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage128), Text = "Cylinder 4" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage74), Text = "Injection phase LPF" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
@@ -1125,6 +1275,11 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage104), Text = "Cylinder 2" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage113), Text = "Cylinder 3" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage114), Text = "Cylinder 4" });
+            subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage21), Text = "Injections" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl18, tabPage121), Text = "Cylinder 1" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl18, tabPage122), Text = "Cylinder 2" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl18, tabPage123), Text = "Cylinder 3" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl18, tabPage124), Text = "Cylinder 4" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage87), Text = "Cylinder Noise" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage88), Text = "Knock Counter" });
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage18), Text = "Drag measure" });
@@ -1153,6 +1308,14 @@ namespace ECU_Manager
             eFuelMixturesFull.SynchronizeChart();
             eInjectionPhaseFull.SynchronizeChart();
             eIgnitionFull.SynchronizeChart();
+            eInjectionCy1.SynchronizeChart();
+            eInjectionCy2.SynchronizeChart();
+            eInjectionCy3.SynchronizeChart();
+            eInjectionCy4.SynchronizeChart();
+            eIgnitionFullCy1.SynchronizeChart();
+            eIgnitionFullCy2.SynchronizeChart();
+            eIgnitionFullCy3.SynchronizeChart();
+            eIgnitionFullCy4.SynchronizeChart();
             eCorrsFillingGbcMAP.SynchronizeChart();
             eCorrsFillingGbcTPS.SynchronizeChart();
             eCorrsIgnition.SynchronizeChart();
@@ -1160,6 +1323,10 @@ namespace ECU_Manager
             eCorrsIgnitionCy2.SynchronizeChart();
             eCorrsIgnitionCy3.SynchronizeChart();
             eCorrsIgnitionCy4.SynchronizeChart();
+            eCorrsInjectionCy1.SynchronizeChart();
+            eCorrsInjectionCy2.SynchronizeChart();
+            eCorrsInjectionCy3.SynchronizeChart();
+            eCorrsInjectionCy4.SynchronizeChart();
             eCorrsKnockCyNoiseLevelMult.SynchronizeChart();
             eCorrsKnockDetonationCounter.SynchronizeChart();
             eAirTempMixCorr.SynchronizeChart();
@@ -1193,6 +1360,15 @@ namespace ECU_Manager
             eEnrichmentIgnCorr.UpdateChart();
             eEnrichmentTempMult.UpdateChart();
             eEnrichmentInjectionPhase.UpdateChart();
+
+            eIgnitionFullCy1.UpdateChart();
+            eIgnitionFullCy2.UpdateChart();
+            eIgnitionFullCy3.UpdateChart();
+            eIgnitionFullCy4.UpdateChart();
+            eInjectionCy1.UpdateChart();
+            eInjectionCy2.UpdateChart();
+            eInjectionCy3.UpdateChart();
+            eInjectionCy4.UpdateChart();
 
             ePressures.UpdateChart();
             eRotates.UpdateChart();
@@ -1257,6 +1433,10 @@ namespace ECU_Manager
             eCorrsIgnitionCy2.UpdateChart();
             eCorrsIgnitionCy3.UpdateChart();
             eCorrsIgnitionCy4.UpdateChart();
+            eCorrsInjectionCy1.UpdateChart();
+            eCorrsInjectionCy2.UpdateChart();
+            eCorrsInjectionCy3.UpdateChart();
+            eCorrsInjectionCy4.UpdateChart();
             eCorrsKnockDetonationCounter.UpdateChart();
             eCorrsKnockCyNoiseLevelMult.UpdateChart();
             eAirTempMixCorr.UpdateChart();
@@ -1292,6 +1472,7 @@ namespace ECU_Manager
             btnCorrAppendFillingByTPS.Enabled = false;
             btnCorrAppendIdleValve.Enabled = false;
             btnCorrAppendIgnitions.Enabled = false;
+            btnCorrAppendInjections.Enabled = false;
             btnCorrAppendKnockNoise.Enabled = false;
 
             rbCorrInterpolationFunc.Enabled = false;
@@ -1313,6 +1494,10 @@ namespace ECU_Manager
             eCorrsIgnitionCy2.ClearCalibrationTable();
             eCorrsIgnitionCy3.ClearCalibrationTable();
             eCorrsIgnitionCy4.ClearCalibrationTable();
+            eCorrsInjectionCy1.ClearCalibrationTable();
+            eCorrsInjectionCy2.ClearCalibrationTable();
+            eCorrsInjectionCy3.ClearCalibrationTable();
+            eCorrsInjectionCy4.ClearCalibrationTable();
             eCorrsKnockCyNoiseLevelMult.ClearCalibrationTable();
             eCorrsKnockDetonationCounter.ClearCalibrationTable();
 
@@ -1320,6 +1505,7 @@ namespace ECU_Manager
             btnCorrAppendFillingByTPS.Enabled = true;
             btnCorrAppendIdleValve.Enabled = true;
             btnCorrAppendIgnitions.Enabled = true;
+            btnCorrAppendInjections.Enabled = true;
             btnCorrAppendKnockNoise.Enabled = true;
 
             rbCorrInterpolationFunc.Enabled = true;
@@ -3522,6 +3708,45 @@ namespace ECU_Manager
                 corrs3d[1] = cs.ConfigStruct.corrections.ignition_corr_cy2;
                 corrs3d[2] = cs.ConfigStruct.corrections.ignition_corr_cy3;
                 corrs3d[3] = cs.ConfigStruct.corrections.ignition_corr_cy4;
+
+                for (int c = 0; c < Consts.ECU_CYLINDERS_COUNT; c++)
+                {
+                    array2d = array3d[c];
+                    corrs2d = corrs3d[c];
+                    size = array2d.Length;
+
+                    for (int i = 0; i < size; i++)
+                    {
+                        array2d[i] += corrs2d[i];
+                        corrs2d[i] = 0.0F;
+                    }
+                }
+
+                middleLayer?.SyncSave(false);
+            }
+        }
+
+        private void btnCorrAppendInjections_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                float[] array2d;
+                float[] corrs2d;
+                float[][] array3d = new float[Consts.ECU_CYLINDERS_COUNT][];
+                float[][] corrs3d = new float[Consts.ECU_CYLINDERS_COUNT][];
+                int size;
+
+
+                array3d[0] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy1;
+                array3d[1] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy2;
+                array3d[2] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy3;
+                array3d[3] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy4;
+
+                corrs3d[0] = cs.ConfigStruct.corrections.injection_corr_cy1;
+                corrs3d[1] = cs.ConfigStruct.corrections.injection_corr_cy2;
+                corrs3d[2] = cs.ConfigStruct.corrections.injection_corr_cy3;
+                corrs3d[3] = cs.ConfigStruct.corrections.injection_corr_cy4;
 
                 for (int c = 0; c < Consts.ECU_CYLINDERS_COUNT; c++)
                 {

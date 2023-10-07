@@ -163,6 +163,23 @@ namespace ECU_Framework.Structs
         public float[] ignition_corr_cy4;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy1")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy1;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy2")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy2;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy3")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("injection_corr_cy4")]
+        [XmlArrayItem("value")]
+        public float[] injection_corr_cy4;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("fuel_mixtures")]
         [XmlArrayItem("mixture")]
         public float[] fuel_mixtures;
@@ -446,7 +463,7 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("valve")]
         public float[] idle_valve_econ_position;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2556)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1532)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
