@@ -63,7 +63,7 @@ namespace ECU_Framework.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[90]
+        private static readonly string[] ErrorStrings = new string[95]
         {
             "Invalid",
             "Flash: Load failure",
@@ -165,6 +165,13 @@ namespace ECU_Framework.Structs
 
             "Engine: No Oil Pressure",
             "Engine: No Battery Charge",
+
+            "ECU: BootLoader Mode",
+
+            "Knock: Detonation Cy1",
+            "Knock: Detonation Cy2",
+            "Knock: Detonation Cy3",
+            "Knock: Detonation Cy4",
         };
 
         public static string GetStringForCode(ErrorCode errorCode)
@@ -268,6 +275,11 @@ namespace ECU_Framework.Structs
         EngineRichIdleMixture,
         NoOilPressure,
         NoBatteryCharge,
+        BootLoaderMode,
+        KnockDetonationCy1,
+        KnockDetonationCy2,
+        KnockDetonationCy3,
+        KnockDetonationCy4,
         Count,
     };
 }
