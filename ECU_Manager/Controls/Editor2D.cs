@@ -224,7 +224,7 @@ namespace ECU_Manager.Controls
                         }
                         else if (x == -1 && y == -1)
                         {
-                            lbl.Text = @"Pa\RPM";
+                            lbl.Text = @"";
                             lbl.Visible = true;
                             lbl.Tag = null;
                             tlp2DTable.Controls.Add(lbl, tlpInfoColumn, tlpInfoRow);
