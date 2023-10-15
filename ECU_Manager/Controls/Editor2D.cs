@@ -47,7 +47,7 @@ namespace ECU_Manager.Controls
         private string sFormatStatusY;
         private string sFormatStatusD;
         private string sArrayName;
-        private string sCalibrationTable;
+        private string sProgressTable;
         private bool bCalibrationEnabled;
         private double dStepSize;
         private double dIntervalX;
@@ -205,7 +205,7 @@ namespace ECU_Manager.Controls
                     {
                         Label lbl = new Label();
                         lbl.Dock = DockStyle.Fill;
-                        lbl.TextAlign = x != -1 ? ContentAlignment.MiddleCenter : ContentAlignment.MiddleLeft;
+                        lbl.TextAlign = x != -1 ? ContentAlignment.MiddleCenter : ContentAlignment.TopLeft;
                         lbl.AutoSize = true;
                         if ((x == -1 && y != -1) || (y == -1 && x != -1))
                         {
@@ -280,7 +280,7 @@ namespace ECU_Manager.Controls
             sFormatStatusD = format;
         }
 
-        public void SetCalibrationTable(string table)
+        public void SetProgressTable(string table)
         {
             Action action = new Action(() =>
             {
@@ -291,11 +291,11 @@ namespace ECU_Manager.Controls
                 this.BeginInvoke(action);
             else action.Invoke();
 
-            sCalibrationTable = table;
+            sProgressTable = table;
             bCalibrationEnabled = true;
         }
 
-        public void ClearCalibrationTable()
+        public void ClearPregressTable()
         {
             Action action = new Action(() =>
             {
@@ -307,6 +307,87 @@ namespace ECU_Manager.Controls
             else action.Invoke();
 
             bCalibrationEnabled = false;
+        }
+
+        public void ClearTable()
+        {
+            int sizex = 0;
+            int sizey = 0;
+            byte[] arraycalib = null;
+            float[] array2d = null;
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+                {
+                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                    if (fieldSizeX != null)
+                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+                {
+                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                    if (fieldSizeY != null)
+                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sProgressTable))
+                {
+                    FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
+                    if (calibrationTable != null)
+                        arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sProgressTable))
+                {
+                    FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
+                    if (calibrationTable != null)
+                        arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
+                }
+
+                if (!string.IsNullOrWhiteSpace(sArrayName))
+                {
+                    if (eMode == Editor2DMode.EcuTable)
+                    {
+                        FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                        if (fieldArray != null)
+                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    }
+                    else if (eMode == Editor2DMode.CorrectionsTable)
+                    {
+                        FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                        if (fieldArray != null)
+                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    }
+
+                }
+
+                if (sizex > 0 && sizey > 0)
+                {
+                    if (arraycalib != null)
+                    {
+                        for (int i = 0; i < sizex * sizey; i++)
+                        {
+                            arraycalib[i] = 0;
+                        }
+                    }
+                    if (array2d != null)
+                    {
+                        for (int i = 0; i < sizex * sizey; i++)
+                        {
+                            array2d[i] = 0;
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         public void SetTableColorTrans(ColorTransience colorTransience)
@@ -742,9 +823,9 @@ namespace ECU_Manager.Controls
 
                     if (sizex > 0 && sizey > 0)
                     {
-                        if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+                        if (!string.IsNullOrWhiteSpace(sProgressTable))
                         {
-                            FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
+                            FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
                             if (calibrationTable != null)
                                 arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
                         }
@@ -779,7 +860,7 @@ namespace ECU_Manager.Controls
                                         nud.Value = value;
                                     }
 
-                                    if (!string.IsNullOrWhiteSpace(sCalibrationTable) && bCalibrationEnabled)
+                                    if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
                                     {
                                         if (arraycalib == null)
                                         {
@@ -957,10 +1038,10 @@ namespace ECU_Manager.Controls
                     UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }
 
-                if (ColorTransience != null || !string.IsNullOrWhiteSpace(sCalibrationTable))
+                if (ColorTransience != null || !string.IsNullOrWhiteSpace(sProgressTable))
                 {
                     text = Color.White;
-                    if (string.IsNullOrWhiteSpace(sCalibrationTable))
+                    if (string.IsNullOrWhiteSpace(sProgressTable))
                         back = ColorTransience.Get(value);
                 }
 
@@ -1051,9 +1132,9 @@ namespace ECU_Manager.Controls
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(sCalibrationTable))
+            if (!string.IsNullOrWhiteSpace(sProgressTable))
             {
-                FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sCalibrationTable);
+                FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
                 if (calibrationTable != null)
                     arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
             }

@@ -37,6 +37,7 @@ namespace ECU_Framework.Structs
         public int KnockCountCy2;
         public int KnockCountCy3;
         public int KnockCountCy4;
+        public float KnockSaturation;
         public float AirTemp;
         public float EngineTemp;
         public float CalculatedAirTemp;
@@ -49,7 +50,6 @@ namespace ECU_Framework.Structs
         public float LambdaValue;
         public float LambdaTemperature;
         public float LambdaHeaterVoltage;
-        public float LambdaTemperatureVoltage;
         public float ShortTermCorrection;
         public float LongTermCorrection;
         public float IdleCorrection;
@@ -59,11 +59,9 @@ namespace ECU_Framework.Structs
         public int IdleEconFlag;
         public float RPM;
         public float Speed;
-        public float Acceleration;
         public float MassAirFlow;
         public float CyclicAirFlow;
         public float EffectiveVolume;
-        public float AirDensity;
         public float EngineLoad;
         public float EstimatedPower;
         public float EstimatedTorque;

@@ -263,6 +263,7 @@ namespace ECU_Manager
             eIgnitionFullCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy1.SetD("CyclicAirFlow", "Filling", "F1");
             eIgnitionFullCy1.SetTableEventHandler(ChartUpdateEvent);
+            eIgnitionFullCy1.scHorisontal.SplitterDistance = (int)Math.Round(eIgnitionFullCy1.scHorisontal.Width * 0.8);
 
             eIgnitionFullCy1.SetTableColorTrans(colorTransience);
             eIgnitionFullCy1.SynchronizeChart();
@@ -279,6 +280,7 @@ namespace ECU_Manager
             eIgnitionFullCy2.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy2.SetD("CyclicAirFlow", "Filling", "F1");
             eIgnitionFullCy2.SetTableEventHandler(ChartUpdateEvent);
+            eIgnitionFullCy2.scHorisontal.SplitterDistance = (int)Math.Round(eIgnitionFullCy2.scHorisontal.Width * 0.8);
 
             eIgnitionFullCy2.SetTableColorTrans(colorTransience);
             eIgnitionFullCy2.SynchronizeChart();
@@ -295,6 +297,7 @@ namespace ECU_Manager
             eIgnitionFullCy3.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy3.SetD("CyclicAirFlow", "Filling", "F1");
             eIgnitionFullCy3.SetTableEventHandler(ChartUpdateEvent);
+            eIgnitionFullCy3.scHorisontal.SplitterDistance = (int)Math.Round(eIgnitionFullCy3.scHorisontal.Width * 0.8);
 
             eIgnitionFullCy3.SetTableColorTrans(colorTransience);
             eIgnitionFullCy3.SynchronizeChart();
@@ -311,6 +314,7 @@ namespace ECU_Manager
             eIgnitionFullCy4.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy4.SetD("CyclicAirFlow", "Filling", "F1");
             eIgnitionFullCy4.SetTableEventHandler(ChartUpdateEvent);
+            eIgnitionFullCy4.scHorisontal.SplitterDistance = (int)Math.Round(eIgnitionFullCy4.scHorisontal.Width * 0.8);
 
             eIgnitionFullCy4.SetTableColorTrans(colorTransience);
             eIgnitionFullCy4.SynchronizeChart();
@@ -1268,7 +1272,6 @@ namespace ECU_Manager
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage49), Text = "Corrections" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage51), Text = "Filling By MAP" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage89), Text = "Filling By TPS" });
-            subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage52), Text = "Idle Valve Pos" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage50), Text = "Ignitions" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage53), Text = "Common" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl15, tabPage103), Text = "Cylinder 1" });
@@ -1456,17 +1459,17 @@ namespace ECU_Manager
             lblCorrStatus.Text = "Status: Learning";
             lblCorrStats.Text = string.Empty;
 
-            eCorrsFillingGbcMAP.SetCalibrationTable("progress_filling_gbc_map");
-            eCorrsFillingGbcTPS.SetCalibrationTable("progress_filling_gbc_tps");
+            eCorrsFillingGbcMAP.SetProgressTable("progress_filling_gbc_map");
+            eCorrsFillingGbcTPS.SetProgressTable("progress_filling_gbc_tps");
             //TODO:
             //eCorrIdleValvePos.SetCalibrationTable("progress_idle_valve_position");
-            eCorrsIgnition.SetCalibrationTable("progress_ignitions");
-            eCorrsIgnitionCy1.SetCalibrationTable("progress_ignitions");
-            eCorrsIgnitionCy2.SetCalibrationTable("progress_ignitions");
-            eCorrsIgnitionCy3.SetCalibrationTable("progress_ignitions");
-            eCorrsIgnitionCy4.SetCalibrationTable("progress_ignitions");
-            eCorrsKnockDetonationCounter.SetCalibrationTable("progress_ignitions");
-            eCorrsKnockCyNoiseLevelMult.SetCalibrationTable("progress_knock_cy_level_multiplier");
+            eCorrsIgnition.SetProgressTable("progress_ignitions");
+            eCorrsIgnitionCy1.SetProgressTable("progress_ignitions");
+            eCorrsIgnitionCy2.SetProgressTable("progress_ignitions");
+            eCorrsIgnitionCy3.SetProgressTable("progress_ignitions");
+            eCorrsIgnitionCy4.SetProgressTable("progress_ignitions");
+            eCorrsKnockDetonationCounter.SetProgressTable("progress_ignitions");
+            eCorrsKnockCyNoiseLevelMult.SetProgressTable("progress_knock_cy_level_multiplier");
 
             btnCorrAppendFillingByMAP.Enabled = false;
             btnCorrAppendFillingByTPS.Enabled = false;
@@ -1477,6 +1480,21 @@ namespace ECU_Manager
 
             rbCorrInterpolationFunc.Enabled = false;
             rbCorrPointFunc.Enabled = false;
+
+            UpdateCharts();
+        }
+
+        private void CorrClear()
+        {
+            eCorrsFillingGbcMAP.ClearTable();
+            eCorrsFillingGbcTPS.ClearTable();
+            eCorrsIgnition.ClearTable();
+            eCorrsIgnitionCy1.ClearTable();
+            eCorrsIgnitionCy2.ClearTable();
+            eCorrsIgnitionCy3.ClearTable();
+            eCorrsIgnitionCy4.ClearTable();
+            eCorrsKnockDetonationCounter.ClearTable();
+            eCorrsKnockCyNoiseLevelMult.ClearTable();
         }
 
         private void CorrStop()
@@ -1485,21 +1503,21 @@ namespace ECU_Manager
             btnCorrStop.Enabled = false;
             lblCorrStatus.Text = "Status: Idle";
 
-            eCorrsFillingGbcMAP.ClearCalibrationTable();
-            eCorrsFillingGbcTPS.ClearCalibrationTable();
+            eCorrsFillingGbcMAP.ClearPregressTable();
+            eCorrsFillingGbcTPS.ClearPregressTable();
             //TODO:
             //eCorrIdleValvePos.ClearCalibrationTable();
-            eCorrsIgnition.ClearCalibrationTable();
-            eCorrsIgnitionCy1.ClearCalibrationTable();
-            eCorrsIgnitionCy2.ClearCalibrationTable();
-            eCorrsIgnitionCy3.ClearCalibrationTable();
-            eCorrsIgnitionCy4.ClearCalibrationTable();
-            eCorrsInjectionCy1.ClearCalibrationTable();
-            eCorrsInjectionCy2.ClearCalibrationTable();
-            eCorrsInjectionCy3.ClearCalibrationTable();
-            eCorrsInjectionCy4.ClearCalibrationTable();
-            eCorrsKnockCyNoiseLevelMult.ClearCalibrationTable();
-            eCorrsKnockDetonationCounter.ClearCalibrationTable();
+            eCorrsIgnition.ClearPregressTable();
+            eCorrsIgnitionCy1.ClearPregressTable();
+            eCorrsIgnitionCy2.ClearPregressTable();
+            eCorrsIgnitionCy3.ClearPregressTable();
+            eCorrsIgnitionCy4.ClearPregressTable();
+            eCorrsInjectionCy1.ClearPregressTable();
+            eCorrsInjectionCy2.ClearPregressTable();
+            eCorrsInjectionCy3.ClearPregressTable();
+            eCorrsInjectionCy4.ClearPregressTable();
+            eCorrsKnockCyNoiseLevelMult.ClearPregressTable();
+            eCorrsKnockDetonationCounter.ClearPregressTable();
 
             btnCorrAppendFillingByMAP.Enabled = true;
             btnCorrAppendFillingByTPS.Enabled = true;
@@ -1510,6 +1528,8 @@ namespace ECU_Manager
 
             rbCorrInterpolationFunc.Enabled = true;
             rbCorrPointFunc.Enabled = true;
+
+            UpdateCharts();
         }
 
         private void ChartUpdateEvent(object sender, EventArgs e)
@@ -2897,6 +2917,7 @@ namespace ECU_Manager
                     if (cs.ConfigStruct.parameters.performAdaptation > 0)
                     {
                         CorrStart();
+                        CorrClear();
                         middleLayer?.UpdateConfig();
                     }
                 }
@@ -3641,6 +3662,7 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
         }
 
@@ -3660,6 +3682,7 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
         }
 
@@ -3679,6 +3702,7 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
         }
 
@@ -3723,6 +3747,7 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
         }
 
@@ -3762,6 +3787,7 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
         }
         private void btnCorrAppendKnockNoise_Click(object sender, EventArgs e)
@@ -3780,7 +3806,39 @@ namespace ECU_Manager
                 }
 
                 middleLayer?.SyncSave(false);
+                UpdateCharts();
             }
+        }
+
+        private void btnIgnAppendCylinders_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignition Cylinders?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dialogResult == DialogResult.Yes)
+            {
+                bool[] cy_append = new bool[] { cbIgnAppendCy1.Checked, cbIgnAppendCy2.Checked, cbIgnAppendCy3.Checked, cbIgnAppendCy4.Checked };
+                float[][] cy_tables = new float[][] { cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4 };
+
+                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
+                float[] mid2d = new float[array2d.Length];
+
+                for (int i = 0; i < mid2d.Length; i++)
+                {
+                    mid2d[i] = float.MaxValue;
+                    for (int c = 0; c < cy_tables.Length; c++)
+                    {
+                        if (cy_append[c])
+                        {
+                            mid2d[i] = mid2d[i] < cy_tables[c][i] ? mid2d[i] : cy_tables[c][i];
+                            cy_tables[c][i] = 0;
+                        }
+                    }
+                    array2d[i] += mid2d[i];
+                }
+
+                middleLayer?.SyncSave(false);
+                UpdateCharts();
+            }
+
         }
 
         private void btnIITestRun_Click(object sender, EventArgs e)
@@ -3814,10 +3872,18 @@ namespace ECU_Manager
             TreeNodeListInfo tnli = e.Node.Tag as TreeNodeListInfo;
             if(tnli != null)
             {
-                tnli.TabControl.SelectedTab = tnli.TabPage;
-                if(e.Node.Parent != null)
+                try
                 {
-                    treeView_AfterSelect(sender, new TreeViewEventArgs(e.Node.Parent));
+                    tnli.TabControl.SelectedTab = tnli.TabPage;
+                    if (e.Node.Parent != null)
+                    {
+                        treeView_AfterSelect(sender, new TreeViewEventArgs(e.Node.Parent));
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
 
                 }
             }
