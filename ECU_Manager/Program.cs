@@ -35,8 +35,22 @@ namespace ECU_Manager
             Thread.CurrentThread.CurrentCulture = customCulture;
 
             Application.EnableVisualStyles();
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += Application_ThreadException;
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ComPortSelector());
+        }
+
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            string exString = string.Empty;
+
+            exString += $"Unhandled exception in main thread: {e.Exception.Message}\r\n";
+            exString += $"Date and time: {DateTime.Now.ToString()}\r\n\r\n";
+            exString += $"Stack trace:\r\n{ e.Exception.StackTrace}\r\n";
+            MessageBox.Show(exString, "AutoECU Exception", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+
+            Application.Exit();
         }
     }
 }
