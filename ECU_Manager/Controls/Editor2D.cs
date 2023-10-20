@@ -86,7 +86,8 @@ namespace ECU_Manager.Controls
         List<int> tlpColumns = new List<int>();
         private int tlpInfoRow = 0;
         private int tlpInfoColumn = 0;
-    
+        private int tlpCbColumn = 0;
+
         public Editor2D()
         {
             InitializeComponent();
@@ -162,6 +163,7 @@ namespace ECU_Manager.Controls
             tlp2DTable.RowStyles.Clear();
             tlp2DTable.ColumnStyles.Clear();
 
+            tlpCbColumn = tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f));
             tlpInfoColumn = tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f));
             tlpInfoRow = tlp2DTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 0.0f));
 
@@ -170,7 +172,7 @@ namespace ECU_Manager.Controls
             for (int x = 0; x < iArraySizeX; x++)
                 tlpColumns.Add(tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f)));
 
-            tlp2DTable.ColumnCount = iArraySizeX + 1;
+            tlp2DTable.ColumnCount = iArraySizeX + 2;
             tlp2DTable.RowCount = iArraySizeY + 1;
 
             CalibrationColorTransience = new ColorTransience(0.0f, 1.0f, Color.Black);
@@ -183,7 +185,7 @@ namespace ECU_Manager.Controls
 
             for (int y = -1; y < iArraySizeY; y++)
             {
-                for (int x = -1; x < iArraySizeX; x++)
+                for (int x = -2; x < iArraySizeX; x++)
                 {
                     if (x >= 0 && y >= 0)
                     {
@@ -201,7 +203,7 @@ namespace ECU_Manager.Controls
                         nud.Visible = false;
                         tlp2DTable.Controls.Add(nud, tlpColumns[x], tlpRows[y]);
                     }
-                    else
+                    else if(x >= -1 && y >= -1)
                     {
                         Label lbl = new Label();
                         lbl.Dock = DockStyle.Fill;
@@ -228,6 +230,25 @@ namespace ECU_Manager.Controls
                             lbl.Visible = true;
                             lbl.Tag = null;
                             tlp2DTable.Controls.Add(lbl, tlpInfoColumn, tlpInfoRow);
+                        }
+                    }
+                    else
+                    {
+                        if(y >= 0 && x == -2)
+                        {
+                            CheckBox cb = new CheckBox();
+                            cb.Margin = new Padding(0);
+                            cb.Text = string.Empty;
+                            cb.Tag = y;
+                            cb.Checked = true;
+                            cb.CheckedChanged += cbTableItem_CheckedChanged;
+                            cb.Location = new Point(0, 0);
+                            cb.Dock = DockStyle.Fill;
+                            cb.Visible = true;
+                            cb.AutoSize = false;
+                            cb.CheckAlign = ContentAlignment.MiddleCenter;
+                            cb.TextAlign = ContentAlignment.MiddleCenter;
+                            tlp2DTable.Controls.Add(cb, tlpCbColumn, tlpRows[y]);
                         }
                     }
                 }
@@ -532,6 +553,7 @@ namespace ECU_Manager.Controls
                     tlp2DTable.SuspendLayout();
                     tlp2DTable.RowStyles[tlpInfoRow] = new RowStyle(SizeType.AutoSize);
                     tlp2DTable.ColumnStyles[tlpInfoColumn] = new ColumnStyle(SizeType.AutoSize);
+                    tlp2DTable.ColumnStyles[tlpCbColumn] = new ColumnStyle(SizeType.Absolute, 20.0f);
 
                     for (int y = 0; y < sizey; y++)
                         tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Percent, 10F);
@@ -685,116 +707,101 @@ namespace ECU_Manager.Controls
 
         public void UpdateChart()
         {
-            try
+            int sizex = 0;
+            int sizey = 0;
+
+            float[] depx = null;
+            float[] depy = null;
+            float[] array2d = null;
+            byte[] arraycalib = null;
+
+            float paramx = 0;
+            float paramy = 0;
+            float paramd = 0;
+
+            string paramstext = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
             {
-                int sizex = 0;
-                int sizey = 0;
+                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
+                if (fieldSizeX != null)
+                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
 
-                float[] depx = null;
-                float[] depy = null;
-                float[] array2d = null;
-                byte[] arraycalib = null;
+            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+            {
+                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
+                if (fieldSizeY != null)
+                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
 
-                float paramx = 0;
-                float paramy = 0;
-                float paramd = 0;
-
-                string paramstext = string.Empty;
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                if (eMode == Editor2DMode.EcuTable)
                 {
-                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                    if (fieldSizeX != null)
-                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
+                else if (eMode == Editor2DMode.CorrectionsTable)
                 {
-                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                    if (fieldSizeY != null)
-                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
+                    if (fieldArray != null)
+                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
                 }
+            }
 
-                if (!string.IsNullOrWhiteSpace(sArrayName))
+            if (!string.IsNullOrWhiteSpace(sConfigDepX))
+            {
+                FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                if (fieldDepX != null)
+                    depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sConfigDepY))
+            {
+                FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
+                if (fieldDepY != null)
+                    depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+            }
+
+            paramstext = string.Empty;
+            if (!string.IsNullOrWhiteSpace(sParamsStatusX))
+            {
+                FieldInfo fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
+                if (fieldParamX != null)
                 {
-                    if (eMode == Editor2DMode.EcuTable)
-                    {
-                        FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                    }
-                    else if (eMode == Editor2DMode.CorrectionsTable)
-                    {
-                        FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
-                    }
+                    paramx = (float)fieldParamX.GetValue(cs.EcuParameters);
+
+                    if (!string.IsNullOrWhiteSpace(paramstext))
+                        paramstext += "  ";
+                    if (!string.IsNullOrWhiteSpace(sTitleStatusX))
+                        paramstext += $"{sTitleStatusX}: ";
+                    paramstext += $"{paramx.ToString(sFormatStatusX)}";
                 }
+            }
 
-                if (!string.IsNullOrWhiteSpace(sConfigDepX))
+            if (!string.IsNullOrWhiteSpace(sParamsStatusD))
+            {
+                FieldInfo fieldParamD = cs.EcuParameters.GetType().GetField(sParamsStatusD);
+                if (fieldParamD != null)
                 {
-                    FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                    if (fieldDepX != null)
-                        depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    paramd = (float)fieldParamD.GetValue(cs.EcuParameters);
+
+                    if (!string.IsNullOrWhiteSpace(paramstext))
+                        paramstext += "  ";
+                    if (!string.IsNullOrWhiteSpace(sTitleStatusD))
+                        paramstext += $"{sTitleStatusD}: ";
+                    paramstext += $"{paramd.ToString(sFormatStatusD)}";
                 }
+            }
 
-                if (!string.IsNullOrWhiteSpace(sConfigDepY))
+            if (!string.IsNullOrWhiteSpace(sParamsStatusY))
+            {
+                FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
+                if (fieldParamY != null)
                 {
-                    FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
-                    if (fieldDepY != null)
-                        depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
-                paramstext = string.Empty;
-                if (!string.IsNullOrWhiteSpace(sParamsStatusX))
-                {
-                    FieldInfo fieldParamX = cs.EcuParameters.GetType().GetField(sParamsStatusX);
-                    if (fieldParamX != null)
-                    {
-                        paramx = (float)fieldParamX.GetValue(cs.EcuParameters);
-
-                        if (!string.IsNullOrWhiteSpace(paramstext))
-                            paramstext += "  ";
-                        if (!string.IsNullOrWhiteSpace(sTitleStatusX))
-                            paramstext += $"{sTitleStatusX}: ";
-                        paramstext += $"{paramx.ToString(sFormatStatusX)}";
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(sParamsStatusD))
-                {
-                    FieldInfo fieldParamD = cs.EcuParameters.GetType().GetField(sParamsStatusD);
-                    if (fieldParamD != null)
-                    {
-                        paramd = (float)fieldParamD.GetValue(cs.EcuParameters);
-
-                        if (!string.IsNullOrWhiteSpace(paramstext))
-                            paramstext += "  ";
-                        if (!string.IsNullOrWhiteSpace(sTitleStatusD))
-                            paramstext += $"{sTitleStatusD}: ";
-                        paramstext += $"{paramd.ToString(sFormatStatusD)}";
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(sParamsStatusY))
-                {
-                    FieldInfo fieldParamY = cs.EcuParameters.GetType().GetField(sParamsStatusY);
-                    if (fieldParamY != null)
-                    {
-                        paramy = (float)fieldParamY.GetValue(cs.EcuParameters);
-
-                        if (!string.IsNullOrWhiteSpace(paramstext))
-                            paramstext += "  ";
-                        if (!string.IsNullOrWhiteSpace(sTitleStatusY))
-                            paramstext += $"{sTitleStatusY}: ";
-                        paramstext += $"{paramy.ToString(sFormatStatusY)}";
-                    }
-                }
-                else if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
-                {
-                    Interpolation interpolationX = new Interpolation(paramx, depx, sizex);
-                    Interpolation interpolationY = new Interpolation(paramd, depy, sizey);
-                    paramy = Interpolation.Interpolate2D(interpolationX, interpolationY, array2d, iArraySizeX);
+                    paramy = (float)fieldParamY.GetValue(cs.EcuParameters);
 
                     if (!string.IsNullOrWhiteSpace(paramstext))
                         paramstext += "  ";
@@ -802,166 +809,185 @@ namespace ECU_Manager.Controls
                         paramstext += $"{sTitleStatusY}: ";
                     paramstext += $"{paramy.ToString(sFormatStatusY)}";
                 }
+            }
+            else if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
+            {
+                Interpolation interpolationX = new Interpolation(paramx, depx, sizex);
+                Interpolation interpolationY = new Interpolation(paramd, depy, sizey);
+                paramy = Interpolation.Interpolate2D(interpolationX, interpolationY, array2d, iArraySizeX);
 
-                int seriescount = chart2DChart.Series.Count;
-                if (seriescount > 0 && chart2DChart.Series[0].Points.Count > 0)
+                if (!string.IsNullOrWhiteSpace(paramstext))
+                    paramstext += "  ";
+                if (!string.IsNullOrWhiteSpace(sTitleStatusY))
+                    paramstext += $"{sTitleStatusY}: ";
+                paramstext += $"{paramy.ToString(sFormatStatusY)}";
+            }
+
+            int seriescount = chart2DChart.Series.Count;
+            if (seriescount > 0 && chart2DChart.Series[0].Points.Count > 0)
+            {
+                chart2DChart.Series[seriescount - 1].Points[0].XValue = paramx;
+                chart2DChart.Series[seriescount - 1].Points[0].YValues[0] = paramy;
+            }
+
+            if (depx != null && depy != null)
+            {
+                Interpolation interpolationX = null;
+                Interpolation interpolationY = null;
+                if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
                 {
-                    chart2DChart.Series[seriescount - 1].Points[0].XValue = paramx;
-                    chart2DChart.Series[seriescount - 1].Points[0].YValues[0] = paramy;
+                    interpolationX = new Interpolation(paramx, depx, iArraySizeX);
+                    interpolationY = new Interpolation(paramd, depy, iArraySizeY);
                 }
 
-                if (depx != null && depy != null)
+
+                if (sizex > 0 && sizey > 0)
                 {
-                    Interpolation interpolationX = null;
-                    Interpolation interpolationY = null;
-                    if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
+                    if (!string.IsNullOrWhiteSpace(sProgressTable))
                     {
-                        interpolationX = new Interpolation(paramx, depx, iArraySizeX);
-                        interpolationY = new Interpolation(paramd, depy, iArraySizeY);
+                        FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
+                        if (calibrationTable != null)
+                            arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
                     }
 
-
-                    if (sizex > 0 && sizey > 0)
+                    for (int i = 0; i < tlp2DTable.Controls.Count; i++)
                     {
-                        if (!string.IsNullOrWhiteSpace(sProgressTable))
+                        if (tlp2DTable.Controls[i].GetType().IsSubclassOf(typeof(NumericUpDown)))
                         {
-                            FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
-                            if (calibrationTable != null)
-                                arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
-                        }
+                            NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
 
-                        for (int i = 0; i < tlp2DTable.Controls.Count; i++)
-                        {
-                            if (tlp2DTable.Controls[i].GetType().IsSubclassOf(typeof(NumericUpDown)))
+                            int r, g, b;
+                            int index = (int)nud.Tag;
+                            int xpos = index % iArraySizeX;
+                            int ypos = index / iArraySizeX;
+                            Color color;
+                            Color original = Color.DarkGray;
+                            double[] mult = new double[4];
+                            bool handled = false;
+
+                            if (xpos < sizex && ypos < sizey)
                             {
-                                NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
 
-                                int r, g, b;
-                                int index = (int)nud.Tag;
-                                int xpos = index % iArraySizeX;
-                                int ypos = index / iArraySizeX;
-                                Color color;
-                                Color original = Color.DarkGray;
-                                double[] mult = new double[4];
-                                bool handled = false;
-
-                                if (xpos < sizex && ypos < sizey)
+                                if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
+                                    chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
+                                if (!nud.Focused && nud.Value != (decimal)array2d[index])
                                 {
+                                    decimal value = (decimal)array2d[index];
+                                    if (value > nud.Maximum)
+                                        value = nud.Maximum;
+                                    else if (value < nud.Minimum)
+                                        value = nud.Minimum;
+                                    nud.Value = value;
+                                }
 
-                                    if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
-                                        chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
-                                    if (!nud.Focused && nud.Value != (decimal)array2d[index])
+                                if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
+                                {
+                                    if (arraycalib == null)
                                     {
-                                        decimal value = (decimal)array2d[index];
-                                        if (value > nud.Maximum)
-                                            value = nud.Maximum;
-                                        else if (value < nud.Minimum)
-                                            value = nud.Minimum;
-                                        nud.Value = value;
+                                        original = Color.DarkGray;
                                     }
-
-                                    if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
+                                    else if (CalibrationColorTransience != null)
                                     {
-                                        if (arraycalib == null)
+                                        original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
+                                    }
+                                }
+                                else if (ColorTransience != null)
+                                {
+                                    original = ColorTransience.Get((float)nud.Value);
+                                }
+
+                                if (interpolationX != null && interpolationY != null)
+                                {
+                                    for (int y = 0; y < 2; y++)
+                                    {
+                                        for (int x = 0; x < 2; x++)
                                         {
-                                            original = Color.DarkGray;
+                                            double value;
+                                            if (x == 0 && y == 0)
+                                                value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
+                                            else if (x == 0 && y != 0)
+                                                value = (1.0 - interpolationX.mult) * interpolationY.mult;
+                                            else if (x != 0 && y == 0)
+                                                value = interpolationX.mult * (1.0f - interpolationY.mult);
+                                            else
+                                                value = interpolationX.mult * interpolationY.mult;
+                                            mult[y * 2 + x] = value;
                                         }
-                                        else if (CalibrationColorTransience != null)
-                                        {
-                                            original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
-                                        }
-                                    }
-                                    else if (ColorTransience != null)
-                                    {
-                                        original = ColorTransience.Get((float)nud.Value);
                                     }
 
-                                    if (interpolationX != null && interpolationY != null)
+
+                                    for (int y = 0; y < 2; y++)
                                     {
-                                        for (int y = 0; y < 2; y++)
+                                        for (int x = 0; x < 2; x++)
                                         {
-                                            for (int x = 0; x < 2; x++)
+                                            if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
                                             {
-                                                double value;
-                                                if (x == 0 && y == 0)
-                                                    value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
-                                                else if (x == 0 && y != 0)
-                                                    value = (1.0 - interpolationX.mult) * interpolationY.mult;
-                                                else if (x != 0 && y == 0)
-                                                    value = interpolationX.mult * (1.0f - interpolationY.mult);
-                                                else
-                                                    value = interpolationX.mult * interpolationY.mult;
-                                                mult[y * 2 + x] = value;
-                                            }
-                                        }
+                                                color = Color.DarkGray;
 
+                                                if (mult[y * 2 + x] > 1.0)
+                                                    mult[y * 2 + x] = 1.0;
+                                                else if (mult[y * 2 + x] < 0.0)
+                                                    mult[y * 2 + x] = 0.0;
 
-                                        for (int y = 0; y < 2; y++)
-                                        {
-                                            for (int x = 0; x < 2; x++)
-                                            {
-                                                if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
+                                                r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
+                                                g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
+                                                b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
+
+                                                nud.BackColor = Color.FromArgb(r, g, b);
+                                                nud.ForeColor = Color.White;
+                                                if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
                                                 {
-                                                    color = Color.DarkGray;
-
-                                                    if (mult[y * 2 + x] > 1.0)
-                                                        mult[y * 2 + x] = 1.0;
-                                                    else if (mult[y * 2 + x] < 0.0)
-                                                        mult[y * 2 + x] = 0.0;
-
-                                                    r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
-                                                    g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
-                                                    b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
-
-                                                    nud.BackColor = Color.FromArgb(r, g, b);
-                                                    nud.ForeColor = Color.White;
-                                                    if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
-                                                    {
-                                                        if (nud.Font.Style != FontStyle.Bold)
-                                                            nud.Font = new Font(nud.Font, FontStyle.Bold);
-                                                    }
-                                                    else
-                                                    {
-                                                        if (nud.Font.Style != FontStyle.Regular)
-                                                            nud.Font = new Font(nud.Font, FontStyle.Regular);
-                                                    }
-                                                    handled = true;
+                                                    if (nud.Font.Style != FontStyle.Bold)
+                                                        nud.Font = new Font(nud.Font, FontStyle.Bold);
                                                 }
+                                                else
+                                                {
+                                                    if (nud.Font.Style != FontStyle.Regular)
+                                                        nud.Font = new Font(nud.Font, FontStyle.Regular);
+                                                }
+                                                handled = true;
                                             }
                                         }
                                     }
-                                    if (!handled && nud.BackColor != original)
-                                    {
-                                        nud.BackColor = original;
-                                        if (!nud.Focused)
-                                            nudTableItem_ValueChanged(nud, new EventArgs());
-                                    }
+                                }
+                                if (!handled && nud.BackColor != original)
+                                {
+                                    nud.BackColor = original;
+                                    if (!nud.Focused)
+                                        nudTableItem_ValueChanged(nud, new EventArgs());
                                 }
                             }
                         }
-
-
-                        cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
-
-                        for (int y = 0; y < sizey; y++)
-                        {
-                            for (int x = 0; x < sizex; x++)
-                            {
-                                i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
-                            }
-                        }
-                        cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
-                            chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
-                        graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
-                        graph3D.SetColorScheme(ColorScheme, 3.0F);
                     }
-                }
-                if (!lblParams.Text.Equals(paramstext))
-                    lblParams.Text = paramstext;
-            }
-            catch
-            {
 
+
+                    cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+
+                    for (int y = 0; y < sizey; y++)
+                    {
+                        for (int x = 0; x < sizex; x++)
+                        {
+                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
+                        }
+                    }
+                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
+                        chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
+                    graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
+                    graph3D.SetColorScheme(ColorScheme, 3.0F);
+                }
+            }
+            if (!lblParams.Text.Equals(paramstext))
+                lblParams.Text = paramstext;
+        }
+        
+        private void cbTableItem_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            int y = (int)cb.Tag;
+
+            if (y < chart2DChart.Series.Count)
+            {
+                chart2DChart.Series[y].Enabled = cb.Checked;
             }
         }
 
