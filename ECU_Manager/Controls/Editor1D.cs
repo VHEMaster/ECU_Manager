@@ -653,23 +653,20 @@ namespace ECU_Manager.Controls
 
             if (result.ChartElementType == ChartElementType.DataPoint || result.ChartElementType == ChartElementType.DataPointLabel)
             {
-                if (result.ChartElementType == ChartElementType.DataPoint)
+                DataPoint point = (DataPoint)result.Object;
+                if (chart1DChart.Series[0].Points.Contains(point))
                 {
-                    DataPoint point = (DataPoint)result.Object;
-                    if(chart1DChart.Series[0].Points.Contains(point))
+                    if (iPrevDataPoint >= 0)
                     {
-                        if (iPrevDataPoint >= 0)
-                        {
-                            if(nudItem.Value - 1 == iPrevDataPoint)
-                                chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 15;
-                            else chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 8;
-                            iPrevDataPoint = -1;
-                        }
-
-                        point.MarkerSize = 16;
-                        iPrevDataPoint = chart1DChart.Series[0].Points.IndexOf(point);
-                        refresh = true;
+                        if (nudItem.Value - 1 == iPrevDataPoint)
+                            chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 15;
+                        else chart1DChart.Series[0].Points[iPrevDataPoint].MarkerSize = 8;
+                        iPrevDataPoint = -1;
                     }
+
+                    point.MarkerSize = 16;
+                    iPrevDataPoint = chart1DChart.Series[0].Points.IndexOf(point);
+                    refresh = true;
                 }
             }
             else

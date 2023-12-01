@@ -454,6 +454,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl111 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label25 = new System.Windows.Forms.Label();
+            this.nudParamsStartLargeCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label105 = new System.Windows.Forms.Label();
             this.label106 = new System.Windows.Forms.Label();
             this.nudParamsIdleValveMax = new ECU_Manager.Controls.NumericUpDownOneWheel();
@@ -862,8 +864,6 @@
             this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabControl8 = new System.Windows.Forms.TabControl();
-            this.label25 = new System.Windows.Forms.Label();
-            this.nudParamsStartLargeCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -927,6 +927,7 @@
             this.tabPage3.SuspendLayout();
             this.tabControl111.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighV)).BeginInit();
@@ -1227,7 +1228,6 @@
             this.tableLayoutPanel14.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1768,10 +1768,10 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 45);
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1097, 568);
+            this.tabPage2.Size = new System.Drawing.Size(1097, 579);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -3209,10 +3209,10 @@
             this.tabPage12.Controls.Add(this.groupBox7);
             this.tabPage12.Controls.Add(this.groupBox6);
             this.tabPage12.Controls.Add(this.groupBox5);
-            this.tabPage12.Location = new System.Drawing.Point(4, 34);
+            this.tabPage12.Location = new System.Drawing.Point(4, 45);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1097, 579);
+            this.tabPage12.Size = new System.Drawing.Size(1097, 568);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
             // 
@@ -3786,6 +3786,23 @@
             this.tabPage8.Size = new System.Drawing.Size(1083, 519);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 471);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(159, 24);
+            this.label25.TabIndex = 128;
+            this.label25.Text = "Start Large Count:";
+            // 
+            // nudParamsStartLargeCount
+            // 
+            this.nudParamsStartLargeCount.Location = new System.Drawing.Point(171, 469);
+            this.nudParamsStartLargeCount.Name = "nudParamsStartLargeCount";
+            this.nudParamsStartLargeCount.Size = new System.Drawing.Size(160, 29);
+            this.nudParamsStartLargeCount.TabIndex = 127;
+            this.nudParamsStartLargeCount.ValueChanged += new System.EventHandler(this.nudParamsStartLargeCount_ValueChanged);
             // 
             // label105
             // 
@@ -4961,9 +4978,9 @@
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage4.Controls.Add(this.tabControl3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 39);
+            this.tabPage4.Location = new System.Drawing.Point(4, 28);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1083, 519);
+            this.tabPage4.Size = new System.Drawing.Size(1083, 530);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Basic Setup";
             // 
@@ -4985,7 +5002,7 @@
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.Padding = new System.Drawing.Point(20, 5);
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(1083, 519);
+            this.tabControl3.Size = new System.Drawing.Size(1083, 530);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage11
@@ -4995,7 +5012,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 70);
             this.tabPage11.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(1075, 445);
+            this.tabPage11.Size = new System.Drawing.Size(1075, 456);
             this.tabPage11.TabIndex = 8;
             this.tabPage11.Text = "Pressures";
             // 
@@ -5033,7 +5050,7 @@
             this.ePressures.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ePressures.Chart.Location = new System.Drawing.Point(3, 33);
             this.ePressures.Chart.Name = "chart1DChart";
-            this.ePressures.Chart.Size = new System.Drawing.Size(1069, 371);
+            this.ePressures.Chart.Size = new System.Drawing.Size(1069, 382);
             this.ePressures.Chart.TabIndex = 2;
             this.ePressures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ePressures.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -5041,7 +5058,7 @@
             this.ePressures.Location = new System.Drawing.Point(0, 0);
             this.ePressures.Margin = new System.Windows.Forms.Padding(6);
             this.ePressures.Name = "ePressures";
-            this.ePressures.Size = new System.Drawing.Size(1075, 445);
+            this.ePressures.Size = new System.Drawing.Size(1075, 456);
             this.ePressures.TabIndex = 3;
             // 
             // tabPage7
@@ -5496,9 +5513,9 @@
             // 
             this.tabPage9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage9.Controls.Add(this.tabControl4);
-            this.tabPage9.Location = new System.Drawing.Point(4, 39);
+            this.tabPage9.Location = new System.Drawing.Point(4, 28);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(1083, 519);
+            this.tabPage9.Size = new System.Drawing.Size(1083, 530);
             this.tabPage9.TabIndex = 6;
             this.tabPage9.Text = "Setup";
             // 
@@ -5519,7 +5536,7 @@
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.Padding = new System.Drawing.Point(20, 5);
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(1083, 519);
+            this.tabControl4.Size = new System.Drawing.Size(1083, 530);
             this.tabControl4.TabIndex = 0;
             // 
             // tabPage91
@@ -5529,7 +5546,7 @@
             this.tabPage91.Location = new System.Drawing.Point(4, 37);
             this.tabPage91.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage91.Name = "tabPage91";
-            this.tabPage91.Size = new System.Drawing.Size(1075, 478);
+            this.tabPage91.Size = new System.Drawing.Size(1075, 489);
             this.tabPage91.TabIndex = 18;
             this.tabPage91.Text = "Filling";
             // 
@@ -5545,7 +5562,7 @@
             this.tabControl13.Name = "tabControl13";
             this.tabControl13.Padding = new System.Drawing.Point(20, 5);
             this.tabControl13.SelectedIndex = 0;
-            this.tabControl13.Size = new System.Drawing.Size(1075, 478);
+            this.tabControl13.Size = new System.Drawing.Size(1075, 489);
             this.tabControl13.TabIndex = 5;
             // 
             // tabPage10
@@ -5555,7 +5572,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 37);
             this.tabPage10.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(1067, 437);
+            this.tabPage10.Size = new System.Drawing.Size(1067, 448);
             this.tabPage10.TabIndex = 0;
             this.tabPage10.Text = "Cyclic Filling MAP";
             // 
@@ -5630,7 +5647,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCyclicFillingMAP.Chart.Series.Add(series1);
-            this.eCyclicFillingMAP.Chart.Size = new System.Drawing.Size(1063, 159);
+            this.eCyclicFillingMAP.Chart.Size = new System.Drawing.Size(1063, 163);
             this.eCyclicFillingMAP.Chart.TabIndex = 4;
             this.eCyclicFillingMAP.Chart.Text = " ";
             this.eCyclicFillingMAP.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5652,14 +5669,14 @@
             this.eCyclicFillingMAP.Graph3D.Name = "graph3D";
             this.eCyclicFillingMAP.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCyclicFillingMAP.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCyclicFillingMAP.Graph3D.Size = new System.Drawing.Size(372, 193);
+            this.eCyclicFillingMAP.Graph3D.Size = new System.Drawing.Size(372, 200);
             this.eCyclicFillingMAP.Graph3D.TabIndex = 0;
             this.eCyclicFillingMAP.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCyclicFillingMAP.LabelTitle = "Cyclic Filling MAP";
             this.eCyclicFillingMAP.Location = new System.Drawing.Point(0, 0);
             this.eCyclicFillingMAP.Margin = new System.Windows.Forms.Padding(6);
             this.eCyclicFillingMAP.Name = "eCyclicFillingMAP";
-            this.eCyclicFillingMAP.Size = new System.Drawing.Size(1067, 437);
+            this.eCyclicFillingMAP.Size = new System.Drawing.Size(1067, 448);
             this.eCyclicFillingMAP.TabIndex = 0;
             // 
             // tabPage37
@@ -14225,23 +14242,6 @@
             this.tabControl8.Size = new System.Drawing.Size(200, 100);
             this.tabControl8.TabIndex = 0;
             // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 471);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(159, 24);
-            this.label25.TabIndex = 128;
-            this.label25.Text = "Start Large Count:";
-            // 
-            // nudParamsStartLargeCount
-            // 
-            this.nudParamsStartLargeCount.Location = new System.Drawing.Point(171, 469);
-            this.nudParamsStartLargeCount.Name = "nudParamsStartLargeCount";
-            this.nudParamsStartLargeCount.Size = new System.Drawing.Size(160, 29);
-            this.nudParamsStartLargeCount.TabIndex = 127;
-            this.nudParamsStartLargeCount.ValueChanged += new System.EventHandler(this.nudParamsStartLargeCount_ValueChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -14337,6 +14337,7 @@
             this.tabControl111.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighV)).EndInit();
@@ -14643,7 +14644,6 @@
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).EndInit();
             this.ResumeLayout(false);
 
         }
