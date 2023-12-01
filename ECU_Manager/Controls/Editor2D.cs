@@ -406,7 +406,9 @@ namespace ECU_Manager.Controls
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("\r\n");
             }
 
         }
@@ -701,7 +703,9 @@ namespace ECU_Manager.Controls
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("\r\n");
             }
         }
 

@@ -124,7 +124,9 @@ namespace ECU_Framework.Packets
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("\r\n");
             }
 
             return result;

@@ -3888,13 +3888,14 @@ namespace ECU_Manager
                     if (e.Node.Parent != null)
                     {
                         treeView_AfterSelect(sender, new TreeViewEventArgs(e.Node.Parent));
-
                     }
 
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine("\r\n");
                 }
             }
         }
