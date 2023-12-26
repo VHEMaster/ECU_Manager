@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.scVertical = new System.Windows.Forms.SplitContainer();
             this.scHorisontal = new System.Windows.Forms.SplitContainer();
-            this.tlp2DTable = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGraph = new System.Windows.Forms.TabPage();
             this.graph3D = new ECU_Manager.Controls.Graph3D();
@@ -47,6 +46,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tpTools = new System.Windows.Forms.TabPage();
+            this.btnImportFromText = new System.Windows.Forms.Button();
+            this.btnCopyToText = new System.Windows.Forms.Button();
             this.btnImportFromCCode = new System.Windows.Forms.Button();
             this.btnExport2DChart = new System.Windows.Forms.Button();
             this.btnImport2DChart = new System.Windows.Forms.Button();
@@ -57,8 +58,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.dlgExport2DChart = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport2DChart = new System.Windows.Forms.OpenFileDialog();
-            this.btnCopyToText = new System.Windows.Forms.Button();
-            this.btnImportFromText = new System.Windows.Forms.Button();
+            this.imageTable1 = new ECU_Manager.Controls.ImageTable();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -112,7 +112,7 @@
             // 
             // scHorisontal.Panel1
             // 
-            this.scHorisontal.Panel1.Controls.Add(this.tlp2DTable);
+            this.scHorisontal.Panel1.Controls.Add(this.imageTable1);
             // 
             // scHorisontal.Panel2
             // 
@@ -120,23 +120,6 @@
             this.scHorisontal.Size = new System.Drawing.Size(1046, 339);
             this.scHorisontal.SplitterDistance = 669;
             this.scHorisontal.TabIndex = 1;
-            // 
-            // tlp2DTable
-            // 
-            this.tlp2DTable.AutoScroll = true;
-            this.tlp2DTable.ColumnCount = 2;
-            this.tlp2DTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp2DTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp2DTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlp2DTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tlp2DTable.Location = new System.Drawing.Point(0, 0);
-            this.tlp2DTable.Margin = new System.Windows.Forms.Padding(0);
-            this.tlp2DTable.Name = "tlp2DTable";
-            this.tlp2DTable.RowCount = 2;
-            this.tlp2DTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp2DTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp2DTable.Size = new System.Drawing.Size(669, 339);
-            this.tlp2DTable.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -329,12 +312,34 @@
             this.tpTools.Controls.Add(this.btnExport2DChart);
             this.tpTools.Controls.Add(this.btnImport2DChart);
             this.tpTools.Controls.Add(this.btnCopyToC);
-            this.tpTools.Location = new System.Drawing.Point(4, 33);
+            this.tpTools.Location = new System.Drawing.Point(4, 22);
             this.tpTools.Name = "tpTools";
             this.tpTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTools.Size = new System.Drawing.Size(365, 302);
+            this.tpTools.Size = new System.Drawing.Size(365, 313);
             this.tpTools.TabIndex = 2;
             this.tpTools.Text = "Tools";
+            // 
+            // btnImportFromText
+            // 
+            this.btnImportFromText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportFromText.Location = new System.Drawing.Point(6, 178);
+            this.btnImportFromText.Name = "btnImportFromText";
+            this.btnImportFromText.Size = new System.Drawing.Size(201, 33);
+            this.btnImportFromText.TabIndex = 14;
+            this.btnImportFromText.Text = "Import from Text";
+            this.btnImportFromText.UseVisualStyleBackColor = true;
+            this.btnImportFromText.Click += new System.EventHandler(this.btnImportFromText_Click);
+            // 
+            // btnCopyToText
+            // 
+            this.btnCopyToText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyToText.Location = new System.Drawing.Point(6, 139);
+            this.btnCopyToText.Name = "btnCopyToText";
+            this.btnCopyToText.Size = new System.Drawing.Size(201, 33);
+            this.btnCopyToText.TabIndex = 13;
+            this.btnCopyToText.Text = "Copy to Text";
+            this.btnCopyToText.UseVisualStyleBackColor = true;
+            this.btnCopyToText.Click += new System.EventHandler(this.btnCopyToText_Click);
             // 
             // btnImportFromCCode
             // 
@@ -382,36 +387,36 @@
             // 
             // chart2DChart
             // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.AxisY.Interval = 10D;
-            chartArea2.AxisY.Maximum = 60D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.Name = "ChartArea1";
-            this.chart2DChart.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.Interval = 1D;
+            chartArea1.AxisY.Interval = 10D;
+            chartArea1.AxisY.Maximum = 60D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chart2DChart.ChartAreas.Add(chartArea1);
             this.chart2DChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart2DChart.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chart2DChart.Legends.Add(legend1);
             this.chart2DChart.Location = new System.Drawing.Point(0, 3);
             this.chart2DChart.Name = "chart2DChart";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Brown;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            series2.IsValueShownAsLabel = true;
-            series2.LabelBorderWidth = 0;
-            series2.Legend = "Legend1";
-            series2.MarkerColor = System.Drawing.Color.Black;
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            series2.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
-            series2.SmartLabelStyle.MaxMovingDistance = 100D;
-            series2.SmartLabelStyle.MinMovingDistance = 10D;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series2.YValuesPerPoint = 2;
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart2DChart.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Brown;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            series1.IsValueShownAsLabel = true;
+            series1.LabelBorderWidth = 0;
+            series1.Legend = "Legend1";
+            series1.MarkerColor = System.Drawing.Color.Black;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series1.SmartLabelStyle.MaxMovingDistance = 100D;
+            series1.SmartLabelStyle.MinMovingDistance = 10D;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series1.YValuesPerPoint = 2;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart2DChart.Series.Add(series1);
             this.chart2DChart.Size = new System.Drawing.Size(1046, 235);
             this.chart2DChart.TabIndex = 4;
             this.chart2DChart.Text = " ";
@@ -467,27 +472,29 @@
             this.dlgImport2DChart.Filter = "AutoECU 2D Chart|*.ecu2dchart";
             this.dlgImport2DChart.RestoreDirectory = true;
             // 
-            // btnCopyToText
+            // imageTable1
             // 
-            this.btnCopyToText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCopyToText.Location = new System.Drawing.Point(6, 139);
-            this.btnCopyToText.Name = "btnCopyToText";
-            this.btnCopyToText.Size = new System.Drawing.Size(201, 33);
-            this.btnCopyToText.TabIndex = 13;
-            this.btnCopyToText.Text = "Copy to Text";
-            this.btnCopyToText.UseVisualStyleBackColor = true;
-            this.btnCopyToText.Click += new System.EventHandler(this.btnCopyToText_Click);
-            // 
-            // btnImportFromText
-            // 
-            this.btnImportFromText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportFromText.Location = new System.Drawing.Point(6, 178);
-            this.btnImportFromText.Name = "btnImportFromText";
-            this.btnImportFromText.Size = new System.Drawing.Size(201, 33);
-            this.btnImportFromText.TabIndex = 14;
-            this.btnImportFromText.Text = "Import from Text";
-            this.btnImportFromText.UseVisualStyleBackColor = true;
-            this.btnImportFromText.Click += new System.EventHandler(this.btnImportFromText_Click);
+            this.imageTable1.Array = null;
+            this.imageTable1.ArraySizeX = 4;
+            this.imageTable1.ArraySizeY = 4;
+            this.imageTable1.ColorTransience = null;
+            this.imageTable1.ColumnTitles = null;
+            this.imageTable1.DecPlaces = 1;
+            this.imageTable1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageTable1.Increment = 0.1F;
+            this.imageTable1.Initialized = false;
+            this.imageTable1.Location = new System.Drawing.Point(0, 0);
+            this.imageTable1.Margin = new System.Windows.Forms.Padding(0);
+            this.imageTable1.MinimumSize = new System.Drawing.Size(29, 30);
+            this.imageTable1.Name = "imageTable1";
+            this.imageTable1.RowTitles = null;
+            this.imageTable1.Size = new System.Drawing.Size(669, 339);
+            this.imageTable1.SizeX = 4;
+            this.imageTable1.SizeY = 4;
+            this.imageTable1.TabIndex = 0;
+            this.imageTable1.UpdateTableEvent = null;
+            this.imageTable1.ValueMax = 1F;
+            this.imageTable1.ValueMin = 0F;
             // 
             // Editor2D
             // 
@@ -523,7 +530,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TableLayoutPanel tlp2DTable;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblParams;
         private System.Windows.Forms.Label lblTitle;
@@ -551,5 +557,6 @@
         private System.Windows.Forms.Button btnImportFromCCode;
         private System.Windows.Forms.Button btnImportFromText;
         private System.Windows.Forms.Button btnCopyToText;
+        private ImageTable imageTable1;
     }
 }

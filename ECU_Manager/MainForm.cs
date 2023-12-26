@@ -163,7 +163,7 @@ namespace ECU_Manager
             eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates_count", "throttles_count", "rotates", "throttles");
             eCyclicFillingTPS.SetX("RPM", "RPM", "F0");
             eCyclicFillingTPS.SetY(string.Empty, "Fill", "F2");
-            eCyclicFillingTPS.SetD("ThrottlePosition", "Throttle", "F0");
+            eCyclicFillingTPS.SetD("ThrottlePosition", "Throttle", "F1");
             eCyclicFillingTPS.SetTableEventHandler(ChartUpdateEvent);
 
             colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
@@ -410,8 +410,8 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 5.0F);
 
             eEnrichmentIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 -25.0D, 25.0D, 0.1D, 10D, 1D, -5D, 5D, 10, 1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ROTATES_MAX, 1);
 
             eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load_count", "rotates_count", "enrichment_rate_start_load", "rotates");
@@ -633,7 +633,7 @@ namespace ECU_Manager
             eCorrsFillingGbcTPS.SetConfig("filling_gbc_tps", "rotates_count", "throttles_count", "rotates", "throttles");
             eCorrsFillingGbcTPS.SetX("RPM", "RPM", "F0");
             eCorrsFillingGbcTPS.SetY(string.Empty, "Correction", "F3");
-            eCorrsFillingGbcTPS.SetD("ThrottlePosition", "Throttle", "F0");
+            eCorrsFillingGbcTPS.SetD("ThrottlePosition", "Throttle", "F1");
             eCorrsFillingGbcTPS.SetTableEventHandler(ChartCorrectionEvent);
             eCorrsFillingGbcTPS.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsFillingGbcMAP.scHorisontal.Width * 0.75);
 

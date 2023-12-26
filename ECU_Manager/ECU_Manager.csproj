@@ -77,6 +77,13 @@
     <Compile Include="Controls\Graph3D.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ImageTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageTable.Designer.cs">
+      <DependentUpon>ImageTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ImageTableEventArg.cs" />
     <Compile Include="Controls\Meter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -123,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Editor2D.resx">
       <DependentUpon>Editor2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ImageTable.resx">
+      <DependentUpon>ImageTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DiagForm.resx">
       <DependentUpon>DiagForm.cs</DependentUpon>

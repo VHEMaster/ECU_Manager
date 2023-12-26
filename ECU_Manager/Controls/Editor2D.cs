@@ -20,6 +20,7 @@ using cScatter = ECU_Manager.Controls.Graph3D.cScatter;
 using eNormalize = ECU_Manager.Controls.Graph3D.eNormalize;
 using cMinMax3D = ECU_Manager.Controls.Graph3D.cMinMax3D;
 using ECU_Manager.Dialogs;
+using ECU_Manager.Classes;
 
 namespace ECU_Manager.Controls
 {
@@ -82,11 +83,6 @@ namespace ECU_Manager.Controls
         private ComponentStructure cs;
 
         Color[] ColorScheme;
-        List<int> tlpRows = new List<int>();
-        List<int> tlpColumns = new List<int>();
-        private int tlpInfoRow = 0;
-        private int tlpInfoColumn = 0;
-        private int tlpCbColumn = 0;
 
         public Editor2D()
         {
@@ -160,100 +156,13 @@ namespace ECU_Manager.Controls
             iSizeX = sizex;
             iSizeY = sizey;
 
-            tlp2DTable.RowStyles.Clear();
-            tlp2DTable.ColumnStyles.Clear();
-
-            tlpCbColumn = tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f));
-            tlpInfoColumn = tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f));
-            tlpInfoRow = tlp2DTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 0.0f));
-
-            for (int y = 0; y < iArraySizeY; y++)
-                tlpRows.Add(tlp2DTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 0.0f)));
-            for (int x = 0; x < iArraySizeX; x++)
-                tlpColumns.Add(tlp2DTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0.0f)));
-
-            tlp2DTable.ColumnCount = iArraySizeX + 2;
-            tlp2DTable.RowCount = iArraySizeY + 1;
-
             CalibrationColorTransience = new ColorTransience(0.0f, 1.0f, Color.Black);
             CalibrationColorTransience.Add(Color.FromArgb(128, 0, 0), 0.0f);
             CalibrationColorTransience.Add(Color.FromArgb(255, 128, 0), 0.5f);
             CalibrationColorTransience.Add(Color.FromArgb(192, 192, 0), 0.8f);
             CalibrationColorTransience.Add(Color.FromArgb(192, 192, 0), 0.9f);
             CalibrationColorTransience.Add(Color.FromArgb(0, 128, 0), 1.0f);
-
-
-            for (int y = -1; y < iArraySizeY; y++)
-            {
-                for (int x = -2; x < iArraySizeX; x++)
-                {
-                    if (x >= 0 && y >= 0)
-                    {
-                        NumericUpDown nud = new NumericUpDownOneWheel();
-                        nud.Margin = new Padding(0);
-                        nud.Minimum = (decimal)dMinY;
-                        nud.Maximum = (decimal)dMaxY;
-                        nud.DecimalPlaces = decplaces;
-                        nud.Increment = (decimal)dStepSize;
-                        nud.Tag = y * iArraySizeX + x;
-                        nud.Value = (decimal)((dMaxY - dMinY) / 2);
-                        nud.ValueChanged += nudTableItem_ValueChanged;
-                        nud.Location = new Point(0, 0);
-                        nud.Dock = DockStyle.Fill;
-                        nud.Visible = false;
-                        tlp2DTable.Controls.Add(nud, tlpColumns[x], tlpRows[y]);
-                    }
-                    else if(x >= -1 && y >= -1)
-                    {
-                        Label lbl = new Label();
-                        lbl.Dock = DockStyle.Fill;
-                        lbl.TextAlign = x != -1 ? ContentAlignment.MiddleCenter : ContentAlignment.TopLeft;
-                        lbl.AutoSize = true;
-                        if ((x == -1 && y != -1) || (y == -1 && x != -1))
-                        {
-                            lbl.Visible = false;
-                            lbl.Text = "0";
-                            if (x != -1)
-                            {
-                                lbl.Tag = 0 * (iArraySizeX + 1) + (x + 1);
-                                tlp2DTable.Controls.Add(lbl, tlpColumns[x], tlpInfoRow);
-                            }
-                            else if (y != -1)
-                            {
-                                lbl.Tag = (y + 1) * (iArraySizeX + 1) + 0;
-                                tlp2DTable.Controls.Add(lbl, tlpInfoColumn, tlpRows[y]);
-                            }
-                        }
-                        else if (x == -1 && y == -1)
-                        {
-                            lbl.Text = @"";
-                            lbl.Visible = true;
-                            lbl.Tag = null;
-                            tlp2DTable.Controls.Add(lbl, tlpInfoColumn, tlpInfoRow);
-                        }
-                    }
-                    else
-                    {
-                        if(y >= 0 && x == -2)
-                        {
-                            CheckBox cb = new CheckBox();
-                            cb.Margin = new Padding(0);
-                            cb.Text = string.Empty;
-                            cb.Tag = y;
-                            cb.Checked = true;
-                            cb.CheckedChanged += cbTableItem_CheckedChanged;
-                            cb.Location = new Point(0, 0);
-                            cb.Dock = DockStyle.Fill;
-                            cb.Visible = true;
-                            cb.AutoSize = false;
-                            cb.CheckAlign = ContentAlignment.MiddleCenter;
-                            cb.TextAlign = ContentAlignment.MiddleCenter;
-                            tlp2DTable.Controls.Add(cb, tlpCbColumn, tlpRows[y]);
-                        }
-                    }
-                }
-            }
-
+            
             byte[,] u8_RGB = new byte[,] { { 0, 0, 143 }, { 0, 0, 159 }, { 0, 0, 175 }, { 0, 0, 191 }, { 0, 0, 207 }, { 0, 0, 223 }, { 0, 0, 239 }, { 0, 0, 255 }, { 0, 16, 255 }, { 0, 32, 255 }, { 0, 48, 255 }, { 0, 64, 255 }, { 0, 80, 255 }, { 0, 96, 255 }, { 0, 112, 255 }, { 0, 128, 255 }, { 0, 143, 255 }, { 0, 159, 255 }, { 0, 175, 255 }, { 0, 191, 255 }, { 0, 207, 255 }, { 0, 223, 255 }, { 0, 239, 255 }, { 0, 255, 255 }, { 16, 255, 239 }, { 32, 255, 223 }, { 48, 255, 207 }, { 64, 255, 191 }, { 80, 255, 175 }, { 96, 255, 159 }, { 112, 255, 143 }, { 128, 255, 128 }, { 143, 255, 112 }, { 159, 255, 96 }, { 175, 255, 80 }, { 191, 255, 64 }, { 207, 255, 48 }, { 223, 255, 32 }, { 239, 255, 16 }, { 255, 255, 0 }, { 255, 239, 0 }, { 255, 223, 0 }, { 255, 207, 0 }, { 255, 191, 0 }, { 255, 175, 0 }, { 255, 159, 0 }, { 255, 143, 0 }, { 255, 128, 0 }, { 255, 112, 0 }, { 255, 96, 0 }, { 255, 80, 0 }, { 255, 64, 0 }, { 255, 48, 0 }, { 255, 32, 0 }, { 255, 16, 0 }, { 255, 0, 0 }, { 239, 0, 0 }, { 223, 0, 0 }, { 207, 0, 0 }, { 191, 0, 0 }, { 175, 0, 0 }, { 159, 0, 0 }, { 143, 0, 0 }, { 128, 0, 0 } };
 
             ColorScheme = new Color[u8_RGB.GetLength(0)];
@@ -551,50 +460,21 @@ namespace ECU_Manager.Controls
 
                 if (depx != null && depy != null)
                 {
+                    imageTable1.ColorTransience = ColorTransience;
+                    imageTable1.ArraySizeX = iArraySizeX;
+                    imageTable1.ArraySizeY = iArraySizeY;
+                    imageTable1.ValueMin = (float)dMinY;
+                    imageTable1.ValueMax = (float)dMaxY;
+                    imageTable1.SizeX = iSizeX;
+                    imageTable1.SizeY = iSizeY;
+                    imageTable1.RowTitles = Array.ConvertAll(depy, a => a.ToString(sFormatStatusD));
+                    imageTable1.ColumnTitles = Array.ConvertAll(depx, a => a.ToString(sFormatStatusX));
+                    imageTable1.Array = array2d;
+                    imageTable1.DecPlaces = iDecPlaces;
+                    imageTable1.Increment = (float)dStepSize;
+                    imageTable1.Initialized = true;
 
-                    tlp2DTable.SuspendLayout();
-                    tlp2DTable.RowStyles[tlpInfoRow] = new RowStyle(SizeType.AutoSize);
-                    tlp2DTable.ColumnStyles[tlpInfoColumn] = new ColumnStyle(SizeType.AutoSize);
-                    tlp2DTable.ColumnStyles[tlpCbColumn] = new ColumnStyle(SizeType.Absolute, 20.0f);
-
-                    for (int y = 0; y < sizey; y++)
-                        tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Percent, 10F);
-                    for (int y = sizey; y < iArraySizeY; y++)
-                        tlp2DTable.RowStyles[tlpRows[y]] = new RowStyle(SizeType.Absolute, 0.0f);
-                    for (int x = 0; x < sizex; x++)
-                        tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Percent, 10.0f);
-                    for (int x = sizex; x < iArraySizeX; x++)
-                        tlp2DTable.ColumnStyles[tlpColumns[x]] = new ColumnStyle(SizeType.Absolute, 0.0f);
-
-                    foreach (Control control in tlp2DTable.Controls)
-                    {
-                        if (control.Tag != null)
-                        {
-
-                            if (control.GetType().IsSubclassOf(typeof(NumericUpDown)))
-                            {
-                                int x = ((int)control.Tag) % (iArraySizeX);
-                                int y = ((int)control.Tag) / (iArraySizeX);
-                                control.Visible = x < sizex && y < sizey;
-
-                                NumericUpDown nud = (NumericUpDown)control;
-                                if (!nud.Focused && nud.Value != (decimal)array2d[(int)nud.Tag])
-                                    nud.Value = (decimal)array2d[(int)nud.Tag];
-                            }
-                            else if (control.GetType() == typeof(Label))
-                            {
-                                int x = ((int)control.Tag) % (iArraySizeX + 1);
-                                int y = ((int)control.Tag) / (iArraySizeX + 1);
-                                control.Visible = (x - 1) < sizex && (y - 1) < sizey;
-
-                                Label lbl = (Label)control;
-                                if (x == 0 && y != 0) lbl.Text = depy[y - 1].ToString(sFormatStatusD);
-                                else if (y == 0 && x != 0) lbl.Text = depx[x - 1].ToString(sFormatStatusX);
-                            }
-                        }
-                    }
-
-                    tlp2DTable.ResumeLayout();
+                    imageTable1.UpdateTableEvent += internalUpdateTableEvent;
 
                     Color min = Color.SpringGreen;
                     Color max = Color.IndianRed;
@@ -854,116 +734,103 @@ namespace ECU_Manager.Controls
                             arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
                     }
 
-                    for (int i = 0; i < tlp2DTable.Controls.Count; i++)
+                    for (int i = 0; i < array2d.Length; i++)
                     {
-                        if (tlp2DTable.Controls[i].GetType().IsSubclassOf(typeof(NumericUpDown)))
+                        int r, g, b;
+                        int index = i;
+                        int xpos = index % iArraySizeX;
+                        int ypos = index / iArraySizeX;
+                        Color color;
+                        Color original = Color.DarkGray;
+                        double[] mult = new double[4];
+                        bool handled = false;
+
+                        if (xpos < sizex && ypos < sizey)
                         {
-                            NumericUpDown nud = (NumericUpDown)tlp2DTable.Controls[i];
+                            if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
+                                chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
 
-                            int r, g, b;
-                            int index = (int)nud.Tag;
-                            int xpos = index % iArraySizeX;
-                            int ypos = index / iArraySizeX;
-                            Color color;
-                            Color original = Color.DarkGray;
-                            double[] mult = new double[4];
-                            bool handled = false;
-
-                            if (xpos < sizex && ypos < sizey)
+                            if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
                             {
-
-                                if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
-                                    chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
-                                if (!nud.Focused && nud.Value != (decimal)array2d[index])
+                                if (arraycalib == null)
                                 {
-                                    decimal value = (decimal)array2d[index];
-                                    if (value > nud.Maximum)
-                                        value = nud.Maximum;
-                                    else if (value < nud.Minimum)
-                                        value = nud.Minimum;
-                                    nud.Value = value;
+                                    original = Color.DarkGray;
                                 }
-
-                                if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
+                                else if (CalibrationColorTransience != null)
                                 {
-                                    if (arraycalib == null)
-                                    {
-                                        original = Color.DarkGray;
-                                    }
-                                    else if (CalibrationColorTransience != null)
-                                    {
-                                        original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
-                                    }
-                                }
-                                else if (ColorTransience != null)
-                                {
-                                    original = ColorTransience.Get((float)nud.Value);
-                                }
-
-                                if (interpolationX != null && interpolationY != null)
-                                {
-                                    for (int y = 0; y < 2; y++)
-                                    {
-                                        for (int x = 0; x < 2; x++)
-                                        {
-                                            double value;
-                                            if (x == 0 && y == 0)
-                                                value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
-                                            else if (x == 0 && y != 0)
-                                                value = (1.0 - interpolationX.mult) * interpolationY.mult;
-                                            else if (x != 0 && y == 0)
-                                                value = interpolationX.mult * (1.0f - interpolationY.mult);
-                                            else
-                                                value = interpolationX.mult * interpolationY.mult;
-                                            mult[y * 2 + x] = value;
-                                        }
-                                    }
-
-
-                                    for (int y = 0; y < 2; y++)
-                                    {
-                                        for (int x = 0; x < 2; x++)
-                                        {
-                                            if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
-                                            {
-                                                color = Color.DarkGray;
-
-                                                if (mult[y * 2 + x] > 1.0)
-                                                    mult[y * 2 + x] = 1.0;
-                                                else if (mult[y * 2 + x] < 0.0)
-                                                    mult[y * 2 + x] = 0.0;
-
-                                                r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
-                                                g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
-                                                b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
-
-                                                nud.BackColor = Color.FromArgb(r, g, b);
-                                                nud.ForeColor = Color.White;
-                                                if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
-                                                {
-                                                    if (nud.Font.Style != FontStyle.Bold)
-                                                        nud.Font = new Font(nud.Font, FontStyle.Bold);
-                                                }
-                                                else
-                                                {
-                                                    if (nud.Font.Style != FontStyle.Regular)
-                                                        nud.Font = new Font(nud.Font, FontStyle.Regular);
-                                                }
-                                                handled = true;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (!handled && nud.BackColor != original)
-                                {
-                                    nud.BackColor = original;
-                                    if (!nud.Focused)
-                                        nudTableItem_ValueChanged(nud, new EventArgs());
+                                    original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
                                 }
                             }
+                            else if (ColorTransience != null)
+                            {
+                                original = ColorTransience.Get(array2d[index]);
+                            }
+
+                            //if (interpolationX != null && interpolationY != null)
+                            //{
+                            //    for (int y = 0; y < 2; y++)
+                            //    {
+                            //        for (int x = 0; x < 2; x++)
+                            //        {
+                            //            double value;
+                            //            if (x == 0 && y == 0)
+                            //                value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
+                            //            else if (x == 0 && y != 0)
+                            //                value = (1.0 - interpolationX.mult) * interpolationY.mult;
+                            //            else if (x != 0 && y == 0)
+                            //                value = interpolationX.mult * (1.0f - interpolationY.mult);
+                            //            else
+                            //                value = interpolationX.mult * interpolationY.mult;
+                            //            mult[y * 2 + x] = value;
+                            //        }
+                            //    }
+
+
+                            //    for (int y = 0; y < 2; y++)
+                            //    {
+                            //        for (int x = 0; x < 2; x++)
+                            //        {
+                            //            if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
+                            //            {
+                            //                color = Color.DarkGray;
+
+                            //                if (mult[y * 2 + x] > 1.0)
+                            //                    mult[y * 2 + x] = 1.0;
+                            //                else if (mult[y * 2 + x] < 0.0)
+                            //                    mult[y * 2 + x] = 0.0;
+
+                            //                r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
+                            //                g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
+                            //                b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
+
+                            //                nud.BackColor = Color.FromArgb(r, g, b);
+                            //                nud.ForeColor = Color.White;
+                            //                if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
+                            //                {
+                            //                    if (nud.Font.Style != FontStyle.Bold)
+                            //                        nud.Font = new Font(nud.Font, FontStyle.Bold);
+                            //                }
+                            //                else
+                            //                {
+                            //                    if (nud.Font.Style != FontStyle.Regular)
+                            //                        nud.Font = new Font(nud.Font, FontStyle.Regular);
+                            //                }
+                            //                handled = true;
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                            //if (!handled && nud.BackColor != original)
+                            //{
+                            //    nud.BackColor = original;
+                            //    if (!nud.Focused)
+                            //        nudTableItem_ValueChanged(nud, new EventArgs());
+                            //}
                         }
                     }
+                    
 
+                    imageTable1.RedrawTable();
 
                     cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
 
@@ -995,17 +862,16 @@ namespace ECU_Manager.Controls
             }
         }
 
-        private void nudTableItem_ValueChanged(object sender, EventArgs e)
+        private void internalUpdateTableEvent(object sender, ImageTableEventArg e)
         {
             if (valueChangedEnabled)
             {
-                NumericUpDown nud = (NumericUpDown)sender;
-                int index = (int)nud.Tag;
+                int index = e.Index;
+                float value;
                 int x = index % iArraySizeX;
                 int y = index / iArraySizeX;
-                float value = (float)nud.Value;
-                Color text = Color.Black;
-                Color back = nud.BackColor;
+                //Color text = Color.Black;
+                //Color back = nud.BackColor;
                 int sizex = 0;
                 int sizey = 0;
                 float[] depx = null;
@@ -1056,29 +922,27 @@ namespace ECU_Manager.Controls
                         depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
 
+                value = array2d[index];
+
                 if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
                 {
                     chart2DChart.Series[y].Points[x].YValues = new double[1] { value };
                 }
 
                 //TODO: check if need to check if IsSynchronizing
-                if (array2d[index] != value)
-                {
-                    array2d[index] = value;
-                    UpdateTableEvent?.Invoke(sender, new EventArgs());
-                }
+                UpdateTableEvent?.Invoke(sender, new EventArgs());
 
-                if (ColorTransience != null || !string.IsNullOrWhiteSpace(sProgressTable))
-                {
-                    text = Color.White;
-                    if (string.IsNullOrWhiteSpace(sProgressTable))
-                        back = ColorTransience.Get(value);
-                }
-
-                nud.ForeColor = text;
-                nud.BackColor = back;
-                if(nud.Font.Style != FontStyle.Regular)
-                    nud.Font = new Font(nud.Font, FontStyle.Regular);
+                //if (ColorTransience != null || !string.IsNullOrWhiteSpace(sProgressTable))
+                //{
+                //    text = Color.White;
+                //    if (string.IsNullOrWhiteSpace(sProgressTable))
+                //        back = ColorTransience.Get(value);
+                //}
+                
+                //nud.ForeColor = text;
+                //nud.BackColor = back;
+                //if(nud.Font.Style != FontStyle.Regular)
+                //    nud.Font = new Font(nud.Font, FontStyle.Regular);
 
                 double chartMin = dChartMinY;
                 double chartMax = dChartMaxY;
@@ -1246,17 +1110,7 @@ namespace ECU_Manager.Controls
             }
 
             valueChangedEnabled = false;
-            foreach (Control control in tlp2DTable.Controls)
-            {
-                if(control.GetType().IsSubclassOf(typeof(NumericUpDown)))
-                {
-                    if(control.Tag != null)
-                    {
-                        int index = (int)control.Tag;
-                        ((NumericUpDown)control).Value = (decimal)array2d[index];
-                    }
-                }
-            }
+            imageTable1.RedrawTable();
             valueChangedEnabled = true;
             UpdateChart();
             UpdateTableEvent?.Invoke(sender, new EventArgs());
@@ -1386,17 +1240,7 @@ namespace ECU_Manager.Controls
                         }
 
                         valueChangedEnabled = false;
-                        foreach (Control control in tlp2DTable.Controls)
-                        {
-                            if (control.GetType().IsSubclassOf(typeof(NumericUpDown)))
-                            {
-                                if (control.Tag != null)
-                                {
-                                    index = (int)control.Tag;
-                                    ((NumericUpDown)control).Value = (decimal)array2d[index];
-                                }
-                            }
-                        }
+                        imageTable1.RedrawTable();
                         valueChangedEnabled = true;
                         UpdateChart();
                         UpdateTableEvent?.Invoke(sender, new EventArgs());
