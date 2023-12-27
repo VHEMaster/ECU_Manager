@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ECU_Framework.Structs;
 using ECU_Manager.Classes;
+using ECU_Framework.Tools;
 
 namespace ECU_Manager.Controls
 {
@@ -23,11 +24,17 @@ namespace ECU_Manager.Controls
         public int DecPlaces { get; set; } = 1;
 
         public float[] Array { get; set; }
+        public byte[] ArrayCalib { get; set; }
         public string[] ColumnTitles { get; set; }
         public string[] RowTitles { get; set; }
 
+        public Interpolation ValueInterpolationX { get; set; }
+        public Interpolation ValueInterpolationY { get; set; }
+
         public bool Initialized { get; set; } = false;
         public ColorTransience ColorTransience { get; set; }
+        public ColorTransience CalibrationColorTransience { get; set; }
+        public bool UseCalibrationColorTransience { get; set; }
         public RectangleF[] CellRectangles { get; private set; }
         public SizeF[] TextSizes { get; private set; }
         
@@ -109,6 +116,8 @@ namespace ECU_Manager.Controls
         }
         private void pictureBox_MouseClick(object sender, MouseEventArgs e)
         {
+            ColorTransience colorTransience = this.UseCalibrationColorTransience ? this.CalibrationColorTransience : this.ColorTransience;
+            
             int index = -1;
             float value = 0;
 
@@ -141,6 +150,10 @@ namespace ECU_Manager.Controls
                     value = this.ValueMax;
                 }
 
+                float colorvalue = value;
+                if (this.UseCalibrationColorTransience)
+                    colorvalue = this.ArrayCalib[index] / 255.0f;
+
                 this.TextBox = new NumericUpDownOneWheel();
                 this.TextBox.Margin = new Padding(0);
                 this.TextBox.Minimum = (decimal)this.ValueMin;
@@ -150,32 +163,47 @@ namespace ECU_Manager.Controls
                 this.TextBox.Tag = index;
                 this.TextBox.Value = (decimal)value;
                 this.TextBox.ValueChanged += textBox_ValueChanged;
+                this.TextBox.KeyPress += textBox_KeyPress;
                 this.TextBox.Visible = true;
                 this.TextBox.ForeColor = this.ForeColor;
-                this.TextBox.BackColor = this.ColorTransience.Get(value);
+                this.TextBox.BackColor = colorTransience.Get(colorvalue);
                 this.TextBox.Location = new Point((int)this.CellRectangles[index].X, (int)this.CellRectangles[index].Y);
                 this.TextBox.Size = new Size((int)this.TextSizes[index].Height + 50, (int)this.CellRectangles[index].Height);
                 this.Controls.Add(this.TextBox);
 
                 this.TextBox.BringToFront();
+                this.TextBox.Focus();
+            }
+        }
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r' || e.KeyChar == '\n' || e.KeyChar =='\u001b')
+            {
+                this.RemoveTextBox();
             }
         }
 
         private void textBox_ValueChanged(object sender, EventArgs e)
         {
+            ColorTransience colorTransience = this.UseCalibrationColorTransience ? this.CalibrationColorTransience : this.ColorTransience;
             NumericUpDown textBox = sender as NumericUpDown;
             int index;
             float value;
+            float colorvalue;
 
-            if(textBox != null)
+            if (textBox != null)
             {
                 index = (int)textBox.Tag;
                 if(index < this.ArraySizeX * this.ArraySizeY)
                 {
                     value = (float)textBox.Value;
+                    if (this.UseCalibrationColorTransience)
+                        colorvalue = this.ArrayCalib[index] / 255.0f;
+                    else colorvalue = value;
                     if (this.Array[index] != value)
                     {
-                        this.TextBox.BackColor = this.ColorTransience.Get(value);
+                        this.TextBox.BackColor = colorTransience.Get(colorvalue);
                         this.Array[index] = value;
                         this.RedrawTable();
                         UpdateTableEvent?.Invoke(sender, new ImageTableEventArg() { Index = index });
@@ -217,9 +245,10 @@ namespace ECU_Manager.Controls
 
         public void RedrawTable()
         {
-            if (this.Initialized != true)
+            if (this.Initialized != true || this.Visible != true)
                 return;
 
+            ColorTransience colorTransience = this.UseCalibrationColorTransience ? this.CalibrationColorTransience : this.ColorTransience;
             Image oldimage = pictureBox.Image;
             Bitmap bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
             float pointX, pointY, sizeX, sizeY, sizeX2, sizeY2;
@@ -293,6 +322,52 @@ namespace ECU_Manager.Controls
                 g.DrawString(this.RowTitles[y], this.Font, foreBrush, pointX, pointY, strFormatLeft);
             }
 
+
+            double[] mult = new double[4];
+            if (this.ValueInterpolationX != null && this.ValueInterpolationY != null)
+            {
+
+                for (int y = 0; y < 2; y++)
+                {
+                    for (int x = 0; x < 2; x++)
+                    {
+                        double value1, value2;
+                        if (x == 0 && y == 0)
+                        {
+                            value1 = (1.0 - this.ValueInterpolationX.mult);
+                            value2 = (1.0f - this.ValueInterpolationY.mult);
+                        }
+                        else if (x == 0 && y != 0)
+                        {
+                            value1 = (1.0 - this.ValueInterpolationX.mult);
+                            value2 =  this.ValueInterpolationY.mult;
+                        }
+                        else if (x != 0 && y == 0)
+                        {
+                            value1 = this.ValueInterpolationX.mult;
+                            value2 = (1.0f - this.ValueInterpolationY.mult);
+                        }
+                        else
+                        {
+                            value1 = this.ValueInterpolationX.mult;
+                            value2 = this.ValueInterpolationY.mult;
+                        }
+                        if (value1 < 0)
+                            value1 = 0;
+                        else if (value1 > this.SizeX - 1)
+                            value1 = this.SizeX - 1;
+                        if (value2 < 0)
+                            value2 = 0;
+                        else if (value2 > this.SizeY - 1)
+                            value2 = this.SizeY - 1;
+                        mult[y * 2 + x] = value1 * value2;
+
+                    }
+                }
+
+            }
+
+
             for (int y = -1; y < this.SizeY; y++)
             {
                 for (int x = -1; x < this.SizeX; x++)
@@ -312,12 +387,62 @@ namespace ECU_Manager.Controls
                         int index = y * this.ArraySizeX + x;
                         float value = this.Array[index];
                         string text = value.ToString($"F{this.DecPlaces}");
-                        backBrush.Color = this.ColorTransience.Get(value);
+                        float colorvalue = value;
+                        if (this.UseCalibrationColorTransience)
+                            colorvalue = this.ArrayCalib[index] / 255.0f;
+                        backBrush.Color = colorTransience.Get(colorvalue);
+                        Font font = this.Font;
+
+                        if (this.ValueInterpolationX != null && this.ValueInterpolationY != null)
+                        {
+                            for (int y1 = 0; y1 < 2; y1++)
+                            {
+                                for (int x1 = 0; x1 < 2; x1++)
+                                {
+                                    if (index == this.ValueInterpolationY.indexes[y1] * this.ArraySizeX + this.ValueInterpolationX.indexes[x1])
+                                    {
+                                        Color color = Color.DarkGray;
+                                        int cr, cg, cb;
+
+                                        if (mult[y1 * 2 + x1] > 1.0)
+                                            mult[y1 * 2 + x1] = 1.0;
+                                        else if (mult[y1 * 2 + x1] < 0.0)
+                                            mult[y1 * 2 + x1] = 0.0;
+
+                                        cr = (int)((color.R - backBrush.Color.R) * mult[y1 * 2 + x1] + backBrush.Color.R);
+                                        cg = (int)((color.G - backBrush.Color.G) * mult[y1 * 2 + x1] + backBrush.Color.G);
+                                        cb = (int)((color.B - backBrush.Color.B) * mult[y1 * 2 + x1] + backBrush.Color.B);
+
+                                        backBrush.Color = Color.FromArgb(cr, cg, cb);
+
+                                        if (mult[y1 * 2 + x1] == mult.Max() || mult[y1 * 2 + x1] > 0.35)
+                                        {
+                                            if (font.Style != FontStyle.Bold)
+                                                font = new Font(font, FontStyle.Bold);
+                                        }
+                                        else
+                                        {
+                                            if (font.Style != FontStyle.Regular)
+                                                font = new Font(font, FontStyle.Regular);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         RectangleF rectangleF = new RectangleF(pointX + 2, pointY + 2, sizeX - 2, sizeY - 2);
                         this.CellRectangles[index] = rectangleF;
                         this.TextSizes[index] = g.MeasureString(text, this.Font);
                         g.FillRectangle(backBrush, rectangleF);
-                        g.DrawString(text, this.Font, foreBrush, rectangleF, strFormatLeft);
+                        g.DrawString(text, font, foreBrush, rectangleF, strFormatLeft);
+
+                        if(this.TextBox != null)
+                        {
+                            if(index == (int)this.TextBox.Tag)
+                            {
+                                this.TextBox.BackColor = backBrush.Color;
+                            }
+                        }
                     }
                 }
             }

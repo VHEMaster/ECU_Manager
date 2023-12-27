@@ -724,7 +724,9 @@ namespace ECU_Manager.Controls
                     interpolationY = new Interpolation(paramd, depy, iArraySizeY);
                 }
 
-
+                imageTable1.ValueInterpolationX = interpolationX;
+                imageTable1.ValueInterpolationY = interpolationY;
+                
                 if (sizex > 0 && sizey > 0)
                 {
                     if (!string.IsNullOrWhiteSpace(sProgressTable))
@@ -736,100 +738,27 @@ namespace ECU_Manager.Controls
 
                     for (int i = 0; i < array2d.Length; i++)
                     {
-                        int r, g, b;
                         int index = i;
                         int xpos = index % iArraySizeX;
                         int ypos = index / iArraySizeX;
-                        Color color;
-                        Color original = Color.DarkGray;
-                        double[] mult = new double[4];
-                        bool handled = false;
 
                         if (xpos < sizex && ypos < sizey)
                         {
                             if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
                                 chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
-
-                            if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
-                            {
-                                if (arraycalib == null)
-                                {
-                                    original = Color.DarkGray;
-                                }
-                                else if (CalibrationColorTransience != null)
-                                {
-                                    original = CalibrationColorTransience.Get((float)arraycalib[index] / 255.0F);
-                                }
-                            }
-                            else if (ColorTransience != null)
-                            {
-                                original = ColorTransience.Get(array2d[index]);
-                            }
-
-                            //if (interpolationX != null && interpolationY != null)
-                            //{
-                            //    for (int y = 0; y < 2; y++)
-                            //    {
-                            //        for (int x = 0; x < 2; x++)
-                            //        {
-                            //            double value;
-                            //            if (x == 0 && y == 0)
-                            //                value = (1.0 - interpolationX.mult) * (1.0f - interpolationY.mult);
-                            //            else if (x == 0 && y != 0)
-                            //                value = (1.0 - interpolationX.mult) * interpolationY.mult;
-                            //            else if (x != 0 && y == 0)
-                            //                value = interpolationX.mult * (1.0f - interpolationY.mult);
-                            //            else
-                            //                value = interpolationX.mult * interpolationY.mult;
-                            //            mult[y * 2 + x] = value;
-                            //        }
-                            //    }
-
-
-                            //    for (int y = 0; y < 2; y++)
-                            //    {
-                            //        for (int x = 0; x < 2; x++)
-                            //        {
-                            //            if (index == interpolationY.indexes[y] * iArraySizeX + interpolationX.indexes[x])
-                            //            {
-                            //                color = Color.DarkGray;
-
-                            //                if (mult[y * 2 + x] > 1.0)
-                            //                    mult[y * 2 + x] = 1.0;
-                            //                else if (mult[y * 2 + x] < 0.0)
-                            //                    mult[y * 2 + x] = 0.0;
-
-                            //                r = (int)((color.R - original.R) * mult[y * 2 + x] + original.R);
-                            //                g = (int)((color.G - original.G) * mult[y * 2 + x] + original.G);
-                            //                b = (int)((color.B - original.B) * mult[y * 2 + x] + original.B);
-
-                            //                nud.BackColor = Color.FromArgb(r, g, b);
-                            //                nud.ForeColor = Color.White;
-                            //                if (mult[y * 2 + x] == mult.Max() || mult[y * 2 + x] > 0.35)
-                            //                {
-                            //                    if (nud.Font.Style != FontStyle.Bold)
-                            //                        nud.Font = new Font(nud.Font, FontStyle.Bold);
-                            //                }
-                            //                else
-                            //                {
-                            //                    if (nud.Font.Style != FontStyle.Regular)
-                            //                        nud.Font = new Font(nud.Font, FontStyle.Regular);
-                            //                }
-                            //                handled = true;
-                            //            }
-                            //        }
-                            //    }
-                            //}
-                            //if (!handled && nud.BackColor != original)
-                            //{
-                            //    nud.BackColor = original;
-                            //    if (!nud.Focused)
-                            //        nudTableItem_ValueChanged(nud, new EventArgs());
-                            //}
                         }
                     }
-                    
 
+
+                    if (!string.IsNullOrWhiteSpace(sProgressTable) && bCalibrationEnabled)
+                    {
+                        imageTable1.ArrayCalib = arraycalib;
+                        imageTable1.CalibrationColorTransience = CalibrationColorTransience;
+                        imageTable1.UseCalibrationColorTransience = true;
+                    } else
+                    {
+                        imageTable1.UseCalibrationColorTransience = false;
+                    }
                     imageTable1.RedrawTable();
 
                     cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
