@@ -142,10 +142,10 @@ namespace ECU_Manager
             eCyclicFillingMAP.SetD("ManifoldAirPressure", "Pressure", "F0");
             eCyclicFillingMAP.SetTableEventHandler(ChartUpdateEvent);
 
-            colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
-            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.5F);
-            colorTransience.Add(Color.Blue, 0.7F);
-            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.75F);
+            colorTransience = new ColorTransience(0.1F, 1.5F, Color.Gray);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.1F);
+            colorTransience.Add(Color.Blue, 0.4F);
+            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.7F);
             colorTransience.Add(Color.Green, 1.0F);
             colorTransience.Add(Color.FromArgb(128, 96, 0), 1.05F);
             colorTransience.Add(Color.DarkRed, 1.12F);
@@ -166,10 +166,10 @@ namespace ECU_Manager
             eCyclicFillingTPS.SetD("ThrottlePosition", "Throttle", "F1");
             eCyclicFillingTPS.SetTableEventHandler(ChartUpdateEvent);
 
-            colorTransience = new ColorTransience(0.5F, 1.5F, Color.Gray);
-            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.5F);
-            colorTransience.Add(Color.Blue, 0.7F);
-            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.75F);
+            colorTransience = new ColorTransience(0.1F, 1.5F, Color.Gray);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.1F);
+            colorTransience.Add(Color.Blue, 0.4F);
+            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.7F);
             colorTransience.Add(Color.Green, 1.0F);
             colorTransience.Add(Color.FromArgb(128, 96, 0), 1.05F);
             colorTransience.Add(Color.DarkRed, 1.12F);
@@ -671,15 +671,15 @@ namespace ECU_Manager
             //eCorrIdleValvePos.SetTableColorTrans(colorTransience);
             //eCorrIdleValvePos.SynchronizeChart();
 
-            colorTransience = new ColorTransience(-10.0F, 10.0F, Color.Gray);
-            colorTransience.Add(Color.DeepSkyBlue, -10.0F);
-            colorTransience.Add(Color.Blue, -5.0F);
-            colorTransience.Add(Color.FromArgb(0, 128, 255), -2.0F);
+            colorTransience = new ColorTransience(-5.0F, 4.0F, Color.Gray);
+            colorTransience.Add(Color.Black, -5.0F);
+            colorTransience.Add(Color.DarkRed, -3.0F);
+            colorTransience.Add(Color.Red, -1.5F);
+            colorTransience.Add(Color.FromArgb(192, 128, 0), -0.2F);
             colorTransience.Add(Color.Green, 0.0F);
-            colorTransience.Add(Color.FromArgb(192, 128, 0), 2.0F);
-            colorTransience.Add(Color.Red, 3.0F);
-            colorTransience.Add(Color.DarkRed, 5.0F);
-            colorTransience.Add(Color.Black, 10.0F);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0.5F);
+            colorTransience.Add(Color.Blue, 2.0F);
+            colorTransience.Add(Color.DeepSkyBlue, 4.0F);
 
             eCorrsIgnition.Initialize(cs, Editor2DMode.CorrectionsTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
