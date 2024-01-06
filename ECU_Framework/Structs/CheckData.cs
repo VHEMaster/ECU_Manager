@@ -63,7 +63,7 @@ namespace ECU_Framework.Structs
             return checkDataList;
         }
 
-        private static readonly string[] ErrorStrings = new string[95]
+        private static readonly string[] ErrorStrings = new string[112]
         {
             "Invalid",
             "Flash: Load failure",
@@ -172,6 +172,24 @@ namespace ECU_Framework.Structs
             "Knock: Detonation Cy2",
             "Knock: Detonation Cy3",
             "Knock: Detonation Cy4",
+
+            "ETC: Comm Error",
+            "ETC: Pedal1",
+            "ETC: Pedal2",
+            "ETC: Pedal Mismatch",
+            "ETC: TPS1",
+            "ETC: TPS2",
+            "ETC: TPS Mismatch",
+            "ETC: Adc Error",
+            "ETC: Internal Comm",
+            "ETC:Motor: Availability",
+            "ETC:Motor: OpenLoad",
+            "ETC:Motor: ShortToGND",
+            "ETC:Motor: ShortToSupply",
+            "ETC:Motor: Temperature",
+            "ETC:Motor: SupplyFailure",
+            "ETC:Motor: ErrorFlag",
+            "ETC:Motor: AlwaysHigh",
         };
 
         public static string GetStringForCode(ErrorCode errorCode)
@@ -280,6 +298,23 @@ namespace ECU_Framework.Structs
         KnockDetonationCy2,
         KnockDetonationCy3,
         KnockDetonationCy4,
+        CheckEtcCommError,
+        CheckEtcPedal1,
+        CheckEtcPedal2,
+        CheckEtcPedalMismatch,
+        CheckEtcTps1,
+        CheckEtcTps2,
+        CheckEtcTpsMismatch,
+        CheckEtcAdcError,
+        CheckEtcInternalComm,
+        CheckEtcMotorAvailability,
+        CheckEtcMotorOpenLoad,
+        CheckEtcMotorShortToGND,
+        CheckEtcMotorShortToSupply,
+        CheckEtcMotorTemperature,
+        CheckEtcMotorSupplyFailure,
+        CheckEtcMotorErrorFlag,
+        CheckEtcMotorAlwaysHigh,
         Count,
     };
 }

@@ -200,6 +200,30 @@ namespace ECU_Manager
             eFuelMixturesFull.SetTableEventHandler(ChartUpdateEvent);
 
             eFuelMixturesFull.SetTableColorTrans(colorTransience);
+            
+
+            colorTransience = new ColorTransience(0.0F, 100.0F, Color.Gray);
+            colorTransience.Add(Color.DeepSkyBlue, 0.0F);
+            colorTransience.Add(Color.Blue, 5.0F);
+            colorTransience.Add(Color.FromArgb(0, 72, 180), 10.0F);
+            colorTransience.Add(Color.Green, 20.0F);
+            colorTransience.Add(Color.FromArgb(128, 128, 0), 60.0F);
+            colorTransience.Add(Color.Red, 80.0F);
+            colorTransience.Add(Color.Black, 100.0F);
+
+
+            eEtcPositions.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].pedals_count,
+                0.0D, 100.0D, 0.5D, 100.0D, 10.0D, 0.0D, 100.0D, 500, 10.0D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PEDALS_MAX, 1, false);
+
+            eEtcPositions.SetConfig("throttle_position", "rotates_count", "pedals_count", "rotates", "pedals");
+            eEtcPositions.SetX("RPM", "RPM", "F0");
+            eEtcPositions.SetY(string.Empty, "Throttle", "F1");
+            eEtcPositions.SetD("PedalPosition", "Pedal", "F1");
+            eEtcPositions.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcPositions.SetTableColorTrans(colorTransience);
 
 
             colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
@@ -437,10 +461,15 @@ namespace ECU_Manager
             eIdleRotates.SetY("RPM", "RPM", "F0");
             eIdleRotates.SetTableEventHandler(ChartUpdateEvent);
 
-            eThrottles.Initialize(cs, 0, 100, 1, 1, 0, 100, 1, 10, 1);
+            eThrottles.Initialize(cs, 0, 100, 0.1, 1, 0, 100, 1, 10, 1);
             eThrottles.SetConfig("throttles", "throttles_count", string.Empty);
             eThrottles.SetY("ThrottlePosition", "TPS", "F1");
             eThrottles.SetTableEventHandler(ChartUpdateEvent);
+
+            ePedals.Initialize(cs, 0, 100, 0.1, 1, 0, 100, 1, 10, 1);
+            ePedals.SetConfig("pedals", "pedals_count", string.Empty);
+            ePedals.SetY("PedalPosition", "TPS", "F1");
+            ePedals.SetTableEventHandler(ChartUpdateEvent);
 
             eFillings.Initialize(cs, 0, 5000, 1, 2, 0, 350, 1, 50, 0);
             eFillings.SetConfig("fillings", "fillings_count", string.Empty);
@@ -510,6 +539,18 @@ namespace ECU_Manager
             eIdleValveEconPos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValveEconPos.SetTableEventHandler(ChartUpdateEvent);
 
+            eEtcEconPositions.Initialize(cs, 0, 100, 0.1, 10D, 0, 100, 500D, 10, 1);
+            eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates_count", "rotates");
+            eEtcEconPositions.SetX("RPM", "RPM", "F0");
+            eEtcEconPositions.SetY("ThrottlePosition", "Throttle Pos", "F1");
+            eEtcEconPositions.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcPedalIgnitionControl.Initialize(cs, 0, 100, 0.1, 1D, 0, 10, 500D, 1, 1);
+            eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates_count", "rotates");
+            eEtcPedalIgnitionControl.SetX("RPM", "RPM", "F0");
+            eEtcPedalIgnitionControl.SetY("PedalPosition", "Pedal", "F1");
+            eEtcPedalIgnitionControl.SetTableEventHandler(ChartUpdateEvent);
+            
             eWarmupMixture.Initialize(cs, 1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
             eWarmupMixture.SetConfig("warmup_mixtures", "engine_temp_count", "engine_temps");
             eWarmupMixture.SetX("EngineTemp", "Temp.", "F1");
@@ -1047,9 +1088,27 @@ namespace ECU_Manager
 
             eStartIdleValvePos.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
             eStartIdleValvePos.SetConfig("start_idle_valve_pos", "engine_temp_count", "engine_temps");
-            eStartIdleValvePos.SetX("EngineTemp", "Temperature", "F0");
+            eStartIdleValvePos.SetX("EngineTemp", "Temperature", "F1");
             eStartIdleValvePos.SetY("IdleValvePosition", "Valve", "F0");
             eStartIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcStartupPositions.Initialize(cs, 0D, 50D, 0.2D, 5D, 0D, 50D, 10D, 5D, 1);
+            eEtcStartupPositions.SetConfig("start_throttle_position", "engine_temp_count", "engine_temps");
+            eEtcStartupPositions.SetX("EngineTemp", "Temperature", "F1");
+            eEtcStartupPositions.SetY("ThrottlePosition", "Throttle", "F1");
+            eEtcStartupPositions.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcStoppedPositions.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
+            eEtcStoppedPositions.SetConfig("stop_throttle_position", "pedals_count", "pedals");
+            eEtcStoppedPositions.SetX("PedalPosition", "Pedal", "F1");
+            eEtcStoppedPositions.SetY(string.Empty, "Throttle", "F1");
+            eEtcStoppedPositions.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcIdlePositions.Initialize(cs, 0D, 50D, 0.2D, 5D, 0D, 100D, 10D, 5D, 1);
+            eEtcIdlePositions.SetConfig("idle_throttle_position", "engine_temp_count", "engine_temps");
+            eEtcIdlePositions.SetX("EngineTemp", "Temperature", "F1");
+            eEtcIdlePositions.SetY("ThrottlePosition", "Throttle", "F1");
+            eEtcIdlePositions.SetTableEventHandler(ChartUpdateEvent);
 
             eStartAsyncInject.Initialize(cs, 0D, 5000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
             eStartAsyncInject.SetConfig("start_async_filling", "engine_temp_count", "engine_temps");
@@ -1136,6 +1195,36 @@ namespace ECU_Manager
             eIdleValveRpmPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveRpmPidD.SetTableEventHandler(ChartUpdateEvent);
 
+            eIdleThrottleAirPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleAirPidP.SetConfig("idle_throttle_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleAirPidP.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleThrottleAirPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleAirPidI.SetConfig("idle_throttle_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleAirPidI.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleThrottleAirPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleThrottleAirPidD.SetConfig("idle_throttle_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleAirPidD.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleThrottleRpmPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleRpmPidP.SetConfig("idle_throttle_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleRpmPidP.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleThrottleRpmPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleRpmPidI.SetConfig("idle_throttle_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleRpmPidI.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleThrottleRpmPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleThrottleRpmPidD.SetConfig("idle_throttle_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
+            eIdleThrottleRpmPidD.SetTableEventHandler(ChartUpdateEvent);
+
             eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
             eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
             eIdleIgnPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
@@ -1175,6 +1264,7 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage7), Text = "Rotates" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage92), Text = "Idle rotates" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage13), Text = "Throttles" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage52), Text = "Pedals" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage14), Text = "Voltages" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage15), Text = "Fillings" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage42), Text = "Speeds" });
@@ -1269,6 +1359,21 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage93), Text = "TSPS" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage129), Text = "ETC" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage130), Text = "Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage131), Text = "Stopped Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage132), Text = "Startup Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage133), Text = "Idle Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage135), Text = "Throttle Air PID" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl21, tabPage137), Text = "Proportional" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl21, tabPage138), Text = "Integral" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl21, tabPage139), Text = "Differentional" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage136), Text = "Throttle RPM PID" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl22, tabPage140), Text = "Proportional" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl22, tabPage141), Text = "Integral" });
+            subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl22, tabPage142), Text = "Differentional" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage134), Text = "Econ Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage143), Text = "Ignition Control" });
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage49), Text = "Corrections" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage51), Text = "Filling By MAP" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage89), Text = "Filling By TPS" });
@@ -1341,6 +1446,8 @@ namespace ECU_Manager
             eKnockCyLevelMultiplier.SynchronizeChart();
             eEnrichmentRate.SynchronizeChart();
             eEnrichmentIgnCorr.SynchronizeChart();
+
+            eEtcPositions.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -1429,8 +1536,6 @@ namespace ECU_Manager
 
             eCorrsFillingGbcMAP.UpdateChart();
             eCorrsFillingGbcTPS.UpdateChart();
-            //TODO:
-            //eCorrIdleValvePos.UpdateChart();
             eCorrsIgnition.UpdateChart();
             eCorrsIgnitionCy1.UpdateChart();
             eCorrsIgnitionCy2.UpdateChart();
@@ -1450,6 +1555,19 @@ namespace ECU_Manager
 
             eTspsRelativePosition.UpdateChart();
             eTspsDesyncThr.UpdateChart();
+
+            eEtcPositions.UpdateChart();
+            eEtcStoppedPositions.UpdateChart();
+            eEtcEconPositions.UpdateChart();
+            eEtcPedalIgnitionControl.UpdateChart();
+            eEtcIdlePositions.UpdateChart();
+            eEtcStartupPositions.UpdateChart();
+            eIdleThrottleAirPidP.UpdateChart();
+            eIdleThrottleAirPidI.UpdateChart();
+            eIdleThrottleAirPidD.UpdateChart();
+            eIdleThrottleRpmPidP.UpdateChart();
+            eIdleThrottleRpmPidI.UpdateChart();
+            eIdleThrottleRpmPidD.UpdateChart();
         }
 
         private void CorrStart()
@@ -1797,6 +1915,7 @@ namespace ECU_Manager
                 cbUseKnock.Checked = cs.ConfigStruct.parameters.useKnockSensor > 0;
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
                 cbUseIdleValve.Checked = cs.ConfigStruct.parameters.useIdleValve > 0;
+                cbUseETC.Checked = cs.ConfigStruct.parameters.useETC > 0;
                 cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
@@ -1858,6 +1977,7 @@ namespace ECU_Manager
             nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntIdleRPMs.Maximum = Consts.TABLE_ROTATES_MAX;
             nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_MAX;
+            nudParamsCntPedals.Maximum = Consts.TABLE_PEDALS_MAX;
             nudParamsCntVoltages.Maximum = Consts.TABLE_VOLTAGES_MAX;
             nudParamsCntFillings.Maximum = Consts.TABLE_FILLING_MAX;
             nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES_MAX;
@@ -1872,6 +1992,7 @@ namespace ECU_Manager
             nudParamsCntRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].rotates_count;
             nudParamsCntIdleRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count;
             nudParamsCntThrottles.Value = cs.ConfigStruct.tables[cs.CurrentTable].throttles_count;
+            nudParamsCntPedals.Value = cs.ConfigStruct.tables[cs.CurrentTable].pedals_count;
             nudParamsCntVoltages.Value = cs.ConfigStruct.tables[cs.CurrentTable].voltages_count;
             nudParamsCntFillings.Value = cs.ConfigStruct.tables[cs.CurrentTable].fillings_count;
             nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
@@ -1882,6 +2003,8 @@ namespace ECU_Manager
 
             nudParamsIdleValveMin.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_min;
             nudParamsIdleValveMax.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_max;
+            nudParamsIdleThrottleMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_min;
+            nudParamsIdleThrottleMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_max;
 
             nudParamsEnrichmentLoadDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band;
             nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
@@ -2867,6 +2990,15 @@ namespace ECU_Manager
             }
         }
 
+        private void cbUseETC_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.useETC = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
+            }
+        }
+
         private void cbLambdaForceEnabled_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.isLambdaForceEnabled = ((CheckBox)sender).Checked ? 1 : 0;
@@ -3386,6 +3518,19 @@ namespace ECU_Manager
             for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].throttles_count - 1; i++)
                 if (cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].throttles[i])
                     cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].throttles[i] + 2;
+            UpdateEcuTableValues();
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsCntPedals_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].pedals_count = (int)((NumericUpDown)sender).Value;
+            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].pedals_count - 1; i++)
+                if (cs.ConfigStruct.tables[cs.CurrentTable].pedals[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].pedals[i])
+                    cs.ConfigStruct.tables[cs.CurrentTable].pedals[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].pedals[i] + 2;
             UpdateEcuTableValues();
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
@@ -4089,6 +4234,24 @@ namespace ECU_Manager
         private void nudParamsIdleValveMax_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_max = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleThrottleMin_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_min = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsIdleThrottleMax_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_max = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

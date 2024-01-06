@@ -60,7 +60,13 @@ namespace ECU_Framework.Structs
         [XmlArray("throttles")]
         [XmlArrayItem("throttle")]
         public float[] throttles;
-        
+
+        public int pedals_count;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PEDALS_MAX)]
+        [XmlArray("pedals")]
+        [XmlArrayItem("pedal")]
+        public float[] pedals;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
         [XmlArray("filling_gbc_map")]
         [XmlArrayItem("filling")]
@@ -69,9 +75,19 @@ namespace ECU_Framework.Structs
         [XmlArray("filling_gbc_tps")]
         [XmlArrayItem("filling")]
         public float[] filling_gbc_tps;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PEDALS_MAX * Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("throttle_position")]
+        [XmlArrayItem("throttle")]
+        public float[] throttle_position;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PEDALS_MAX)]
+        [XmlArray("stop_throttle_position")]
+        [XmlArrayItem("throttle")]
+        public float[] stop_throttle_position;
 
         public int idle_valve_pos_min;
         public int idle_valve_pos_max;
+        public float idle_throttle_pos_min;
+        public float idle_throttle_pos_max;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("filling_select_koff_tps")]
         [XmlArrayItem("rotate")]
@@ -254,6 +270,10 @@ namespace ECU_Framework.Structs
         [XmlArray("idle_valve_position")]
         [XmlArrayItem("valve")]
         public float[] idle_valve_position;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("idle_throttle_position")]
+        [XmlArrayItem("throttle")]
+        public float[] idle_throttle_position;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("idle_rpm_pid_act_1")]
@@ -295,6 +315,32 @@ namespace ECU_Framework.Structs
         [XmlArray("idle_valve_to_rpm_pid_d")]
         [XmlArrayItem("koff")]
         public float[] idle_valve_to_rpm_pid_d;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_massair_pid_p")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_massair_pid_p;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_massair_pid_i")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_massair_pid_i;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_massair_pid_d")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_massair_pid_d;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_rpm_pid_p")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_rpm_pid_p;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_rpm_pid_i")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_rpm_pid_i;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_to_rpm_pid_d")]
+        [XmlArrayItem("koff")]
+        public float[] idle_throttle_to_rpm_pid_d;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
         [XmlArray("idle_ign_to_rpm_pid_p")]
@@ -353,6 +399,10 @@ namespace ECU_Framework.Structs
         [XmlArray("start_idle_valve_pos")]
         [XmlArrayItem("valve")]
         public float[] start_idle_valve_pos;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("start_throttle_position")]
+        [XmlArrayItem("throttle")]
+        public float[] start_throttle_position;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
         [XmlArray("start_ignition")]
         [XmlArrayItem("ignition")]
@@ -463,7 +513,17 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("valve")]
         public float[] idle_valve_econ_position;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1532)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("idle_throttle_econ_position")]
+        [XmlArrayItem("throttle")]
+        public float[] idle_throttle_econ_position;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("pedal_ignition_control")]
+        [XmlArrayItem("pedal")]
+        public float[] pedal_ignition_control;
+        
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1081)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

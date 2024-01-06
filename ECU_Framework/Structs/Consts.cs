@@ -13,6 +13,7 @@ namespace ECU_Framework.Structs
         public const int TABLE_SETUPS_MAX = 1;
         public const int TABLE_PRESSURES_MAX = 16;
         public const int TABLE_THROTTLES_MAX = 16;
+        public const int TABLE_PEDALS_MAX = 16;
         public const int TABLE_FILLING_MAX = 16;
         public const int TABLE_ROTATES_MAX = 16;
         public const int TABLE_SPEEDS_MAX = 16;

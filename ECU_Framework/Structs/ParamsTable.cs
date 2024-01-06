@@ -56,6 +56,7 @@ namespace ECU_Framework.Structs
         public float shiftMixture;
 
         public int useIdleValve;
+        public int useETC;
         public float res2;
 
         public int useShortTermCorr;
@@ -73,7 +74,7 @@ namespace ECU_Framework.Structs
         public float map_pressure_gain;
         public float map_pressure_offset;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 971)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 970)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;

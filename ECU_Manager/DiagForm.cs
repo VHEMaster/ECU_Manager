@@ -364,6 +364,22 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "AdcReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcReferenceVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "AdcLambdaUR") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcLambdaUR, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "AdcLambdaUA") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcLambdaUA, .title = "%s%0.2f"},
+                
+                if (fieldInfo.Name == "AdcEtcTps1") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcTps1, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcTps2") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcTps2, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcPedal1") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcPedal1, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcPedal2") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcPedal2, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcRsvd5") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcRsvd5, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcRsvd6") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcRsvd6, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcReferenceVoltage, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "AdcEtcPowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.AdcEtcPowerVoltage, .title = "%s%0.2f"},
+
+                if (fieldInfo.Name == "ThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottlePosition, .title = "%s%0.1%"},
+                if (fieldInfo.Name == "PedalPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.PedalPosition, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "ThrottleDefaultPosition") parameter.FloatFormat = "F2"; //&ecu_parameters.ThrottleDefaultPosition, .title = "%s%0.2f"},
+                if (fieldInfo.Name == "ThrottleTargetPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottleTargetPosition, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "WishThrottleTargetPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.WishThrottleTargetPosition, .title = "%s%0.0f"},
+
                 if (fieldInfo.Name == "KnockSensor") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensor, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockSensorFiltered") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockSensorDetonate") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorDetonate, .title = "%s%0.2f"},
@@ -374,7 +390,6 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "EngineTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.EngineTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "CalculatedAirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.CalculatedAirTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "Pressure") parameter.FloatFormat = "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
-                if (fieldInfo.Name == "ThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottlePosition, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "ReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "PowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.PowerVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "FuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.FuelRatio, .title = "%s%0.2f"},
@@ -445,6 +460,7 @@ namespace ECU_Manager
                     else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = Consts.IDLE_VALVE_POS_MAX; parameter.Step = 1.0F; }
                     else if (parameter.Name == "WishIdleIgnitionAdvance") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
+                    else if (parameter.Name == "WishThrottleTargetPosition") { parameter.Min = 0; parameter.Max = 100; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FanSwitch") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FuelPumpRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }

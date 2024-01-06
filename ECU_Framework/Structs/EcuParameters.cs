@@ -27,6 +27,21 @@ namespace ECU_Framework.Structs
         public float AdcLambdaUR;
         public float AdcLambdaUA;
 
+        public float AdcEtcTps1;
+        public float AdcEtcTps2;
+        public float AdcEtcPedal1;
+        public float AdcEtcPedal2;
+        public float AdcEtcRsvd5;
+        public float AdcEtcRsvd6;
+        public float AdcEtcReferenceVoltage;
+        public float AdcEtcPowerVoltage;
+
+        public float ThrottlePosition;
+        public float PedalPosition;
+        public float ThrottleDefaultPosition;
+        public float ThrottleTargetPosition;
+        public float WishThrottleTargetPosition;
+
         public float KnockSensor;
         public float KnockSensorFiltered;
         public float KnockSensorDetonate;
@@ -42,7 +57,6 @@ namespace ECU_Framework.Structs
         public float EngineTemp;
         public float CalculatedAirTemp;
         public float ManifoldAirPressure;
-        public float ThrottlePosition;
         public float ReferenceVoltage;
         public float PowerVoltage;
         public float FuelRatio;
@@ -113,6 +127,21 @@ namespace ECU_Framework.Structs
         public int StartAllowed;
         public int IsRunning;
         public int IsCheckEngine;
+
+        public int EtcMotorActiveFlag;
+        public int EtcStandaloneFlag;
+        public int EtcMotorFullCloseFlag;
+
+        public int EtcOutCruizeG;
+        public int EtcOutCruizeR;
+        public int EtcOutRsvd3;
+        public int EtcOutRsvd4;
+        public int EtcInCruizeStart;
+        public int EtcInCruizeStop;
+        public int EtcInBrake;
+        public int EtcInRsvd4;
+        public int EtcInRsvd5;
+        public int EtcInRsvd6;
 
         public int CylinderIgnitionBitmask;
         public int CylinderInjectionBitmask;
