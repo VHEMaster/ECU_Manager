@@ -213,14 +213,14 @@ namespace ECU_Manager
 
 
             eEtcPositions.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].pedals_count,
-                0.0D, 100.0D, 0.5D, 100.0D, 10.0D, 0.0D, 100.0D, 500, 10.0D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_PEDALS_MAX, 1, false);
+                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
+                0.0D, 100.0D, 0.5D, 10.0f, 10.0D, 0.0D, 100.0D, 10.0D, 10.0D, Consts.TABLE_PEDALS_MAX, Consts.TABLE_ROTATES_MAX, 1, false);
 
-            eEtcPositions.SetConfig("throttle_position", "rotates_count", "pedals_count", "rotates", "pedals");
-            eEtcPositions.SetX("RPM", "RPM", "F0");
+            eEtcPositions.SetConfig("throttle_position", "pedals_count", "rotates_count", "pedals", "rotates");
+            eEtcPositions.SetX("PedalPosition", "Pedal", "F1");
             eEtcPositions.SetY(string.Empty, "Throttle", "F1");
-            eEtcPositions.SetD("PedalPosition", "Pedal", "F1");
+            eEtcPositions.SetD("RPM", "RPM", "F0");
             eEtcPositions.SetTableEventHandler(ChartUpdateEvent);
 
             eEtcPositions.SetTableColorTrans(colorTransience);

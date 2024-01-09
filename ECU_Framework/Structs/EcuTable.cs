@@ -75,7 +75,7 @@ namespace ECU_Framework.Structs
         [XmlArray("filling_gbc_tps")]
         [XmlArrayItem("filling")]
         public float[] filling_gbc_tps;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PEDALS_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX * Consts.TABLE_PEDALS_MAX)]
         [XmlArray("throttle_position")]
         [XmlArrayItem("throttle")]
         public float[] throttle_position;
