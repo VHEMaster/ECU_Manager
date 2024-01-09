@@ -522,8 +522,14 @@ namespace ECU_Framework.Structs
         [XmlArray("pedal_ignition_control")]
         [XmlArrayItem("pedal")]
         public float[] pedal_ignition_control;
-        
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1081)]
+
+        public int throttle_position_use_2d;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("throttle_position_2d")]
+        [XmlArrayItem("throttle")]
+        public float[] throttle_position_2d;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1064)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

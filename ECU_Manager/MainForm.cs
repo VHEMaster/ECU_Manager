@@ -539,7 +539,7 @@ namespace ECU_Manager
             eIdleValveEconPos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValveEconPos.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcEconPositions.Initialize(cs, 0, 100, 0.1, 10D, 0, 100, 500D, 10, 1);
+            eEtcEconPositions.Initialize(cs, 0, 100, 0.1, 2D, 0, 20, 500D, 2, 1);
             eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates_count", "rotates");
             eEtcEconPositions.SetX("RPM", "RPM", "F0");
             eEtcEconPositions.SetY("ThrottlePosition", "Throttle Pos", "F1");
@@ -732,7 +732,7 @@ namespace ECU_Manager
             eCorrsIgnition.SetY(string.Empty, "Ignition Correction", "F2");
             eCorrsIgnition.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsIgnition.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsIgnition.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnition.scHorisontal.Width * 0.7);
+            eCorrsIgnition.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnition.scHorisontal.Width * 0.85);
 
             eCorrsIgnition.SetTableColorTrans(colorTransience);
             eCorrsIgnition.SynchronizeChart();
@@ -748,7 +748,7 @@ namespace ECU_Manager
             eCorrsIgnitionCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eCorrsIgnitionCy1.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsIgnitionCy1.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsIgnitionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy1.scHorisontal.Width * 0.7);
+            eCorrsIgnitionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy1.scHorisontal.Width * 0.85);
 
             eCorrsIgnitionCy1.SetTableColorTrans(colorTransience);
             eCorrsIgnitionCy1.SynchronizeChart();
@@ -765,7 +765,7 @@ namespace ECU_Manager
             eCorrsIgnitionCy2.SetY(string.Empty, "Ignition Corr.Cy2", "F2");
             eCorrsIgnitionCy2.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsIgnitionCy2.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsIgnitionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy2.scHorisontal.Width * 0.7);
+            eCorrsIgnitionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy2.scHorisontal.Width * 0.85);
 
             eCorrsIgnitionCy2.SetTableColorTrans(colorTransience);
             eCorrsIgnitionCy2.SynchronizeChart();
@@ -782,7 +782,7 @@ namespace ECU_Manager
             eCorrsIgnitionCy3.SetY(string.Empty, "Ignition Corr.Cy3", "F2");
             eCorrsIgnitionCy3.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsIgnitionCy3.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsIgnitionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy3.scHorisontal.Width * 0.7);
+            eCorrsIgnitionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy3.scHorisontal.Width * 0.85);
 
             eCorrsIgnitionCy3.SetTableColorTrans(colorTransience);
             eCorrsIgnitionCy3.SynchronizeChart();
@@ -799,7 +799,7 @@ namespace ECU_Manager
             eCorrsIgnitionCy4.SetY(string.Empty, "Ignition Corr.Cy4", "F2");
             eCorrsIgnitionCy4.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsIgnitionCy4.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsIgnitionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy4.scHorisontal.Width * 0.7);
+            eCorrsIgnitionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsIgnitionCy4.scHorisontal.Width * 0.85);
 
             eCorrsIgnitionCy4.SetTableColorTrans(colorTransience);
             eCorrsIgnitionCy4.SynchronizeChart();
@@ -822,7 +822,7 @@ namespace ECU_Manager
             eCorrsKnockDetonationCounter.SetY(string.Empty, "DetonationCounter", "F1");
             eCorrsKnockDetonationCounter.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsKnockDetonationCounter.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsKnockDetonationCounter.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsKnockDetonationCounter.scHorisontal.Width * 0.7);
+            eCorrsKnockDetonationCounter.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsKnockDetonationCounter.scHorisontal.Width * 0.85);
 
             eCorrsKnockDetonationCounter.SetTableColorTrans(colorTransience);
             eCorrsKnockDetonationCounter.SynchronizeChart();
@@ -850,7 +850,7 @@ namespace ECU_Manager
             eCorrsInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
             eCorrsInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsInjectionCy1.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsInjectionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy1.scHorisontal.Width * 0.7);
+            eCorrsInjectionCy1.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy1.scHorisontal.Width * 0.85);
 
             eCorrsInjectionCy1.SetTableColorTrans(colorTransience);
             eCorrsInjectionCy1.SynchronizeChart();
@@ -867,7 +867,7 @@ namespace ECU_Manager
             eCorrsInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
             eCorrsInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsInjectionCy2.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsInjectionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy2.scHorisontal.Width * 0.7);
+            eCorrsInjectionCy2.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy2.scHorisontal.Width * 0.85);
 
             eCorrsInjectionCy2.SetTableColorTrans(colorTransience);
             eCorrsInjectionCy2.SynchronizeChart();
@@ -884,7 +884,7 @@ namespace ECU_Manager
             eCorrsInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
             eCorrsInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsInjectionCy3.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsInjectionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy3.scHorisontal.Width * 0.7);
+            eCorrsInjectionCy3.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy3.scHorisontal.Width * 0.85);
 
             eCorrsInjectionCy3.SetTableColorTrans(colorTransience);
             eCorrsInjectionCy3.SynchronizeChart();
@@ -901,7 +901,7 @@ namespace ECU_Manager
             eCorrsInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
             eCorrsInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
             eCorrsInjectionCy4.SetTableEventHandler(ChartCorrectionEvent);
-            eCorrsInjectionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy4.scHorisontal.Width * 0.7);
+            eCorrsInjectionCy4.scHorisontal.SplitterDistance = (int)Math.Round(eCorrsInjectionCy4.scHorisontal.Width * 0.85);
 
             eCorrsInjectionCy4.SetTableColorTrans(colorTransience);
             eCorrsInjectionCy4.SynchronizeChart();
@@ -1092,7 +1092,7 @@ namespace ECU_Manager
             eStartIdleValvePos.SetY("IdleValvePosition", "Valve", "F0");
             eStartIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcStartupPositions.Initialize(cs, 0D, 50D, 0.2D, 5D, 0D, 50D, 10D, 5D, 1);
+            eEtcStartupPositions.Initialize(cs, 0D, 50D, 0.2D, 2D, 0D, 20D, 10D, 2D, 1);
             eEtcStartupPositions.SetConfig("start_throttle_position", "engine_temp_count", "engine_temps");
             eEtcStartupPositions.SetX("EngineTemp", "Temperature", "F1");
             eEtcStartupPositions.SetY("ThrottlePosition", "Throttle", "F1");
@@ -1104,7 +1104,13 @@ namespace ECU_Manager
             eEtcStoppedPositions.SetY(string.Empty, "Throttle", "F1");
             eEtcStoppedPositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcIdlePositions.Initialize(cs, 0D, 50D, 0.2D, 5D, 0D, 100D, 10D, 5D, 1);
+            eEtcPositions2D.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
+            eEtcPositions2D.SetConfig("throttle_position_2d", "pedals_count", "pedals");
+            eEtcPositions2D.SetX("PedalPosition", "Pedal", "F1");
+            eEtcPositions2D.SetY(string.Empty, "Throttle", "F1");
+            eEtcPositions2D.SetTableEventHandler(ChartUpdateEvent);
+
+            eEtcIdlePositions.Initialize(cs, 0D, 50D, 0.2D, 1D, 0D, 10D, 10D, 1D, 1);
             eEtcIdlePositions.SetConfig("idle_throttle_position", "engine_temp_count", "engine_temps");
             eEtcIdlePositions.SetX("EngineTemp", "Temperature", "F1");
             eEtcIdlePositions.SetY("ThrottlePosition", "Throttle", "F1");
@@ -1361,6 +1367,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage129), Text = "ETC" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage130), Text = "Positions" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage144), Text = "Positions 2D" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage131), Text = "Stopped Positions" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage132), Text = "Startup Positions" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage133), Text = "Idle Positions" });
@@ -1558,6 +1565,7 @@ namespace ECU_Manager
 
             eEtcPositions.UpdateChart();
             eEtcStoppedPositions.UpdateChart();
+            eEtcPositions2D.UpdateChart();
             eEtcEconPositions.UpdateChart();
             eEtcPedalIgnitionControl.UpdateChart();
             eEtcIdlePositions.UpdateChart();
@@ -1967,6 +1975,7 @@ namespace ECU_Manager
             }
             
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
+            cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_2d > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
             cbParamsIsPhPostEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_post_injection_enabled > 0;
@@ -3404,6 +3413,15 @@ namespace ECU_Manager
         private void cbParamsIsInjectionPhaseByEnd_CheckedChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end = ((CheckBox)sender).Checked ? 1 : 0;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void cbParamsEtcPosition2D_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_2d = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

@@ -33,6 +33,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.scVertical = new System.Windows.Forms.SplitContainer();
             this.scHorisontal = new System.Windows.Forms.SplitContainer();
+            this.imageTable1 = new ECU_Manager.Controls.ImageTable();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpGraph = new System.Windows.Forms.TabPage();
             this.graph3D = new ECU_Manager.Controls.Graph3D();
@@ -58,7 +59,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.dlgExport2DChart = new System.Windows.Forms.SaveFileDialog();
             this.dlgImport2DChart = new System.Windows.Forms.OpenFileDialog();
-            this.imageTable1 = new ECU_Manager.Controls.ImageTable();
             ((System.ComponentModel.ISupportInitialize)(this.scVertical)).BeginInit();
             this.scVertical.Panel1.SuspendLayout();
             this.scVertical.Panel2.SuspendLayout();
@@ -118,8 +118,37 @@
             // 
             this.scHorisontal.Panel2.Controls.Add(this.tabControl1);
             this.scHorisontal.Size = new System.Drawing.Size(1046, 339);
-            this.scHorisontal.SplitterDistance = 669;
+            this.scHorisontal.SplitterDistance = 750;
             this.scHorisontal.TabIndex = 1;
+            // 
+            // imageTable1
+            // 
+            this.imageTable1.Array = null;
+            this.imageTable1.ArrayCalib = null;
+            this.imageTable1.ArraySizeX = 4;
+            this.imageTable1.ArraySizeY = 4;
+            this.imageTable1.CalibrationColorTransience = null;
+            this.imageTable1.ColorTransience = null;
+            this.imageTable1.ColumnTitles = null;
+            this.imageTable1.DecPlaces = 1;
+            this.imageTable1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageTable1.Increment = 0.1F;
+            this.imageTable1.Initialized = false;
+            this.imageTable1.Location = new System.Drawing.Point(0, 0);
+            this.imageTable1.Margin = new System.Windows.Forms.Padding(0);
+            this.imageTable1.MinimumSize = new System.Drawing.Size(29, 30);
+            this.imageTable1.Name = "imageTable1";
+            this.imageTable1.RowTitles = null;
+            this.imageTable1.Size = new System.Drawing.Size(750, 339);
+            this.imageTable1.SizeX = 4;
+            this.imageTable1.SizeY = 4;
+            this.imageTable1.TabIndex = 0;
+            this.imageTable1.UpdateTableEvent = null;
+            this.imageTable1.UseCalibrationColorTransience = false;
+            this.imageTable1.ValueInterpolationX = null;
+            this.imageTable1.ValueInterpolationY = null;
+            this.imageTable1.ValueMax = 1F;
+            this.imageTable1.ValueMin = 0F;
             // 
             // tabControl1
             // 
@@ -132,7 +161,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(0, 0);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(373, 339);
+            this.tabControl1.Size = new System.Drawing.Size(292, 339);
             this.tabControl1.TabIndex = 1;
             // 
             // tpGraph
@@ -141,7 +170,7 @@
             this.tpGraph.Location = new System.Drawing.Point(4, 33);
             this.tpGraph.Margin = new System.Windows.Forms.Padding(0);
             this.tpGraph.Name = "tpGraph";
-            this.tpGraph.Size = new System.Drawing.Size(365, 302);
+            this.tpGraph.Size = new System.Drawing.Size(284, 302);
             this.tpGraph.TabIndex = 0;
             this.tpGraph.Text = "3D Graph";
             this.tpGraph.UseVisualStyleBackColor = true;
@@ -162,7 +191,7 @@
             this.graph3D.Name = "graph3D";
             this.graph3D.PolygonLineColor = System.Drawing.Color.Black;
             this.graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.graph3D.Size = new System.Drawing.Size(365, 302);
+            this.graph3D.Size = new System.Drawing.Size(284, 302);
             this.graph3D.TabIndex = 0;
             this.graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             // 
@@ -471,30 +500,6 @@
             this.dlgImport2DChart.DefaultExt = "xml";
             this.dlgImport2DChart.Filter = "AutoECU 2D Chart|*.ecu2dchart";
             this.dlgImport2DChart.RestoreDirectory = true;
-            // 
-            // imageTable1
-            // 
-            this.imageTable1.Array = null;
-            this.imageTable1.ArraySizeX = 4;
-            this.imageTable1.ArraySizeY = 4;
-            this.imageTable1.ColorTransience = null;
-            this.imageTable1.ColumnTitles = null;
-            this.imageTable1.DecPlaces = 1;
-            this.imageTable1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageTable1.Increment = 0.1F;
-            this.imageTable1.Initialized = false;
-            this.imageTable1.Location = new System.Drawing.Point(0, 0);
-            this.imageTable1.Margin = new System.Windows.Forms.Padding(0);
-            this.imageTable1.MinimumSize = new System.Drawing.Size(29, 30);
-            this.imageTable1.Name = "imageTable1";
-            this.imageTable1.RowTitles = null;
-            this.imageTable1.Size = new System.Drawing.Size(669, 339);
-            this.imageTable1.SizeX = 4;
-            this.imageTable1.SizeY = 4;
-            this.imageTable1.TabIndex = 0;
-            this.imageTable1.UpdateTableEvent = null;
-            this.imageTable1.ValueMax = 1F;
-            this.imageTable1.ValueMin = 0F;
             // 
             // Editor2D
             // 
