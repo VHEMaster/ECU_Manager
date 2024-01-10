@@ -212,18 +212,18 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 100.0F);
 
 
-            eEtcPositions.Initialize(cs, Editor2DMode.EcuTable,
+            eEtcPositions2D.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].pedals_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 0.0D, 100.0D, 0.5D, 10.0f, 10.0D, 0.0D, 100.0D, 10.0D, 10.0D, Consts.TABLE_PEDALS_MAX, Consts.TABLE_ROTATES_MAX, 1, false);
 
-            eEtcPositions.SetConfig("throttle_position", "pedals_count", "rotates_count", "pedals", "rotates");
-            eEtcPositions.SetX("PedalPosition", "Pedal", "F1");
-            eEtcPositions.SetY(string.Empty, "Throttle", "F1");
-            eEtcPositions.SetD("RPM", "RPM", "F0");
-            eEtcPositions.SetTableEventHandler(ChartUpdateEvent);
+            eEtcPositions2D.SetConfig("throttle_position", "pedals_count", "rotates_count", "pedals", "rotates");
+            eEtcPositions2D.SetX("PedalPosition", "Pedal", "F1");
+            eEtcPositions2D.SetY(string.Empty, "Throttle", "F1");
+            eEtcPositions2D.SetD("RPM", "RPM", "F0");
+            eEtcPositions2D.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcPositions.SetTableColorTrans(colorTransience);
+            eEtcPositions2D.SetTableColorTrans(colorTransience);
 
 
             colorTransience = new ColorTransience(100.0F, 600, Color.Gray);
@@ -545,6 +545,12 @@ namespace ECU_Manager
             eEtcEconPositions.SetY("ThrottlePosition", "Throttle Pos", "F1");
             eEtcEconPositions.SetTableEventHandler(ChartUpdateEvent);
 
+            eEtcStartupMoveTime.Initialize(cs, 0, 10, 0.1, 0.5D, 0, 5, 10.0D, 0.5, 1);
+            eEtcStartupMoveTime.SetConfig("throttle_startup_move_time", "engine_temp_count", "engine_temps");
+            eEtcStartupMoveTime.SetX("EngineTemp", "Temp.", "F1");
+            eEtcStartupMoveTime.SetY(string.Empty, "Move time", "F1");
+            eEtcStartupMoveTime.SetTableEventHandler(ChartUpdateEvent);
+            
             eEtcPedalIgnitionControl.Initialize(cs, 0, 100, 0.1, 1D, 0, 10, 500D, 1, 1);
             eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates_count", "rotates");
             eEtcPedalIgnitionControl.SetX("RPM", "RPM", "F0");
@@ -1104,11 +1110,11 @@ namespace ECU_Manager
             eEtcStoppedPositions.SetY(string.Empty, "Throttle", "F1");
             eEtcStoppedPositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcPositions2D.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
-            eEtcPositions2D.SetConfig("throttle_position_2d", "pedals_count", "pedals");
-            eEtcPositions2D.SetX("PedalPosition", "Pedal", "F1");
-            eEtcPositions2D.SetY(string.Empty, "Throttle", "F1");
-            eEtcPositions2D.SetTableEventHandler(ChartUpdateEvent);
+            eEtcPositions1D.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
+            eEtcPositions1D.SetConfig("throttle_position_1d", "pedals_count", "pedals");
+            eEtcPositions1D.SetX("PedalPosition", "Pedal", "F1");
+            eEtcPositions1D.SetY(string.Empty, "Throttle", "F1");
+            eEtcPositions1D.SetTableEventHandler(ChartUpdateEvent);
 
             eEtcIdlePositions.Initialize(cs, 0D, 50D, 0.2D, 1D, 0D, 10D, 10D, 1D, 1);
             eEtcIdlePositions.SetConfig("idle_throttle_position", "engine_temp_count", "engine_temps");
@@ -1366,8 +1372,8 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage129), Text = "ETC" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage130), Text = "Positions" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage144), Text = "Positions 2D" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage130), Text = "Positions 2D" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage144), Text = "Positions 1D" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage131), Text = "Stopped Positions" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage132), Text = "Startup Positions" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage133), Text = "Idle Positions" });
@@ -1381,6 +1387,7 @@ namespace ECU_Manager
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl22, tabPage142), Text = "Differentional" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage134), Text = "Econ Positions" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage143), Text = "Ignition Control" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl20, tabPage145), Text = "Startup Move Time" });
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage49), Text = "Corrections" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage51), Text = "Filling By MAP" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl12, tabPage89), Text = "Filling By TPS" });
@@ -1454,7 +1461,7 @@ namespace ECU_Manager
             eEnrichmentRate.SynchronizeChart();
             eEnrichmentIgnCorr.SynchronizeChart();
 
-            eEtcPositions.SynchronizeChart();
+            eEtcPositions2D.SynchronizeChart();
             UpdateCharts();
         }
         private void UpdateCharts()
@@ -1563,10 +1570,11 @@ namespace ECU_Manager
             eTspsRelativePosition.UpdateChart();
             eTspsDesyncThr.UpdateChart();
 
-            eEtcPositions.UpdateChart();
-            eEtcStoppedPositions.UpdateChart();
             eEtcPositions2D.UpdateChart();
+            eEtcStoppedPositions.UpdateChart();
+            eEtcPositions1D.UpdateChart();
             eEtcEconPositions.UpdateChart();
+            eEtcStartupMoveTime.UpdateChart();
             eEtcPedalIgnitionControl.UpdateChart();
             eEtcIdlePositions.UpdateChart();
             eEtcStartupPositions.UpdateChart();
@@ -1959,11 +1967,20 @@ namespace ECU_Manager
             tbParamsName.Text = cs.ConfigStruct.tables[cs.CurrentTable].name;
             rbInjCh1.Checked = false;
             rbInjCh2.Checked = false;
+            rbEtcPos1D.Checked = false;
+            rbEtcPos2D.Checked = false;
 
             switch (cs.ConfigStruct.tables[cs.CurrentTable].inj_channel)
             {
                 case 0: rbInjCh1.Checked = true; break;
                 case 1: rbInjCh2.Checked = true; break;
+                default: break;
+            }
+
+            switch (cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_1d)
+            {
+                case 0: rbEtcPos2D.Checked = true; break;
+                case 1: rbEtcPos1D.Checked = true; break;
                 default: break;
             }
 
@@ -1973,9 +1990,9 @@ namespace ECU_Manager
                 case 1: rbEnrichTypeMAP.Checked = true; break;
                 default: break;
             }
-            
+
             cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end > 0;
-            cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_2d > 0;
+            cbParamsIsInjectionPhaseByEnd.Checked = cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_1d > 0;
             cbParamsIsPhAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_async_enabled > 0;
             cbParamsIsPhSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_sync_enabled > 0;
             cbParamsIsPhPostEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ph_post_injection_enabled > 0;
@@ -3410,18 +3427,33 @@ namespace ECU_Manager
             }
         }
 
-        private void cbParamsIsInjectionPhaseByEnd_CheckedChanged(object sender, EventArgs e)
+        private void rbEtcPos1D_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end = ((CheckBox)sender).Checked ? 1 : 0;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            if (((RadioButton)sender).Checked)
             {
-                middleLayer.UpdateTable(cs.CurrentTable);
+                cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_1d = 1;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateTable(cs.CurrentTable);
+                }
             }
         }
 
-        private void cbParamsEtcPosition2D_CheckedChanged(object sender, EventArgs e)
+        private void rbEtcPos2D_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_2d = ((CheckBox)sender).Checked ? 1 : 0;
+            if (((RadioButton)sender).Checked)
+            {
+                cs.ConfigStruct.tables[cs.CurrentTable].throttle_position_use_1d = 0;
+                if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+                {
+                    middleLayer.UpdateTable(cs.CurrentTable);
+                }
+            }
+        }
+
+        private void cbParamsIsInjectionPhaseByEnd_CheckedChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].is_fuel_phase_by_end = ((CheckBox)sender).Checked ? 1 : 0;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

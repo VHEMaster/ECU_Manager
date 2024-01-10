@@ -402,7 +402,7 @@ namespace ECU_Manager.Controls
                 if (!lblParams.Text.Equals(str))
                     lblParams.Text = str;
             }
-            catch
+            catch (Exception ex)
             {
 
             }
