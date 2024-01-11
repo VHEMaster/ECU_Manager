@@ -158,7 +158,7 @@ namespace ECU_Manager
                     trackBar.LargeChange = (int)((parameter.Max - parameter.Min) / parameter.Step / 10.0F);
                     trackBar.TickFrequency = trackBar.LargeChange;
                     trackBar.SmallChange = 1;
-                    if (parameter.Type == typeof(float))
+                    if (parameter.Value.GetType() == typeof(float))
                     {
                         if ((float)parameter.Value / parameter.Step > trackBar.Maximum)
                             trackBar.Value = trackBar.Maximum;
@@ -166,6 +166,24 @@ namespace ECU_Manager
                             trackBar.Value = trackBar.Minimum;
                         else
                             trackBar.Value = (int)((float)parameter.Value / parameter.Step);
+                    }
+                    else if (parameter.Value.GetType() == typeof(byte))
+                    {
+                        if ((byte)parameter.Value / parameter.Step > trackBar.Maximum)
+                            trackBar.Value = trackBar.Maximum;
+                        else if ((byte)parameter.Value / parameter.Step < trackBar.Minimum)
+                            trackBar.Value = trackBar.Minimum;
+                        else
+                            trackBar.Value = (int)((byte)parameter.Value / parameter.Step);
+                    }
+                    else if (parameter.Value.GetType() == typeof(ushort))
+                    {
+                        if ((ushort)parameter.Value / parameter.Step > trackBar.Maximum)
+                            trackBar.Value = trackBar.Maximum;
+                        else if ((ushort)parameter.Value / parameter.Step < trackBar.Minimum)
+                            trackBar.Value = trackBar.Minimum;
+                        else
+                            trackBar.Value = (int)((ushort)parameter.Value / parameter.Step);
                     }
                     else
                     {
@@ -190,7 +208,7 @@ namespace ECU_Manager
                     nud.Maximum = (decimal)parameter.Max;
                     nud.DecimalPlaces = parameter.Step < 1.0F ? (int)Math.Ceiling(0 - Math.Log10(parameter.Step)) : 0;
                     nud.Increment = (decimal)parameter.Step;
-                    if (parameter.Type == typeof(float))
+                    if (parameter.Value.GetType() == typeof(float))
                     {
                         if ((decimal)(float)parameter.Value > nud.Maximum)
                             nud.Value = nud.Maximum;
@@ -198,6 +216,24 @@ namespace ECU_Manager
                             nud.Value = nud.Minimum;
                         else
                             nud.Value = (decimal)(float)parameter.Value;
+                    }
+                    else if(parameter.Value.GetType() == typeof(ushort))
+                    {
+                        if ((decimal)(ushort)parameter.Value > nud.Maximum)
+                            nud.Value = nud.Maximum;
+                        else if ((decimal)(ushort)parameter.Value < nud.Minimum)
+                            nud.Value = nud.Minimum;
+                        else
+                            nud.Value = (decimal)(ushort)parameter.Value;
+                    }
+                    else if(parameter.Value.GetType() == typeof(byte))
+                    {
+                        if ((decimal)(byte)parameter.Value > nud.Maximum)
+                            nud.Value = nud.Maximum;
+                        else if ((decimal)(byte)parameter.Value < nud.Minimum)
+                            nud.Value = nud.Minimum;
+                        else
+                            nud.Value = (decimal)(byte)parameter.Value;
                     }
                     else
                     {
@@ -285,6 +321,42 @@ namespace ECU_Manager
                         value = parameter.TrackBar.Minimum;
                     parameter.TrackBar.Value = (int)value;
                 }
+                else if (parameter.Type == typeof(byte))
+                {
+                    byte value = (byte)parameter.NumericUpDown.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (byte)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (byte)parameter.NumericUpDown.Minimum;
+
+                    parameter.Value = value;
+
+                    value /= (byte)parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = (byte)parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = (byte)parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+                else if (parameter.Type == typeof(ushort))
+                {
+                    ushort value = (ushort)parameter.NumericUpDown.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (ushort)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (ushort)parameter.NumericUpDown.Minimum;
+
+                    parameter.Value = value;
+
+                    value /= (ushort)parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = (ushort)parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = (ushort)parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
                 else
                 {
                     int value = (int)parameter.NumericUpDown.Value;
@@ -320,6 +392,30 @@ namespace ECU_Manager
                         value = (float)parameter.NumericUpDown.Maximum;
                     else if ((decimal)value < parameter.NumericUpDown.Minimum)
                         value = (float)parameter.NumericUpDown.Minimum;
+
+                    parameter.NumericUpDown.Value = (decimal)value;
+                    parameter.Value = value;
+                }
+                else if (parameter.Type == typeof(ushort))
+                {
+                    ushort value = (ushort)((float)parameter.TrackBar.Value * parameter.Step);
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (ushort)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (ushort)parameter.NumericUpDown.Minimum;
+
+                    parameter.NumericUpDown.Value = (decimal)value;
+                    parameter.Value = value;
+                }
+                else if (parameter.Type == typeof(byte))
+                {
+                    ushort value = (ushort)((float)parameter.TrackBar.Value * parameter.Step);
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (byte)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (byte)parameter.NumericUpDown.Minimum;
 
                     parameter.NumericUpDown.Value = (decimal)value;
                     parameter.Value = value;
@@ -475,7 +571,7 @@ namespace ECU_Manager
         {
             foreach (Parameter parameter in ForceParameters)
             {
-                if (parameter.Type == typeof(float))
+                if (parameter.Value.GetType() == typeof(float))
                 {
                     float value = (float)parameter.Value;
 
@@ -483,6 +579,40 @@ namespace ECU_Manager
                         value = (float)parameter.NumericUpDown.Maximum;
                     else if ((decimal)value < parameter.NumericUpDown.Minimum)
                         value = (float)parameter.NumericUpDown.Minimum;
+                    parameter.NumericUpDown.Value = (decimal)value;
+
+                    value /= parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+                else if (parameter.Value.GetType() == typeof(byte))
+                {
+                    float value = (byte)parameter.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (byte)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (byte)parameter.NumericUpDown.Minimum;
+                    parameter.NumericUpDown.Value = (decimal)value;
+
+                    value /= parameter.Step;
+                    if (value > parameter.TrackBar.Maximum)
+                        value = parameter.TrackBar.Maximum;
+                    else if (value < parameter.TrackBar.Minimum)
+                        value = parameter.TrackBar.Minimum;
+                    parameter.TrackBar.Value = (int)value;
+                }
+                else if (parameter.Value.GetType() == typeof(ushort))
+                {
+                    float value = (ushort)parameter.Value;
+
+                    if ((decimal)value > parameter.NumericUpDown.Maximum)
+                        value = (ushort)parameter.NumericUpDown.Maximum;
+                    else if ((decimal)value < parameter.NumericUpDown.Minimum)
+                        value = (ushort)parameter.NumericUpDown.Minimum;
                     parameter.NumericUpDown.Value = (decimal)value;
 
                     value /= parameter.Step;
@@ -525,6 +655,26 @@ namespace ECU_Manager
                         float value = (float)parameter.NumericUpDown.Value;
                         parameter.Value = value;
                         if (parameter.ValueOld == null || (float)parameter.ValueOld != value)
+                        {
+                            parameter.ValueOld = value;
+                            updated++;
+                        }
+                    }
+                    else if (parameter.Type == typeof(byte))
+                    {
+                        byte value = (byte)parameter.NumericUpDown.Value;
+                        parameter.Value = value;
+                        if (parameter.ValueOld == null || (byte)parameter.ValueOld != value)
+                        {
+                            parameter.ValueOld = value;
+                            updated++;
+                        }
+                    }
+                    else if (parameter.Type == typeof(ushort))
+                    {
+                        ushort value = (ushort)parameter.NumericUpDown.Value;
+                        parameter.Value = value;
+                        if (parameter.ValueOld == null || (ushort)parameter.ValueOld != value)
                         {
                             parameter.ValueOld = value;
                             updated++;
@@ -699,6 +849,8 @@ namespace ECU_Manager
             Parameter parameter;
             float valuef;
             int valuei;
+            ushort valueu16;
+            byte valueu8;
 
             dataMutex.WaitOne();
             if (dataPoints.Count > 0)
@@ -712,10 +864,20 @@ namespace ECU_Manager
                         if (label.Tag != null)
                         {
                             parameter = (Parameter)label.Tag;
-                            if (parameter.Type == typeof(float))
+                            if (parameter.Value.GetType() == typeof(float))
                             {
                                 valuef = (float)parameter.FieldInfo.GetValue(current.Parameters);
                                 label.Text = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
+                            }
+                            else if(parameter.Value.GetType() == typeof(byte))
+                            {
+                                valueu8 = (byte)parameter.FieldInfo.GetValue(current.Parameters);
+                                label.Text = valueu8.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
+                            }
+                            else if(parameter.Value.GetType() == typeof(ushort))
+                            {
+                                valueu16 = (ushort)parameter.FieldInfo.GetValue(current.Parameters);
+                                label.Text = valueu16.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
                             }
                             else
                             {
@@ -843,12 +1005,22 @@ namespace ECU_Manager
                             {
                                 parameter = (Parameter)chart.Tag;
 
-                                if (parameter.Type == typeof(float))
+                                if (parameter.Value.GetType() == typeof(float))
                                 {
                                     valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
                                     chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
                                 }
-                                else if(parameter.Type == typeof(int))
+                                else if (parameter.Value.GetType() == typeof(byte))
+                                {
+                                    valueu8 = (byte)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu8);
+                                }
+                                else if(parameter.Value.GetType() == typeof(ushort))
+                                {
+                                    valueu16 = (ushort)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu16);
+                                }
+                                else if (parameter.Value.GetType() == typeof(int))
                                 {
                                     valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
                                     chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
@@ -865,10 +1037,20 @@ namespace ECU_Manager
                             {
                                 parameter = (Parameter)chart.Tag;
 
-                                if (parameter.Type == typeof(float))
+                                if (parameter.Value.GetType() == typeof(float))
                                 {
                                     valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
                                     chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valuef);
+                                }
+                                else if (parameter.Value.GetType() == typeof(byte))
+                                {
+                                    valueu8 = (byte)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valueu8);
+                                }
+                                else if (parameter.Value.GetType() == typeof(ushort))
+                                {
+                                    valueu16 = (ushort)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
+                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valueu16);
                                 }
                                 else
                                 {

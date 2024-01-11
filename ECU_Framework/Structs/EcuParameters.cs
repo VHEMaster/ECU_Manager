@@ -13,9 +13,6 @@ namespace ECU_Framework.Structs
     {
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Consts.TABLE_STRING_MAX)]
         public string CurrentTableName;
-        public int SwitchPosition;
-        public int CurrentTable;
-        public int InjectorChannel;
 
         public float AdcKnockVoltage;
         public float AdcAirTemp;
@@ -47,11 +44,6 @@ namespace ECU_Framework.Structs
         public float KnockSensorDetonate;
         public float KnockZone;
         public float KnockAdvance;
-        public int KnockCount;
-        public int KnockCountCy1;
-        public int KnockCountCy2;
-        public int KnockCountCy3;
-        public int KnockCountCy4;
         public float KnockSaturation;
         public float AirTemp;
         public float EngineTemp;
@@ -67,10 +59,6 @@ namespace ECU_Framework.Structs
         public float ShortTermCorrection;
         public float LongTermCorrection;
         public float IdleCorrection;
-
-        public int IdleFlag;
-        public int IdleCorrFlag;
-        public int IdleEconFlag;
         public float RPM;
         public float Speed;
         public float MassAirFlow;
@@ -108,42 +96,56 @@ namespace ECU_Framework.Structs
         public float TspsRelativePosition;
         public float IdleWishToRpmRelation;
 
-        public int LambdaValid;
+        public ushort KnockCount;
+        public ushort KnockCountCy1;
+        public ushort KnockCountCy2;
+        public ushort KnockCountCy3;
+        public ushort KnockCountCy4;
 
-        public int OilSensor;
-        public int FanForceSwitch;
-        public int HandbrakeSensor;
-        public int ChargeSensor;
-        public int ClutchSensor;
-        public int IgnSensor;
+        public byte SwitchPosition;
+        public byte CurrentTable;
+        public byte InjectorChannel;
 
-        public int FuelPumpRelay;
-        public int FanRelay;
-        public int CheckEngine;
-        public int StarterRelay;
-        public int FanSwitch;
-        public int IgnOutput;
+        public byte IdleFlag;
+        public byte IdleCorrFlag;
+        public byte IdleEconFlag;
 
-        public int StartAllowed;
-        public int IsRunning;
-        public int IsCheckEngine;
+        public byte LambdaValid;
 
-        public int EtcMotorActiveFlag;
-        public int EtcStandaloneFlag;
-        public int EtcMotorFullCloseFlag;
+        public byte OilSensor;
+        public byte FanForceSwitch;
+        public byte HandbrakeSensor;
+        public byte ChargeSensor;
+        public byte ClutchSensor;
+        public byte IgnSensor;
 
-        public int EtcOutCruizeG;
-        public int EtcOutCruizeR;
-        public int EtcOutRsvd3;
-        public int EtcOutRsvd4;
-        public int EtcInCruizeStart;
-        public int EtcInCruizeStop;
-        public int EtcInBrake;
-        public int EtcInRsvd4;
-        public int EtcInRsvd5;
-        public int EtcInRsvd6;
+        public byte FuelPumpRelay;
+        public byte FanRelay;
+        public byte CheckEngine;
+        public byte StarterRelay;
+        public byte FanSwitch;
+        public byte IgnOutput;
 
-        public int CylinderIgnitionBitmask;
-        public int CylinderInjectionBitmask;
+        public byte StartAllowed;
+        public byte IsRunning;
+        public byte IsCheckEngine;
+
+        public byte EtcMotorActiveFlag;
+        public byte EtcStandaloneFlag;
+        public byte EtcMotorFullCloseFlag;
+
+        public byte EtcOutCruizeG;
+        public byte EtcOutCruizeR;
+        public byte EtcOutRsvd3;
+        public byte EtcOutRsvd4;
+        public byte EtcInCruizeStart;
+        public byte EtcInCruizeStop;
+        public byte EtcInBrake;
+        public byte EtcInRsvd4;
+        public byte EtcInRsvd5;
+        public byte EtcInRsvd6;
+
+        public byte CylinderIgnitionBitmask;
+        public byte CylinderInjectionBitmask;
     }
 }

@@ -1500,6 +1500,7 @@ namespace ECU_Manager
             eThrottles.UpdateChart();
             eEngTemps.UpdateChart();
             eAirTemps.UpdateChart();
+            ePedals.UpdateChart();
             eFillings.UpdateChart();
             eSpeeds.UpdateChart();
             eVoltages.UpdateChart();

@@ -31,7 +31,11 @@ namespace ECU_Framework.Structs
                 {
                     if (this.Type == typeof(float))
                         return 0.0F;
-                    else return 0;
+                    if (this.Type == typeof(ushort))
+                        return (ushort)0;
+                    if (this.Type == typeof(byte))
+                        return (byte)0;
+                    else return (int)0;
                 }
 
                 if (Enabled)
@@ -44,7 +48,11 @@ namespace ECU_Framework.Structs
                         return DepFieldInfo.GetValue(middleLayer.ComponentStructure.EcuParameters);
                     else if (this.Type == typeof(float))
                         return 0.0F;
-                    else return 0;
+                    if (this.Type == typeof(ushort))
+                        return (ushort)0;
+                    if (this.Type == typeof(byte))
+                        return (byte)0;
+                    else return (int)0;
                 }
             }
             set
@@ -62,13 +70,13 @@ namespace ECU_Framework.Structs
         {
             get
             {
-                if (middleLayer == null)
+                if (middleLayer == null || EnableFieldInfo == null)
                     return false;
                 return (byte)EnableFieldInfo.GetValue(middleLayer.ComponentStructure.ForceParameters) > 0;
             }
             set
             {
-                if (middleLayer != null)
+                if (middleLayer != null && EnableFieldInfo != null)
                 {
                     if (!Enabled)
                     {
