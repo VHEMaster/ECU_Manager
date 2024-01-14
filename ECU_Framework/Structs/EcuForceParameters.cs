@@ -23,6 +23,7 @@ namespace ECU_Framework.Structs
         public float WishIdleIgnitionAdvance;
         public float WishIdleMassAirFlow;
         public float WishThrottleTargetPosition;
+        public float MaximumThrottlePosition;
         public int FanRelay;
         public int FanSwitch;
         public int FuelPumpRelay;
@@ -39,6 +40,7 @@ namespace ECU_Framework.Structs
         public byte EnableWishIdleIgnitionAdvance;
         public byte EnableWishIdleMassAirFlow;
         public byte EnableWishThrottleTargetPosition;
+        public byte EnableMaximumThrottlePosition;
         public byte EnableFanRelay;
         public byte EnableFanSwitch;
         public byte EnableFuelPumpRelay;

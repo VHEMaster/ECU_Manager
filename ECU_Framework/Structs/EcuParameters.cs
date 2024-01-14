@@ -39,6 +39,7 @@ namespace ECU_Framework.Structs
         public float ThrottleDefaultPosition;
         public float ThrottleTargetPosition;
         public float WishThrottleTargetPosition;
+        public float MaximumThrottlePosition;
 
         public float KnockSensor;
         public float KnockSensorFiltered;

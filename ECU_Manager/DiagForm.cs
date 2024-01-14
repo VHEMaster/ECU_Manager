@@ -474,7 +474,8 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "PedalPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.PedalPosition, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "ThrottleDefaultPosition") parameter.FloatFormat = "F2"; //&ecu_parameters.ThrottleDefaultPosition, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "ThrottleTargetPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.ThrottleTargetPosition, .title = "%s%0.1f"},
-                if (fieldInfo.Name == "WishThrottleTargetPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.WishThrottleTargetPosition, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishThrottleTargetPosition") parameter.FloatFormat = "F1"; //&ecu_parameters.WishThrottleTargetPosition, .title = "%s%0.1f"},
+                if (fieldInfo.Name == "MaximumThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.MaximumThrottlePosition, .title = "%s%0.1f"},
 
                 if (fieldInfo.Name == "KnockSensor") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensor, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "KnockSensorFiltered") parameter.FloatFormat = "F2"; //&ecu_parameters.KnockSensorFiltered, .title = "%s%0.2f"},
@@ -557,6 +558,7 @@ namespace ECU_Manager
                     else if (parameter.Name == "WishIdleIgnitionAdvance") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
                     else if (parameter.Name == "WishThrottleTargetPosition") { parameter.Min = 0; parameter.Max = 100; parameter.Step = 0.1F; }
+                    else if (parameter.Name == "MaximumThrottlePosition") { parameter.Min = 0; parameter.Max = 100; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FanSwitch") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FuelPumpRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
