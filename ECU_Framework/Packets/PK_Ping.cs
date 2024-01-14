@@ -6,6 +6,7 @@ using ECU_Framework.Protocol;
 
 namespace ECU_Framework.Packets
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct PK_Ping
     {
         public ushort PacketID;

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace ECU_Framework.Structs
 {
     [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
     public struct DragPoint
     {
         public float RPM;

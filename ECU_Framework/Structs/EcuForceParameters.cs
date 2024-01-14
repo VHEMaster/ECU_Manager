@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 namespace ECU_Framework.Structs
 {
     [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
     public struct EcuForceParameters
     {
         public float IgnitionAdvance;

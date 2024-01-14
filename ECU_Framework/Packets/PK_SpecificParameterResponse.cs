@@ -7,6 +7,7 @@ using ECU_Framework.Structs;
 
 namespace ECU_Framework.Packets
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct PK_SpecificParameterResponse
     {
         public ushort PacketID;

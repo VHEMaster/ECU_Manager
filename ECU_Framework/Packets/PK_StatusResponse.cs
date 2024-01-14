@@ -9,6 +9,7 @@ using ECU_Framework.Structs;
 
 namespace ECU_Framework.Packets
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct PK_StatusResponse
     {
         public ushort PacketID;

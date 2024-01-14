@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 namespace ECU_Framework.Structs
 {
     [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
     public struct EcuCorrections
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
