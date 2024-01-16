@@ -63,7 +63,9 @@
     <Compile Include="Packets\PK_DragUpdateResponse.cs" />
     <Compile Include="Packets\PK_ForceParametersData.cs" />
     <Compile Include="Packets\PK_ForceParametersDataAcknowledge.cs" />
+    <Compile Include="Packets\PK_EtcTestRequest.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestRequest.cs" />
+    <Compile Include="Packets\PK_EtcTestResponse.cs" />
     <Compile Include="Packets\PK_IgnitionInjectionTestResponse.cs" />
     <Compile Include="Packets\PK_ParametersRequest.cs" />
     <Compile Include="Packets\PK_ParametersResponse.cs" />

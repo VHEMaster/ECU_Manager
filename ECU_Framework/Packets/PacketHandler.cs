@@ -118,6 +118,10 @@ namespace ECU_Framework.Packets
                         StructCopy<PK_SpecificParameterArrayResponse> pc46 = new StructCopy<PK_SpecificParameterArrayResponse>();
                         result = pc46.CommFromBytes(bytes);
                         break;
+                    case Packets.EtcTestResponseID:
+                        StructCopy<PK_EtcTestResponse> pc48 = new StructCopy<PK_EtcTestResponse>();
+                        result = pc48.CommFromBytes(bytes);
+                        break;
                     default:
                         break;
                 }
@@ -340,6 +344,14 @@ namespace ECU_Framework.Packets
         {
             PK_IgnitionInjectionTestRequest packet = new PK_IgnitionInjectionTestRequest(0, ignitionEnabled, injectionEnabled, count, period, ignitionPulse, injectionPulse);
             StructCopy<PK_IgnitionInjectionTestRequest> StructCopy = new StructCopy<PK_IgnitionInjectionTestRequest>();
+            byte[] bytes = StructCopy.GetBytes(packet);
+            protocolHandler.Send(Channel.etrECU, bytes);
+        }
+
+        public void SendEtcTestRequest(float start_position, int start_delay, float end_position, int move_period, int final_delay)
+        {
+            PK_EtcTestRequest packet = new PK_EtcTestRequest(0, start_position, start_delay, end_position, move_period, final_delay);
+            StructCopy<PK_EtcTestRequest> StructCopy = new StructCopy<PK_EtcTestRequest>();
             byte[] bytes = StructCopy.GetBytes(packet);
             protocolHandler.Send(Channel.etrECU, bytes);
         }

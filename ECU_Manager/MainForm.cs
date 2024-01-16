@@ -96,7 +96,9 @@ namespace ECU_Manager
             btnSave.Text = "Save File";
             btnRedownload.Enabled = false;
             btnIITestRun.Enabled = false;
+            btnEtcTestRun.Enabled = false;
             groupBox8.Enabled = false;
+            groupBox12.Enabled = false;
 
             Initialize();
 
@@ -4070,6 +4072,20 @@ namespace ECU_Manager
         private void btnIITestAbort_Click(object sender, EventArgs e)
         {
             middleLayer.PacketHandler.SendIgnitionInjectionTestRequest(0, 0, 0, 0, 0, 0);
+        }
+
+        private void btnEtcTestRun_Click(object sender, EventArgs e)
+        {
+            middleLayer.PacketHandler.SendEtcTestRequest((float)nudEtcTestInitialPos.Value, 
+                (int)nudEtcTestInitialDelay.Value, 
+                (float)nudEtcTestFinalPos.Value,
+                (int)nudEtcTestMoveTime.Value,
+                (int)nudEtcTestFinalDelay.Value);
+        }
+
+        private void btnEtcTestAbort_Click(object sender, EventArgs e)
+        {
+            middleLayer.PacketHandler.SendEtcTestRequest(0, 0, 0, 0, 0);
         }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)

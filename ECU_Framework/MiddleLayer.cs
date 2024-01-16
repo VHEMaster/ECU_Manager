@@ -858,6 +858,14 @@ namespace ECU_Framework
                                 handler.UpdateStatusEvent(list);
                         }
                     }
+                    else if (packetobj.GetType() == typeof(PK_EtcTestResponse))
+                    {
+                        PK_EtcTestResponse etctr = (PK_EtcTestResponse)packetobj;
+                        if (etctr.ErrorCode != 0)
+                        {
+
+                        }
+                    }
                 }
             }
         }

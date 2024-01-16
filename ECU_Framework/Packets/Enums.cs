@@ -55,5 +55,7 @@ namespace ECU_Framework.Packets
         SpecificParameterArrayConfigureResponseID = 44,
         SpecificParameterArrayRequestID = 45,
         SpecificParameterArrayResponseID = 46,
+        EtcTestRequestID = 47,
+        EtcTestResponseID = 48,
     }
 }
