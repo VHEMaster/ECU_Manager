@@ -433,6 +433,19 @@
             this.rbCutoffMode2 = new System.Windows.Forms.RadioButton();
             this.rbCutoffMode1 = new System.Windows.Forms.RadioButton();
             this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label114 = new System.Windows.Forms.Label();
+            this.nudEtcTestFinalDelay = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.label112 = new System.Windows.Forms.Label();
+            this.nudEtcTestMoveTime = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.label113 = new System.Windows.Forms.Label();
+            this.nudEtcTestFinalPos = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.label111 = new System.Windows.Forms.Label();
+            this.nudEtcTestInitialDelay = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.btnEtcTestAbort = new System.Windows.Forms.Button();
+            this.btnEtcTestRun = new System.Windows.Forms.Button();
+            this.label115 = new System.Windows.Forms.Label();
+            this.nudEtcTestInitialPos = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.cbIITInjCy4 = new System.Windows.Forms.CheckBox();
             this.cbIITInjCy3 = new System.Windows.Forms.CheckBox();
@@ -926,19 +939,6 @@
             this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabControl8 = new System.Windows.Forms.TabControl();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.btnEtcTestAbort = new System.Windows.Forms.Button();
-            this.btnEtcTestRun = new System.Windows.Forms.Button();
-            this.label115 = new System.Windows.Forms.Label();
-            this.nudEtcTestInitialPos = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label111 = new System.Windows.Forms.Label();
-            this.nudEtcTestInitialDelay = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label112 = new System.Windows.Forms.Label();
-            this.nudEtcTestMoveTime = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label113 = new System.Windows.Forms.Label();
-            this.nudEtcTestFinalPos = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label114 = new System.Windows.Forms.Label();
-            this.nudEtcTestFinalDelay = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -988,6 +988,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbCutoffAngle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCutoffRPM)).BeginInit();
             this.tabPage12.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestMoveTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialPos)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIITestIgnPulse)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudIITestInjPulse)).BeginInit();
@@ -1343,12 +1349,6 @@
             this.tableLayoutPanel14.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialDelay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestMoveTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -3343,12 +3343,205 @@
             this.tabPage12.Controls.Add(this.groupBox7);
             this.tabPage12.Controls.Add(this.groupBox6);
             this.tabPage12.Controls.Add(this.groupBox5);
-            this.tabPage12.Location = new System.Drawing.Point(4, 45);
+            this.tabPage12.Location = new System.Drawing.Point(4, 34);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1097, 568);
+            this.tabPage12.Size = new System.Drawing.Size(1097, 579);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "Tools";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.label114);
+            this.groupBox12.Controls.Add(this.nudEtcTestFinalDelay);
+            this.groupBox12.Controls.Add(this.label112);
+            this.groupBox12.Controls.Add(this.nudEtcTestMoveTime);
+            this.groupBox12.Controls.Add(this.label113);
+            this.groupBox12.Controls.Add(this.nudEtcTestFinalPos);
+            this.groupBox12.Controls.Add(this.label111);
+            this.groupBox12.Controls.Add(this.nudEtcTestInitialDelay);
+            this.groupBox12.Controls.Add(this.btnEtcTestAbort);
+            this.groupBox12.Controls.Add(this.btnEtcTestRun);
+            this.groupBox12.Controls.Add(this.label115);
+            this.groupBox12.Controls.Add(this.nudEtcTestInitialPos);
+            this.groupBox12.ForeColor = System.Drawing.Color.White;
+            this.groupBox12.Location = new System.Drawing.Point(569, 6);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(273, 329);
+            this.groupBox12.TabIndex = 11;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "ETC Test";
+            // 
+            // label114
+            // 
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(11, 169);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(150, 24);
+            this.label114.TabIndex = 19;
+            this.label114.Text = "Final Delay (ms):";
+            // 
+            // nudEtcTestFinalDelay
+            // 
+            this.nudEtcTestFinalDelay.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudEtcTestFinalDelay.Location = new System.Drawing.Point(167, 167);
+            this.nudEtcTestFinalDelay.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudEtcTestFinalDelay.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudEtcTestFinalDelay.Name = "nudEtcTestFinalDelay";
+            this.nudEtcTestFinalDelay.Size = new System.Drawing.Size(84, 29);
+            this.nudEtcTestFinalDelay.TabIndex = 20;
+            this.nudEtcTestFinalDelay.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // label112
+            // 
+            this.label112.AutoSize = true;
+            this.label112.Location = new System.Drawing.Point(11, 134);
+            this.label112.Name = "label112";
+            this.label112.Size = new System.Drawing.Size(152, 24);
+            this.label112.TabIndex = 17;
+            this.label112.Text = "Move Time (ms):";
+            // 
+            // nudEtcTestMoveTime
+            // 
+            this.nudEtcTestMoveTime.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudEtcTestMoveTime.Location = new System.Drawing.Point(167, 132);
+            this.nudEtcTestMoveTime.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudEtcTestMoveTime.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudEtcTestMoveTime.Name = "nudEtcTestMoveTime";
+            this.nudEtcTestMoveTime.Size = new System.Drawing.Size(84, 29);
+            this.nudEtcTestMoveTime.TabIndex = 18;
+            this.nudEtcTestMoveTime.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // label113
+            // 
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(11, 99);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(125, 24);
+            this.label113.TabIndex = 15;
+            this.label113.Text = "Final Pos (%):";
+            // 
+            // nudEtcTestFinalPos
+            // 
+            this.nudEtcTestFinalPos.DecimalPlaces = 1;
+            this.nudEtcTestFinalPos.Location = new System.Drawing.Point(167, 97);
+            this.nudEtcTestFinalPos.Name = "nudEtcTestFinalPos";
+            this.nudEtcTestFinalPos.Size = new System.Drawing.Size(84, 29);
+            this.nudEtcTestFinalPos.TabIndex = 16;
+            this.nudEtcTestFinalPos.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.Location = new System.Drawing.Point(11, 65);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(150, 24);
+            this.label111.TabIndex = 13;
+            this.label111.Text = "Initial Delay (ms):";
+            // 
+            // nudEtcTestInitialDelay
+            // 
+            this.nudEtcTestInitialDelay.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudEtcTestInitialDelay.Location = new System.Drawing.Point(167, 63);
+            this.nudEtcTestInitialDelay.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudEtcTestInitialDelay.Name = "nudEtcTestInitialDelay";
+            this.nudEtcTestInitialDelay.Size = new System.Drawing.Size(84, 29);
+            this.nudEtcTestInitialDelay.TabIndex = 14;
+            this.nudEtcTestInitialDelay.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // btnEtcTestAbort
+            // 
+            this.btnEtcTestAbort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnEtcTestAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEtcTestAbort.Location = new System.Drawing.Point(15, 261);
+            this.btnEtcTestAbort.Name = "btnEtcTestAbort";
+            this.btnEtcTestAbort.Size = new System.Drawing.Size(240, 34);
+            this.btnEtcTestAbort.TabIndex = 12;
+            this.btnEtcTestAbort.Text = "Abort";
+            this.btnEtcTestAbort.UseVisualStyleBackColor = false;
+            this.btnEtcTestAbort.Click += new System.EventHandler(this.btnEtcTestAbort_Click);
+            // 
+            // btnEtcTestRun
+            // 
+            this.btnEtcTestRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
+            this.btnEtcTestRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEtcTestRun.Location = new System.Drawing.Point(15, 221);
+            this.btnEtcTestRun.Name = "btnEtcTestRun";
+            this.btnEtcTestRun.Size = new System.Drawing.Size(240, 34);
+            this.btnEtcTestRun.TabIndex = 8;
+            this.btnEtcTestRun.Text = "Run Test";
+            this.btnEtcTestRun.UseVisualStyleBackColor = false;
+            this.btnEtcTestRun.Click += new System.EventHandler(this.btnEtcTestRun_Click);
+            // 
+            // label115
+            // 
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(11, 30);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(125, 24);
+            this.label115.TabIndex = 6;
+            this.label115.Text = "Initial Pos (%):";
+            // 
+            // nudEtcTestInitialPos
+            // 
+            this.nudEtcTestInitialPos.DecimalPlaces = 1;
+            this.nudEtcTestInitialPos.Location = new System.Drawing.Point(167, 28);
+            this.nudEtcTestInitialPos.Name = "nudEtcTestInitialPos";
+            this.nudEtcTestInitialPos.Size = new System.Drawing.Size(84, 29);
+            this.nudEtcTestInitialPos.TabIndex = 6;
+            this.nudEtcTestInitialPos.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // groupBox8
             // 
@@ -3810,10 +4003,10 @@
             this.tabPage3.AutoScroll = true;
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage3.Controls.Add(this.tabControl111);
-            this.tabPage3.Location = new System.Drawing.Point(4, 34);
+            this.tabPage3.Location = new System.Drawing.Point(4, 45);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1097, 579);
+            this.tabPage3.Size = new System.Drawing.Size(1097, 568);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "ECU Setup";
             // 
@@ -3828,7 +4021,7 @@
             this.tabControl111.Name = "tabControl111";
             this.tabControl111.Padding = new System.Drawing.Point(20, 6);
             this.tabControl111.SelectedIndex = 0;
-            this.tabControl111.Size = new System.Drawing.Size(1091, 573);
+            this.tabControl111.Size = new System.Drawing.Size(1091, 562);
             this.tabControl111.TabIndex = 1;
             // 
             // tabPage8
@@ -3925,7 +4118,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 39);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1083, 530);
+            this.tabPage8.Size = new System.Drawing.Size(1083, 519);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
             // 
@@ -5249,9 +5442,9 @@
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage4.Controls.Add(this.tabControl3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 28);
+            this.tabPage4.Location = new System.Drawing.Point(4, 39);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1083, 530);
+            this.tabPage4.Size = new System.Drawing.Size(1083, 519);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Basic Setup";
             // 
@@ -5274,7 +5467,7 @@
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.Padding = new System.Drawing.Point(20, 5);
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(1083, 530);
+            this.tabControl3.Size = new System.Drawing.Size(1083, 519);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage11
@@ -5284,7 +5477,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 70);
             this.tabPage11.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(1075, 456);
+            this.tabPage11.Size = new System.Drawing.Size(1075, 445);
             this.tabPage11.TabIndex = 8;
             this.tabPage11.Text = "Pressures";
             // 
@@ -5322,7 +5515,7 @@
             this.ePressures.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ePressures.Chart.Location = new System.Drawing.Point(3, 33);
             this.ePressures.Chart.Name = "chart1DChart";
-            this.ePressures.Chart.Size = new System.Drawing.Size(1069, 382);
+            this.ePressures.Chart.Size = new System.Drawing.Size(1069, 371);
             this.ePressures.Chart.TabIndex = 2;
             this.ePressures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ePressures.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -5330,7 +5523,7 @@
             this.ePressures.Location = new System.Drawing.Point(0, 0);
             this.ePressures.Margin = new System.Windows.Forms.Padding(6);
             this.ePressures.Name = "ePressures";
-            this.ePressures.Size = new System.Drawing.Size(1075, 456);
+            this.ePressures.Size = new System.Drawing.Size(1075, 445);
             this.ePressures.TabIndex = 3;
             // 
             // tabPage7
@@ -5449,10 +5642,10 @@
             // 
             this.tabPage13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage13.Controls.Add(this.eThrottles);
-            this.tabPage13.Location = new System.Drawing.Point(4, 114);
+            this.tabPage13.Location = new System.Drawing.Point(4, 70);
             this.tabPage13.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(184, 0);
+            this.tabPage13.Size = new System.Drawing.Size(1075, 445);
             this.tabPage13.TabIndex = 2;
             this.tabPage13.Text = "Throttles";
             // 
@@ -5490,7 +5683,7 @@
             this.eThrottles.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eThrottles.Chart.Location = new System.Drawing.Point(3, 33);
             this.eThrottles.Chart.Name = "chart1DChart";
-            this.eThrottles.Chart.Size = new System.Drawing.Size(178, 1);
+            this.eThrottles.Chart.Size = new System.Drawing.Size(1069, 371);
             this.eThrottles.Chart.TabIndex = 2;
             this.eThrottles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.eThrottles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -5498,7 +5691,7 @@
             this.eThrottles.Location = new System.Drawing.Point(0, 0);
             this.eThrottles.Margin = new System.Windows.Forms.Padding(6);
             this.eThrottles.Name = "eThrottles";
-            this.eThrottles.Size = new System.Drawing.Size(184, 0);
+            this.eThrottles.Size = new System.Drawing.Size(1075, 445);
             this.eThrottles.TabIndex = 4;
             // 
             // tabPage52
@@ -5841,9 +6034,9 @@
             // 
             this.tabPage9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage9.Controls.Add(this.tabControl4);
-            this.tabPage9.Location = new System.Drawing.Point(4, 28);
+            this.tabPage9.Location = new System.Drawing.Point(4, 39);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(1083, 530);
+            this.tabPage9.Size = new System.Drawing.Size(1083, 519);
             this.tabPage9.TabIndex = 6;
             this.tabPage9.Text = "Setup";
             // 
@@ -5865,7 +6058,7 @@
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.Padding = new System.Drawing.Point(20, 5);
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(1083, 530);
+            this.tabControl4.Size = new System.Drawing.Size(1083, 519);
             this.tabControl4.TabIndex = 0;
             // 
             // tabPage91
@@ -5875,7 +6068,7 @@
             this.tabPage91.Location = new System.Drawing.Point(4, 37);
             this.tabPage91.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage91.Name = "tabPage91";
-            this.tabPage91.Size = new System.Drawing.Size(1075, 489);
+            this.tabPage91.Size = new System.Drawing.Size(1075, 478);
             this.tabPage91.TabIndex = 18;
             this.tabPage91.Text = "Filling";
             // 
@@ -5891,7 +6084,7 @@
             this.tabControl13.Name = "tabControl13";
             this.tabControl13.Padding = new System.Drawing.Point(20, 5);
             this.tabControl13.SelectedIndex = 0;
-            this.tabControl13.Size = new System.Drawing.Size(1075, 489);
+            this.tabControl13.Size = new System.Drawing.Size(1075, 478);
             this.tabControl13.TabIndex = 5;
             // 
             // tabPage10
@@ -5901,7 +6094,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 37);
             this.tabPage10.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(1067, 448);
+            this.tabPage10.Size = new System.Drawing.Size(1067, 437);
             this.tabPage10.TabIndex = 0;
             this.tabPage10.Text = "Cyclic Filling MAP";
             // 
@@ -5976,7 +6169,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eCyclicFillingMAP.Chart.Series.Add(series1);
-            this.eCyclicFillingMAP.Chart.Size = new System.Drawing.Size(1063, 163);
+            this.eCyclicFillingMAP.Chart.Size = new System.Drawing.Size(1063, 159);
             this.eCyclicFillingMAP.Chart.TabIndex = 4;
             this.eCyclicFillingMAP.Chart.Text = " ";
             this.eCyclicFillingMAP.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -5998,14 +6191,14 @@
             this.eCyclicFillingMAP.Graph3D.Name = "graph3D";
             this.eCyclicFillingMAP.Graph3D.PolygonLineColor = System.Drawing.Color.White;
             this.eCyclicFillingMAP.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eCyclicFillingMAP.Graph3D.Size = new System.Drawing.Size(289, 200);
+            this.eCyclicFillingMAP.Graph3D.Size = new System.Drawing.Size(289, 193);
             this.eCyclicFillingMAP.Graph3D.TabIndex = 0;
             this.eCyclicFillingMAP.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
             this.eCyclicFillingMAP.LabelTitle = "Cyclic Filling MAP";
             this.eCyclicFillingMAP.Location = new System.Drawing.Point(0, 0);
             this.eCyclicFillingMAP.Margin = new System.Windows.Forms.Padding(6);
             this.eCyclicFillingMAP.Name = "eCyclicFillingMAP";
-            this.eCyclicFillingMAP.Size = new System.Drawing.Size(1067, 448);
+            this.eCyclicFillingMAP.Size = new System.Drawing.Size(1067, 437);
             this.eCyclicFillingMAP.TabIndex = 0;
             // 
             // tabPage37
@@ -6182,10 +6375,10 @@
             // 
             this.tabPage17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage17.Controls.Add(this.tabControl5);
-            this.tabPage17.Location = new System.Drawing.Point(4, 114);
+            this.tabPage17.Location = new System.Drawing.Point(4, 37);
             this.tabPage17.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(184, 0);
+            this.tabPage17.Size = new System.Drawing.Size(1075, 478);
             this.tabPage17.TabIndex = 2;
             this.tabPage17.Text = "Enrichment";
             // 
@@ -6207,7 +6400,7 @@
             this.tabControl5.Name = "tabControl5";
             this.tabControl5.Padding = new System.Drawing.Point(20, 5);
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(184, 0);
+            this.tabControl5.Size = new System.Drawing.Size(1075, 478);
             this.tabControl5.TabIndex = 1;
             // 
             // tabPage99
@@ -6241,10 +6434,10 @@
             this.tabPage99.Controls.Add(this.nudParamsEnrichmentAccelDeadBand);
             this.tabPage99.Controls.Add(this.nudParamsCntEnrichmentLoadDerivative);
             this.tabPage99.Controls.Add(this.nudParamsCntEnrichmentStartLoad);
-            this.tabPage99.Location = new System.Drawing.Point(4, 301);
+            this.tabPage99.Location = new System.Drawing.Point(4, 70);
             this.tabPage99.Name = "tabPage99";
             this.tabPage99.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage99.Size = new System.Drawing.Size(176, 0);
+            this.tabPage99.Size = new System.Drawing.Size(1067, 404);
             this.tabPage99.TabIndex = 13;
             this.tabPage99.Text = "Basic";
             // 
@@ -6540,12 +6733,12 @@
             0});
             this.nudParamsEnrichmentLoadDeadBand.Location = new System.Drawing.Point(208, 89);
             this.nudParamsEnrichmentLoadDeadBand.Maximum = new decimal(new int[] {
-            100000,
+            10000000,
             0,
             0,
             0});
             this.nudParamsEnrichmentLoadDeadBand.Name = "nudParamsEnrichmentLoadDeadBand";
-            this.nudParamsEnrichmentLoadDeadBand.Size = new System.Drawing.Size(96, 29);
+            this.nudParamsEnrichmentLoadDeadBand.Size = new System.Drawing.Size(123, 29);
             this.nudParamsEnrichmentLoadDeadBand.TabIndex = 119;
             this.nudParamsEnrichmentLoadDeadBand.ValueChanged += new System.EventHandler(this.nudParamsEnrichmentLoadDeadBand_ValueChanged);
             // 
@@ -6594,12 +6787,12 @@
             0});
             this.nudParamsEnrichmentAccelDeadBand.Location = new System.Drawing.Point(208, 124);
             this.nudParamsEnrichmentAccelDeadBand.Maximum = new decimal(new int[] {
-            10000000,
+            1000000000,
             0,
             0,
             0});
             this.nudParamsEnrichmentAccelDeadBand.Name = "nudParamsEnrichmentAccelDeadBand";
-            this.nudParamsEnrichmentAccelDeadBand.Size = new System.Drawing.Size(96, 29);
+            this.nudParamsEnrichmentAccelDeadBand.Size = new System.Drawing.Size(123, 29);
             this.nudParamsEnrichmentAccelDeadBand.TabIndex = 113;
             this.nudParamsEnrichmentAccelDeadBand.ValueChanged += new System.EventHandler(this.nudParamsEnrichmentAccelDeadBand_ValueChanged);
             // 
@@ -7197,10 +7390,10 @@
             // 
             this.tabPage22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tabPage22.Controls.Add(this.tabControl6);
-            this.tabPage22.Location = new System.Drawing.Point(4, 114);
+            this.tabPage22.Location = new System.Drawing.Point(4, 37);
             this.tabPage22.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage22.Name = "tabPage22";
-            this.tabPage22.Size = new System.Drawing.Size(184, 0);
+            this.tabPage22.Size = new System.Drawing.Size(1075, 478);
             this.tabPage22.TabIndex = 3;
             this.tabPage22.Text = "Ignition";
             // 
@@ -7219,17 +7412,17 @@
             this.tabControl6.Name = "tabControl6";
             this.tabControl6.Padding = new System.Drawing.Point(20, 5);
             this.tabControl6.SelectedIndex = 0;
-            this.tabControl6.Size = new System.Drawing.Size(184, 0);
+            this.tabControl6.Size = new System.Drawing.Size(1075, 478);
             this.tabControl6.TabIndex = 2;
             // 
             // tpIgnFull
             // 
             this.tpIgnFull.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
             this.tpIgnFull.Controls.Add(this.eIgnitionFull);
-            this.tpIgnFull.Location = new System.Drawing.Point(4, 202);
+            this.tpIgnFull.Location = new System.Drawing.Point(4, 37);
             this.tpIgnFull.Margin = new System.Windows.Forms.Padding(0);
             this.tpIgnFull.Name = "tpIgnFull";
-            this.tpIgnFull.Size = new System.Drawing.Size(176, 0);
+            this.tpIgnFull.Size = new System.Drawing.Size(1067, 437);
             this.tpIgnFull.TabIndex = 17;
             this.tpIgnFull.Text = "Advances";
             // 
@@ -7304,7 +7497,7 @@
             series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             this.eIgnitionFull.Chart.Series.Add(series5);
-            this.eIgnitionFull.Chart.Size = new System.Drawing.Size(180, 121);
+            this.eIgnitionFull.Chart.Size = new System.Drawing.Size(1063, 159);
             this.eIgnitionFull.Chart.TabIndex = 4;
             this.eIgnitionFull.Chart.Text = " ";
             this.eIgnitionFull.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -7329,7 +7522,7 @@
             this.eIgnitionFull.Location = new System.Drawing.Point(0, 0);
             this.eIgnitionFull.Margin = new System.Windows.Forms.Padding(6);
             this.eIgnitionFull.Name = "eIgnitionFull";
-            this.eIgnitionFull.Size = new System.Drawing.Size(176, 0);
+            this.eIgnitionFull.Size = new System.Drawing.Size(1067, 437);
             this.eIgnitionFull.TabIndex = 2;
             // 
             // tabPage115
@@ -15458,199 +15651,6 @@
             this.tabControl8.Size = new System.Drawing.Size(200, 100);
             this.tabControl8.TabIndex = 0;
             // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.label114);
-            this.groupBox12.Controls.Add(this.nudEtcTestFinalDelay);
-            this.groupBox12.Controls.Add(this.label112);
-            this.groupBox12.Controls.Add(this.nudEtcTestMoveTime);
-            this.groupBox12.Controls.Add(this.label113);
-            this.groupBox12.Controls.Add(this.nudEtcTestFinalPos);
-            this.groupBox12.Controls.Add(this.label111);
-            this.groupBox12.Controls.Add(this.nudEtcTestInitialDelay);
-            this.groupBox12.Controls.Add(this.btnEtcTestAbort);
-            this.groupBox12.Controls.Add(this.btnEtcTestRun);
-            this.groupBox12.Controls.Add(this.label115);
-            this.groupBox12.Controls.Add(this.nudEtcTestInitialPos);
-            this.groupBox12.ForeColor = System.Drawing.Color.White;
-            this.groupBox12.Location = new System.Drawing.Point(569, 6);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(273, 329);
-            this.groupBox12.TabIndex = 11;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "ETC Test";
-            // 
-            // btnEtcTestAbort
-            // 
-            this.btnEtcTestAbort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.btnEtcTestAbort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEtcTestAbort.Location = new System.Drawing.Point(15, 261);
-            this.btnEtcTestAbort.Name = "btnEtcTestAbort";
-            this.btnEtcTestAbort.Size = new System.Drawing.Size(240, 34);
-            this.btnEtcTestAbort.TabIndex = 12;
-            this.btnEtcTestAbort.Text = "Abort";
-            this.btnEtcTestAbort.UseVisualStyleBackColor = false;
-            this.btnEtcTestAbort.Click += new System.EventHandler(this.btnEtcTestAbort_Click);
-            // 
-            // btnEtcTestRun
-            // 
-            this.btnEtcTestRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(32)))), ((int)(((byte)(8)))));
-            this.btnEtcTestRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEtcTestRun.Location = new System.Drawing.Point(15, 221);
-            this.btnEtcTestRun.Name = "btnEtcTestRun";
-            this.btnEtcTestRun.Size = new System.Drawing.Size(240, 34);
-            this.btnEtcTestRun.TabIndex = 8;
-            this.btnEtcTestRun.Text = "Run Test";
-            this.btnEtcTestRun.UseVisualStyleBackColor = false;
-            this.btnEtcTestRun.Click += new System.EventHandler(this.btnEtcTestRun_Click);
-            // 
-            // label115
-            // 
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(11, 30);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(125, 24);
-            this.label115.TabIndex = 6;
-            this.label115.Text = "Initial Pos (%):";
-            // 
-            // nudEtcTestInitialPos
-            // 
-            this.nudEtcTestInitialPos.DecimalPlaces = 1;
-            this.nudEtcTestInitialPos.Location = new System.Drawing.Point(167, 28);
-            this.nudEtcTestInitialPos.Name = "nudEtcTestInitialPos";
-            this.nudEtcTestInitialPos.Size = new System.Drawing.Size(84, 29);
-            this.nudEtcTestInitialPos.TabIndex = 6;
-            this.nudEtcTestInitialPos.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label111
-            // 
-            this.label111.AutoSize = true;
-            this.label111.Location = new System.Drawing.Point(11, 65);
-            this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(150, 24);
-            this.label111.TabIndex = 13;
-            this.label111.Text = "Initial Delay (ms):";
-            // 
-            // nudEtcTestInitialDelay
-            // 
-            this.nudEtcTestInitialDelay.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudEtcTestInitialDelay.Location = new System.Drawing.Point(167, 63);
-            this.nudEtcTestInitialDelay.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudEtcTestInitialDelay.Name = "nudEtcTestInitialDelay";
-            this.nudEtcTestInitialDelay.Size = new System.Drawing.Size(84, 29);
-            this.nudEtcTestInitialDelay.TabIndex = 14;
-            this.nudEtcTestInitialDelay.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label112
-            // 
-            this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(11, 134);
-            this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(152, 24);
-            this.label112.TabIndex = 17;
-            this.label112.Text = "Move Time (ms):";
-            // 
-            // nudEtcTestMoveTime
-            // 
-            this.nudEtcTestMoveTime.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudEtcTestMoveTime.Location = new System.Drawing.Point(167, 132);
-            this.nudEtcTestMoveTime.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudEtcTestMoveTime.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudEtcTestMoveTime.Name = "nudEtcTestMoveTime";
-            this.nudEtcTestMoveTime.Size = new System.Drawing.Size(84, 29);
-            this.nudEtcTestMoveTime.TabIndex = 18;
-            this.nudEtcTestMoveTime.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            // 
-            // label113
-            // 
-            this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(11, 99);
-            this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(125, 24);
-            this.label113.TabIndex = 15;
-            this.label113.Text = "Final Pos (%):";
-            // 
-            // nudEtcTestFinalPos
-            // 
-            this.nudEtcTestFinalPos.DecimalPlaces = 1;
-            this.nudEtcTestFinalPos.Location = new System.Drawing.Point(167, 97);
-            this.nudEtcTestFinalPos.Name = "nudEtcTestFinalPos";
-            this.nudEtcTestFinalPos.Size = new System.Drawing.Size(84, 29);
-            this.nudEtcTestFinalPos.TabIndex = 16;
-            this.nudEtcTestFinalPos.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(11, 169);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(150, 24);
-            this.label114.TabIndex = 19;
-            this.label114.Text = "Final Delay (ms):";
-            // 
-            // nudEtcTestFinalDelay
-            // 
-            this.nudEtcTestFinalDelay.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudEtcTestFinalDelay.Location = new System.Drawing.Point(167, 167);
-            this.nudEtcTestFinalDelay.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudEtcTestFinalDelay.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudEtcTestFinalDelay.Name = "nudEtcTestFinalDelay";
-            this.nudEtcTestFinalDelay.Size = new System.Drawing.Size(84, 29);
-            this.nudEtcTestFinalDelay.TabIndex = 20;
-            this.nudEtcTestFinalDelay.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -15728,6 +15728,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbCutoffAngle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCutoffRPM)).EndInit();
             this.tabPage12.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestMoveTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialPos)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIITestIgnPulse)).EndInit();
@@ -16094,13 +16101,6 @@
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestInitialDelay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestMoveTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEtcTestFinalDelay)).EndInit();
             this.ResumeLayout(false);
 
         }

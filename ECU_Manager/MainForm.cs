@@ -373,11 +373,11 @@ namespace ECU_Manager
             eFillingSelectKoffTPS.SetX("RPM", "RPM", "F0");
             eFillingSelectKoffTPS.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentStartLoad.Initialize(cs, 0, 100000, 1, 1D, 0D, 10D, 1D, 10D, 0);
+            eEnrichmentStartLoad.Initialize(cs, 0, 10000000, 1, 1D, 0D, 10D, 1D, 10D, 0);
             eEnrichmentStartLoad.SetConfig("enrichment_rate_start_load", "enrichment_rate_start_load_count", string.Empty);
             eEnrichmentStartLoad.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentLoadDerivative.Initialize(cs, 0, 1000000, 100, 10D, 0D, 1000D, 1D, 200D, 0);
+            eEnrichmentLoadDerivative.Initialize(cs, 0, 100000000, 100, 10D, 0D, 1000D, 1D, 200D, 0);
             eEnrichmentLoadDerivative.SetConfig("enrichment_rate_load_derivative", "enrichment_rate_load_derivative_count", string.Empty);
             eEnrichmentLoadDerivative.SetTableEventHandler(ChartUpdateEvent);
 
