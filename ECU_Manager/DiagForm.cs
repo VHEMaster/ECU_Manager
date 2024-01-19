@@ -486,7 +486,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "AirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.AirTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "EngineTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.EngineTemp, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "CalculatedAirTemp") parameter.FloatFormat = "F1"; //&ecu_parameters.CalculatedAirTemp, .title = "%s%0.1f"},
-                if (fieldInfo.Name == "Pressure") parameter.FloatFormat = "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "ManifoldAirPressure") parameter.FloatFormat = "F0"; //&ecu_parameters.ManifoldAirPressure, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "ReferenceVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.ReferenceVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "PowerVoltage") parameter.FloatFormat = "F2"; //&ecu_parameters.PowerVoltage, .title = "%s%0.2f"},
                 if (fieldInfo.Name == "FuelRatio") parameter.FloatFormat = "F2"; //&ecu_parameters.FuelRatio, .title = "%s%0.2f"},
@@ -987,7 +987,12 @@ namespace ECU_Manager
                 foreach (Chart chart in chartValues)
                 {
                     chart.SuspendLayout();
-                    
+                
+                    chart.ChartAreas[0].AxisY.LabelStyle.Format = ((Parameter)chart.Tag).FloatFormat;
+                    chart.ChartAreas[0].InnerPlotPosition.X = 100.0F / chart.Width * 50.0F;
+                    chart.ChartAreas[0].InnerPlotPosition.Y = 0;
+                    chart.ChartAreas[0].InnerPlotPosition.Width = 100 - chart.ChartAreas[0].InnerPlotPosition.X;
+                    chart.ChartAreas[0].InnerPlotPosition.Height = 100 - (100.0F / chart.Height * 20.0f);
                     chart.ChartAreas[0].AxisX.Minimum = posmin;
                     chart.ChartAreas[0].AxisX.Maximum = posmax;
 
