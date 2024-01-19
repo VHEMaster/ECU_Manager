@@ -812,7 +812,8 @@ namespace ECU_Manager
 
                     double time_nrst = chart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
                     dataMutex.WaitOne();
-                    PointData closest = dataPoints.OrderBy(p => Math.Abs(p.Seconds - time_nrst)).FirstOrDefault();
+                    int nearest = BinarySearchComparison<DataPoint>.Find(chart.Series[0].Points, 0, chart.Series[0].Points.Count - 1, new DataPoint(time_nrst, 0), (a, b) => { double res = a.XValue - b.XValue;  return res > 0 ? 1 : res < 0 ? -1 : 0;  });
+                    PointData closest = chart.Series[0].Points[nearest].Tag as PointData;
                     dataMutex.ReleaseMutex();
                     if (closest != null)
                     {
@@ -824,22 +825,27 @@ namespace ECU_Manager
                             if (label.Tag != null)
                             {
                                 parameter = (Parameter)label.Tag;
+                                string value = string.Empty;
                                 if (parameter.Type == typeof(float))
                                 {
                                     float valuef = (float)parameter.FieldInfo.GetValue(closest.Parameters);
-                                    label.Text = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
+                                    value = valuef.ToString(ChartParameters.Where(p => p.FieldInfo == parameter.FieldInfo).First().FloatFormat);
                                 }
-                                else if(parameter.Type == typeof(int))
+                                else if (parameter.Type == typeof(int))
                                 {
-                                    label.Text = parameter.FieldInfo.GetValue(closest.Parameters).ToString();
+                                    value = parameter.FieldInfo.GetValue(closest.Parameters).ToString();
+                                }
+                                if (label.Text != value)
+                                {
+                                    label.Text = value;
                                 }
                             }
                         }
-                        this.ResumeLayout(true);
+                        this.ResumeLayout();
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
 
             }
@@ -853,6 +859,7 @@ namespace ECU_Manager
             int valuei;
             ushort valueu16;
             byte valueu8;
+            int point_num;
 
             dataMutex.WaitOne();
             if (dataPoints.Count > 0)
@@ -910,7 +917,6 @@ namespace ECU_Manager
                 int index_first = 0;
                 int index_last = 0;
                 dataMutex.WaitOne();
-                double[] seconds = dataPoints.Select(p => p.Seconds).ToArray();
 
                 if (dTimeFrom <= dataPoints.First().Seconds)
                 {
@@ -918,7 +924,7 @@ namespace ECU_Manager
                 }
                 else
                 {
-                    index_first = BinarySearch<double>.Find(seconds, 0, dataPoints.Count - 1, dTimeFrom);
+                    index_first = BinarySearchComparison<PointData>.Find(dataPoints, 0, dataPoints.Count - 1, new PointData { Seconds = dTimeFrom }, (a, b) => { double res = a.Seconds - b.Seconds; return res > 0 ? 1 : res < 0 ? -1 : 0; });     
                     if (index_first < 0)
                         index_first = 0;
                 }
@@ -929,10 +935,10 @@ namespace ECU_Manager
                 }
                 else
                 {
-                    index_last = BinarySearch<double>.Find(seconds, 0, dataPoints.Count - 1, dTimeTo);
+                    index_last = BinarySearchComparison<PointData>.Find(dataPoints, 0, dataPoints.Count - 1, new PointData { Seconds = dTimeTo }, (a, b) => { double res = a.Seconds - b.Seconds; return res > 0 ? 1 : res < 0 ? -1 : 0; });
                     if (index_last < 0)
                         index_last = index_first;
-                    else if(index_last + 1 < seconds.Count())
+                    else if(index_last + 1 < dataPoints.Count())
                         index_last++;
 
                 }
@@ -995,15 +1001,15 @@ namespace ECU_Manager
                     chart.ChartAreas[0].InnerPlotPosition.Height = 100 - (100.0F / chart.Height * 20.0f);
                     chart.ChartAreas[0].AxisX.Minimum = posmin;
                     chart.ChartAreas[0].AxisX.Maximum = posmax;
+                    
+                    //IEnumerable<DataPoint> toberemoved_min = chart.Series[0].Points.Where(p => p.XValue < chart.ChartAreas[0].AxisX.Minimum).ToArray();
+                    //foreach (DataPoint point in toberemoved_min)
+                    //    chart.Series[0].Points.Remove(point);
 
-                    IEnumerable<DataPoint> toberemoved_min = chart.Series[0].Points.Where(p => p.XValue < chart.ChartAreas[0].AxisX.Minimum).ToArray();
-                    foreach (DataPoint point in toberemoved_min)
-                        chart.Series[0].Points.Remove(point);
-
-                    IEnumerable<DataPoint> toberemoved_max = chart.Series[0].Points.Where(p => p.XValue > chart.ChartAreas[0].AxisX.Maximum).ToArray();
-                    foreach (DataPoint point in toberemoved_max)
-                        chart.Series[0].Points.Remove(point);
-
+                    //IEnumerable<DataPoint> toberemoved_max = chart.Series[0].Points.Where(p => p.XValue > chart.ChartAreas[0].AxisX.Maximum).ToArray();
+                    //foreach (DataPoint point in toberemoved_max)
+                    //    chart.Series[0].Points.Remove(point);
+                    
                     for (int i = index_first; i <= index_last; i++)
                     {
                         if (chart.Series[0].Points.Count == 0 || chart.Series[0].Points.Last().XValue < dataPoints[i].Seconds)
@@ -1011,26 +1017,32 @@ namespace ECU_Manager
                             if (chart.Tag != null)
                             {
                                 parameter = (Parameter)chart.Tag;
+                                point_num = -1;
 
                                 if (parameter.Value.GetType() == typeof(float))
                                 {
                                     valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
+                                    point_num = chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuef);
                                 }
                                 else if (parameter.Value.GetType() == typeof(byte))
                                 {
                                     valueu8 = (byte)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu8);
+                                    point_num = chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu8);
                                 }
                                 else if(parameter.Value.GetType() == typeof(ushort))
                                 {
                                     valueu16 = (ushort)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu16);
+                                    point_num = chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valueu16);
                                 }
                                 else if (parameter.Value.GetType() == typeof(int))
                                 {
                                     valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
+                                    point_num = chart.Series[0].Points.AddXY(dataPoints[i].Seconds, valuei);
+                                }
+
+                                if(point_num >= 0)
+                                {
+                                    chart.Series[0].Points[point_num].Tag = dataPoints[i];
                                 }
                             }
                         }
@@ -1044,25 +1056,31 @@ namespace ECU_Manager
                             {
                                 parameter = (Parameter)chart.Tag;
 
+                                point_num = 0;
                                 if (parameter.Value.GetType() == typeof(float))
                                 {
                                     valuef = (float)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valuef);
+                                    chart.Series[0].Points.InsertXY(point_num, dataPoints[i].Seconds, valuef);
                                 }
                                 else if (parameter.Value.GetType() == typeof(byte))
                                 {
                                     valueu8 = (byte)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valueu8);
+                                    chart.Series[0].Points.InsertXY(point_num, dataPoints[i].Seconds, valueu8);
                                 }
                                 else if (parameter.Value.GetType() == typeof(ushort))
                                 {
                                     valueu16 = (ushort)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valueu16);
+                                    chart.Series[0].Points.InsertXY(point_num, dataPoints[i].Seconds, valueu16);
                                 }
                                 else
                                 {
                                     valuei = (int)parameter.FieldInfo.GetValue(dataPoints[i].Parameters);
-                                    chart.Series[0].Points.InsertXY(0, dataPoints[i].Seconds, valuei);
+                                    chart.Series[0].Points.InsertXY(point_num, dataPoints[i].Seconds, valuei);
+                                }
+
+                                if (point_num >= 0)
+                                {
+                                    chart.Series[0].Points[point_num].Tag = dataPoints[i];
                                 }
                             }
                         }
@@ -1075,7 +1093,7 @@ namespace ECU_Manager
                     {
                         IEnumerable<DataPoint> sequence = chart.Series[0].Points.Where(p => p.XValue > posmin && p.XValue < posmax);
                         count = sequence.Count();
-                        if (sequence.Count() > 0)
+                        if (count > 0)
                         {
                             min = Math.Floor(sequence.Select(p => p.YValues[0]).Min());
                             max = Math.Ceiling(sequence.Select(p => p.YValues[0]).Max());
