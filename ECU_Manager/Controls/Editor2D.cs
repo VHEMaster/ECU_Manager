@@ -759,6 +759,7 @@ namespace ECU_Manager.Controls
                     {
                         imageTable1.UseCalibrationColorTransience = false;
                     }
+                    imageTable1.Array = array2d;
                     imageTable1.RedrawTable();
 
                     cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
