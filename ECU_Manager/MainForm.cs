@@ -577,6 +577,7 @@ namespace ECU_Manager
 
             eColdStartTimes.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
             eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
+            eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
             eColdStartTimes.SetX("EngineTemp", "Temp.", "F1");
             eColdStartTimes.SetTableEventHandler(ChartUpdateEvent);
 
@@ -590,6 +591,18 @@ namespace ECU_Manager
             eKnockNoiseLevel.SetX("RPM", "RPM", "F0");
             eKnockNoiseLevel.SetY("KnockSensor", "Knock Level", "F2");
             eKnockNoiseLevel.SetTableEventHandler(ChartUpdateEvent);
+
+            eKnockDetectPhaseStart.Initialize(cs, -180, 0, 1D, 5D, -50D, 0D, 500, 5D, 0);
+            eKnockDetectPhaseStart.SetConfig("knock_detect_phase_start", "rotates_count", "rotates");
+            eKnockDetectPhaseStart.SetX("RPM", "RPM", "F0");
+            eKnockDetectPhaseStart.SetY(string.Empty, "Phase", "F1");
+            eKnockDetectPhaseStart.SetTableEventHandler(ChartUpdateEvent);
+
+            eKnockDetectPhaseEnd.Initialize(cs, 0, 90, 1D, 5D, 0D, 50D, 500, 5D, 0);
+            eKnockDetectPhaseEnd.SetConfig("knock_detect_phase_end", "rotates_count", "rotates");
+            eKnockDetectPhaseEnd.SetX("RPM", "RPM", "F0");
+            eKnockDetectPhaseEnd.SetY(string.Empty, "Phase", "F1");
+            eKnockDetectPhaseEnd.SetTableEventHandler(ChartUpdateEvent);
 
             eKnockThreshold.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
             eKnockThreshold.SetConfig("knock_threshold", "rotates_count", "rotates");
@@ -1370,6 +1383,8 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage62), Text = "Gain" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage61), Text = "Filter frequency" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage30), Text = "Cy Noise Level Mult." });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage146), Text = "Phase Start" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage147), Text = "Phase End" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage93), Text = "TSPS" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage96), Text = "Relative position" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl16, tabPage97), Text = "Desync threshold" });
@@ -1546,6 +1561,8 @@ namespace ECU_Manager
 
             eKnockThreshold.UpdateChart();
             eKnockNoiseLevel.UpdateChart();
+            eKnockDetectPhaseStart.UpdateChart();
+            eKnockDetectPhaseEnd.UpdateChart();
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
             eKnockGain.UpdateChart();

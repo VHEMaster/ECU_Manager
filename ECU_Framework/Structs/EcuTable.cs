@@ -535,7 +535,17 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public float[] throttle_startup_move_time;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1048)]
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_detect_phase_start")]
+        [XmlArrayItem("phase")]
+        public float[] knock_detect_phase_start;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_detect_phase_end")]
+        [XmlArrayItem("phase")]
+        public float[] knock_detect_phase_end;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1016)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
