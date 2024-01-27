@@ -570,10 +570,10 @@ namespace ECU_Manager
             eWarmupMixKoffs.SetX("EngineTemp", "Temp.", "F1");
             eWarmupMixKoffs.SetTableEventHandler(ChartUpdateEvent);
 
-            eWarmupMixCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
-            eWarmupMixCorrs.SetConfig("warmup_mix_corrs", "engine_temp_count", "engine_temps");
-            eWarmupMixCorrs.SetX("EngineTemp", "Temp.", "F1");
-            eWarmupMixCorrs.SetTableEventHandler(ChartUpdateEvent);
+            eWarmupIdleMixCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
+            eWarmupIdleMixCorrs.SetConfig("warmup_mix_corrs", "engine_temp_count", "engine_temps");
+            eWarmupIdleMixCorrs.SetX("EngineTemp", "Temp.", "F1");
+            eWarmupIdleMixCorrs.SetTableEventHandler(ChartUpdateEvent);
 
             eColdStartTimes.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
             eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
@@ -1362,7 +1362,7 @@ namespace ECU_Manager
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage26), Text = "Warmup" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage45), Text = "Mixture" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage46), Text = "Mixture koff" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage54), Text = "Mixture correction" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl234, tabPage54), Text = "Idle Mixture correction" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage27), Text = "Knock" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage47), Text = "Noise level" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage48), Text = "Threshold" });
@@ -1529,7 +1529,7 @@ namespace ECU_Manager
             
             eWarmupMixture.UpdateChart();
             eWarmupMixKoffs.UpdateChart();
-            eWarmupMixCorrs.UpdateChart();
+            eWarmupIdleMixCorrs.UpdateChart();
             eColdStartCorrs.UpdateChart();
             eColdStartTimes.UpdateChart();
             eStartAsyncInject.UpdateChart();
