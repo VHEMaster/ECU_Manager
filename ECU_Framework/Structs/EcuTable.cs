@@ -544,8 +544,12 @@ namespace ECU_Framework.Structs
         [XmlArray("knock_detect_phase_end")]
         [XmlArrayItem("phase")]
         public float[] knock_detect_phase_end;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("knock_integrator_time")]
+        [XmlArrayItem("time")]
+        public float[] knock_integrator_time;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1016)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1000)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

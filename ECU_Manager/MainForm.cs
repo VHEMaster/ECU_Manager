@@ -620,7 +620,11 @@ namespace ECU_Manager
             eKnockGain.SetX("RPM", "RPM", "F0");
             eKnockGain.SetTableEventHandler(ChartUpdateEvent);
 
-
+            eKnockIntegratorTime.Initialize(cs, 0, 31, 1, 1, 0D, 31D, 500, 2D, 0);
+            eKnockIntegratorTime.SetConfig("knock_integrator_time", "rotates_count", "rotates");
+            eKnockIntegratorTime.SetX("RPM", "RPM", "F0");
+            eKnockIntegratorTime.SetTableEventHandler(ChartUpdateEvent);
+            
             eKnockZone.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
@@ -1381,6 +1385,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage48), Text = "Threshold" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage60), Text = "Zone" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage62), Text = "Gain" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage148), Text = "Integrator Time" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage61), Text = "Filter frequency" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage30), Text = "Cy Noise Level Mult." });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl10, tabPage146), Text = "Phase Start" });
@@ -1566,6 +1571,7 @@ namespace ECU_Manager
             eKnockZone.UpdateChart();
             eKnockFilterFrequency.UpdateChart();
             eKnockGain.UpdateChart();
+            eKnockIntegratorTime.UpdateChart();
             eKnockCyLevelMultiplier.UpdateChart();
 
             eCorrsFillingGbcMAP.UpdateChart();
@@ -1938,7 +1944,6 @@ namespace ECU_Manager
                 nudParamsAirCalcKoffMin.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_min;
                 nudParamsAirCalcKoffMax.Value = (decimal)cs.ConfigStruct.parameters.air_temp_corr_koff_max;
                 nudLearnCyclesDelayMult.Value = (decimal)cs.ConfigStruct.parameters.learn_cycles_delay_mult;
-                nudKnockIntegratorTimeConstant.Value = cs.ConfigStruct.parameters.knockIntegratorTime;
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
                 nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
@@ -2984,15 +2989,6 @@ namespace ECU_Manager
         private void nudFuelForce_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.parameters.forceTable = (int)((NumericUpDown)sender).Value - 1;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateConfig();
-            }
-        }
-
-        private void nudKnockIntegratorTimeConstant_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.parameters.knockIntegratorTime = (int)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();

@@ -63,7 +63,7 @@ namespace ECU_Framework.Structs
         public int useShortTermCorr;
         public int useLongTermCorr;
 
-        public int knockIntegratorTime;
+        public int res3;
         public int performIdleAdaptation;
         public float learn_cycles_delay_mult;
         public float air_temp_corr_koff_min;
