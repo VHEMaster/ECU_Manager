@@ -96,7 +96,7 @@ namespace ECU_Framework.Structs
 
         public int enrichment_load_type;
         public float enrichment_load_dead_band;
-        public float enrichment_accel_dead_band;
+        public float rsvd1;
         public float enrichment_ign_corr_decay_time;
         public float enrichment_detect_duration;
 
@@ -553,8 +553,12 @@ namespace ECU_Framework.Structs
         [XmlArray("enrichment_tps_selection")]
         [XmlArrayItem("koff")]
         public float[] enrichment_tps_selection;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("enrichment_accel_dead_band")]
+        [XmlArrayItem("value")]
+        public float[] enrichment_accel_dead_band;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 984)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 728)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

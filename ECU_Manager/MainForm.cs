@@ -401,6 +401,11 @@ namespace ECU_Manager
             eEnrichmentInjectionPhase.SetX("RPM", "RPM", "F0");
             eEnrichmentInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
 
+            eEnrichmentAccelDeadBand.Initialize(cs, 0, 100000000, 1000, 10000, 0D, 500000, 500D, 20000, 0);
+            eEnrichmentAccelDeadBand.SetConfig("enrichment_accel_dead_band", "rotates_count", "rotates");
+            eEnrichmentAccelDeadBand.SetX("RPM", "RPM", "F0");
+            eEnrichmentAccelDeadBand.SetTableEventHandler(ChartUpdateEvent);
+
 
             eEnrichmentRate.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
@@ -1332,6 +1337,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage99), Text = "Basic" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage34), Text = "Start Load" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage23), Text = "Load Derivative" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage150), Text = "Accel. Dead Band" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "Rate" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "Sync Amount" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage100), Text = "Async Amount" });
@@ -1531,6 +1537,7 @@ namespace ECU_Manager
             eEnrichmentIgnCorr.UpdateChart();
             eEnrichmentTempMult.UpdateChart();
             eEnrichmentInjectionPhase.UpdateChart();
+            eEnrichmentAccelDeadBand.UpdateChart();
 
             eIgnitionFullCy1.UpdateChart();
             eIgnitionFullCy2.UpdateChart();
@@ -2082,7 +2089,6 @@ namespace ECU_Manager
             nudParamsIdleThrottleMax.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_max;
 
             nudParamsEnrichmentLoadDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band;
-            nudParamsEnrichmentAccelDeadBand.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band;
             nudParamsEnrichmentDetectDuration.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_detect_duration;
             nudParamsEnrichmentIgnitionDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_ign_corr_decay_time;
             nudParamsEnrichmentInjectionPhaseDecayTime.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].enrichment_injection_phase_decay_time;
@@ -4203,15 +4209,6 @@ namespace ECU_Manager
         private void nudParamsEnrichmentLoadDeadBand_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].enrichment_load_dead_band = (float)((NumericUpDown)sender).Value;
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsEnrichmentAccelDeadBand_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_accel_dead_band = (float)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);
