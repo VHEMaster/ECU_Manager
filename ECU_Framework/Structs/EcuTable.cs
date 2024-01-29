@@ -549,7 +549,12 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public float[] knock_integrator_time;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1000)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ENRICHMENT_PERCENTS_MAX * Consts.TABLE_ENRICHMENT_PERCENTS_MAX)]
+        [XmlArray("enrichment_tps_selection")]
+        [XmlArrayItem("koff")]
+        public float[] enrichment_tps_selection;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 984)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

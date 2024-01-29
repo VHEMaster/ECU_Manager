@@ -401,7 +401,7 @@ namespace ECU_Manager
             eEnrichmentInjectionPhase.SetX("RPM", "RPM", "F0");
             eEnrichmentInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
 
-            
+
             eEnrichmentRate.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
@@ -423,7 +423,29 @@ namespace ECU_Manager
 
             eEnrichmentRate.SetTableColorTrans(colorTransience);
             eEnrichmentRate.SynchronizeChart();
-            
+
+
+            eEnrichmentTpsSelection.Initialize(cs, Editor2DMode.EcuTable,
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
+                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
+                0.0D, 1.0D, 0.02D, 0.1D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, 2);
+
+            eEnrichmentTpsSelection.SetConfig("enrichment_rate", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentTpsSelection.SetX("EnrichmentLoadDerivative", "Load Derivative", "F0");
+            eEnrichmentTpsSelection.SetD("EnrichmentStartLoad", "Start Load", "F1");
+            eEnrichmentTpsSelection.SetTableEventHandler(ChartUpdateEvent);
+
+            colorTransience = new ColorTransience(0.0F, 1.0F, Color.Gray);
+            colorTransience.Add(Color.FromArgb(0, 128, 255), 0F);
+            colorTransience.Add(Color.Blue, 0.1F);
+            colorTransience.Add(Color.FromArgb(0, 92, 160), 0.3F);
+            colorTransience.Add(Color.Green, 0.5F);
+            colorTransience.Add(Color.FromArgb(128, 96, 0), 0.8F);
+            colorTransience.Add(Color.DarkRed, 1.0F);
+
+            eEnrichmentTpsSelection.SetTableColorTrans(colorTransience);
+            eEnrichmentTpsSelection.SynchronizeChart();
+
 
             colorTransience = new ColorTransience(-5F, 5F, Color.Gray);
             colorTransience.Add(Color.DeepSkyBlue, -5.0F);
@@ -647,7 +669,7 @@ namespace ECU_Manager
             eKnockCyLevelMultiplier.Initialize(cs, Editor2DMode.EcuTable,
                 cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
                 cs.ConfigStruct.tables[cs.CurrentTable].cylinders_count,
-                0.0D, 5.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.ECU_CYLINDERS_COUNT, 2);
+                0.0D, 5.0D, 0.01D, 100.0D, 0.2D, 0.0D, 2.0D, 500, 0.2D, Consts.TABLE_ROTATES_MAX, Consts.ECU_CYLINDERS_COUNT, 2);
 
             eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates_count", "cylinders_count", "rotates", "cylinders");
             eKnockCyLevelMultiplier.SetX("RPM", "RPM", "F0");
@@ -1316,6 +1338,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage101), Text = "Ignition Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage102), Text = "Inj.Phase Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage149), Text = "Filling TPS Selection" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Advances" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage115), Text = "Cylinders" });
@@ -1481,6 +1504,7 @@ namespace ECU_Manager
             eKnockZone.SynchronizeChart();
             eKnockCyLevelMultiplier.SynchronizeChart();
             eEnrichmentRate.SynchronizeChart();
+            eEnrichmentTpsSelection.SynchronizeChart();
             eEnrichmentIgnCorr.SynchronizeChart();
 
             eEtcPositions2D.SynchronizeChart();
@@ -1501,6 +1525,7 @@ namespace ECU_Manager
             eEnrichmentStartLoad.UpdateChart();
             eEnrichmentLoadDerivative.UpdateChart();
             eEnrichmentRate.UpdateChart();
+            eEnrichmentTpsSelection.UpdateChart();
             eEnrichmentSyncAmount.UpdateChart();
             eEnrichmentAsyncAmount.UpdateChart();
             eEnrichmentIgnCorr.UpdateChart();
