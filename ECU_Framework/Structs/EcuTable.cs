@@ -558,7 +558,7 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("value")]
         public float[] enrichment_accel_dead_band;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 728)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 920)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
