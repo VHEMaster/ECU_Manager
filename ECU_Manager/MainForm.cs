@@ -435,7 +435,7 @@ namespace ECU_Manager
                 cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
                 0.0D, 1.0D, 0.02D, 0.1D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, Consts.TABLE_ENRICHMENT_PERCENTS_MAX, 2);
 
-            eEnrichmentTpsSelection.SetConfig("enrichment_rate", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentTpsSelection.SetConfig("enrichment_tps_selection", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
             eEnrichmentTpsSelection.SetX("EnrichmentLoadDerivative", "Load Derivative", "F0");
             eEnrichmentTpsSelection.SetD("EnrichmentStartLoad", "Start Load", "F1");
             eEnrichmentTpsSelection.SetTableEventHandler(ChartUpdateEvent);
