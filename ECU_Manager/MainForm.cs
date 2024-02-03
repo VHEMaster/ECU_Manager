@@ -368,6 +368,16 @@ namespace ECU_Manager
             eInjectionPhaseLPF.SetX("RPM", "RPM", "F0");
             eInjectionPhaseLPF.SetTableEventHandler(ChartUpdateEvent);
 
+            eDynamicFilmFillCorr.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 2.0D, 50D, 0.2D, 2);
+            eDynamicFilmFillCorr.SetConfig("dynamic_fuel_corr_temp", "fillings_count", "fillings");
+            eDynamicFilmFillCorr.SetX("CyclicAirFlow", "Filling", "F1");
+            eDynamicFilmFillCorr.SetTableEventHandler(ChartUpdateEvent);
+
+            eDynamicFilmTempCorr.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 2.0F, 10, 0.2D, 2);
+            eDynamicFilmTempCorr.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
+            eDynamicFilmTempCorr.SetX("EngineTemp", "Temperature", "F1");
+            eDynamicFilmTempCorr.SetTableEventHandler(ChartUpdateEvent);
+
             eFillingSelectKoffTPS.Initialize(cs, 0, 1, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
             eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates_count", "rotates");
             eFillingSelectKoffTPS.SetX("RPM", "RPM", "F0");
@@ -1337,8 +1347,8 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage99), Text = "Basic" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage34), Text = "Start Load" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage23), Text = "Load Derivative" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage150), Text = "Accel. Dead Band" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "Rate" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage150), Text = "Accel. Dead Band" }); 
+             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage28), Text = "Rate" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage29), Text = "Sync Amount" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage100), Text = "Async Amount" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage101), Text = "Ignition Correction" });
@@ -1368,6 +1378,8 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage106), Text = "Correction by Engine Temperature" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage151), Text = "Dynamic Film Fill.Corr." });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage152), Text = "Dynamic Film Temp.Corr." });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve position" });
@@ -1526,6 +1538,8 @@ namespace ECU_Manager
             eSatByRPM.UpdateChart();
             eInjectorLag.UpdateChart();
             eInjectionPhaseLPF.UpdateChart();
+            eDynamicFilmFillCorr.UpdateChart();
+            eDynamicFilmTempCorr.UpdateChart();
             eFillingSelectKoffTPS.UpdateChart();
             eSaturationPulse.UpdateChart();
             eEnrichmentStartLoad.UpdateChart();

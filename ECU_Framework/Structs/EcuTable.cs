@@ -558,7 +558,16 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("value")]
         public float[] enrichment_accel_dead_band;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 920)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX)]
+        [XmlArray("dynamic_fuel_corr_gbc")]
+        [XmlArrayItem("value")]
+        public float[] dynamic_fuel_corr_gbc;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [XmlArray("dynamic_fuel_corr_temp")]
+        [XmlArrayItem("value")]
+        public float[] dynamic_fuel_corr_temp;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 888)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
