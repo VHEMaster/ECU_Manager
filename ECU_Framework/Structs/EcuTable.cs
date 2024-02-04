@@ -566,8 +566,12 @@ namespace ECU_Framework.Structs
         [XmlArray("dynamic_fuel_corr_temp")]
         [XmlArrayItem("value")]
         public float[] dynamic_fuel_corr_temp;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_MAX)]
+        [XmlArray("dynamic_fuel_corr_lpf")]
+        [XmlArrayItem("value")]
+        public float[] dynamic_fuel_corr_lpf;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 888)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 872)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

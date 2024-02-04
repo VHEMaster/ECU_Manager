@@ -378,6 +378,11 @@ namespace ECU_Manager
             eDynamicFilmTempCorr.SetX("EngineTemp", "Temperature", "F1");
             eDynamicFilmTempCorr.SetTableEventHandler(ChartUpdateEvent);
 
+            eDynamicFilmLpf.Initialize(cs, 0, 0.99D, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
+            eDynamicFilmLpf.SetConfig("dynamic_fuel_corr_lpf", "rotates_count", "rotates");
+            eDynamicFilmLpf.SetX("RPM", "RPM", "F0");
+            eDynamicFilmLpf.SetTableEventHandler(ChartUpdateEvent);
+
             eFillingSelectKoffTPS.Initialize(cs, 0, 1, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
             eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates_count", "rotates");
             eFillingSelectKoffTPS.SetX("RPM", "RPM", "F0");
@@ -1380,6 +1385,7 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage106), Text = "Correction by Engine Temperature" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage151), Text = "Dynamic Film Fill.Corr." });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage152), Text = "Dynamic Film Temp.Corr." });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage153), Text = "Dynamic Film LPF" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage25), Text = "Idle" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage38), Text = "Wish RPM" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl9, tabPage41), Text = "Valve position" });
@@ -1540,6 +1546,7 @@ namespace ECU_Manager
             eInjectionPhaseLPF.UpdateChart();
             eDynamicFilmFillCorr.UpdateChart();
             eDynamicFilmTempCorr.UpdateChart();
+            eDynamicFilmLpf.UpdateChart();
             eFillingSelectKoffTPS.UpdateChart();
             eSaturationPulse.UpdateChart();
             eEnrichmentStartLoad.UpdateChart();
