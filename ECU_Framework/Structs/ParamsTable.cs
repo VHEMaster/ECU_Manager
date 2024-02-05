@@ -32,7 +32,7 @@ namespace ECU_Framework.Structs
         public float speedOutputCorrection;
 
         public int useLambdaSensor;
-        public int isLambdaForceEnabled;
+        public int res1;
         public int phasedMode;
         public int useKnockSensor;
         public int performAdaptation;

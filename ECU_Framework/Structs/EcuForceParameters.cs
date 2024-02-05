@@ -46,6 +46,8 @@ namespace ECU_Framework.Structs
         public byte EnableFuelPumpRelay;
         public byte EnableCheckEngine;
 
-        public uint pad;
+        public uint pad1;
+        public byte LambdaForceEnabled;
+        public uint pad2;
     }
 }

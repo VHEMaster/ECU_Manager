@@ -99,6 +99,7 @@ namespace ECU_Manager
             btnEtcTestRun.Enabled = false;
             groupBox8.Enabled = false;
             groupBox12.Enabled = false;
+            cbLambdaForceEnabled.Enabled = false;
 
             Initialize();
 
@@ -2010,7 +2011,6 @@ namespace ECU_Manager
                 cbUseLambda.Checked = cs.ConfigStruct.parameters.useLambdaSensor > 0;
                 cbUseIdleValve.Checked = cs.ConfigStruct.parameters.useIdleValve > 0;
                 cbUseETC.Checked = cs.ConfigStruct.parameters.useETC > 0;
-                cbLambdaForceEnabled.Checked = cs.ConfigStruct.parameters.isLambdaForceEnabled > 0;
                 cbUseShortTermCorr.Checked = cs.ConfigStruct.parameters.useShortTermCorr > 0;
                 cbUseLongTermCorr.Checked = cs.ConfigStruct.parameters.useLongTermCorr > 0;
                 cbIsEconEnabled.Checked = cs.ConfigStruct.parameters.isEconEnabled > 0;
@@ -3094,7 +3094,7 @@ namespace ECU_Manager
 
         private void cbLambdaForceEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            cs.ConfigStruct.parameters.isLambdaForceEnabled = ((CheckBox)sender).Checked ? 1 : 0;
+            cs.ForceParameters.LambdaForceEnabled = (byte)(((CheckBox)sender).Checked ? 1 : 0);
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateConfig();
