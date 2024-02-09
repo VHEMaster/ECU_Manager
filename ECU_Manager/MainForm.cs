@@ -620,7 +620,6 @@ namespace ECU_Manager
 
             eColdStartTimes.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
             eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
-            eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
             eColdStartTimes.SetX("EngineTemp", "Temp.", "F1");
             eColdStartTimes.SetTableEventHandler(ChartUpdateEvent);
 
@@ -1184,17 +1183,17 @@ namespace ECU_Manager
             eEtcIdlePositions.SetY("ThrottlePosition", "Throttle", "F1");
             eEtcIdlePositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartAsyncInject.Initialize(cs, 0D, 5000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartAsyncInject.Initialize(cs, 0D, 500D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
             eStartAsyncInject.SetConfig("start_async_filling", "engine_temp_count", "engine_temps");
             eStartAsyncInject.SetX("EngineTemp", "Temperature", "F0");
             eStartAsyncInject.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartLargeInject.Initialize(cs, 0D, 4000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartLargeInject.Initialize(cs, 0D, 400D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
             eStartLargeInject.SetConfig("start_large_filling", "engine_temp_count", "engine_temps");
             eStartLargeInject.SetX("EngineTemp", "Temperature", "F0");
             eStartLargeInject.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartSmallInject.Initialize(cs, 0D, 3000D, 10D, 50D, 0D, 500D, 10D, 50D, 0);
+            eStartSmallInject.Initialize(cs, 0D, 300D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
             eStartSmallInject.SetConfig("start_small_filling", "engine_temp_count", "engine_temps");
             eStartSmallInject.SetX("EngineTemp", "Temperature", "F0");
             eStartSmallInject.SetTableEventHandler(ChartUpdateEvent);
