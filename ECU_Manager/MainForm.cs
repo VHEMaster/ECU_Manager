@@ -407,7 +407,7 @@ namespace ECU_Manager
             eEnrichmentAsyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentAsyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentTempMult.Initialize(cs, -1, 5, 0.01D, 0.1D, 0D, 0.5D, 10D, 0.05D, 2);
+            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 1D, 1.5D, 10D, 0.05D, 2);
             eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
             eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
