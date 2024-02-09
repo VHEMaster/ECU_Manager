@@ -2001,6 +2001,7 @@ namespace ECU_Manager
                 nudParamsFanLowT.Value = (decimal)cs.ConfigStruct.parameters.fanLowTemperature;
                 nudParamsFanMidT.Value = (decimal)cs.ConfigStruct.parameters.fanMidTemperature;
                 nudParamsFanHighT.Value = (decimal)cs.ConfigStruct.parameters.fanHighTemperature;
+                nudParamsEtcPedalDeadZone.Value = (decimal)cs.ConfigStruct.parameters.etcPedalDeadZone;
 
                 nudSensMapGain.Value = (decimal)cs.ConfigStruct.parameters.map_pressure_gain;
                 nudSensMapOffset.Value = (decimal)cs.ConfigStruct.parameters.map_pressure_offset;
@@ -2684,6 +2685,15 @@ namespace ECU_Manager
                 {
                     middleLayer.UpdateConfig();
                 }
+            }
+        }
+
+        private void nudParamsEtcPedalDeadZone_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.parameters.etcPedalDeadZone = (float)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateConfig();
             }
         }
 

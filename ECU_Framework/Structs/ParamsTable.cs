@@ -58,7 +58,7 @@ namespace ECU_Framework.Structs
 
         public int useIdleValve;
         public int useETC;
-        public float res2;
+        public float etcPedalDeadZone;
 
         public int useShortTermCorr;
         public int useLongTermCorr;
