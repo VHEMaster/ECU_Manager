@@ -105,6 +105,9 @@
     <Compile Include="Structs\EcuForceParameters.cs" />
     <Compile Include="Structs\EcuParameters.cs" />
     <Compile Include="Structs\EcuStatus.cs" />
+    <Compile Include="Structs\EcuParamTransform.cs" />
+    <Compile Include="Structs\EcuCorrectionsTransform.cs" />
+    <Compile Include="Structs\EcuTableTransform.cs" />
     <Compile Include="Structs\EcuTable.cs" />
     <Compile Include="Structs\Parameter.cs" />
     <Compile Include="Structs\ParameterUnion.cs" />

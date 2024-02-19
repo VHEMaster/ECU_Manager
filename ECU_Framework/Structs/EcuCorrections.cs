@@ -12,91 +12,93 @@ namespace ECU_Framework.Structs
     [StructLayout(LayoutKind.Sequential)]
     public struct EcuCorrections
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public EcuCorrectionsTransform transform;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("ignitions")]
         [XmlArrayItem("angle")]
-        public float[] ignitions;
+        public sbyte[] ignitions;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("filling_gbc_map")]
         [XmlArrayItem("filling")]
-        public float[] filling_gbc_map;
+        public sbyte[] filling_gbc_map;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("filling_gbc_tps")]
         [XmlArrayItem("filling")]
-        public float[] filling_gbc_tps;
+        public sbyte[] filling_gbc_tps;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES)]
         [XmlArray("idle_valve_position")]
         [XmlArrayItem("value")]
-        public float[] idle_valve_position;
+        public sbyte[] idle_valve_position;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT * Consts.TABLE_ROTATES_32)]
         [XmlArray("knock_cy_level_multiplier")]
         [XmlArrayItem("value")]
-        public float[] knock_cy_level_multiplier;
+        public sbyte[] knock_cy_level_multiplier;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("ignition_corr_cy1")]
         [XmlArrayItem("value")]
-        public float[] ignition_corr_cy1;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] ignition_corr_cy1;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("ignition_corr_cy2")]
         [XmlArrayItem("value")]
-        public float[] ignition_corr_cy2;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] ignition_corr_cy2;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("ignition_corr_cy3")]
         [XmlArrayItem("value")]
-        public float[] ignition_corr_cy3;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] ignition_corr_cy3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("ignition_corr_cy4")]
         [XmlArrayItem("value")]
-        public float[] ignition_corr_cy4;
+        public sbyte[] ignition_corr_cy4;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("injection_corr_cy1")]
         [XmlArrayItem("value")]
-        public float[] injection_corr_cy1;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] injection_corr_cy1;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("injection_corr_cy2")]
         [XmlArrayItem("value")]
-        public float[] injection_corr_cy2;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] injection_corr_cy2;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("injection_corr_cy3")]
         [XmlArrayItem("value")]
-        public float[] injection_corr_cy3;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        public sbyte[] injection_corr_cy3;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("injection_corr_cy4")]
         [XmlArrayItem("value")]
-        public float[] injection_corr_cy4;
+        public sbyte[] injection_corr_cy4;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("knock_detonation_counter")]
         [XmlArrayItem("count")]
-        public float[] knock_detonation_counter;
+        public sbyte[] knock_detonation_counter;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FILLING_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("progress_ignitions")]
         [XmlArrayItem("angle")]
         public byte[] progress_ignitions;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PRESSURES_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("progress_filling_gbc_map")]
         [XmlArrayItem("value")]
         public byte[] progress_filling_gbc_map;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_MAX * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_THROTTLES_32 * Consts.TABLE_ROTATES_32)]
         [XmlArray("progress_filling_gbc_tps")]
         [XmlArrayItem("value")]
         public byte[] progress_filling_gbc_tps;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES)]
         [XmlArray("progress_idle_valve_position")]
         [XmlArrayItem("value")]
         public byte[] progress_idle_valve_position;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT * Consts.TABLE_ROTATES_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT * Consts.TABLE_ROTATES_32)]
         [XmlArray("progress_knock_cy_level_multiplier")]
         [XmlArrayItem("value")]
         public byte[] progress_knock_cy_level_multiplier;

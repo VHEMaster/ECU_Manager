@@ -10,17 +10,21 @@ namespace ECU_Framework.Structs
     {
         public const int ECU_CYLINDERS_COUNT = 4;
 
-        public const int TABLE_SETUPS_MAX = 1;
-        public const int TABLE_PRESSURES_MAX = 16;
-        public const int TABLE_THROTTLES_MAX = 16;
-        public const int TABLE_PEDALS_MAX = 16;
-        public const int TABLE_FILLING_MAX = 16;
-        public const int TABLE_ROTATES_MAX = 16;
-        public const int TABLE_SPEEDS_MAX = 16;
-        public const int TABLE_TEMPERATURES_MAX = 16;
-        public const int TABLE_VOLTAGES_MAX = 16;
+        public const int TABLE_SETUPS = 1;
+        public const int TABLE_PRESSURES_16 = 16;
+        public const int TABLE_THROTTLES_16 = 16;
+        public const int TABLE_FILLING_16 = 16;
+        public const int TABLE_ROTATES_16 = 16;
+        public const int TABLE_PRESSURES_32 = 32;
+        public const int TABLE_THROTTLES_32 = 32;
+        public const int TABLE_FILLING_32 = 32;
+        public const int TABLE_ROTATES_32 = 32;
+        public const int TABLE_PEDALS = 16;
+        public const int TABLE_SPEEDS = 16;
+        public const int TABLE_TEMPERATURES = 16;
+        public const int TABLE_VOLTAGES = 16;
         public const int TABLE_STRING_MAX = 16;
-        public const int TABLE_ENRICHMENT_PERCENTS_MAX = 8;
+        public const int TABLE_ENRICHMENT_PERCENTS = 8;
 
         public const int IDLE_VALVE_POS_MAX = 160;
 
@@ -36,7 +40,7 @@ namespace ECU_Framework.Structs
         public const int SPECIFIC_PARAMETERS_ARRAY_MAX_ITEMS = 4;
         public const int SPECIFIC_PARAMETERS_ARRAY_POINTS = 1024;
 
-        public const int DRAG_MAX_POINTS = 3072;
+        public const int DRAG_POINTS = 3072;
         public const int DRAG_POINTS_DISTANCE = 20000;
     }
 }

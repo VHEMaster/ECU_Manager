@@ -458,7 +458,7 @@ namespace ECU_Framework
                                             }
                                             iSyncLeft = iSyncSize;
                                             iSyncOffset = 0;
-                                            iSyncNumimit = Consts.TABLE_SETUPS_MAX;
+                                            iSyncNumimit = Consts.TABLE_SETUPS;
                                         }
                                     }
                                     if (iSyncStep == 7)

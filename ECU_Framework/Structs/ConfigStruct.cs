@@ -13,7 +13,7 @@ namespace ECU_Framework.Structs
     public struct ConfigStruct
     {
         public ParamsTable parameters;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_SETUPS_MAX)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_SETUPS)]
         [XmlArray("tables")]
         [XmlArrayItem("table")]
         public EcuTable[] tables;
@@ -23,8 +23,8 @@ namespace ECU_Framework.Structs
         public ConfigStruct(int _)
         {
             parameters = new ParamsTable();
-            tables = new EcuTable[Consts.TABLE_SETUPS_MAX];
-            for (int i = 0; i < Consts.TABLE_SETUPS_MAX; i++)
+            tables = new EcuTable[Consts.TABLE_SETUPS];
+            for (int i = 0; i < Consts.TABLE_SETUPS; i++)
                 tables[i] = new EcuTable();
             corrections = new EcuCorrections();
             critical = new EcuCriticalBackup();

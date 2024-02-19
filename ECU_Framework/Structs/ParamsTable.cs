@@ -75,7 +75,7 @@ namespace ECU_Framework.Structs
         public float map_pressure_gain;
         public float map_pressure_offset;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 970)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 714)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
