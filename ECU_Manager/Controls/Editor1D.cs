@@ -20,7 +20,7 @@ namespace ECU_Manager.Controls
     public partial class Editor1D : UserControl
     {
         private int iDecPlaces;
-        private string sConfigSizeX;
+        private int iArraySizeX;
         private string sConfigDepX;
         private string sParamsStatusX;
         private string sParamsStatusY;
@@ -91,7 +91,7 @@ namespace ECU_Manager.Controls
             }
         }
 
-        public void Initialize(ComponentStructure componentStructure, double min, double max, double step, double mindiff, double chartminy, double chartmaxy, double intervalx, double intervaly, int decplaces, bool log10 = false)
+        public void Initialize(ComponentStructure componentStructure, int size, double min, double max, double step, double mindiff, double chartminy, double chartmaxy, double intervalx, double intervaly, int decplaces, bool log10 = false)
         {
             dMinY = min;
             dMaxY = max;
@@ -102,6 +102,7 @@ namespace ECU_Manager.Controls
             dChartMaxY = chartmaxy;
             dMinDiff = mindiff;
             iDecPlaces = decplaces;
+            iArraySizeX = size;
 
             bLog10 = log10;
 
@@ -118,10 +119,9 @@ namespace ECU_Manager.Controls
             UpdateTableEvent = eventHandler;
         }
 
-        public void SetConfig(string arrayname, string sizex, string depx)
+        public void SetConfig(string arrayname, string depx)
         {
             sArrayName = arrayname;
-            sConfigSizeX = sizex;
             sConfigDepX = depx;
         }
 
@@ -145,41 +145,43 @@ namespace ECU_Manager.Controls
             {
                 float[] array1d = null;
                 float[] dep1d = null;
-                int size = 0;
                 double min, max;
                 bool update = false;
 
                 double chartMin = dChartMinY;
                 double chartMax = dChartMaxY;
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-                {
-                    FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                    if (fieldSize != null)
-                        size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
+                
                 if (!string.IsNullOrWhiteSpace(sConfigDepX))
                 {
                     FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                    if (fieldDepX != null)
-                        dep1d = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldDepTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
+                    if (fieldDepX != null && fieldDepTransformX != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldDepTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array array = (Array)fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        dep1d = EcuConfigTransform.FromInteger(array, transform);
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
                 {
                     FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArrayX != null)
-                        array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArrayX != null && fieldTransformX != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array1d = EcuConfigTransform.FromInteger(array, transform);
+                    }
                 }
 
-                if (chart1DChart.Series.Count == 0 || chart1DChart.Series[0].Points.Count != size)
+                if (chart1DChart.Series.Count == 0 || chart1DChart.Series[0].Points.Count != iArraySizeX)
                 {
                     update = true;
                 }
                 else
                 {
-                    for(int i = 0; i < size; i++)
+                    for(int i = 0; i < iArraySizeX; i++)
                     {
                         if(array1d[i] != (float)chart1DChart.Series[0].Points[i].YValues[0])
                         {
@@ -208,8 +210,8 @@ namespace ECU_Manager.Controls
                         chart1DChart.Series[0].LabelFormat = $"F{nudValue.DecimalPlaces}";
                         chart1DChart.Series[0].LabelForeColor = Color.White;
 
-                        min = array1d.Take(size).Min();
-                        max = array1d.Take(size).Max();
+                        min = array1d.Take(iArraySizeX).Min();
+                        max = array1d.Take(iArraySizeX).Max();
 
                         if (min > dChartMinY)
                             min = dChartMinY;
@@ -230,7 +232,7 @@ namespace ECU_Manager.Controls
                         chart1DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
 
                         nudItem.Minimum = 1;
-                        nudItem.Maximum = size;
+                        nudItem.Maximum = iArraySizeX;
 
                         nudValue.Value = (decimal)array1d[(int)nudItem.Value - 1];
                         nudValue.Minimum = (decimal)dMinY;
@@ -243,9 +245,9 @@ namespace ECU_Manager.Controls
                         {
                             chart1DChart.Series[0].XValueType = ChartValueType.Int32;
                             chart1DChart.ChartAreas[0].AxisX.Minimum = 1;
-                            chart1DChart.ChartAreas[0].AxisX.Maximum = size;
+                            chart1DChart.ChartAreas[0].AxisX.Maximum = iArraySizeX;
 
-                            for (int i = 0; i < size; i++)
+                            for (int i = 0; i < iArraySizeX; i++)
                             {
                                 int point = chart1DChart.Series[0].Points.AddXY(i + 1, array1d[i]);
                                 if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
@@ -279,8 +281,8 @@ namespace ECU_Manager.Controls
 
                             chart1DChart.Series[0].XValueType = ChartValueType.Single;
                             chart1DChart.ChartAreas[0].AxisX.Minimum = dep1d[0];
-                            chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[size - 1];
-                            for (int i = 0; i < size; i++)
+                            chart1DChart.ChartAreas[0].AxisX.Maximum = dep1d[iArraySizeX - 1];
+                            for (int i = 0; i < iArraySizeX; i++)
                             {
                                 int point = chart1DChart.Series[0].Points.AddXY(dep1d[i], array1d[i]);
                                 if ((DateTime.Now - dtSelectedLast).TotalMilliseconds % 1000 < 500 && iSelectedIndexes.Contains(point))
@@ -358,13 +360,13 @@ namespace ECU_Manager.Controls
                     }
                     else if (fieldParamX != null && dep1d != null)
                     {
-                        Interpolation interpolate = new Interpolation((float)fieldParamX.GetValue(cs.EcuParameters), dep1d, size);
+                        Interpolation interpolate = new Interpolation((float)fieldParamX.GetValue(cs.EcuParameters), dep1d, iArraySizeX);
                         x = (float)fieldParamX.GetValue(cs.EcuParameters);
                         y = interpolate.Interpolate1D(array1d);
                     }
                     else if (fieldParamY != null)
                     {
-                        Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(cs.EcuParameters), array1d, size);
+                        Interpolation interpolate = new Interpolation((float)fieldParamY.GetValue(cs.EcuParameters), array1d, iArraySizeX);
                         x = (float)(interpolate.indexes[0] + interpolate.mult) + 1;
                         y = (float)fieldParamY.GetValue(cs.EcuParameters);
                     }
@@ -417,14 +419,24 @@ namespace ECU_Manager.Controls
             if (!string.IsNullOrWhiteSpace(sConfigDepX))
             {
                 FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                if (fieldDepX != null)
-                    dep1d = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldDepTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
+                if (fieldDepX != null && fieldDepTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldDepTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    dep1d = EcuConfigTransform.FromInteger(array, transform);
+                }
             }
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                if (fieldArrayX != null)
-                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(array, transform);
+                }
             }
 
             foreach(DataPoint point in chart1DChart.Series[0].Points)
@@ -450,25 +462,22 @@ namespace ECU_Manager.Controls
         private void nudValue_ValueChanged(object sender, EventArgs e)
         {
             float[] array1d = null;
-            int size = 0;
             double chartMin = dChartMinY;
             double chartMax = dChartMaxY;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSize != null)
-                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                if (fieldArrayX != null)
-                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(array, transform);
+                }
             }
 
-            if (size > 0 && array1d != null)
+            if (iArraySizeX > 0 && array1d != null)
             {
                 float value = (float)((NumericUpDown)sender).Value;
                 int index = (int)nudItem.Value - 1;
@@ -479,7 +488,7 @@ namespace ECU_Manager.Controls
                     {
                         value = (float)(array1d[index - 1] + dMinDiff);
                     }
-                    else if (index < size - 1 && value + dMinDiff > array1d[index + 1])
+                    else if (index < iArraySizeX - 1 && value + dMinDiff > array1d[index + 1])
                     {
                         value = (float)(array1d[index + 1] - dMinDiff);
                     }
@@ -504,7 +513,7 @@ namespace ECU_Manager.Controls
                     }
                 }
 
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < iArraySizeX; i++)
                 {
                     if (array1d[i] > chartMax)
                         chartMax = array1d[i];
@@ -768,34 +777,31 @@ namespace ECU_Manager.Controls
         private void btnCopyToC_Click(object sender, EventArgs e)
         {
             float[] array1d = null;
-            int size = 0;
             string text = string.Empty;
             string decplaces = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSize != null)
-                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                if (fieldArrayX != null)
-                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(array, transform);
+                }
             }
 
-            if (size > 0 && array1d != null)
+            if (iArraySizeX > 0 && array1d != null)
             {
                 if (iDecPlaces > 0)
                     decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
 
                 text = "\t";
-                for (int x = 0; x < size; x++)
+                for (int x = 0; x < iArraySizeX; x++)
                 {
                     text += string.Format("{0:0" + decplaces + "}"+ (iDecPlaces > 0 ? "f" : "") +", ", array1d[x]);
-                    if ((x + 1) % 8 == 0 && (x + 1) < size && x > 0)
+                    if ((x + 1) % 8 == 0 && (x + 1) < iArraySizeX && x > 0)
                         text += "\r\n\t";
                 }
                 text += "\r\n";
@@ -806,32 +812,29 @@ namespace ECU_Manager.Controls
         private void btnImportFromCCode_Click(object sender, EventArgs e)
         {
             float[] array1d = null;
-            int size = 0;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSize = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSize != null)
-                    size = (int)fieldSize.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                if (fieldArrayX != null)
-                    array1d = (float[])fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(array, transform);
+                }
             }
 
 
-            if (size > 0 && array1d != null)
+            if (iArraySizeX > 0 && array1d != null)
             {
-                ImportCCodeForm importCCodeForm = new ImportCCodeForm(ArrayType.Array1D, array1d, size);
+                ImportCCodeForm importCCodeForm = new ImportCCodeForm(ArrayType.Array1D, array1d, iArraySizeX);
 
                 DialogResult result = importCCodeForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     float[] output = importCCodeForm.GetResult();
-                    for (int x = 0; x < size; x++)
+                    for (int x = 0; x < iArraySizeX; x++)
                     {
                         if (output[x] > (float)dMaxY)
                             output[x] = (float)dMaxY;

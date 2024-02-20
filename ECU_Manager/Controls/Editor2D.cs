@@ -34,8 +34,6 @@ namespace ECU_Manager.Controls
         private int iArraySizeX;
         private int iArraySizeY;
         private int iDecPlaces;
-        private string sConfigSizeX;
-        private string sConfigSizeY;
         private string sConfigDepX;
         private string sConfigDepY;
         private string sParamsStatusX;
@@ -132,7 +130,7 @@ namespace ECU_Manager.Controls
             }
         }
 
-        public void Initialize(ComponentStructure componentStructure, Editor2DMode mode, int sizex, int sizey, double min, double max, double step, double mindiffx, double mindiffy, double chartminy, double chartmaxy, double intervalx, double intervaly, int arraysizex, int arraysizey, int decplaces, bool reverseColorSchema = false, bool log10 = false)
+        public void Initialize(ComponentStructure componentStructure, Editor2DMode mode, int sizex, int sizey, double min, double max, double step, double mindiffx, double mindiffy, double chartminy, double chartmaxy, double intervalx, double intervaly, int decplaces, bool reverseColorSchema = false, bool log10 = false)
         {
             dMinY = min;
             dMaxY = max;
@@ -143,8 +141,8 @@ namespace ECU_Manager.Controls
             dChartMaxY = chartmaxy;
             dMinDiffX = mindiffx;
             dMinDiffY = mindiffy;
-            iArraySizeX = arraysizex;
-            iArraySizeY = arraysizey;
+            iArraySizeX = sizex;
+            iArraySizeY = sizey;
             iDecPlaces = decplaces;
             eMode = mode;
 
@@ -153,8 +151,8 @@ namespace ECU_Manager.Controls
             cs = componentStructure;
             forcePositions = new List<ForcePosition>();
 
-            iSizeX = sizex;
-            iSizeY = sizey;
+            iSizeX = iArraySizeX;
+            iSizeY = iArraySizeY;
 
             CalibrationColorTransience = new ColorTransience(0.0f, 1.0f, Color.Black);
             CalibrationColorTransience.Add(Color.FromArgb(128, 0, 0), 0.0f);
@@ -180,11 +178,9 @@ namespace ECU_Manager.Controls
             UpdateTableEvent = eventHandler;
         }
 
-        public void SetConfig(string arrayname, string sizex, string sizey, string depx, string depy)
+        public void SetConfig(string arrayname, string depx, string depy)
         {
             sArrayName = arrayname;
-            sConfigSizeX = sizex;
-            sConfigSizeY = sizey;
             sConfigDepX = depx;
             sConfigDepY = depy;
         }
@@ -241,34 +237,11 @@ namespace ECU_Manager.Controls
 
         public void ClearTable()
         {
-            int sizex = 0;
-            int sizey = 0;
             byte[] arraycalib = null;
             float[] array2d = null;
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-                {
-                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                    if (fieldSizeX != null)
-                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-                {
-                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                    if (fieldSizeY != null)
-                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
-                if (!string.IsNullOrWhiteSpace(sProgressTable))
-                {
-                    FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
-                    if (calibrationTable != null)
-                        arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
-                }
-
                 if (!string.IsNullOrWhiteSpace(sProgressTable))
                 {
                     FieldInfo calibrationTable = cs.ConfigStruct.corrections.GetType().GetField(sProgressTable);
@@ -281,30 +254,40 @@ namespace ECU_Manager.Controls
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
 
                 }
 
-                if (sizex > 0 && sizey > 0)
+                if (iArraySizeX > 0 && iArraySizeY > 0)
                 {
                     if (arraycalib != null)
                     {
-                        for (int i = 0; i < sizex * sizey; i++)
+                        for (int i = 0; i < iArraySizeX * iArraySizeY; i++)
                         {
                             arraycalib[i] = 0;
                         }
                     }
                     if (array2d != null)
                     {
-                        for (int i = 0; i < sizex * sizey; i++)
+                        for (int i = 0; i < iArraySizeX * iArraySizeY; i++)
                         {
                             array2d[i] = 0;
                         }
@@ -354,10 +337,7 @@ namespace ECU_Manager.Controls
             try
             {
                 Series series;
-
-                int sizex = 0;
-                int sizey = 0;
-
+                
                 float[] depx = null;
                 float[] depy = null;
                 float[] array2d = null;
@@ -365,51 +345,57 @@ namespace ECU_Manager.Controls
                 float paramx = 0;
                 float paramy = 0;
                 float paramd = 0;
-
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-                {
-                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                    if (fieldSizeX != null)
-                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-                {
-                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                    if (fieldSizeY != null)
-                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
+                
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
                 {
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
 
                 }
 
                 if (!string.IsNullOrWhiteSpace(sConfigDepX))
                 {
-                    FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                    if (fieldDepX != null)
-                        depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depx = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(sConfigDepY))
                 {
-                    FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
-                    if (fieldDepY != null)
-                        depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepY);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depy = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
 
                 lblParams.Text = string.Empty;
@@ -485,7 +471,7 @@ namespace ECU_Manager.Controls
 
                     chart2DChart.Series.Clear();
                     chart2DChart.ChartAreas[0].AxisX.Minimum = depx[0] - (depx[0] % dMinDiffX);
-                    chart2DChart.ChartAreas[0].AxisX.Maximum = depx[sizex - 1] + (dMinDiffX - (depx[sizex - 1] % dMinDiffX));
+                    chart2DChart.ChartAreas[0].AxisX.Maximum = depx[iArraySizeX - 1] + (dMinDiffX - (depx[iArraySizeX - 1] % dMinDiffX));
 
                     chart2DChart.ChartAreas[0].AxisY.Minimum = chartMin;
                     chart2DChart.ChartAreas[0].AxisY.Maximum = chartMax;
@@ -502,9 +488,9 @@ namespace ECU_Manager.Controls
                     chart2DChart.ChartAreas[0].AxisX.MajorTickMark.Interval = dIntervalX;
                     chart2DChart.ChartAreas[0].AxisY.MajorTickMark.Interval = dIntervalY;
 
-                    if (sizey > 0 && sizex > 0)
+                    if (iArraySizeY > 0 && iArraySizeX > 0)
                     {
-                        for (int i = 0; i < sizey; i++)
+                        for (int i = 0; i < iArraySizeY; i++)
                         {
                             series = chart2DChart.Series.Add(depy[i].ToString(sFormatStatusD));
                             series.Tag = i;
@@ -514,9 +500,9 @@ namespace ECU_Manager.Controls
                             series.YAxisType = AxisType.Primary;
                             series.YValueType = ChartValueType.Single;
                             series.BorderWidth = 2;
-                            float trans = (float)i / (float)(sizey - 1);
+                            float trans = (float)i / (float)(iArraySizeY - 1);
                             series.Color = Color.FromArgb((int)(min.R * (1.0f - trans) + max.R * trans), (int)(min.G * (1.0f - trans) + max.G * trans), (int)(min.B * (1.0f - trans) + max.B * trans));
-                            for (int j = 0; j < sizex; j++)
+                            for (int j = 0; j < iArraySizeX; j++)
                             {
                                 float value = array2d[i * iArraySizeX + j];
                                 if (chartMaxX < depx[j])
@@ -565,16 +551,16 @@ namespace ECU_Manager.Controls
                     graph3D.AxisZ_Legend = sTitleStatusY;
                     graph3D.Raster = eRaster.Labels;
 
-                    cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+                    cPoint3D[,] i_Points3D = new cPoint3D[iArraySizeX, iArraySizeY];
 
-                    for (int y = 0; y < sizey; y++)
+                    for (int y = 0; y < iArraySizeY; y++)
                     {
-                        for (int x = 0; x < sizex; x++)
+                        for (int x = 0; x < iArraySizeX; x++)
                         {
-                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
+                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * iArraySizeX + x]);
                         }
                     }
-                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
+                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[iArraySizeY - 1], depx[0], depx[iArraySizeX - 1],
                         chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                     graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
                     graph3D.SetColorScheme(ColorScheme, 3.0F);
@@ -591,9 +577,6 @@ namespace ECU_Manager.Controls
 
         public void UpdateChart()
         {
-            int sizex = 0;
-            int sizey = 0;
-
             float[] depx = null;
             float[] depy = null;
             float[] array2d = null;
@@ -604,49 +587,55 @@ namespace ECU_Manager.Controls
             float paramd = 0;
 
             string paramstext = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
+           
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigDepX))
             {
-                FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                if (fieldDepX != null)
-                    depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
+                if (fieldArray != null && fieldTransform != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    depx = EcuConfigTransform.FromInteger(arraydef, transform);
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(sConfigDepY))
             {
-                FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
-                if (fieldDepY != null)
-                    depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
+                FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepY);
+                if (fieldArray != null && fieldTransform != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    depy = EcuConfigTransform.FromInteger(arraydef, transform);
+                }
             }
 
             paramstext = string.Empty;
@@ -696,8 +685,8 @@ namespace ECU_Manager.Controls
             }
             else if (!string.IsNullOrWhiteSpace(sParamsStatusX) && !string.IsNullOrWhiteSpace(sParamsStatusD))
             {
-                Interpolation interpolationX = new Interpolation(paramx, depx, sizex);
-                Interpolation interpolationY = new Interpolation(paramd, depy, sizey);
+                Interpolation interpolationX = new Interpolation(paramx, depx, iArraySizeX);
+                Interpolation interpolationY = new Interpolation(paramd, depy, iArraySizeY);
                 paramy = Interpolation.Interpolate2D(interpolationX, interpolationY, array2d, iArraySizeX);
 
                 if (!string.IsNullOrWhiteSpace(paramstext))
@@ -727,7 +716,7 @@ namespace ECU_Manager.Controls
                 imageTable1.ValueInterpolationX = interpolationX;
                 imageTable1.ValueInterpolationY = interpolationY;
                 
-                if (sizex > 0 && sizey > 0)
+                if (iArraySizeX > 0 && iArraySizeY > 0)
                 {
                     if (!string.IsNullOrWhiteSpace(sProgressTable))
                     {
@@ -742,7 +731,7 @@ namespace ECU_Manager.Controls
                         int xpos = index % iArraySizeX;
                         int ypos = index / iArraySizeX;
 
-                        if (xpos < sizex && ypos < sizey)
+                        if (xpos < iArraySizeX && ypos < iArraySizeY)
                         {
                             if ((float)chart2DChart.Series[ypos].Points[xpos].YValues[0] != array2d[index])
                                 chart2DChart.Series[ypos].Points[xpos].YValues = new double[1] { array2d[index] };
@@ -762,16 +751,16 @@ namespace ECU_Manager.Controls
                     imageTable1.Array = array2d;
                     imageTable1.RedrawTable();
 
-                    cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+                    cPoint3D[,] i_Points3D = new cPoint3D[iArraySizeX, iArraySizeY];
 
-                    for (int y = 0; y < sizey; y++)
+                    for (int y = 0; y < iArraySizeY; y++)
                     {
-                        for (int x = 0; x < sizex; x++)
+                        for (int x = 0; x < iArraySizeX; x++)
                         {
-                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * sizex + x]);
+                            i_Points3D[x, y] = new cPoint3D(depy[y], depx[x], array2d[y * iArraySizeX + x]);
                         }
                     }
-                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
+                    cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[iArraySizeY - 1], depx[0], depx[iArraySizeX - 1],
                         chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                     graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
                     graph3D.SetColorScheme(ColorScheme, 3.0F);
@@ -802,8 +791,6 @@ namespace ECU_Manager.Controls
                 int y = index / iArraySizeX;
                 //Color text = Color.Black;
                 //Color back = nud.BackColor;
-                int sizex = 0;
-                int sizey = 0;
                 float[] depx = null;
                 float[] depy = null;
                 float[] array2d = null;
@@ -813,43 +800,49 @@ namespace ECU_Manager.Controls
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        if (fieldArray != null)
-                            array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        if (fieldArray != null && fieldTransform != null)
+                        {
+                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                        }
                     }
-                }
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-                {
-                    FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                    if (fieldSizeX != null)
-                        sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                }
-
-                if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-                {
-                    FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                    if (fieldSizeY != null)
-                        sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                 }
 
                 if (!string.IsNullOrWhiteSpace(sConfigDepX))
                 {
-                    FieldInfo fieldDepX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
-                    if (fieldDepX != null)
-                        depx = (float[])fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepX);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depx = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(sConfigDepY))
                 {
-                    FieldInfo fieldDepY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
-                    if (fieldDepY != null)
-                        depy = (float[])fieldDepY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigDepY);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepY);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depy = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
 
                 value = array2d[index];
@@ -895,13 +888,13 @@ namespace ECU_Manager.Controls
                     chart2DChart.ChartAreas[0].AxisY.Maximum = (chartMax + (dMinDiffY - (chartMax % dMinDiffY)));
                 }
 
-                cPoint3D[,] i_Points3D = new cPoint3D[sizex, sizey];
+                cPoint3D[,] i_Points3D = new cPoint3D[iArraySizeX, iArraySizeY];
 
-                for (int iy = 0; iy < sizey; iy++)
-                    for (int ix = 0; ix < sizex; ix++)
-                        i_Points3D[ix, iy] = new cPoint3D(depy[iy], depx[ix], array2d[iy * sizex + ix]);
+                for (int iy = 0; iy < iArraySizeY; iy++)
+                    for (int ix = 0; ix < iArraySizeX; ix++)
+                        i_Points3D[ix, iy] = new cPoint3D(depy[iy], depx[ix], array2d[iy * iArraySizeX + ix]);
 
-                cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[sizey - 1], depx[0], depx[sizex - 1],
+                cMinMax3D cMinMax3D = new cMinMax3D(depy[0], depy[iArraySizeY - 1], depx[0], depx[iArraySizeX - 1],
                     chart2DChart.ChartAreas[0].AxisY.Minimum, chart2DChart.ChartAreas[0].AxisY.Maximum);
                 graph3D.SetSurfacePoints(i_Points3D, cMinMax3D, eNormalize.Separate);
             }
@@ -917,8 +910,6 @@ namespace ECU_Manager.Controls
 
         private void btnInterpolate_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             float[] new2d = null;
             byte[] arraycalib = null;
@@ -926,33 +917,29 @@ namespace ECU_Manager.Controls
             int amount = (int)nudInterpolationAmount.Value;
             int radius = (int)nudInterpolationRadius.Value;
             
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
@@ -963,7 +950,7 @@ namespace ECU_Manager.Controls
                     arraycalib = (byte[])calibrationTable.GetValue(cs.ConfigStruct.corrections);
             }
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
                 new2d = new float[array2d.Length];
                 array2d.CopyTo(new2d, 0);
@@ -976,16 +963,16 @@ namespace ECU_Manager.Controls
 
                 for (int i = 0; i < amount; i++)
                 {
-                    for(int y = 0; y < sizey; y++)
+                    for(int y = 0; y < iArraySizeY; y++)
                     {
-                        for (int x = 0; x < sizex; x++)
+                        for (int x = 0; x < iArraySizeX; x++)
                         {
                             index = y * iArraySizeX + x;
                             valuex1 = valuey1 = new2d[index];
                             valuex2 = valuey2 = new2d[index];
                             for (int dx = -radius; dx < 0; dx++)
                             {
-                                if ((dx + x) >= 0 && (dx + x) < sizex)
+                                if ((dx + x) >= 0 && (dx + x) < iArraySizeX)
                                 {
                                     dindex = y * iArraySizeX + (dx + x);
                                     temp_koff = ((radius + 1) - Math.Abs(dx)) / (double)(radius + 1);
@@ -995,7 +982,7 @@ namespace ECU_Manager.Controls
                             }
                             for (int dx = radius; dx > 0; dx--)
                             {
-                                if ((dx + x) >= 0 && (dx + x) < sizex)
+                                if ((dx + x) >= 0 && (dx + x) < iArraySizeX)
                                 {
                                     dindex = y * iArraySizeX + (dx + x);
                                     temp_koff = ((radius + 1) - Math.Abs(dx)) / (double)(radius + 1);
@@ -1005,7 +992,7 @@ namespace ECU_Manager.Controls
                             }
                             for (int dy = -radius; dy < 0; dy++)
                             {
-                                if ((dy + y) >= 0 && (dy + y) < sizey)
+                                if ((dy + y) >= 0 && (dy + y) < iArraySizeY)
                                 {
                                     dindex = (dy + y) * iArraySizeX + x;
                                     temp_koff = ((radius + 1) - Math.Abs(dy)) / (double)(radius + 1);
@@ -1015,7 +1002,7 @@ namespace ECU_Manager.Controls
                             }
                             for (int dy = radius; dy > 0; dy--)
                             {
-                                if ((dy + y) >= 0 && (dy + y) < sizey)
+                                if ((dy + y) >= 0 && (dy + y) < iArraySizeY)
                                 {
                                     dindex = (dy + y) * iArraySizeX + x;
                                     temp_koff = ((radius + 1) - Math.Abs(dy)) / (double)(radius + 1);
@@ -1049,54 +1036,48 @@ namespace ECU_Manager.Controls
 
         private void btnCopyToC_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             int index;
             string text = string.Empty;
             string line = string.Empty;
             string decplaces = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
                 if (iDecPlaces > 0)
                     decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
 
-                for (int y = 0; y < sizey; y++)
+                for (int y = 0; y < iArraySizeY; y++)
                 {
                     line = string.Empty;
                     text += "\t{ ";
-                    for (int x = 0; x < sizex; x++)
+                    for (int x = 0; x < iArraySizeX; x++)
                     {
                         index = y * iArraySizeX + x;
                         line += string.Format("{0:0" + decplaces + "}" + (iDecPlaces > 0 ? "f" : "") + ", ", array2d[index]);
@@ -1110,43 +1091,37 @@ namespace ECU_Manager.Controls
 
         private void btnImport2DChart_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             float[][] array;
             int index;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
                 if (dlgImport2DChart.ShowDialog() == DialogResult.OK)
                 {
@@ -1154,15 +1129,15 @@ namespace ECU_Manager.Controls
                     {
                         array = Serializator<float[][]>.Deserialize(dlgImport2DChart.FileName);
 
-                        if (array.Length != sizey)
+                        if (array.Length != iArraySizeY)
                             throw new Exception("Y size not equals to original array.");
 
-                        for (int y = 0; y < sizey; y++)
+                        for (int y = 0; y < iArraySizeY; y++)
                         {
-                            if (array[y].Length != sizex)
+                            if (array[y].Length != iArraySizeX)
                                 throw new Exception("X size not equals to original array.");
 
-                            for (int x = 0; x < sizex; x++)
+                            for (int x = 0; x < iArraySizeX; x++)
                             {
                                 index = y * iArraySizeX + x;
                                 array2d[index] = array[y][x];
@@ -1187,53 +1162,47 @@ namespace ECU_Manager.Controls
 
         private void btnExport2DChart_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             float[][] array;
             int index;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
                 if (dlgExport2DChart.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        array = new float[sizey][];
-                        for(int y = 0; y < sizey; y++)
+                        array = new float[iArraySizeY][];
+                        for(int y = 0; y < iArraySizeY; y++)
                         {
-                            array[y] = new float[sizex];
-                            for (int x = 0; x < sizex; x++)
+                            array[y] = new float[iArraySizeX];
+                            for (int x = 0; x < iArraySizeX; x++)
                             {
                                 index = y * iArraySizeX + x;
                                 array[y][x] = array2d[index];
@@ -1252,53 +1221,47 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromCCode_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             float[] array_initial = null;
             int index_array;
             int index_output;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
-                array_initial = new float[sizey * sizex];
-                for (int y = 0; y < sizey; y++)
+                array_initial = new float[iArraySizeY * iArraySizeX];
+                for (int y = 0; y < iArraySizeY; y++)
                 {
-                    for (int x = 0; x < sizex; x++)
+                    for (int x = 0; x < iArraySizeX; x++)
                     {
                         index_array = y * iArraySizeX + x;
-                        index_output = y * sizex + x;
+                        index_output = y * iArraySizeX + x;
                         if (array2d[index_array] > (float)dMaxY)
                             array2d[index_array] = (float)dMaxY;
                         if (array2d[index_array] < (float)dMinY)
@@ -1307,19 +1270,19 @@ namespace ECU_Manager.Controls
                     }
                 }
 
-                ImportCCodeForm importCCodeForm = new ImportCCodeForm(ArrayType.Array2D, array_initial, sizex, sizey);
+                ImportCCodeForm importCCodeForm = new ImportCCodeForm(ArrayType.Array2D, array_initial, iArraySizeX, iArraySizeY);
 
                 DialogResult result = importCCodeForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     float[] output = importCCodeForm.GetResult();
 
-                    for (int y = 0; y < sizey; y++)
+                    for (int y = 0; y < iArraySizeY; y++)
                     {
-                        for (int x = 0; x < sizex; x++)
+                        for (int x = 0; x < iArraySizeX; x++)
                         {
                             index_array = y * iArraySizeX + x;
-                            index_output = y * sizex + x;
+                            index_output = y * iArraySizeX + x;
                             array2d[index_array] = output[index_output];
                         }
                     }
@@ -1330,53 +1293,47 @@ namespace ECU_Manager.Controls
 
         private void btnCopyToText_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             int index;
             string text = string.Empty;
             string line = string.Empty;
             string decplaces = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
                 if (iDecPlaces > 0)
                     decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
 
-                for (int y = 0; y < sizey; y++)
+                for (int y = 0; y < iArraySizeY; y++)
                 {
                     line = string.Empty;
-                    for (int x = 0; x < sizex; x++)
+                    for (int x = 0; x < iArraySizeX; x++)
                     {
                         index = y * iArraySizeX + x;
                         line += string.Format("{0:0" + decplaces + "}\t", array2d[index]);
@@ -1391,53 +1348,47 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromText_Click(object sender, EventArgs e)
         {
-            int sizex = 0;
-            int sizey = 0;
             float[] array2d = null;
             float[] array_initial = null;
             int index_array;
             int index_output;
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeX))
-            {
-                FieldInfo fieldSizeX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeX);
-                if (fieldSizeX != null)
-                    sizex = (int)fieldSizeX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
-            if (!string.IsNullOrWhiteSpace(sConfigSizeY))
-            {
-                FieldInfo fieldSizeY = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sConfigSizeY);
-                if (fieldSizeY != null)
-                    sizey = (int)fieldSizeY.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    if (fieldArray != null)
-                        array2d = (float[])fieldArray.GetValue(cs.ConfigStruct.corrections);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    if (fieldArray != null && fieldTransform != null)
+                    {
+                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        array2d = EcuConfigTransform.FromInteger(arraydef, transform);
+                    }
                 }
             }
 
 
-            if (sizex > 0 && sizey > 0 && array2d != null)
+            if (iArraySizeX > 0 && iArraySizeY > 0 && array2d != null)
             {
-                array_initial = new float[sizey * sizex];
-                for (int y = 0; y < sizey; y++)
+                array_initial = new float[iArraySizeY * iArraySizeX];
+                for (int y = 0; y < iArraySizeY; y++)
                 {
-                    for (int x = 0; x < sizex; x++)
+                    for (int x = 0; x < iArraySizeX; x++)
                     {
                         index_array = y * iArraySizeX + x;
-                        index_output = y * sizex + x;
+                        index_output = y * iArraySizeX + x;
                         if (array2d[index_array] > (float)dMaxY)
                             array2d[index_array] = (float)dMaxY;
                         if (array2d[index_array] < (float)dMinY)
@@ -1446,19 +1397,19 @@ namespace ECU_Manager.Controls
                     }
                 }
 
-                ImportTextForm importTextForm = new ImportTextForm(ArrayType.Array2D, array_initial, sizex, sizey);
+                ImportTextForm importTextForm = new ImportTextForm(ArrayType.Array2D, array_initial, iArraySizeX, iArraySizeY);
 
                 DialogResult result = importTextForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     float[] output = importTextForm.GetResult();
 
-                    for (int y = 0; y < sizey; y++)
+                    for (int y = 0; y < iArraySizeY; y++)
                     {
-                        for (int x = 0; x < sizex; x++)
+                        for (int x = 0; x < iArraySizeX; x++)
                         {
                             index_array = y * iArraySizeX + x;
-                            index_output = y * sizex + x;
+                            index_output = y * iArraySizeX + x;
                             array2d[index_array] = output[index_output];
                         }
                     }

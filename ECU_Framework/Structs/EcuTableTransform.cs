@@ -97,8 +97,6 @@ namespace ECU_Framework.Structs
         public EcuParamTransform knock_gain;
         public EcuParamTransform knock_filter_frequency;
         public EcuParamTransform knock_cy_level_multiplier;
-        public EcuParamTransform cy_corr_injection;
-        public EcuParamTransform cy_corr_ignition;
         public EcuParamTransform tsps_relative_pos;
         public EcuParamTransform tsps_desync_thr;
         public EcuParamTransform idle_ignition_time_by_tps;

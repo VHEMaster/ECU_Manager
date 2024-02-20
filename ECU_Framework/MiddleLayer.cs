@@ -552,7 +552,6 @@ namespace ECU_Framework
                                 stopwatch.Restart();
                             if ((bSyncFlash && stopwatch.Elapsed.TotalSeconds > 10) || (!bSyncFlash && stopwatch.Elapsed.TotalSeconds > 3))
                             {
-                                iSyncStep = 0;
                                 bSyncLoad = false;
                                 bSyncSave = false;
                                 bSyncFlash = false;
@@ -569,6 +568,7 @@ namespace ECU_Framework
                                     }
                                     bSyncFastSync = false;
                                 }
+                                iSyncStep = 0;
                             }
                         }
                     }

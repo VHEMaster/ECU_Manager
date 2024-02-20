@@ -135,11 +135,11 @@ namespace ECU_Manager
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             eCyclicFillingMAP.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.TABLE_PRESSURES_16, 4);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_PRESSURES_32,
+                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, 4);
 
-            eCyclicFillingMAP.SetConfig("filling_gbc_map", "rotates_count", "pressures_count", "rotates", "pressures");
+            eCyclicFillingMAP.SetConfig("filling_gbc_map", "rotates", "pressures");
             eCyclicFillingMAP.SetX("RPM", "RPM", "F0");
             eCyclicFillingMAP.SetY(string.Empty, "Fill", "F2");
             eCyclicFillingMAP.SetD("ManifoldAirPressure", "Pressure", "F0");
@@ -159,11 +159,11 @@ namespace ECU_Manager
 
 
             eCyclicFillingTPS.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.TABLE_PRESSURES_16, 4);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_THROTTLES_32,
+                0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, 4);
 
-            eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates_count", "throttles_count", "rotates", "throttles");
+            eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates", "throttles");
             eCyclicFillingTPS.SetX("RPM", "RPM", "F0");
             eCyclicFillingTPS.SetY(string.Empty, "Fill", "F2");
             eCyclicFillingTPS.SetD("ThrottlePosition", "Throttle", "F1");
@@ -192,11 +192,11 @@ namespace ECU_Manager
 
 
             eFuelMixturesFull.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 1, true);
+                Consts.TABLE_ROTATES_16,
+                Consts.TABLE_FILLING_16,
+                1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, 1, true);
 
-            eFuelMixturesFull.SetConfig("fuel_mixtures", "rotates_count", "fillings_count", "rotates", "fillings");
+            eFuelMixturesFull.SetConfig("fuel_mixtures", "rotates", "fillings");
             eFuelMixturesFull.SetX("RPM", "RPM", "F0");
             eFuelMixturesFull.SetY("WishFuelRatio", "FuelRatio", "F1");
             eFuelMixturesFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -216,11 +216,11 @@ namespace ECU_Manager
 
 
             eEtcPositions2D.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].pedals_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                0.0D, 100.0D, 0.5D, 10.0f, 10.0D, 0.0D, 100.0D, 10.0D, 10.0D, Consts.TABLE_PEDALS, Consts.TABLE_ROTATES_16, 1, false);
+                Consts.TABLE_PEDALS,
+                Consts.TABLE_ROTATES_16,
+                0.0D, 100.0D, 0.5D, 10.0f, 10.0D, 0.0D, 100.0D, 10.0D, 10.0D, 1, false);
 
-            eEtcPositions2D.SetConfig("throttle_position", "pedals_count", "rotates_count", "pedals", "rotates");
+            eEtcPositions2D.SetConfig("throttle_position", "pedals", "rotates");
             eEtcPositions2D.SetX("PedalPosition", "Pedal", "F1");
             eEtcPositions2D.SetY(string.Empty, "Throttle", "F1");
             eEtcPositions2D.SetD("RPM", "RPM", "F0");
@@ -239,11 +239,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 600);
 
             eInjectionPhaseFull.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 0);
+                Consts.TABLE_ROTATES_16,
+                Consts.TABLE_FILLING_16,
+                0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D , 0);
 
-            eInjectionPhaseFull.SetConfig("injection_phase", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionPhaseFull.SetConfig("injection_phase", "rotates", "fillings");
             eInjectionPhaseFull.SetX("RPM", "RPM", "F0");
             eInjectionPhaseFull.SetY("InjectionPhase", "Phase", "F0");
             eInjectionPhaseFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -258,11 +258,11 @@ namespace ECU_Manager
             
 
             eIgnitionFull.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 1);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, 1);
 
-            eIgnitionFull.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFull.SetConfig("ignitions", "rotates", "fillings");
             eIgnitionFull.SetX("RPM", "RPM", "F0");
             eIgnitionFull.SetY("IgnitionAdvance", "Ignition", "F1");
             eIgnitionFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -281,11 +281,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 10.0F);
 
             eIgnitionFullCy1.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eIgnitionFullCy1.SetConfig("ignition_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy1.SetConfig("ignition_corr_cy1", "rotates", "fillings");
             eIgnitionFullCy1.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -298,11 +298,11 @@ namespace ECU_Manager
 
 
             eIgnitionFullCy2.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eIgnitionFullCy2.SetConfig("ignition_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy2.SetConfig("ignition_corr_cy2", "rotates", "fillings");
             eIgnitionFullCy2.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy2.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -315,11 +315,11 @@ namespace ECU_Manager
 
 
             eIgnitionFullCy3.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eIgnitionFullCy3.SetConfig("ignition_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy3.SetConfig("ignition_corr_cy3", "rotates", "fillings");
             eIgnitionFullCy3.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy3.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -332,11 +332,11 @@ namespace ECU_Manager
 
 
             eIgnitionFullCy4.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eIgnitionFullCy4.SetConfig("ignition_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eIgnitionFullCy4.SetConfig("ignition_corr_cy4", "rotates", "fillings");
             eIgnitionFullCy4.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy4.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -347,88 +347,112 @@ namespace ECU_Manager
             eIgnitionFullCy4.SynchronizeChart();
 
 
-            eSaturationPulse.Initialize(cs, 0, 10000, 100, 500, 0, 5000, 1, 500, 0);
-            eSaturationPulse.SetConfig("ignition_time", "voltages_count", "voltages");
+            eSaturationPulse.Initialize(cs, 
+                Consts.TABLE_VOLTAGES,
+                0, 10000, 100, 500, 0, 5000, 1, 500, 0);
+            eSaturationPulse.SetConfig("ignition_time", "voltages");
             eSaturationPulse.SetX("PowerVoltage", "Voltage", "F1");
             eSaturationPulse.SetY("IgnitionPulse", "Pulse", "F0");
             eSaturationPulse.SetTableEventHandler(ChartUpdateEvent);
 
-            eSatByRPM.Initialize(cs, 0.1D, 10D, 0.1D, 0.2D, 0.2D, 2.0F, 500, 0.2D, 1);
-            eSatByRPM.SetConfig("ignition_time_rpm_mult", "rotates_count", "rotates");
+            eSatByRPM.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0.1D, 10D, 0.1D, 0.2D, 0.2D, 2.0F, 500, 0.2D, 1);
+            eSatByRPM.SetConfig("ignition_time_rpm_mult", "rotates");
             eSatByRPM.SetX("RPM", "RPM", "F0");
             eSatByRPM.SetTableEventHandler(ChartUpdateEvent);
 
-            eInjectorLag.Initialize(cs, 0, 10, 0.01D, 0.1D, 0, 2, 1, 0.2, 2);
-            eInjectorLag.SetConfig("injector_lag", "voltages_count", "voltages");
+            eInjectorLag.Initialize(cs,
+                Consts.TABLE_VOLTAGES,
+                0, 10, 0.01D, 0.1D, 0, 2, 1, 0.2, 2);
+            eInjectorLag.SetConfig("injector_lag", "voltages");
             eInjectorLag.SetX("PowerVoltage", "Voltage", "F1");
             eInjectorLag.SetY("InjectionLag", "Lag", "F2");
             eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
-
-            eInjectionPhaseLPF.Initialize(cs, 0, 1, 0.001D, 0.1D, 0D, 0.5F, 500, 0.05D, 3);
-            eInjectionPhaseLPF.SetConfig("injection_phase_lpf", "rotates_count", "rotates");
-            eInjectionPhaseLPF.SetX("RPM", "RPM", "F0");
-            eInjectionPhaseLPF.SetTableEventHandler(ChartUpdateEvent);
-
-            eDynamicFilmFillCorr.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 2.0D, 50D, 0.2D, 2);
-            eDynamicFilmFillCorr.SetConfig("dynamic_fuel_corr_temp", "fillings_count", "fillings");
+           
+            eDynamicFilmFillCorr.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 5, 0.01D, 0.2D, 0D, 2.0D, 50D, 0.2D, 2);
+            eDynamicFilmFillCorr.SetConfig("dynamic_fuel_corr_temp", "fillings");
             eDynamicFilmFillCorr.SetX("CyclicAirFlow", "Filling", "F1");
             eDynamicFilmFillCorr.SetTableEventHandler(ChartUpdateEvent);
 
-            eDynamicFilmTempCorr.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 2.0F, 10, 0.2D, 2);
-            eDynamicFilmTempCorr.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
+            eDynamicFilmTempCorr.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 5, 0.01D, 0.2D, 0D, 2.0F, 10, 0.2D, 2);
+            eDynamicFilmTempCorr.SetConfig("enrichment_temp_mult", "engine_temps");
             eDynamicFilmTempCorr.SetX("EngineTemp", "Temperature", "F1");
             eDynamicFilmTempCorr.SetTableEventHandler(ChartUpdateEvent);
 
-            eDynamicFilmLpf.Initialize(cs, 0, 0.99D, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
-            eDynamicFilmLpf.SetConfig("dynamic_fuel_corr_lpf", "rotates_count", "rotates");
+            eDynamicFilmLpf.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 0.99D, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
+            eDynamicFilmLpf.SetConfig("dynamic_fuel_corr_lpf", "rotates");
             eDynamicFilmLpf.SetX("RPM", "RPM", "F0");
             eDynamicFilmLpf.SetTableEventHandler(ChartUpdateEvent);
 
-            eFillingSelectKoffTPS.Initialize(cs, 0, 1, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
-            eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates_count", "rotates");
+            eFillingSelectKoffTPS.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 1, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
+            eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates");
             eFillingSelectKoffTPS.SetX("RPM", "RPM", "F0");
             eFillingSelectKoffTPS.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentStartLoad.Initialize(cs, 0, 10000000, 1, 1D, 0D, 10D, 1D, 10D, 0);
-            eEnrichmentStartLoad.SetConfig("enrichment_rate_start_load", "enrichment_rate_start_load_count", string.Empty);
+            eEnrichmentStartLoad.Initialize(cs,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                0, 10000000, 1, 1D, 0D, 10D, 1D, 10D, 0);
+            eEnrichmentStartLoad.SetConfig("enrichment_rate_start_load", string.Empty);
             eEnrichmentStartLoad.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentLoadDerivative.Initialize(cs, 0, 100000000, 100, 10D, 0D, 1000D, 1D, 200D, 0);
-            eEnrichmentLoadDerivative.SetConfig("enrichment_rate_load_derivative", "enrichment_rate_load_derivative_count", string.Empty);
+            eEnrichmentLoadDerivative.Initialize(cs,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                0, 100000000, 100, 10D, 0D, 1000D, 1D, 200D, 0);
+            eEnrichmentLoadDerivative.SetConfig("enrichment_rate_load_derivative", string.Empty);
             eEnrichmentLoadDerivative.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentSyncAmount.Initialize(cs, 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
-            eEnrichmentSyncAmount.SetConfig("enrichment_sync_amount", "rotates_count", "rotates");
+            eEnrichmentSyncAmount.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentSyncAmount.SetConfig("enrichment_sync_amount", "rotates");
             eEnrichmentSyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentSyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentAsyncAmount.Initialize(cs, 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
-            eEnrichmentAsyncAmount.SetConfig("enrichment_async_amount", "rotates_count", "rotates");
+            eEnrichmentAsyncAmount.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentAsyncAmount.SetConfig("enrichment_async_amount", "rotates");
             eEnrichmentAsyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentAsyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentTempMult.Initialize(cs, 0, 5, 0.01D, 0.1D, 1D, 1.5D, 10D, 0.05D, 2);
-            eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temp_count", "engine_temps");
+            eEnrichmentTempMult.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 5, 0.01D, 0.1D, 1D, 1.5D, 10D, 0.05D, 2);
+            eEnrichmentTempMult.SetConfig("enrichment_temp_mult", "engine_temps");
             eEnrichmentTempMult.SetX("EngineTemp", "Temperature", "F1");
             eEnrichmentTempMult.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentInjectionPhase.Initialize(cs, 0, 720, 10, 50, 0D, 600, 500D, 50, 0);
-            eEnrichmentInjectionPhase.SetConfig("enrichment_injection_phase", "rotates_count", "rotates");
+            eEnrichmentInjectionPhase.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 720, 10, 50, 0D, 600, 500D, 50, 0);
+            eEnrichmentInjectionPhase.SetConfig("enrichment_injection_phase", "rotates");
             eEnrichmentInjectionPhase.SetX("RPM", "RPM", "F0");
             eEnrichmentInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
 
-            eEnrichmentAccelDeadBand.Initialize(cs, 0, 100000000, 1000, 10000, 0D, 500000, 500D, 20000, 0);
-            eEnrichmentAccelDeadBand.SetConfig("enrichment_accel_dead_band", "rotates_count", "rotates");
+            eEnrichmentAccelDeadBand.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 100000000, 1000, 10000, 0D, 500000, 500D, 20000, 0);
+            eEnrichmentAccelDeadBand.SetConfig("enrichment_accel_dead_band", "rotates");
             eEnrichmentAccelDeadBand.SetX("RPM", "RPM", "F0");
             eEnrichmentAccelDeadBand.SetTableEventHandler(ChartUpdateEvent);
 
 
-            eEnrichmentRate.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
-                0.0D, 5.0D, 0.01D, 0.5D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS, Consts.TABLE_ENRICHMENT_PERCENTS, 2);
+            eEnrichmentRate.Initialize(cs, 
+                Editor2DMode.EcuTable,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                0.0D, 5.0D, 0.01D, 0.5D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, 2);
 
-            eEnrichmentRate.SetConfig("enrichment_rate", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentRate.SetConfig("enrichment_rate", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
             eEnrichmentRate.SetX("EnrichmentLoadDerivative", "Load Derivative", "F0");
             eEnrichmentRate.SetD("EnrichmentStartLoad", "Start Load", "F1");
             eEnrichmentRate.SetTableEventHandler(ChartUpdateEvent);
@@ -446,12 +470,13 @@ namespace ECU_Manager
             eEnrichmentRate.SynchronizeChart();
 
 
-            eEnrichmentTpsSelection.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
-                0.0D, 1.0D, 0.02D, 0.1D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, Consts.TABLE_ENRICHMENT_PERCENTS, Consts.TABLE_ENRICHMENT_PERCENTS, 2);
+            eEnrichmentTpsSelection.Initialize(cs, 
+                Editor2DMode.EcuTable,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                0.0D, 1.0D, 0.02D, 0.1D, 0.1D, 0.0D, 1.0D, 100.0D, 0.1D, 2);
 
-            eEnrichmentTpsSelection.SetConfig("enrichment_tps_selection", "enrichment_rate_load_derivative_count", "enrichment_rate_start_load_count", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
+            eEnrichmentTpsSelection.SetConfig("enrichment_tps_selection", "enrichment_rate_load_derivative", "enrichment_rate_start_load");
             eEnrichmentTpsSelection.SetX("EnrichmentLoadDerivative", "Load Derivative", "F0");
             eEnrichmentTpsSelection.SetD("EnrichmentStartLoad", "Start Load", "F1");
             eEnrichmentTpsSelection.SetTableEventHandler(ChartUpdateEvent);
@@ -478,12 +503,13 @@ namespace ECU_Manager
             colorTransience.Add(Color.DarkRed, 4.0F);
             colorTransience.Add(Color.Black, 5.0F);
 
-            eEnrichmentIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                -25.0D, 25.0D, 0.1D, 10D, 1D, -5D, 5D, 10, 1D, Consts.TABLE_ENRICHMENT_PERCENTS, Consts.TABLE_ROTATES_16, 1);
+            eEnrichmentIgnCorr.Initialize(cs, 
+                Editor2DMode.EcuTable,
+                Consts.TABLE_ENRICHMENT_PERCENTS,
+                Consts.TABLE_ROTATES_16,
+                -25.0D, 25.0D, 0.1D, 10D, 1D, -5D, 5D, 10, 1D, 1);
 
-            eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load_count", "rotates_count", "enrichment_rate_start_load", "rotates");
+            eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load", "rotates");
             eEnrichmentIgnCorr.SetTableEventHandler(ChartUpdateEvent);
             eEnrichmentIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eEnrichmentIgnCorr.scHorisontal.Width * 0.65);
 
@@ -491,188 +517,280 @@ namespace ECU_Manager
             eEnrichmentIgnCorr.SynchronizeChart();
 
 
-            ePressures.Initialize(cs, 0, 1000000, 100, 50, 0, 100000, 1, 10000, 0);
-            ePressures.SetConfig("pressures", "pressures_count", string.Empty);
-            ePressures.SetY("ManifoldAirPressure", "Pressure", "F0");
-            ePressures.SetTableEventHandler(ChartUpdateEvent);
+            ePressures16.Initialize(cs,
+                Consts.TABLE_PRESSURES_16,
+                0, 1000000, 100, 50, 0, 100000, 1, 10000, 0);
+            ePressures16.SetConfig("pressures_16", string.Empty);
+            ePressures16.SetY("ManifoldAirPressure", "Pressure", "F0");
+            ePressures16.SetTableEventHandler(ChartUpdateEvent);
 
-            eRotates.Initialize(cs, 0, 10000, 50, 100, 0, 8000, 1, 500, 0);
-            eRotates.SetConfig("rotates", "rotates_count", string.Empty);
-            eRotates.SetY("RPM", "RPM", "F0");
-            eRotates.SetTableEventHandler(ChartUpdateEvent);
-           
-            eIdleRotates.Initialize(cs, 0, 10000, 50, 100, 0, 8000, 1, 500, 0);
-            eIdleRotates.SetConfig("idle_rotates", "idle_rotates_count", string.Empty);
+            ePressures32.Initialize(cs,
+                Consts.TABLE_PRESSURES_32,
+                0, 1000000, 100, 50, 0, 100000, 1, 10000, 0);
+            ePressures32.SetConfig("pressures_32", string.Empty);
+            ePressures32.SetY("ManifoldAirPressure", "Pressure", "F0");
+            ePressures32.SetTableEventHandler(ChartUpdateEvent);
+
+            eRotates16.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 10000, 50, 100, 0, 8000, 1, 500, 0);
+            eRotates16.SetConfig("rotates_16", string.Empty);
+            eRotates16.SetY("RPM", "RPM", "F0");
+            eRotates16.SetTableEventHandler(ChartUpdateEvent);
+
+            eRotates32.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 10000, 50, 100, 0, 8000, 1, 500, 0);
+            eRotates32.SetConfig("rotates_32", string.Empty);
+            eRotates32.SetY("RPM", "RPM", "F0");
+            eRotates32.SetTableEventHandler(ChartUpdateEvent);
+
+            eIdleRotates.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 10000, 50, 100, 0, 8000, 1, 500, 0);
+            eIdleRotates.SetConfig("idle_rotates", string.Empty);
             eIdleRotates.SetY("RPM", "RPM", "F0");
             eIdleRotates.SetTableEventHandler(ChartUpdateEvent);
 
-            eThrottles.Initialize(cs, 0, 100, 0.1, 1, 0, 100, 1, 10, 1);
-            eThrottles.SetConfig("throttles", "throttles_count", string.Empty);
-            eThrottles.SetY("ThrottlePosition", "TPS", "F1");
-            eThrottles.SetTableEventHandler(ChartUpdateEvent);
+            eThrottles16.Initialize(cs,
+                Consts.TABLE_THROTTLES_16,
+                0, 100, 0.1, 1, 0, 100, 1, 10, 1);
+            eThrottles16.SetConfig("throttles_16", string.Empty);
+            eThrottles16.SetY("ThrottlePosition", "TPS", "F1");
+            eThrottles16.SetTableEventHandler(ChartUpdateEvent);
 
-            ePedals.Initialize(cs, 0, 100, 0.1, 1, 0, 100, 1, 10, 1);
-            ePedals.SetConfig("pedals", "pedals_count", string.Empty);
+            eThrottles32.Initialize(cs,
+                Consts.TABLE_THROTTLES_32,
+                0, 100, 0.1, 1, 0, 100, 1, 10, 1);
+            eThrottles32.SetConfig("throttles_32", string.Empty);
+            eThrottles32.SetY("ThrottlePosition", "TPS", "F1");
+            eThrottles32.SetTableEventHandler(ChartUpdateEvent);
+
+            ePedals.Initialize(cs,
+                Consts.TABLE_PEDALS,
+                0, 100, 0.1, 1, 0, 100, 1, 10, 1);
+            ePedals.SetConfig("pedals", string.Empty);
             ePedals.SetY("PedalPosition", "TPS", "F1");
             ePedals.SetTableEventHandler(ChartUpdateEvent);
 
-            eFillings.Initialize(cs, 0, 5000, 1, 2, 0, 350, 1, 50, 0);
-            eFillings.SetConfig("fillings", "fillings_count", string.Empty);
-            eFillings.SetY("CyclicAirFlow", "Filling", "F1");
-            eFillings.SetTableEventHandler(ChartUpdateEvent);
+            eFillings16.Initialize(cs,
+                Consts.TABLE_FILLING_16,
+                0, 5000, 1, 2, 0, 350, 1, 50, 0);
+            eFillings16.SetConfig("fillings_16", string.Empty);
+            eFillings16.SetY("CyclicAirFlow", "Filling", "F1");
+            eFillings16.SetTableEventHandler(ChartUpdateEvent);
 
-            eVoltages.Initialize(cs, 0, 25, 0.1D, 1, 0, 15, 1, 2, 1);
-            eVoltages.SetConfig("voltages", "voltages_count", string.Empty);
+            eFillings32.Initialize(cs,
+                Consts.TABLE_FILLING_32,
+                0, 5000, 1, 2, 0, 350, 1, 50, 0);
+            eFillings32.SetConfig("fillings_32", string.Empty);
+            eFillings32.SetY("CyclicAirFlow", "Filling", "F1");
+            eFillings32.SetTableEventHandler(ChartUpdateEvent);
+
+            eVoltages.Initialize(cs,
+                Consts.TABLE_VOLTAGES,
+                0, 25, 0.1D, 1, 0, 15, 1, 2, 1);
+            eVoltages.SetConfig("voltages", string.Empty);
             eVoltages.SetY("PowerVoltage", "Voltage", "F1");
             eVoltages.SetTableEventHandler(ChartUpdateEvent);
 
-            eEngTemps.Initialize(cs, -50, 150, 1, 1, 0, 100, 1, 10, 0);
-            eEngTemps.SetConfig("engine_temps", "engine_temp_count", string.Empty);
+            eEngTemps.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                -50, 150, 1, 1, 0, 100, 1, 10, 0);
+            eEngTemps.SetConfig("engine_temps", string.Empty);
             eEngTemps.SetY("EngineTemp", "Temperature", "F1");
             eEngTemps.SetTableEventHandler(ChartUpdateEvent);
 
-            eAirTemps.Initialize(cs, -50, 150, 1, 1, 0, 100, 1, 10, 0);
-            eAirTemps.SetConfig("air_temps", "air_temp_count", string.Empty);
+            eAirTemps.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                -50, 150, 1, 1, 0, 100, 1, 10, 0);
+            eAirTemps.SetConfig("air_temps", string.Empty);
             eAirTemps.SetY("AirTemp", "Temperature", "F1");
             eAirTemps.SetTableEventHandler(ChartUpdateEvent);
 
-            eSpeeds.Initialize(cs, 0, 990, 5, 1, 0, 100, 1, 10, 0);
-            eSpeeds.SetConfig("idle_rpm_shift_speeds", "idle_speeds_shift_count", string.Empty);
+            eSpeeds.Initialize(cs,
+                Consts.TABLE_SPEEDS,
+                0, 990, 5, 1, 0, 100, 1, 10, 0);
+            eSpeeds.SetConfig("idle_rpm_shift_speeds", string.Empty);
             eSpeeds.SetY("Speed", "Speed", "F1");
             eSpeeds.SetTableEventHandler(ChartUpdateEvent);
             
 
-            eIdleWishRPM.Initialize(cs, 100D, 10000D, 20D, 100D, 500D, 2000D, 10D, 100D, 0);
-            eIdleWishRPM.SetConfig("idle_wish_rotates", "engine_temp_count", "engine_temps");
+            eIdleWishRPM.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                100D, 10000D, 20D, 100D, 500D, 2000D, 10D, 100D, 0);
+            eIdleWishRPM.SetConfig("idle_wish_rotates", "engine_temps");
             eIdleWishRPM.SetX("EngineTemp", "Temp.", "F1");
             eIdleWishRPM.SetY("RPM", "RPM", "F0");
             eIdleWishRPM.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleWishMassAirFlow.Initialize(cs, 0, 500D, 0.1D, 5D, 0, 30D, 10D, 5D, 1);
-            eIdleWishMassAirFlow.SetConfig("idle_wish_massair", "engine_temp_count", "engine_temps");
+            eIdleWishMassAirFlow.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 500D, 0.1D, 5D, 0, 30D, 10D, 5D, 1);
+            eIdleWishMassAirFlow.SetConfig("idle_wish_massair", "engine_temps");
             eIdleWishMassAirFlow.SetX("EngineTemp", "Temp.", "F1");
             eIdleWishMassAirFlow.SetY("MassAirFlow", "Mass Air Flow", "F1");
             eIdleWishMassAirFlow.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleWishIgnition.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 10D, 2D, 1);
-            eIdleWishIgnition.SetConfig("idle_wish_ignition", "engine_temp_count", "engine_temps");
+            eIdleWishIgnition.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                -15D, 60D, 0.1D, 5D, 10D, 20D, 10D, 2D, 1);
+            eIdleWishIgnition.SetConfig("idle_wish_ignition", "engine_temps");
             eIdleWishIgnition.SetX("EngineTemp", "Temp", "F1");
             eIdleWishIgnition.SetY("IgnitionAdvance", "Ignition", "F1");
             eIdleWishIgnition.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnitionStatic.Initialize(cs, -15D, 60D, 0.1D, 5D, 10D, 20D, 100D, 2D, 1);
-            eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "idle_rotates_count", "idle_rotates");
+            eIdleIgnitionStatic.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -15D, 60D, 0.1D, 5D, 10D, 20D, 100D, 2D, 1);
+            eIdleIgnitionStatic.SetConfig("idle_wish_ignition_static", "idle_rotates");
             eIdleIgnitionStatic.SetX("RPM", "RPM", "F0");
             eIdleIgnitionStatic.SetY("IgnitionAdvance", "Ignition", "F1");
             eIdleIgnitionStatic.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleSpeedShift.Initialize(cs, 0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
-            eIdleSpeedShift.SetConfig("idle_rpm_shift", "idle_speeds_shift_count", "idle_rpm_shift_speeds");
+            eIdleSpeedShift.Initialize(cs,
+                Consts.TABLE_SPEEDS,
+                0, 2000, 20D, 10D, 0, 100, 10D, 20D, 0);
+            eIdleSpeedShift.SetConfig("idle_rpm_shift", "idle_rpm_shift_speeds");
             eIdleSpeedShift.SetX("Speed", "Speed", "F1");
             eIdleSpeedShift.SetY("IdleSpeedShift", "RPM Shift", "F0");
             eIdleSpeedShift.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValvePos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 10D, 10, 0);
-            eIdleValvePos.SetConfig("idle_valve_position", "engine_temp_count", "engine_temps");
+            eIdleValvePos.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 160, 1, 10D, 0, 100, 10D, 10, 0);
+            eIdleValvePos.SetConfig("idle_valve_position", "engine_temps");
             eIdleValvePos.SetX("EngineTemp", "Temp.", "F1");
             eIdleValvePos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveEconPos.Initialize(cs, 0, 160, 1, 10D, 0, 100, 500D, 10, 0);
-            eIdleValveEconPos.SetConfig("idle_valve_econ_position", "rotates_count", "rotates");
+            eIdleValveEconPos.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 160, 1, 10D, 0, 100, 500D, 10, 0);
+            eIdleValveEconPos.SetConfig("idle_valve_econ_position", "rotates");
             eIdleValveEconPos.SetX("RPM", "RPM", "F0");
             eIdleValveEconPos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValveEconPos.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcEconPositions.Initialize(cs, 0, 100, 0.1, 2D, 0, 20, 500D, 2, 1);
-            eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates_count", "rotates");
+            eEtcEconPositions.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 100, 0.1, 2D, 0, 20, 500D, 2, 1);
+            eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates");
             eEtcEconPositions.SetX("RPM", "RPM", "F0");
             eEtcEconPositions.SetY("ThrottlePosition", "Throttle Pos", "F1");
             eEtcEconPositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcStartupMoveTime.Initialize(cs, 0, 10, 0.1, 0.5D, 0, 5, 10.0D, 0.5, 1);
-            eEtcStartupMoveTime.SetConfig("throttle_startup_move_time", "engine_temp_count", "engine_temps");
+            eEtcStartupMoveTime.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 10, 0.1, 0.5D, 0, 5, 10.0D, 0.5, 1);
+            eEtcStartupMoveTime.SetConfig("throttle_startup_move_time", "engine_temps");
             eEtcStartupMoveTime.SetX("EngineTemp", "Temp.", "F1");
             eEtcStartupMoveTime.SetY(string.Empty, "Move time", "F1");
             eEtcStartupMoveTime.SetTableEventHandler(ChartUpdateEvent);
             
-            eEtcPedalIgnitionControl.Initialize(cs, 0, 100, 0.1, 1D, 0, 10, 500D, 1, 1);
-            eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates_count", "rotates");
+            eEtcPedalIgnitionControl.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 100, 0.1, 1D, 0, 10, 500D, 1, 1);
+            eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates");
             eEtcPedalIgnitionControl.SetX("RPM", "RPM", "F0");
             eEtcPedalIgnitionControl.SetY("PedalPosition", "Pedal", "F1");
             eEtcPedalIgnitionControl.SetTableEventHandler(ChartUpdateEvent);
             
-            eWarmupMixture.Initialize(cs, 1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
-            eWarmupMixture.SetConfig("warmup_mixtures", "engine_temp_count", "engine_temps");
+            eWarmupMixture.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                1, 20, 0.1D, 1D, 8, 14, 10D, 0.5D, 1);
+            eWarmupMixture.SetConfig("warmup_mixtures", "engine_temps");
             eWarmupMixture.SetX("EngineTemp", "Temp.", "F1");
             eWarmupMixture.SetY("WishFuelRatio", "Fuel Ratio", "F1");
             eWarmupMixture.SetTableEventHandler(ChartUpdateEvent);
 
-            eWarmupMixKoffs.Initialize(cs, 0, 1, 0.01D, 0.1D, 0, 1, 10D, 0.1D, 2);
-            eWarmupMixKoffs.SetConfig("warmup_mix_koffs", "engine_temp_count", "engine_temps");
+            eWarmupMixKoffs.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 1, 0.01D, 0.1D, 0, 1, 10D, 0.1D, 2);
+            eWarmupMixKoffs.SetConfig("warmup_mix_koffs", "engine_temps");
             eWarmupMixKoffs.SetX("EngineTemp", "Temp.", "F1");
             eWarmupMixKoffs.SetTableEventHandler(ChartUpdateEvent);
 
-            eWarmupIdleMixCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
-            eWarmupIdleMixCorrs.SetConfig("warmup_mix_corrs", "engine_temp_count", "engine_temps");
+            eWarmupIdleMixCorrs.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
+            eWarmupIdleMixCorrs.SetConfig("warmup_mix_corrs", "engine_temps");
             eWarmupIdleMixCorrs.SetX("EngineTemp", "Temp.", "F1");
             eWarmupIdleMixCorrs.SetTableEventHandler(ChartUpdateEvent);
 
-            eColdStartTimes.Initialize(cs, 0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
-            eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temp_count", "engine_temps");
+            eColdStartTimes.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 300D, 1D, 1D, 0, 60, 10D, 10D, 0);
+            eColdStartTimes.SetConfig("cold_start_idle_times", "engine_temps");
             eColdStartTimes.SetX("EngineTemp", "Temp.", "F1");
             eColdStartTimes.SetTableEventHandler(ChartUpdateEvent);
 
-            eColdStartCorrs.Initialize(cs, 0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
-            eColdStartCorrs.SetConfig("cold_start_idle_corrs", "engine_temp_count", "engine_temps");
+            eColdStartCorrs.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0, 10D, 0.01D, 0.1D, 0, 5, 10D, 0.2D, 2);
+            eColdStartCorrs.SetConfig("cold_start_idle_corrs", "engine_temps");
             eColdStartCorrs.SetX("EngineTemp", "Temp.", "F1");
             eColdStartCorrs.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockNoiseLevel.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
-            eKnockNoiseLevel.SetConfig("knock_noise_level", "rotates_count", "rotates");
+            eKnockNoiseLevel.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
+            eKnockNoiseLevel.SetConfig("knock_noise_level", "rotates");
             eKnockNoiseLevel.SetX("RPM", "RPM", "F0");
             eKnockNoiseLevel.SetY("KnockSensor", "Knock Level", "F2");
             eKnockNoiseLevel.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockDetectPhaseStart.Initialize(cs, -180, 0, 1D, 5D, -50D, 0D, 500, 5D, 0);
-            eKnockDetectPhaseStart.SetConfig("knock_detect_phase_start", "rotates_count", "rotates");
+            eKnockDetectPhaseStart.Initialize(cs, 
+                Consts.TABLE_ROTATES_32,
+                -180, 0, 1D, 5D, -50D, 0D, 500, 5D, 0);
+            eKnockDetectPhaseStart.SetConfig("knock_detect_phase_start", "rotates");
             eKnockDetectPhaseStart.SetX("RPM", "RPM", "F0");
             eKnockDetectPhaseStart.SetY(string.Empty, "Phase", "F1");
             eKnockDetectPhaseStart.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockDetectPhaseEnd.Initialize(cs, 0, 90, 1D, 5D, 0D, 50D, 500, 5D, 0);
-            eKnockDetectPhaseEnd.SetConfig("knock_detect_phase_end", "rotates_count", "rotates");
+            eKnockDetectPhaseEnd.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 90, 1D, 5D, 0D, 50D, 500, 5D, 0);
+            eKnockDetectPhaseEnd.SetConfig("knock_detect_phase_end", "rotates");
             eKnockDetectPhaseEnd.SetX("RPM", "RPM", "F0");
             eKnockDetectPhaseEnd.SetY(string.Empty, "Phase", "F1");
             eKnockDetectPhaseEnd.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockThreshold.Initialize(cs, 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
-            eKnockThreshold.SetConfig("knock_threshold", "rotates_count", "rotates");
+            eKnockThreshold.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
+            eKnockThreshold.SetConfig("knock_threshold", "rotates");
             eKnockThreshold.SetX("RPM", "RPM", "F0");
             eKnockThreshold.SetY("KnockSensorFiltered", "Knock Level", "F2");
             eKnockThreshold.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockFilterFrequency.Initialize(cs, 0, 63, 1, 1, 30D, 50D, 500, 2D, 0);
-            eKnockFilterFrequency.SetConfig("knock_filter_frequency", "rotates_count", "rotates");
+            eKnockFilterFrequency.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 63, 1, 1, 30D, 50D, 500, 2D, 0);
+            eKnockFilterFrequency.SetConfig("knock_filter_frequency", "rotates");
             eKnockFilterFrequency.SetX("RPM", "RPM", "F0");
             eKnockFilterFrequency.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockGain.Initialize(cs, 0, 63, 1, 1, 0D, 63D, 500, 5D, 0);
-            eKnockGain.SetConfig("knock_gain", "rotates_count", "rotates");
+            eKnockGain.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 63, 1, 1, 0D, 63D, 500, 5D, 0);
+            eKnockGain.SetConfig("knock_gain", "rotates");
             eKnockGain.SetX("RPM", "RPM", "F0");
             eKnockGain.SetTableEventHandler(ChartUpdateEvent);
 
-            eKnockIntegratorTime.Initialize(cs, 0, 31, 1, 1, 0D, 31D, 500, 2D, 0);
-            eKnockIntegratorTime.SetConfig("knock_integrator_time", "rotates_count", "rotates");
+            eKnockIntegratorTime.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                0, 31, 1, 1, 0D, 31D, 500, 2D, 0);
+            eKnockIntegratorTime.SetConfig("knock_integrator_time", "rotates");
             eKnockIntegratorTime.SetX("RPM", "RPM", "F0");
             eKnockIntegratorTime.SetTableEventHandler(ChartUpdateEvent);
             
             eKnockZone.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                0.0D, 1.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_16,
+                Consts.TABLE_FILLING_16,
+                0.0D, 1.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, 2);
 
-            eKnockZone.SetConfig("knock_zone", "rotates_count", "fillings_count", "rotates", "fillings");
+            eKnockZone.SetConfig("knock_zone", "rotates", "fillings");
             eKnockZone.SetX("RPM", "RPM", "F0");
             eKnockZone.SetY("KnockZone", "KnockZone", "F2");
             eKnockZone.SetD("CyclicAirFlow", "Filling", "F1");
@@ -687,11 +805,11 @@ namespace ECU_Manager
 
 
             eKnockCyLevelMultiplier.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].cylinders_count,
-                0.0D, 5.0D, 0.01D, 100.0D, 0.2D, 0.0D, 2.0D, 500, 0.2D, Consts.TABLE_ROTATES_16, Consts.ECU_CYLINDERS_COUNT, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.ECU_CYLINDERS_COUNT,
+                0.0D, 5.0D, 0.01D, 100.0D, 0.2D, 0.0D, 2.0D, 500, 0.2D, 2);
 
-            eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates_count", "cylinders_count", "rotates", "cylinders");
+            eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates", "cylinders");
             eKnockCyLevelMultiplier.SetX("RPM", "RPM", "F0");
             eKnockCyLevelMultiplier.SetTableEventHandler(ChartUpdateEvent);
 
@@ -719,11 +837,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.DarkRed, 1.0F);
 
             eCorrsFillingGbcMAP.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.TABLE_PRESSURES_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_PRESSURES_32,
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsFillingGbcMAP.SetConfig("filling_gbc_map", "rotates_count", "pressures_count", "rotates", "pressures");
+            eCorrsFillingGbcMAP.SetConfig("filling_gbc_map", "rotates", "pressures");
             eCorrsFillingGbcMAP.SetX("RPM", "RPM", "F0");
             eCorrsFillingGbcMAP.SetY(string.Empty, "Correction", "F3");
             eCorrsFillingGbcMAP.SetD("ManifoldAirPressure", "Pressure", "F0");
@@ -734,11 +852,11 @@ namespace ECU_Manager
             eCorrsFillingGbcMAP.SynchronizeChart();
 
             eCorrsFillingGbcTPS.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].pressures_count,
-                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.TABLE_PRESSURES_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_THROTTLES_32,
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsFillingGbcTPS.SetConfig("filling_gbc_tps", "rotates_count", "throttles_count", "rotates", "throttles");
+            eCorrsFillingGbcTPS.SetConfig("filling_gbc_tps", "rotates", "throttles");
             eCorrsFillingGbcTPS.SetX("RPM", "RPM", "F0");
             eCorrsFillingGbcTPS.SetY(string.Empty, "Correction", "F3");
             eCorrsFillingGbcTPS.SetD("ThrottlePosition", "Throttle", "F1");
@@ -750,11 +868,11 @@ namespace ECU_Manager
             
 
             eCorrsKnockCyNoiseLevelMult.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].cylinders_count,
-                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_16, Consts.ECU_CYLINDERS_COUNT, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.ECU_CYLINDERS_COUNT,
+                -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsKnockCyNoiseLevelMult.SetConfig("knock_cy_level_multiplier", "rotates_count", "cylinders_count", "rotates", "cylinders");
+            eCorrsKnockCyNoiseLevelMult.SetConfig("knock_cy_level_multiplier", "rotates", "cylinders");
             eCorrsKnockCyNoiseLevelMult.SetX("RPM", "RPM", "F0");
             eCorrsKnockCyNoiseLevelMult.SetY(string.Empty, "Correction", "F3");
             eCorrsKnockCyNoiseLevelMult.SetTableEventHandler(ChartCorrectionEvent);
@@ -766,10 +884,10 @@ namespace ECU_Manager
             //TODO:
             //eCorrIdleValvePos.Initialize(cs, Editor2DMode.CorrectionsTable,
             //    cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-            //    cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
+            //    Consts.TABLE_TEMPERATURES,
             //    -10.0D, 10.0D, 0.02D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, Consts.TABLE_ROTATES_MAX, Consts.TABLE_TEMPERATURES_MAX, 2);
 
-            //eCorrIdleValvePos.SetConfig("idle_valve_position", "rotates_count", "engine_temp_count", "rotates", "engine_temps");
+            //eCorrIdleValvePos.SetConfig("idle_valve_position", "rotates", "engine_temps");
             //eCorrIdleValvePos.SetX("RPM", "RPM", "F0");
             //eCorrIdleValvePos.SetY(string.Empty, "Correction", "F3");
             //eCorrIdleValvePos.SetD("EngineTemp", "Temperature", "F1");
@@ -790,11 +908,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.DeepSkyBlue, 4.0F);
 
             eCorrsIgnition.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eCorrsIgnition.SetConfig("ignitions", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnition.SetConfig("ignitions", "rotates", "fillings");
             eCorrsIgnition.SetX("RPM", "RPM", "F0");
             eCorrsIgnition.SetY(string.Empty, "Ignition Correction", "F2");
             eCorrsIgnition.SetD("CyclicAirFlow", "Filling", "F1");
@@ -806,11 +924,11 @@ namespace ECU_Manager
 
 
             eCorrsIgnitionCy1.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eCorrsIgnitionCy1.SetConfig("ignition_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy1.SetConfig("ignition_corr_cy1", "rotates", "fillings");
             eCorrsIgnitionCy1.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eCorrsIgnitionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -823,11 +941,11 @@ namespace ECU_Manager
 
 
             eCorrsIgnitionCy2.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
-        
-            eCorrsIgnitionCy2.SetConfig("ignition_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+
+            eCorrsIgnitionCy2.SetConfig("ignition_corr_cy2", "rotates", "fillings");
             eCorrsIgnitionCy2.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy2.SetY(string.Empty, "Ignition Corr.Cy2", "F2");
             eCorrsIgnitionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -840,11 +958,11 @@ namespace ECU_Manager
 
 
             eCorrsIgnitionCy3.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eCorrsIgnitionCy3.SetConfig("ignition_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy3.SetConfig("ignition_corr_cy3", "rotates", "fillings");
             eCorrsIgnitionCy3.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy3.SetY(string.Empty, "Ignition Corr.Cy3", "F2");
             eCorrsIgnitionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -857,11 +975,11 @@ namespace ECU_Manager
 
 
             eCorrsIgnitionCy4.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 2);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
 
-            eCorrsIgnitionCy4.SetConfig("ignition_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsIgnitionCy4.SetConfig("ignition_corr_cy4", "rotates", "fillings");
             eCorrsIgnitionCy4.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy4.SetY(string.Empty, "Ignition Corr.Cy4", "F2");
             eCorrsIgnitionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -880,11 +998,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 10.0F);
 
             eCorrsKnockDetonationCounter.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -10D, 99.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 1);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -10D, 99.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates", "fillings");
             eCorrsKnockDetonationCounter.SetX("RPM", "RPM", "F0");
             eCorrsKnockDetonationCounter.SetY(string.Empty, "DetonationCounter", "F1");
             eCorrsKnockDetonationCounter.SetD("CyclicAirFlow", "Filling", "F1");
@@ -908,11 +1026,11 @@ namespace ECU_Manager
             
 
             eCorrsInjectionCy1.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy1.SetConfig("injection_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy1.SetConfig("injection_corr_cy1", "rotates", "fillings");
             eCorrsInjectionCy1.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
             eCorrsInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -925,11 +1043,11 @@ namespace ECU_Manager
 
 
             eCorrsInjectionCy2.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy2.SetConfig("injection_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy2.SetConfig("injection_corr_cy2", "rotates", "fillings");
             eCorrsInjectionCy2.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
             eCorrsInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -942,11 +1060,11 @@ namespace ECU_Manager
 
 
             eCorrsInjectionCy3.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy3.SetConfig("injection_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy3.SetConfig("injection_corr_cy3", "rotates", "fillings");
             eCorrsInjectionCy3.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
             eCorrsInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -959,11 +1077,11 @@ namespace ECU_Manager
 
 
             eCorrsInjectionCy4.Initialize(cs, Editor2DMode.CorrectionsTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy4.SetConfig("injection_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eCorrsInjectionCy4.SetConfig("injection_corr_cy4", "rotates", "fillings");
             eCorrsInjectionCy4.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
             eCorrsInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -977,11 +1095,11 @@ namespace ECU_Manager
 
 
             eInjectionCy1.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy1.SetConfig("injection_corr_cy1", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy1.SetConfig("injection_corr_cy1", "rotates", "fillings");
             eInjectionCy1.SetX("RPM", "RPM", "F0");
             eInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
             eInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -993,11 +1111,11 @@ namespace ECU_Manager
 
 
             eInjectionCy2.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy2.SetConfig("injection_corr_cy2", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy2.SetConfig("injection_corr_cy2", "rotates", "fillings");
             eInjectionCy2.SetX("RPM", "RPM", "F0");
             eInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
             eInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1009,11 +1127,11 @@ namespace ECU_Manager
 
 
             eInjectionCy3.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy3.SetConfig("injection_corr_cy3", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy3.SetConfig("injection_corr_cy3", "rotates", "fillings");
             eInjectionCy3.SetX("RPM", "RPM", "F0");
             eInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
             eInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1025,11 +1143,11 @@ namespace ECU_Manager
 
 
             eInjectionCy4.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].rotates_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, Consts.TABLE_ROTATES_16, Consts.TABLE_FILLING_16, 3);
+                Consts.TABLE_ROTATES_32,
+                Consts.TABLE_FILLING_32,
+                -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy4.SetConfig("injection_corr_cy4", "rotates_count", "fillings_count", "rotates", "fillings");
+            eInjectionCy4.SetConfig("injection_corr_cy4", "rotates", "fillings");
             eInjectionCy4.SetX("RPM", "RPM", "F0");
             eInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
             eInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1051,11 +1169,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 0.3F);
 
             eAirTempMixCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
-                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_FILLING_16, Consts.TABLE_TEMPERATURES, 2);
+                Consts.TABLE_FILLING_16,
+                Consts.TABLE_TEMPERATURES,
+                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, 2);
 
-            eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
+            eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings", "air_temps");
             eAirTempMixCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
             eAirTempMixCorr.SetD("CalculatedAirTemp", "CalcdAirTemp", "F1");
@@ -1066,11 +1184,11 @@ namespace ECU_Manager
             eAirTempMixCorr.SynchronizeChart();
 
             eEngineTempMixCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
-                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_FILLING_16, Consts.TABLE_TEMPERATURES, 2);
+                Consts.TABLE_FILLING_16,
+                Consts.TABLE_TEMPERATURES,
+                -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, 2);
 
-            eEngineTempMixCorr.SetConfig("engine_temp_mix_corr", "fillings_count", "engine_temp_count", "fillings", "engine_temps");
+            eEngineTempMixCorr.SetConfig("engine_temp_mix_corr", "fillings", "engine_temps");
             eEngineTempMixCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
             eEngineTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
             eEngineTempMixCorr.SetD("EngineTemp", "EngineTemp", "F1");
@@ -1091,11 +1209,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.DarkRed, 1.0F);
 
             eAdvancedFanControl.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
-                -5.0D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, Consts.TABLE_SPEEDS, Consts.TABLE_TEMPERATURES, 2);
+                Consts.TABLE_SPEEDS,
+                Consts.TABLE_TEMPERATURES,
+                -5.0D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, 2);
 
-            eAdvancedFanControl.SetConfig("fan_advance_control", "idle_speeds_shift_count", "engine_temp_count", "idle_rpm_shift_speeds", "engine_temps");
+            eAdvancedFanControl.SetConfig("fan_advance_control", "idle_rpm_shift_speeds", "engine_temps");
             eAdvancedFanControl.SetX("Speed", "Speed", "F1");
             eAdvancedFanControl.SetY(string.Empty, "FanValue", "F2");
             eAdvancedFanControl.SetD("EngineTemp", "EngineTemp", "F1");
@@ -1117,11 +1235,11 @@ namespace ECU_Manager
             colorTransience.Add(Color.Black, 5.0F);
 
             eAirTempIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count,
-                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, Consts.TABLE_FILLING_16, Consts.TABLE_TEMPERATURES, 1);
+                Consts.TABLE_FILLING_16,
+                Consts.TABLE_TEMPERATURES,
+                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, 1);
 
-            eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings_count", "air_temp_count", "fillings", "air_temps");
+            eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings", "air_temps");
             eAirTempIgnCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
             eAirTempIgnCorr.SetD("CalculatedAirTemp", "CalcAirTemp", "F1");
@@ -1132,11 +1250,11 @@ namespace ECU_Manager
             eAirTempIgnCorr.SynchronizeChart();
 
             eEngineTempIgnCorr.Initialize(cs, Editor2DMode.EcuTable,
-                cs.ConfigStruct.tables[cs.CurrentTable].fillings_count,
-                cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count,
-                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, Consts.TABLE_FILLING_16, Consts.TABLE_TEMPERATURES, 1);
+                Consts.TABLE_FILLING_16,
+                Consts.TABLE_TEMPERATURES,
+                -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, 1);
 
-            eEngineTempIgnCorr.SetConfig("engine_temp_ign_corr", "fillings_count", "engine_temp_count", "fillings", "engine_temps");
+            eEngineTempIgnCorr.SetConfig("engine_temp_ign_corr", "fillings", "engine_temps");
             eEngineTempIgnCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
             eEngineTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
             eEngineTempIgnCorr.SetD("EngineTemp", "EngineTemp", "F1");
@@ -1147,179 +1265,247 @@ namespace ECU_Manager
             eEngineTempIgnCorr.SynchronizeChart();
 
 
-            eStartIgnition.Initialize(cs, -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
-            eStartIgnition.SetConfig("start_ignition", "engine_temp_count", "engine_temps");
+            eStartIgnition.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                -15D, 60D, 1D, 5D, 0D, 20D, 10D, 2D, 1);
+            eStartIgnition.SetConfig("start_ignition", "engine_temps");
             eStartIgnition.SetX("EngineTemp", "Temperature", "F0");
             eStartIgnition.SetY("IgnitionAdvance", "Ignition", "F0");
             eStartIgnition.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartIdleValvePos.Initialize(cs, 0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
-            eStartIdleValvePos.SetConfig("start_idle_valve_pos", "engine_temp_count", "engine_temps");
+            eStartIdleValvePos.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, Consts.IDLE_VALVE_POS_MAX, 1D, 20D, 20D, 80D, 10D, 5D, 1);
+            eStartIdleValvePos.SetConfig("start_idle_valve_pos", "engine_temps");
             eStartIdleValvePos.SetX("EngineTemp", "Temperature", "F1");
             eStartIdleValvePos.SetY("IdleValvePosition", "Valve", "F0");
             eStartIdleValvePos.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcStartupPositions.Initialize(cs, 0D, 50D, 0.2D, 2D, 0D, 20D, 10D, 2D, 1);
-            eEtcStartupPositions.SetConfig("start_throttle_position", "engine_temp_count", "engine_temps");
+            eEtcStartupPositions.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 50D, 0.2D, 2D, 0D, 20D, 10D, 2D, 1);
+            eEtcStartupPositions.SetConfig("start_throttle_position", "engine_temps");
             eEtcStartupPositions.SetX("EngineTemp", "Temperature", "F1");
             eEtcStartupPositions.SetY("ThrottlePosition", "Throttle", "F1");
             eEtcStartupPositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcStoppedPositions.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
-            eEtcStoppedPositions.SetConfig("stop_throttle_position", "pedals_count", "pedals");
+            eEtcStoppedPositions.Initialize(cs,
+                Consts.TABLE_PEDALS,
+                0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
+            eEtcStoppedPositions.SetConfig("stop_throttle_position", "pedals");
             eEtcStoppedPositions.SetX("PedalPosition", "Pedal", "F1");
             eEtcStoppedPositions.SetY(string.Empty, "Throttle", "F1");
             eEtcStoppedPositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcPositions1D.Initialize(cs, 0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
-            eEtcPositions1D.SetConfig("throttle_position_1d", "pedals_count", "pedals");
+            eEtcPositions1D.Initialize(cs,
+                Consts.TABLE_PEDALS,
+                0D, 100D, 0.3D, 10D, 0D, 100D, 10D, 10D, 1);
+            eEtcPositions1D.SetConfig("throttle_position_1d", "pedals");
             eEtcPositions1D.SetX("PedalPosition", "Pedal", "F1");
             eEtcPositions1D.SetY(string.Empty, "Throttle", "F1");
             eEtcPositions1D.SetTableEventHandler(ChartUpdateEvent);
 
-            eEtcIdlePositions.Initialize(cs, 0D, 50D, 0.2D, 1D, 0D, 10D, 10D, 1D, 1);
-            eEtcIdlePositions.SetConfig("idle_throttle_position", "engine_temp_count", "engine_temps");
+            eEtcIdlePositions.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 50D, 0.2D, 1D, 0D, 10D, 10D, 1D, 1);
+            eEtcIdlePositions.SetConfig("idle_throttle_position", "engine_temps");
             eEtcIdlePositions.SetX("EngineTemp", "Temperature", "F1");
             eEtcIdlePositions.SetY("ThrottlePosition", "Throttle", "F1");
             eEtcIdlePositions.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartAsyncInject.Initialize(cs, 0D, 500D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
-            eStartAsyncInject.SetConfig("start_async_filling", "engine_temp_count", "engine_temps");
+            eStartAsyncInject.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 500D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
+            eStartAsyncInject.SetConfig("start_async_filling", "engine_temps");
             eStartAsyncInject.SetX("EngineTemp", "Temperature", "F0");
             eStartAsyncInject.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartLargeInject.Initialize(cs, 0D, 400D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
-            eStartLargeInject.SetConfig("start_large_filling", "engine_temp_count", "engine_temps");
+            eStartLargeInject.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 400D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
+            eStartLargeInject.SetConfig("start_large_filling", "engine_temps");
             eStartLargeInject.SetX("EngineTemp", "Temperature", "F0");
             eStartLargeInject.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartSmallInject.Initialize(cs, 0D, 300D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
-            eStartSmallInject.SetConfig("start_small_filling", "engine_temp_count", "engine_temps");
+            eStartSmallInject.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 300D, 0.5D, 5D, 0D, 50D, 10D, 5D, 1);
+            eStartSmallInject.SetConfig("start_small_filling", "engine_temps");
             eStartSmallInject.SetX("EngineTemp", "Temperature", "F0");
             eStartSmallInject.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartFillingTime.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
-            eStartFillingTime.SetConfig("start_filling_time", "engine_temp_count", "engine_temps");
+            eStartFillingTime.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
+            eStartFillingTime.SetConfig("start_filling_time", "engine_temps");
             eStartFillingTime.SetX("EngineTemp", "Temperature", "F0");
             eStartFillingTime.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartInjPhase.Initialize(cs, 0D, 360D, 1D, 5D, 0D, 200D, 10D, 20D, 0);
-            eStartInjPhase.SetConfig("start_injection_phase", "engine_temp_count", "engine_temps");
+            eStartInjPhase.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 360D, 1D, 5D, 0D, 200D, 10D, 20D, 0);
+            eStartInjPhase.SetConfig("start_injection_phase", "engine_temps");
             eStartInjPhase.SetX("EngineTemp", "Temperature", "F0");
             eStartInjPhase.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartTpsCorrs.Initialize(cs, 0D, 1D, 0.01D, 0.05D, 0D, 1D, 10D, 0.1D, 2);
-            eStartTpsCorrs.SetConfig("start_tps_corrs", "throttles_count", "throttles");
+            eStartTpsCorrs.Initialize(cs,
+                Consts.TABLE_THROTTLES_16,
+                0D, 1D, 0.01D, 0.05D, 0D, 1D, 10D, 0.1D, 2);
+            eStartTpsCorrs.SetConfig("start_tps_corrs", "throttles");
             eStartTpsCorrs.SetX("ThrottlePosition", "TPS", "F1");
             eStartTpsCorrs.SetTableEventHandler(ChartUpdateEvent);
 
-            eIgnitionTimeByTPS.Initialize(cs, 0D, 10D, 0.01D, 0.1D, 0D, 1D, 10D, 0.1D, 2);
-            eIgnitionTimeByTPS.SetConfig("idle_ignition_time_by_tps", "throttles_count", "throttles");
+            eIgnitionTimeByTPS.Initialize(cs,
+                Consts.TABLE_THROTTLES_32,
+                0D, 10D, 0.01D, 0.1D, 0D, 1D, 10D, 0.1D, 2);
+            eIgnitionTimeByTPS.SetConfig("idle_ignition_time_by_tps", "throttles");
             eIgnitionTimeByTPS.SetX("ThrottlePosition", "TPS", "F1");
             eIgnitionTimeByTPS.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleEconDelay.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
-            eIdleEconDelay.SetConfig("idle_econ_delay", "throttles_count", "throttles");
+            eIdleEconDelay.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
+            eIdleEconDelay.SetConfig("idle_econ_delay", "throttles");
             eIdleEconDelay.SetX("EngineTemp", "Temperature", "F0");
             eIdleEconDelay.SetTableEventHandler(ChartUpdateEvent);
 
-            eStartEconDelay.Initialize(cs, 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
-            eStartEconDelay.SetConfig("start_econ_delay", "throttles_count", "throttles");
+            eStartEconDelay.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
+            eStartEconDelay.SetConfig("start_econ_delay", "throttles");
             eStartEconDelay.SetX("EngineTemp", "Temperature", "F0");
             eStartEconDelay.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleRegThr1.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
-            eIdleRegThr1.SetConfig("idle_rpm_pid_act_1", "engine_temp_count", "engine_temps");
+            eIdleRegThr1.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
+            eIdleRegThr1.SetConfig("idle_rpm_pid_act_1", "engine_temps");
             eIdleRegThr1.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr1.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleRegThr2.Initialize(cs, 0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
-            eIdleRegThr2.SetConfig("idle_rpm_pid_act_2", "engine_temp_count", "engine_temps");
+            eIdleRegThr2.Initialize(cs,
+                Consts.TABLE_TEMPERATURES,
+                0.02D, 2D, 0.001D, 0.05D, 0D, 1.0D, 10D, 0.1D, 3);
+            eIdleRegThr2.SetConfig("idle_rpm_pid_act_2", "engine_temps");
             eIdleRegThr2.SetX("EngineTemp", "Temperature", "F0");
             eIdleRegThr2.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveAirPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValveAirPidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidP.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveAirPidP.SetConfig("idle_valve_to_massair_pid_p", "idle_pids_rpm_koffs");
             eIdleValveAirPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveAirPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveAirPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValveAirPidI.SetConfig("idle_valve_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidI.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveAirPidI.SetConfig("idle_valve_to_massair_pid_i", "idle_pids_rpm_koffs");
             eIdleValveAirPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveAirPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveAirPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleValveAirPidD.SetConfig("idle_valve_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveAirPidD.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleValveAirPidD.SetConfig("idle_valve_to_massair_pid_d", "idle_pids_rpm_koffs");
             eIdleValveAirPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveAirPidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveRpmPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValveRpmPidP.SetConfig("idle_valve_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidP.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveRpmPidP.SetConfig("idle_valve_to_rpm_pid_p", "idle_pids_rpm_koffs");
             eIdleValveRpmPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveRpmPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveRpmPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleValveRpmPidI.SetConfig("idle_valve_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidI.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleValveRpmPidI.SetConfig("idle_valve_to_rpm_pid_i", "idle_pids_rpm_koffs");
             eIdleValveRpmPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveRpmPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleValveRpmPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleValveRpmPidD.SetConfig("idle_valve_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleValveRpmPidD.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleValveRpmPidD.SetConfig("idle_valve_to_rpm_pid_d", "idle_pids_rpm_koffs");
             eIdleValveRpmPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleValveRpmPidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleAirPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleThrottleAirPidP.SetConfig("idle_throttle_to_massair_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidP.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleAirPidP.SetConfig("idle_throttle_to_massair_pid_p", "idle_pids_rpm_koffs");
             eIdleThrottleAirPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleAirPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleAirPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleThrottleAirPidI.SetConfig("idle_throttle_to_massair_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidI.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleAirPidI.SetConfig("idle_throttle_to_massair_pid_i", "idle_pids_rpm_koffs");
             eIdleThrottleAirPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleAirPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleAirPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleThrottleAirPidD.SetConfig("idle_throttle_to_massair_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleAirPidD.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleThrottleAirPidD.SetConfig("idle_throttle_to_massair_pid_d", "idle_pids_rpm_koffs");
             eIdleThrottleAirPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleAirPidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleRpmPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleThrottleRpmPidP.SetConfig("idle_throttle_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidP.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleRpmPidP.SetConfig("idle_throttle_to_rpm_pid_p", "idle_pids_rpm_koffs");
             eIdleThrottleRpmPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleRpmPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleRpmPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleThrottleRpmPidI.SetConfig("idle_throttle_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidI.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleThrottleRpmPidI.SetConfig("idle_throttle_to_rpm_pid_i", "idle_pids_rpm_koffs");
             eIdleThrottleRpmPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleRpmPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleThrottleRpmPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleThrottleRpmPidD.SetConfig("idle_throttle_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleThrottleRpmPidD.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleThrottleRpmPidD.SetConfig("idle_throttle_to_rpm_pid_d", "idle_pids_rpm_koffs");
             eIdleThrottleRpmPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleThrottleRpmPidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidP.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidP.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleIgnPidP.SetConfig("idle_ign_to_rpm_pid_p", "idle_pids_rpm_koffs");
             eIdleIgnPidP.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidP.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidI.Initialize(cs, -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
-            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidI.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.001D, 0.01D, 0D, 1.0D, 0.05D, 0.2D, 3);
+            eIdleIgnPidI.SetConfig("idle_ign_to_rpm_pid_i", "idle_pids_rpm_koffs");
             eIdleIgnPidI.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidI.SetTableEventHandler(ChartUpdateEvent);
 
-            eIdleIgnPidD.Initialize(cs, -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
-            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_pids_rpm_koffs_count", "idle_pids_rpm_koffs");
+            eIdleIgnPidD.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                -10D, 10D, 0.0001D, 0.01D, 0D, 0.1D, 0.05D, 0.01D, 4);
+            eIdleIgnPidD.SetConfig("idle_ign_to_rpm_pid_d", "idle_pids_rpm_koffs");
             eIdleIgnPidD.SetX("IdleWishToRpmRelation", "RPM koff", "F2");
             eIdleIgnPidD.SetTableEventHandler(ChartUpdateEvent);
 
-            eTspsRelativePosition.Initialize(cs, -175D, 175D, 0.1D, 2D, -120D, -110D, 500, 1D, 1);
-            eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates_count", "rotates");
+            eTspsRelativePosition.Initialize(cs,
+                Consts.TABLE_ROTATES_32,
+                -175D, 175D, 0.1D, 2D, -120D, -110D, 500, 1D, 1);
+            eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates");
             eTspsRelativePosition.SetX("RPM", "RPM", "F0");
             eTspsRelativePosition.SetTableEventHandler(ChartUpdateEvent);
 
-            eTspsDesyncThr.Initialize(cs, 0.1D, 100D, 0.1D, 0.1D, 0D, 5D, 500, 0.1D, 1);
-            eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates_count", "rotates");
+            eTspsDesyncThr.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0.1D, 100D, 0.1D, 0.1D, 0D, 5D, 500, 0.1D, 1);
+            eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates");
             eTspsDesyncThr.SetX("RPM", "RPM", "F0");
             eTspsDesyncThr.SetTableEventHandler(ChartUpdateEvent);
 
@@ -1333,13 +1519,21 @@ namespace ECU_Manager
             index = treeView.Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl1, tabPage3), Text = "Table setup" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage8), Text = "Parameters" });
             subindex1 = treeView.Nodes[index].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl111, tabPage4), Text = "Basic setup" });
-            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage11), Text = "Pressures" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage7), Text = "Rotates" });
-            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage92), Text = "Idle rotates" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl24, tabPage155), Text = "16" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl24, tabPage156), Text = "32" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage11), Text = "Pressures" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl23, tabPage74), Text = "16" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl23, tabPage154), Text = "32" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage13), Text = "Throttles" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl25, tabPage157), Text = "16" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl25, tabPage158), Text = "32" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage15), Text = "Fillings" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl26, tabPage159), Text = "16" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl26, tabPage160), Text = "32" });
+            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage92), Text = "Idle rotates" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage52), Text = "Pedals" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage14), Text = "Voltages" });
-            subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage15), Text = "Fillings" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage42), Text = "Speeds" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage16), Text = "Engine temperatures" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl3, tabPage55), Text = "Air temperatures" });
@@ -1379,7 +1573,6 @@ namespace ECU_Manager
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage126), Text = "Cylinder 2" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage127), Text = "Cylinder 3" });
             subindex4 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes[subindex3].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl19, tabPage128), Text = "Cylinder 4" });
-            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage74), Text = "Injection phase LPF" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage35), Text = "Injector lag" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage56), Text = "Correction by Air Temperature" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl7, tabPage106), Text = "Correction by Engine Temperature" });
@@ -1543,7 +1736,6 @@ namespace ECU_Manager
             eIgnitionFull.UpdateChart();
             eSatByRPM.UpdateChart();
             eInjectorLag.UpdateChart();
-            eInjectionPhaseLPF.UpdateChart();
             eDynamicFilmFillCorr.UpdateChart();
             eDynamicFilmTempCorr.UpdateChart();
             eDynamicFilmLpf.UpdateChart();
@@ -1569,14 +1761,14 @@ namespace ECU_Manager
             eInjectionCy3.UpdateChart();
             eInjectionCy4.UpdateChart();
 
-            ePressures.UpdateChart();
-            eRotates.UpdateChart();
+            ePressures16.UpdateChart();
+            eRotates16.UpdateChart();
             eIdleRotates.UpdateChart();
-            eThrottles.UpdateChart();
+            eThrottles16.UpdateChart();
             eEngTemps.UpdateChart();
             eAirTemps.UpdateChart();
             ePedals.UpdateChart();
-            eFillings.UpdateChart();
+            eFillings16.UpdateChart();
             eSpeeds.UpdateChart();
             eVoltages.UpdateChart();
 
@@ -2076,34 +2268,9 @@ namespace ECU_Manager
             cbParamsIsPpAsyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_async_enabled > 0;
             cbParamsIsPpSyncEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_sync_enabled > 0;
             cbParamsIsPpPostEnrichmentEnabled.Checked = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_pp_post_injection_enabled > 0;
-            nudParamsCntPressures.Maximum = Consts.TABLE_PRESSURES_16;
-            nudParamsCntRPMs.Maximum = Consts.TABLE_ROTATES_16;
-            nudParamsCntIdleRPMs.Maximum = Consts.TABLE_ROTATES_16;
-            nudParamsCntThrottles.Maximum = Consts.TABLE_THROTTLES_16;
-            nudParamsCntPedals.Maximum = Consts.TABLE_PEDALS;
-            nudParamsCntVoltages.Maximum = Consts.TABLE_VOLTAGES;
-            nudParamsCntFillings.Maximum = Consts.TABLE_FILLING_16;
-            nudParamsCntEngineTemps.Maximum = Consts.TABLE_TEMPERATURES;
-            nudParamsCntAirTemps.Maximum = Consts.TABLE_TEMPERATURES;
-            nudParamsCntSpeeds.Maximum = Consts.TABLE_SPEEDS;
             nudParamsIdleValveMin.Maximum = Consts.IDLE_VALVE_POS_MAX;
             nudParamsIdleValveMax.Maximum = Consts.IDLE_VALVE_POS_MAX;
-            nudParamsCntEnrichmentStartLoad.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS;
-            nudParamsCntEnrichmentLoadDerivative.Maximum = Consts.TABLE_ENRICHMENT_PERCENTS;
-
-            nudParamsCntPressures.Value = cs.ConfigStruct.tables[cs.CurrentTable].pressures_count;
-            nudParamsCntRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].rotates_count;
-            nudParamsCntIdleRPMs.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count;
-            nudParamsCntThrottles.Value = cs.ConfigStruct.tables[cs.CurrentTable].throttles_count;
-            nudParamsCntPedals.Value = cs.ConfigStruct.tables[cs.CurrentTable].pedals_count;
-            nudParamsCntVoltages.Value = cs.ConfigStruct.tables[cs.CurrentTable].voltages_count;
-            nudParamsCntFillings.Value = cs.ConfigStruct.tables[cs.CurrentTable].fillings_count;
-            nudParamsCntEngineTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count;
-            nudParamsCntAirTemps.Value = cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count;
-            nudParamsCntSpeeds.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count;
-            nudParamsCntEnrichmentStartLoad.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count;
-            nudParamsCntEnrichmentLoadDerivative.Value = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count;
-
+            
             nudParamsIdleValveMin.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_min;
             nudParamsIdleValveMax.Value = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_pos_max;
             nudParamsIdleThrottleMin.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].idle_throttle_pos_min;
@@ -3599,137 +3766,6 @@ namespace ECU_Manager
             }
         }
 
-        private void nudParamsCntPress_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].pressures_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].pressures_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].pressures[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].pressures[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].pressures[i] + 0.01f;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntRPMs_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].rotates_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].rotates_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].rotates[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].rotates[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].rotates[i] + 100;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntIdleRPMs_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rotates[i] + 5;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntThrottles_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].throttles_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].throttles_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].throttles[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].throttles[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].throttles[i] + 2;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntPedals_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].pedals_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].pedals_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].pedals[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].pedals[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].pedals[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].pedals[i] + 2;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntVoltages_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].voltages_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].voltages_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].voltages[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].voltages[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].voltages[i] + 1;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntFillings_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].fillings_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].fillings_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].fillings[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].fillings[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].fillings[i] + 2;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntEngineTemps_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].engine_temp_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].engine_temps[i] + 1;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntSpeeds_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].idle_speeds_shift_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].idle_rpm_shift_speeds[i] + 2;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntAirTemps_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].air_temp_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].air_temps[i] + 1;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-        
-
         private void nudParamsPidShortCorrP_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].short_term_corr_pid_p = (float)((NumericUpDown)sender).Value;
@@ -3932,8 +3968,8 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Filling by MAP?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_map;
-                float[] corrs2d = cs.ConfigStruct.corrections.filling_gbc_map;
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_map, cs.ConfigStruct.tables[cs.CurrentTable].transform.filling_gbc_map);
+                float[] corrs2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.filling_gbc_map, cs.ConfigStruct.corrections.transform.filling_gbc_map);
                 int size = array2d.Length;
 
                 for (int i = 0; i < size; i++)
@@ -3942,6 +3978,8 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_map, cs.ConfigStruct.tables[cs.CurrentTable].transform.filling_gbc_map);
+                EcuConfigTransform.ToInteger(corrs2d, cs.ConfigStruct.corrections.filling_gbc_map, cs.ConfigStruct.corrections.transform.filling_gbc_map);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -3952,8 +3990,8 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Filling by TPS?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_tps;
-                float[] corrs2d = cs.ConfigStruct.corrections.filling_gbc_tps;
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_tps, cs.ConfigStruct.tables[cs.CurrentTable].transform.filling_gbc_tps);
+                float[] corrs2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.filling_gbc_tps, cs.ConfigStruct.corrections.transform.filling_gbc_tps);
                 int size = array2d.Length;
 
                 for (int i = 0; i < size; i++)
@@ -3962,6 +4000,8 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].filling_gbc_tps, cs.ConfigStruct.tables[cs.CurrentTable].transform.filling_gbc_tps);
+                EcuConfigTransform.ToInteger(corrs2d, cs.ConfigStruct.corrections.filling_gbc_tps, cs.ConfigStruct.corrections.transform.filling_gbc_tps);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -3972,8 +4012,8 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Idle Valve to RPM?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_position;
-                float[] corrs2d = cs.ConfigStruct.corrections.idle_valve_position;
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_position, cs.ConfigStruct.tables[cs.CurrentTable].transform.idle_valve_position);
+                float[] corrs2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.idle_valve_position, cs.ConfigStruct.corrections.transform.idle_valve_position);
                 int size = array2d.Length;
 
                 for (int i = 0; i < size; i++)
@@ -3982,6 +4022,8 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].idle_valve_position, cs.ConfigStruct.tables[cs.CurrentTable].transform.idle_valve_position);
+                EcuConfigTransform.ToInteger(corrs2d, cs.ConfigStruct.corrections.idle_valve_position, cs.ConfigStruct.corrections.transform.idle_valve_position);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -3992,8 +4034,8 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Ignitions?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
-                float[] corrs2d = cs.ConfigStruct.corrections.ignitions;
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignitions, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignitions);
+                float[] corrs2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.ignitions, cs.ConfigStruct.corrections.transform.ignitions);
                 float[][] array3d = new float[Consts.ECU_CYLINDERS_COUNT][];
                 float[][] corrs3d = new float[Consts.ECU_CYLINDERS_COUNT][];
                 int size = array2d.Length;
@@ -4004,15 +4046,15 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
-                array3d[0] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1;
-                array3d[1] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2;
-                array3d[2] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3;
-                array3d[3] = cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4;
+                array3d[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                array3d[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                array3d[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                array3d[3] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
 
-                corrs3d[0] = cs.ConfigStruct.corrections.ignition_corr_cy1;
-                corrs3d[1] = cs.ConfigStruct.corrections.ignition_corr_cy2;
-                corrs3d[2] = cs.ConfigStruct.corrections.ignition_corr_cy3;
-                corrs3d[3] = cs.ConfigStruct.corrections.ignition_corr_cy4;
+                corrs3d[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.ignition_corr_cy1, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                corrs3d[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.ignition_corr_cy2, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                corrs3d[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.ignition_corr_cy3, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                corrs3d[3] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.ignition_corr_cy4, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
 
                 for (int c = 0; c < Consts.ECU_CYLINDERS_COUNT; c++)
                 {
@@ -4027,6 +4069,15 @@ namespace ECU_Manager
                     }
                 }
 
+                EcuConfigTransform.ToInteger(array3d[0], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[1], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[2], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[3], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+
+                EcuConfigTransform.ToInteger(corrs3d[0], cs.ConfigStruct.corrections.ignition_corr_cy1, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[1], cs.ConfigStruct.corrections.ignition_corr_cy2, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[2], cs.ConfigStruct.corrections.ignition_corr_cy3, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[3], cs.ConfigStruct.corrections.ignition_corr_cy4, cs.ConfigStruct.corrections.transform.ignition_corr_cy);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -4042,17 +4093,16 @@ namespace ECU_Manager
                 float[][] array3d = new float[Consts.ECU_CYLINDERS_COUNT][];
                 float[][] corrs3d = new float[Consts.ECU_CYLINDERS_COUNT][];
                 int size;
+                
+                array3d[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                array3d[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                array3d[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                array3d[3] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
 
-
-                array3d[0] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy1;
-                array3d[1] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy2;
-                array3d[2] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy3;
-                array3d[3] = cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy4;
-
-                corrs3d[0] = cs.ConfigStruct.corrections.injection_corr_cy1;
-                corrs3d[1] = cs.ConfigStruct.corrections.injection_corr_cy2;
-                corrs3d[2] = cs.ConfigStruct.corrections.injection_corr_cy3;
-                corrs3d[3] = cs.ConfigStruct.corrections.injection_corr_cy4;
+                corrs3d[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.injection_corr_cy1, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                corrs3d[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.injection_corr_cy2, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                corrs3d[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.injection_corr_cy3, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                corrs3d[3] = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.injection_corr_cy4, cs.ConfigStruct.corrections.transform.injection_corr_cy);
 
                 for (int c = 0; c < Consts.ECU_CYLINDERS_COUNT; c++)
                 {
@@ -4067,6 +4117,16 @@ namespace ECU_Manager
                     }
                 }
 
+
+                EcuConfigTransform.ToInteger(array3d[0], cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[1], cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[2], cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(array3d[3], cs.ConfigStruct.tables[cs.CurrentTable].injection_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.injection_corr_cy);
+
+                EcuConfigTransform.ToInteger(corrs3d[0], cs.ConfigStruct.corrections.injection_corr_cy1, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[1], cs.ConfigStruct.corrections.injection_corr_cy2, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[2], cs.ConfigStruct.corrections.injection_corr_cy3, cs.ConfigStruct.corrections.transform.injection_corr_cy);
+                EcuConfigTransform.ToInteger(corrs3d[3], cs.ConfigStruct.corrections.injection_corr_cy4, cs.ConfigStruct.corrections.transform.injection_corr_cy);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -4076,8 +4136,8 @@ namespace ECU_Manager
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to append Knock Noise Level?", "Engine Control Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].knock_cy_level_multiplier;
-                float[] corrs2d = cs.ConfigStruct.corrections.knock_cy_level_multiplier;
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].knock_cy_level_multiplier, cs.ConfigStruct.tables[cs.CurrentTable].transform.knock_cy_level_multiplier);
+                float[] corrs2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.corrections.knock_cy_level_multiplier, cs.ConfigStruct.corrections.transform.knock_cy_level_multiplier);
                 int size = array2d.Length;
 
                 for (int i = 0; i < size; i++)
@@ -4086,6 +4146,8 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].knock_cy_level_multiplier, cs.ConfigStruct.tables[cs.CurrentTable].transform.knock_cy_level_multiplier);
+                EcuConfigTransform.ToInteger(corrs2d, cs.ConfigStruct.corrections.knock_cy_level_multiplier, cs.ConfigStruct.corrections.transform.knock_cy_level_multiplier);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -4097,9 +4159,14 @@ namespace ECU_Manager
             if (dialogResult == DialogResult.Yes)
             {
                 bool[] cy_append = new bool[] { cbIgnAppendCy1.Checked, cbIgnAppendCy2.Checked, cbIgnAppendCy3.Checked, cbIgnAppendCy4.Checked };
-                float[][] cy_tables = new float[][] { cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4 };
+                float[][] cy_tables = new float[4][];
 
-                float[] array2d = cs.ConfigStruct.tables[cs.CurrentTable].ignitions;
+                cy_tables[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                cy_tables[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                cy_tables[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                cy_tables[3] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+
+                float[] array2d = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignitions, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignitions);
                 float[] mid2d = new float[array2d.Length];
 
                 for (int i = 0; i < mid2d.Length; i++)
@@ -4116,6 +4183,12 @@ namespace ECU_Manager
                     array2d[i] += mid2d[i];
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].ignitions, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignitions);
+
+                EcuConfigTransform.ToInteger(cy_tables[0], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(cy_tables[1], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(cy_tables[2], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
+                EcuConfigTransform.ToInteger(cy_tables[3], cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy4, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
                 middleLayer?.SyncSave(false);
                 UpdateCharts();
             }
@@ -4207,32 +4280,6 @@ namespace ECU_Manager
                 {
                     middleLayer.UpdateTable(cs.CurrentTable);
                 }
-            }
-        }
-
-        private void nudParamsCntEnrichmentStartLoad_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_start_load[i] + 1;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
-            }
-        }
-
-        private void nudParamsCntEnrichmentLoadDerivative_ValueChanged(object sender, EventArgs e)
-        {
-            cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count = (int)((NumericUpDown)sender).Value;
-            for (int i = 0; i < cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative_count - 1; i++)
-                if (cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i + 1] <= cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i])
-                    cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i + 1] = cs.ConfigStruct.tables[cs.CurrentTable].enrichment_rate_load_derivative[i] + 10;
-            UpdateEcuTableValues();
-            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
-            {
-                middleLayer.UpdateTable(cs.CurrentTable);
             }
         }
 

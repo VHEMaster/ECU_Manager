@@ -14,5 +14,10 @@ namespace ECU_Framework.Structs
     {
         public float gain;
         public float offset;
+        public EcuParamTransform(float gain, float offset)
+        {
+            this.gain = gain;
+            this.offset = offset;
+        }
     }
 }

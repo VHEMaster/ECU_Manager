@@ -472,11 +472,11 @@ namespace ECU_Framework.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("cy_corr_injection")]
         [XmlArrayItem("corr")]
-        public sbyte[] cy_corr_injection;
+        public float[] cy_corr_injection;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.ECU_CYLINDERS_COUNT)]
         [XmlArray("cy_corr_ignition")]
         [XmlArrayItem("corr")]
-        public sbyte[] cy_corr_ignition;
+        public float[] cy_corr_ignition;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_32)]
         [XmlArray("tsps_relative_pos")]
@@ -526,7 +526,7 @@ namespace ECU_Framework.Structs
         public byte[] pedal_ignition_control;
 
         public int throttle_position_use_1d;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_PEDALS)]
         [XmlArray("throttle_position_1d")]
         [XmlArrayItem("throttle")]
         public ushort[] throttle_position_1d;
@@ -572,7 +572,7 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("value")]
         public byte[] dynamic_fuel_corr_lpf;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1306)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1304)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
