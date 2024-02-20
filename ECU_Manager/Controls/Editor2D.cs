@@ -237,6 +237,8 @@ namespace ECU_Manager.Controls
 
         public void ClearTable()
         {
+            Array arraydef = null;
+            EcuParamTransform transform = default(EcuParamTransform);
             byte[] arraycalib = null;
             float[] array2d = null;
 
@@ -262,8 +264,8 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
@@ -273,8 +275,8 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
@@ -296,6 +298,7 @@ namespace ECU_Manager.Controls
                         {
                             array2d[i] = 0;
                         }
+                        EcuConfigTransform.ToInteger(array2d, arraydef, transform);
                     }
                 }
 
@@ -800,8 +803,10 @@ namespace ECU_Manager.Controls
         {
             if (valueChangedEnabled)
             {
+                EcuParamTransform transform = default(EcuParamTransform);
+                Array arraydef = null;
                 int index = e.Index;
-                float value;
+                float value = e.Value;
                 int x = index % iArraySizeX;
                 int y = index / iArraySizeX;
                 //Color text = Color.Black;
@@ -823,8 +828,8 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
@@ -834,8 +839,8 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
@@ -847,9 +852,9 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                        depx = EcuConfigTransform.FromInteger(arraydef, transform);
+                        EcuParamTransform transform1 = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef1 = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depx = EcuConfigTransform.FromInteger(arraydef1, transform1);
                     }
                 }
 
@@ -859,13 +864,13 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepY);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                        depy = EcuConfigTransform.FromInteger(arraydef, transform);
+                        EcuParamTransform transform1 = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        Array arraydef1 = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        depy = EcuConfigTransform.FromInteger(arraydef1, transform1);
                     }
                 }
 
-                value = array2d[index];
+                EcuConfigTransform.SingleToInteger(arraydef, transform, index, value);
 
                 if (chart2DChart.Series.Count > y && chart2DChart.Series[y].Points.Count > x)
                 {
@@ -931,6 +936,8 @@ namespace ECU_Manager.Controls
         private void btnInterpolate_Click(object sender, EventArgs e)
         {
             float[] array2d = null;
+            Array arraydef = null;
+            EcuParamTransform transform = default(EcuParamTransform);
             float[] new2d = null;
             byte[] arraycalib = null;
             double koff = (double)nudInterpolationKoff.Value;
@@ -950,8 +957,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -961,8 +968,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1047,6 +1054,7 @@ namespace ECU_Manager.Controls
                         }
                     }
                     new2d.CopyTo(array2d, 0);
+                    EcuConfigTransform.ToInteger(new2d, arraydef, transform);
                 }
 
             }
@@ -1121,6 +1129,8 @@ namespace ECU_Manager.Controls
 
         private void btnImport2DChart_Click(object sender, EventArgs e)
         {
+            EcuParamTransform transform = default(EcuParamTransform);
+            Array arraydef = null;
             float[] array2d = null;
             float[][] array;
             int index;
@@ -1138,8 +1148,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1149,8 +1159,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1178,7 +1188,8 @@ namespace ECU_Manager.Controls
                                 array2d[index] = array[y][x];
                             }
                         }
-
+                        
+                        EcuConfigTransform.ToInteger(array2d, arraydef, transform);
                         valueChangedEnabled = false;
                         imageTable1.RedrawTable();
                         valueChangedEnabled = true;
@@ -1261,6 +1272,8 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromCCode_Click(object sender, EventArgs e)
         {
+            EcuParamTransform transform = default(EcuParamTransform);
+            Array arraydef = null;
             float[] array2d = null;
             float[] array_initial = null;
             int index_array;
@@ -1279,8 +1292,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1290,8 +1303,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1331,7 +1344,10 @@ namespace ECU_Manager.Controls
                             array2d[index_array] = output[index_output];
                         }
                     }
+
+                    EcuConfigTransform.ToInteger(array2d, arraydef, transform);
                     this.UpdateChart();
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }
             }
         }
@@ -1398,6 +1414,8 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromText_Click(object sender, EventArgs e)
         {
+            EcuParamTransform transform = default(EcuParamTransform);
+            Array arraydef = null;
             float[] array2d = null;
             float[] array_initial = null;
             int index_array;
@@ -1416,8 +1434,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1427,8 +1445,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                        transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                        arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                         array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -1468,6 +1486,7 @@ namespace ECU_Manager.Controls
                             array2d[index_array] = output[index_output];
                         }
                     }
+                    EcuConfigTransform.ToInteger(array2d, arraydef, transform);
                     this.UpdateChart();
                     UpdateTableEvent?.Invoke(sender, new EventArgs());
                 }

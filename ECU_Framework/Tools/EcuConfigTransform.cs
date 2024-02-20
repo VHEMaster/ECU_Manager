@@ -26,7 +26,7 @@ namespace ECU_Framework.Tools
 
             float min = GetMinValue(output.GetType().GetElementType());
             float max = GetMaxValue(output.GetType().GetElementType());
-           
+
             for (int i = 0; i < output.Length; i++)
             {
                 value = (Convert.ToSingle(input.GetValue(i)) - transform.offset) / transform.gain;
@@ -38,6 +38,20 @@ namespace ECU_Framework.Tools
 
                 output.SetValue(Convert.ChangeType(value, output.GetType().GetElementType()), i);
             }
+        }
+        public static void SingleToInteger(Array output, EcuParamTransform transform, int index, float value)
+        {
+            float min = GetMinValue(output.GetType().GetElementType());
+            float max = GetMaxValue(output.GetType().GetElementType());
+            
+            value = (value - transform.offset) / transform.gain;
+
+            if (value > max)
+                value = max;
+            else if (value < min)
+                value = min;
+
+            output.SetValue(Convert.ChangeType(value, output.GetType().GetElementType()), index);
         }
         private static float GetMinValue(Type type)
         {

@@ -1763,12 +1763,16 @@ namespace ECU_Manager
 
             ePressures16.UpdateChart();
             eRotates16.UpdateChart();
+            ePressures32.UpdateChart();
+            eRotates32.UpdateChart();
             eIdleRotates.UpdateChart();
             eThrottles16.UpdateChart();
+            eThrottles32.UpdateChart();
             eEngTemps.UpdateChart();
             eAirTemps.UpdateChart();
             ePedals.UpdateChart();
             eFillings16.UpdateChart();
+            eFillings32.UpdateChart();
             eSpeeds.UpdateChart();
             eVoltages.UpdateChart();
 

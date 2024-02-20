@@ -102,7 +102,7 @@ namespace ECU_Manager.Controls
                 {
                     this.Array[index] = value;
                     this.RedrawTable();
-                    UpdateTableEvent?.Invoke(sender, new ImageTableEventArg() { Index = index });
+                    UpdateTableEvent?.Invoke(sender, new ImageTableEventArg() { Index = index, Value = value });
 
                     if(this.TextBox != null)
                     {
@@ -206,7 +206,7 @@ namespace ECU_Manager.Controls
                         this.TextBox.BackColor = colorTransience.Get(colorvalue);
                         this.Array[index] = value;
                         this.RedrawTable();
-                        UpdateTableEvent?.Invoke(sender, new ImageTableEventArg() { Index = index });
+                        UpdateTableEvent?.Invoke(sender, new ImageTableEventArg() { Index = index, Value = value });
                     }
                     
                 }
