@@ -288,18 +288,22 @@ namespace ECU_Manager.Controls
                 this.TextSizes = new SizeF[this.ArraySizeX * this.ArraySizeY];
             }
 
+            float fontSizeX = bitmap.Width / (this.SizeX + 1) / 4.0F;
+            float fontSizeY = bitmap.Height / (this.SizeY + 1) / 2.0F;
+
+            Font font = new Font(this.Font.FontFamily, fontSizeX < fontSizeY ? fontSizeX : fontSizeY);
             //g.DrawRectangle(forePen, 0, 0, this.Width - 1, this.Height - 1);
 
             for (int x = 0; x < this.SizeX; x++)
             {
-                captionX = g.MeasureString(this.ColumnTitles[x], this.Font);
+                captionX = g.MeasureString(this.ColumnTitles[x], font);
                 if (captionX.Width >= captionXmax.Width && captionX.Height >= captionXmax.Height)
                     captionXmax = captionX;
             }
 
             for (int y = 0; y < this.SizeY; y++)
             {
-                captionY = g.MeasureString(this.RowTitles[y], this.Font);
+                captionY = g.MeasureString(this.RowTitles[y], font);
                 if (captionY.Width >= captionYmax.Width && captionY.Height >= captionYmax.Height)
                     captionYmax = captionY;
             }
@@ -308,18 +312,19 @@ namespace ECU_Manager.Controls
             sizeY = (float)(bitmap.Height - captionXmax.Height) / (float)this.SizeY;
             sizeX2 = sizeX * 0.5F;
             sizeY2 = sizeY * 0.5F;
+
             for (int x = 0; x < this.SizeX; x++)
             {
                 pointX = captionYmax.Width + sizeX * x + sizeX2;
                 pointY = captionXmax.Height * 0.5F;
-                g.DrawString(this.ColumnTitles[x], this.Font, foreBrush, pointX, pointY, strFormat);
+                g.DrawString(this.ColumnTitles[x], font, foreBrush, pointX, pointY, strFormat);
             }
 
             for (int y = 0; y < this.SizeY; y++)
             {
                 pointX = 0;
                 pointY = captionXmax.Height + sizeY * y + sizeY2;
-                g.DrawString(this.RowTitles[y], this.Font, foreBrush, pointX, pointY, strFormatLeft);
+                g.DrawString(this.RowTitles[y], font, foreBrush, pointX, pointY, strFormatLeft);
             }
 
 
@@ -372,8 +377,6 @@ namespace ECU_Manager.Controls
             {
                 for (int x = -1; x < this.SizeX; x++)
                 {
-                    sizeX = (float)(bitmap.Width - captionYmax.Width) / (float)this.SizeX;
-                    sizeY = (float)(bitmap.Height - captionXmax.Height) / (float)this.SizeY;
                     sizeX2 = sizeX * 0.5F;
                     sizeY2 = sizeY * 0.5F;
                     pointX = sizeX * x;
@@ -391,7 +394,9 @@ namespace ECU_Manager.Controls
                         if (this.UseCalibrationColorTransience)
                             colorvalue = this.ArrayCalib[index] / 255.0f;
                         backBrush.Color = colorTransience.Get(colorvalue);
-                        Font font = this.Font;
+
+                        if (font.Style != FontStyle.Regular)
+                            font = new Font(font, FontStyle.Regular);
 
                         if (this.ValueInterpolationX != null && this.ValueInterpolationY != null)
                         {
@@ -419,11 +424,6 @@ namespace ECU_Manager.Controls
                                         {
                                             if (font.Style != FontStyle.Bold)
                                                 font = new Font(font, FontStyle.Bold);
-                                        }
-                                        else
-                                        {
-                                            if (font.Style != FontStyle.Regular)
-                                                font = new Font(font, FontStyle.Regular);
                                         }
                                     }
                                 }

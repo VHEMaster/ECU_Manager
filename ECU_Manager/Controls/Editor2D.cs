@@ -251,10 +251,15 @@ namespace ECU_Manager.Controls
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
                 {
+                    string transformName = sArrayName;
+                    for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                    {
+                        transformName = transformName.Replace($"cy{i}", "cy");
+                    }
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -265,7 +270,7 @@ namespace ECU_Manager.Controls
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -349,10 +354,15 @@ namespace ECU_Manager.Controls
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
                 {
+                    string transformName = sArrayName;
+                    for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                    {
+                        transformName = transformName.Replace($"cy{i}", "cy");
+                    }
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -363,7 +373,7 @@ namespace ECU_Manager.Controls
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -590,10 +600,15 @@ namespace ECU_Manager.Controls
            
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for(int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -604,7 +619,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -797,10 +812,15 @@ namespace ECU_Manager.Controls
 
                 if (!string.IsNullOrWhiteSpace(sArrayName))
                 {
+                    string transformName = sArrayName;
+                    for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                    {
+                        transformName = transformName.Replace($"cy{i}", "cy");
+                    }
                     if (eMode == Editor2DMode.EcuTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -811,7 +831,7 @@ namespace ECU_Manager.Controls
                     else if (eMode == Editor2DMode.CorrectionsTable)
                     {
                         FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                        FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
                             EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -919,10 +939,15 @@ namespace ECU_Manager.Controls
             
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -933,7 +958,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1044,10 +1069,15 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1058,7 +1088,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1097,10 +1127,15 @@ namespace ECU_Manager.Controls
             
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1111,7 +1146,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1168,10 +1203,15 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1182,7 +1222,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1228,10 +1268,15 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1242,7 +1287,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1301,10 +1346,15 @@ namespace ECU_Manager.Controls
 
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1315,7 +1365,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
@@ -1355,10 +1405,15 @@ namespace ECU_Manager.Controls
             
             if (!string.IsNullOrWhiteSpace(sArrayName))
             {
+                string transformName = sArrayName;
+                for (int i = 1; i <= Consts.ECU_CYLINDERS_COUNT; i++)
+                {
+                    transformName = transformName.Replace($"cy{i}", "cy");
+                }
                 if (eMode == Editor2DMode.EcuTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
@@ -1369,7 +1424,7 @@ namespace ECU_Manager.Controls
                 else if (eMode == Editor2DMode.CorrectionsTable)
                 {
                     FieldInfo fieldArray = cs.ConfigStruct.corrections.GetType().GetField(sArrayName);
-                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(sArrayName);
+                    FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                     if (fieldArray != null && fieldTransform != null)
                     {
                         EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);

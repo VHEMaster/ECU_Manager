@@ -292,7 +292,7 @@ namespace ECU_Framework.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16)]
         [XmlArray("idle_pids_rpm_koffs")]
         [XmlArrayItem("koff")]
-        public byte[] idle_pids_rpm_koffs;
+        public sbyte[] idle_pids_rpm_koffs;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16)]
         [XmlArray("idle_valve_to_massair_pid_p")]
         [XmlArrayItem("koff")]

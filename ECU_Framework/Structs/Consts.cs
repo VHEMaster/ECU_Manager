@@ -22,7 +22,7 @@ namespace ECU_Framework.Structs
         public const int TABLE_PEDALS = 16;
         public const int TABLE_SPEEDS = 16;
         public const int TABLE_TEMPERATURES = 16;
-        public const int TABLE_VOLTAGES = 16;
+        public const int TABLE_VOLTAGES = 8;
         public const int TABLE_STRING_MAX = 16;
         public const int TABLE_ENRICHMENT_PERCENTS = 8;
 

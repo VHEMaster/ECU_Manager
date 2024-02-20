@@ -89,7 +89,7 @@ namespace ECU_Framework.Structs
         public EcuParamTransform start_large_filling;
         public EcuParamTransform start_small_filling;
         public EcuParamTransform start_filling_time;
-        public EcuParamTransform speeds;
+        public EcuParamTransform idle_rpm_shift_speeds;
         public EcuParamTransform idle_rpm_shift;
         public EcuParamTransform knock_noise_level;
         public EcuParamTransform knock_threshold;

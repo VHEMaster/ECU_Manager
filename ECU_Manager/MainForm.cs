@@ -139,7 +139,7 @@ namespace ECU_Manager
                 Consts.TABLE_PRESSURES_32,
                 0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, 4);
 
-            eCyclicFillingMAP.SetConfig("filling_gbc_map", "rotates", "pressures");
+            eCyclicFillingMAP.SetConfig("filling_gbc_map", "rotates_32", "pressures_32");
             eCyclicFillingMAP.SetX("RPM", "RPM", "F0");
             eCyclicFillingMAP.SetY(string.Empty, "Fill", "F2");
             eCyclicFillingMAP.SetD("ManifoldAirPressure", "Pressure", "F0");
@@ -163,7 +163,7 @@ namespace ECU_Manager
                 Consts.TABLE_THROTTLES_32,
                 0.0D, 2.0D, 0.001D, 100.0D, 0.2D, 0.6D, 1.2D, 500, 0.1D, 4);
 
-            eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates", "throttles");
+            eCyclicFillingTPS.SetConfig("filling_gbc_tps", "rotates_32", "throttles_32");
             eCyclicFillingTPS.SetX("RPM", "RPM", "F0");
             eCyclicFillingTPS.SetY(string.Empty, "Fill", "F2");
             eCyclicFillingTPS.SetD("ThrottlePosition", "Throttle", "F1");
@@ -196,7 +196,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_16,
                 1.0D, 20.0D, 0.1D, 100.0D, 0.5D, 12.0D, 15.0D, 500, 0.5D, 1, true);
 
-            eFuelMixturesFull.SetConfig("fuel_mixtures", "rotates", "fillings");
+            eFuelMixturesFull.SetConfig("fuel_mixtures", "rotates_16", "fillings_16");
             eFuelMixturesFull.SetX("RPM", "RPM", "F0");
             eFuelMixturesFull.SetY("WishFuelRatio", "FuelRatio", "F1");
             eFuelMixturesFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -220,7 +220,7 @@ namespace ECU_Manager
                 Consts.TABLE_ROTATES_16,
                 0.0D, 100.0D, 0.5D, 10.0f, 10.0D, 0.0D, 100.0D, 10.0D, 10.0D, 1, false);
 
-            eEtcPositions2D.SetConfig("throttle_position", "pedals", "rotates");
+            eEtcPositions2D.SetConfig("throttle_position", "pedals", "rotates_16");
             eEtcPositions2D.SetX("PedalPosition", "Pedal", "F1");
             eEtcPositions2D.SetY(string.Empty, "Throttle", "F1");
             eEtcPositions2D.SetD("RPM", "RPM", "F0");
@@ -243,7 +243,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_16,
                 0.0D, 720.0, 5.0D, 100.0D, 10D, 100.0D, 400.0D, 500, 50D , 0);
 
-            eInjectionPhaseFull.SetConfig("injection_phase", "rotates", "fillings");
+            eInjectionPhaseFull.SetConfig("injection_phase", "rotates_16", "fillings_16");
             eInjectionPhaseFull.SetX("RPM", "RPM", "F0");
             eInjectionPhaseFull.SetY("InjectionPhase", "Phase", "F0");
             eInjectionPhaseFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -262,7 +262,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -45, 90, 0.1D, 100.0D, 0.5D, 0.0D, 45.0D, 500, 5, 1);
 
-            eIgnitionFull.SetConfig("ignitions", "rotates", "fillings");
+            eIgnitionFull.SetConfig("ignitions", "rotates_32", "fillings_32");
             eIgnitionFull.SetX("RPM", "RPM", "F0");
             eIgnitionFull.SetY("IgnitionAdvance", "Ignition", "F1");
             eIgnitionFull.SetD("CyclicAirFlow", "Filling", "F1");
@@ -283,9 +283,9 @@ namespace ECU_Manager
             eIgnitionFullCy1.Initialize(cs, Editor2DMode.EcuTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eIgnitionFullCy1.SetConfig("ignition_corr_cy1", "rotates", "fillings");
+            eIgnitionFullCy1.SetConfig("ignition_corr_cy1", "rotates_32", "fillings_32");
             eIgnitionFullCy1.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -300,9 +300,9 @@ namespace ECU_Manager
             eIgnitionFullCy2.Initialize(cs, Editor2DMode.EcuTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eIgnitionFullCy2.SetConfig("ignition_corr_cy2", "rotates", "fillings");
+            eIgnitionFullCy2.SetConfig("ignition_corr_cy2", "rotates_32", "fillings_32");
             eIgnitionFullCy2.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy2.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -317,9 +317,9 @@ namespace ECU_Manager
             eIgnitionFullCy3.Initialize(cs, Editor2DMode.EcuTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eIgnitionFullCy3.SetConfig("ignition_corr_cy3", "rotates", "fillings");
+            eIgnitionFullCy3.SetConfig("ignition_corr_cy3", "rotates_32", "fillings_32");
             eIgnitionFullCy3.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy3.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -334,9 +334,9 @@ namespace ECU_Manager
             eIgnitionFullCy4.Initialize(cs, Editor2DMode.EcuTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eIgnitionFullCy4.SetConfig("ignition_corr_cy4", "rotates", "fillings");
+            eIgnitionFullCy4.SetConfig("ignition_corr_cy4", "rotates_32", "fillings_32");
             eIgnitionFullCy4.SetX("RPM", "RPM", "F0");
             eIgnitionFullCy4.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eIgnitionFullCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -358,7 +358,7 @@ namespace ECU_Manager
             eSatByRPM.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0.1D, 10D, 0.1D, 0.2D, 0.2D, 2.0F, 500, 0.2D, 1);
-            eSatByRPM.SetConfig("ignition_time_rpm_mult", "rotates");
+            eSatByRPM.SetConfig("ignition_time_rpm_mult", "rotates_16");
             eSatByRPM.SetX("RPM", "RPM", "F0");
             eSatByRPM.SetTableEventHandler(ChartUpdateEvent);
 
@@ -371,30 +371,30 @@ namespace ECU_Manager
             eInjectorLag.SetTableEventHandler(ChartUpdateEvent);
            
             eDynamicFilmFillCorr.Initialize(cs,
-                Consts.TABLE_TEMPERATURES,
+                Consts.TABLE_FILLING_16,
                 0, 5, 0.01D, 0.2D, 0D, 2.0D, 50D, 0.2D, 2);
-            eDynamicFilmFillCorr.SetConfig("dynamic_fuel_corr_temp", "fillings");
+            eDynamicFilmFillCorr.SetConfig("dynamic_fuel_corr_gbc", "fillings_16");
             eDynamicFilmFillCorr.SetX("CyclicAirFlow", "Filling", "F1");
             eDynamicFilmFillCorr.SetTableEventHandler(ChartUpdateEvent);
 
             eDynamicFilmTempCorr.Initialize(cs,
                 Consts.TABLE_TEMPERATURES,
                 0, 5, 0.01D, 0.2D, 0D, 2.0F, 10, 0.2D, 2);
-            eDynamicFilmTempCorr.SetConfig("enrichment_temp_mult", "engine_temps");
+            eDynamicFilmTempCorr.SetConfig("dynamic_fuel_corr_temp", "engine_temps");
             eDynamicFilmTempCorr.SetX("EngineTemp", "Temperature", "F1");
             eDynamicFilmTempCorr.SetTableEventHandler(ChartUpdateEvent);
 
             eDynamicFilmLpf.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 0.99D, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
-            eDynamicFilmLpf.SetConfig("dynamic_fuel_corr_lpf", "rotates");
+            eDynamicFilmLpf.SetConfig("dynamic_fuel_corr_lpf", "rotates_16");
             eDynamicFilmLpf.SetX("RPM", "RPM", "F0");
             eDynamicFilmLpf.SetTableEventHandler(ChartUpdateEvent);
 
             eFillingSelectKoffTPS.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 1, 0.01D, 0.1D, 0D, 1.0F, 500, 0.1D, 2);
-            eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates");
+            eFillingSelectKoffTPS.SetConfig("filling_select_koff_tps", "rotates_16");
             eFillingSelectKoffTPS.SetX("RPM", "RPM", "F0");
             eFillingSelectKoffTPS.SetTableEventHandler(ChartUpdateEvent);
 
@@ -413,14 +413,14 @@ namespace ECU_Manager
             eEnrichmentSyncAmount.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
-            eEnrichmentSyncAmount.SetConfig("enrichment_sync_amount", "rotates");
+            eEnrichmentSyncAmount.SetConfig("enrichment_sync_amount", "rotates_16");
             eEnrichmentSyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentSyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
             eEnrichmentAsyncAmount.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
-            eEnrichmentAsyncAmount.SetConfig("enrichment_async_amount", "rotates");
+            eEnrichmentAsyncAmount.SetConfig("enrichment_async_amount", "rotates_16");
             eEnrichmentAsyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentAsyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
@@ -434,14 +434,14 @@ namespace ECU_Manager
             eEnrichmentInjectionPhase.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 720, 10, 50, 0D, 600, 500D, 50, 0);
-            eEnrichmentInjectionPhase.SetConfig("enrichment_injection_phase", "rotates");
+            eEnrichmentInjectionPhase.SetConfig("enrichment_injection_phase", "rotates_16");
             eEnrichmentInjectionPhase.SetX("RPM", "RPM", "F0");
             eEnrichmentInjectionPhase.SetTableEventHandler(ChartUpdateEvent);
 
             eEnrichmentAccelDeadBand.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 100000000, 1000, 10000, 0D, 500000, 500D, 20000, 0);
-            eEnrichmentAccelDeadBand.SetConfig("enrichment_accel_dead_band", "rotates");
+            eEnrichmentAccelDeadBand.SetConfig("enrichment_accel_dead_band", "rotates_16");
             eEnrichmentAccelDeadBand.SetX("RPM", "RPM", "F0");
             eEnrichmentAccelDeadBand.SetTableEventHandler(ChartUpdateEvent);
 
@@ -509,7 +509,7 @@ namespace ECU_Manager
                 Consts.TABLE_ROTATES_16,
                 -25.0D, 25.0D, 0.1D, 10D, 1D, -5D, 5D, 10, 1D, 1);
 
-            eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load", "rotates");
+            eEnrichmentIgnCorr.SetConfig("enrichment_ign_corr", "enrichment_rate_start_load", "rotates_16");
             eEnrichmentIgnCorr.SetTableEventHandler(ChartUpdateEvent);
             eEnrichmentIgnCorr.scHorisontal.SplitterDistance = (int)Math.Round(eEnrichmentIgnCorr.scHorisontal.Width * 0.65);
 
@@ -667,7 +667,7 @@ namespace ECU_Manager
             eIdleValveEconPos.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 160, 1, 10D, 0, 100, 500D, 10, 0);
-            eIdleValveEconPos.SetConfig("idle_valve_econ_position", "rotates");
+            eIdleValveEconPos.SetConfig("idle_valve_econ_position", "rotates_32");
             eIdleValveEconPos.SetX("RPM", "RPM", "F0");
             eIdleValveEconPos.SetY("IdleValvePosition", "Valve Pos", "F0");
             eIdleValveEconPos.SetTableEventHandler(ChartUpdateEvent);
@@ -675,7 +675,7 @@ namespace ECU_Manager
             eEtcEconPositions.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 100, 0.1, 2D, 0, 20, 500D, 2, 1);
-            eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates");
+            eEtcEconPositions.SetConfig("idle_throttle_econ_position", "rotates_32");
             eEtcEconPositions.SetX("RPM", "RPM", "F0");
             eEtcEconPositions.SetY("ThrottlePosition", "Throttle Pos", "F1");
             eEtcEconPositions.SetTableEventHandler(ChartUpdateEvent);
@@ -691,7 +691,7 @@ namespace ECU_Manager
             eEtcPedalIgnitionControl.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 100, 0.1, 1D, 0, 10, 500D, 1, 1);
-            eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates");
+            eEtcPedalIgnitionControl.SetConfig("pedal_ignition_control", "rotates_16");
             eEtcPedalIgnitionControl.SetX("RPM", "RPM", "F0");
             eEtcPedalIgnitionControl.SetY("PedalPosition", "Pedal", "F1");
             eEtcPedalIgnitionControl.SetTableEventHandler(ChartUpdateEvent);
@@ -735,7 +735,7 @@ namespace ECU_Manager
             eKnockNoiseLevel.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
-            eKnockNoiseLevel.SetConfig("knock_noise_level", "rotates");
+            eKnockNoiseLevel.SetConfig("knock_noise_level", "rotates_32");
             eKnockNoiseLevel.SetX("RPM", "RPM", "F0");
             eKnockNoiseLevel.SetY("KnockSensor", "Knock Level", "F2");
             eKnockNoiseLevel.SetTableEventHandler(ChartUpdateEvent);
@@ -743,7 +743,7 @@ namespace ECU_Manager
             eKnockDetectPhaseStart.Initialize(cs, 
                 Consts.TABLE_ROTATES_32,
                 -180, 0, 1D, 5D, -50D, 0D, 500, 5D, 0);
-            eKnockDetectPhaseStart.SetConfig("knock_detect_phase_start", "rotates");
+            eKnockDetectPhaseStart.SetConfig("knock_detect_phase_start", "rotates_32");
             eKnockDetectPhaseStart.SetX("RPM", "RPM", "F0");
             eKnockDetectPhaseStart.SetY(string.Empty, "Phase", "F1");
             eKnockDetectPhaseStart.SetTableEventHandler(ChartUpdateEvent);
@@ -751,7 +751,7 @@ namespace ECU_Manager
             eKnockDetectPhaseEnd.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 90, 1D, 5D, 0D, 50D, 500, 5D, 0);
-            eKnockDetectPhaseEnd.SetConfig("knock_detect_phase_end", "rotates");
+            eKnockDetectPhaseEnd.SetConfig("knock_detect_phase_end", "rotates_32");
             eKnockDetectPhaseEnd.SetX("RPM", "RPM", "F0");
             eKnockDetectPhaseEnd.SetY(string.Empty, "Phase", "F1");
             eKnockDetectPhaseEnd.SetTableEventHandler(ChartUpdateEvent);
@@ -759,7 +759,7 @@ namespace ECU_Manager
             eKnockThreshold.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 5, 0.01D, 0.2D, 0D, 1D, 500, 0.2D, 2);
-            eKnockThreshold.SetConfig("knock_threshold", "rotates");
+            eKnockThreshold.SetConfig("knock_threshold", "rotates_32");
             eKnockThreshold.SetX("RPM", "RPM", "F0");
             eKnockThreshold.SetY("KnockSensorFiltered", "Knock Level", "F2");
             eKnockThreshold.SetTableEventHandler(ChartUpdateEvent);
@@ -767,21 +767,21 @@ namespace ECU_Manager
             eKnockFilterFrequency.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 63, 1, 1, 30D, 50D, 500, 2D, 0);
-            eKnockFilterFrequency.SetConfig("knock_filter_frequency", "rotates");
+            eKnockFilterFrequency.SetConfig("knock_filter_frequency", "rotates_32");
             eKnockFilterFrequency.SetX("RPM", "RPM", "F0");
             eKnockFilterFrequency.SetTableEventHandler(ChartUpdateEvent);
 
             eKnockGain.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 63, 1, 1, 0D, 63D, 500, 5D, 0);
-            eKnockGain.SetConfig("knock_gain", "rotates");
+            eKnockGain.SetConfig("knock_gain", "rotates_32");
             eKnockGain.SetX("RPM", "RPM", "F0");
             eKnockGain.SetTableEventHandler(ChartUpdateEvent);
 
             eKnockIntegratorTime.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 0, 31, 1, 1, 0D, 31D, 500, 2D, 0);
-            eKnockIntegratorTime.SetConfig("knock_integrator_time", "rotates");
+            eKnockIntegratorTime.SetConfig("knock_integrator_time", "rotates_32");
             eKnockIntegratorTime.SetX("RPM", "RPM", "F0");
             eKnockIntegratorTime.SetTableEventHandler(ChartUpdateEvent);
             
@@ -790,7 +790,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_16,
                 0.0D, 1.0D, 0.01D, 100.0D, 0.1D, 0.0D, 1.0D, 500, 0.1D, 2);
 
-            eKnockZone.SetConfig("knock_zone", "rotates", "fillings");
+            eKnockZone.SetConfig("knock_zone", "rotates_16", "fillings_16");
             eKnockZone.SetX("RPM", "RPM", "F0");
             eKnockZone.SetY("KnockZone", "KnockZone", "F2");
             eKnockZone.SetD("CyclicAirFlow", "Filling", "F1");
@@ -809,7 +809,7 @@ namespace ECU_Manager
                 Consts.ECU_CYLINDERS_COUNT,
                 0.0D, 5.0D, 0.01D, 100.0D, 0.2D, 0.0D, 2.0D, 500, 0.2D, 2);
 
-            eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates", "cylinders");
+            eKnockCyLevelMultiplier.SetConfig("knock_cy_level_multiplier", "rotates_32", "cylinders");
             eKnockCyLevelMultiplier.SetX("RPM", "RPM", "F0");
             eKnockCyLevelMultiplier.SetTableEventHandler(ChartUpdateEvent);
 
@@ -841,7 +841,7 @@ namespace ECU_Manager
                 Consts.TABLE_PRESSURES_32,
                 -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsFillingGbcMAP.SetConfig("filling_gbc_map", "rotates", "pressures");
+            eCorrsFillingGbcMAP.SetConfig("filling_gbc_map", "rotates_32", "pressures_32");
             eCorrsFillingGbcMAP.SetX("RPM", "RPM", "F0");
             eCorrsFillingGbcMAP.SetY(string.Empty, "Correction", "F3");
             eCorrsFillingGbcMAP.SetD("ManifoldAirPressure", "Pressure", "F0");
@@ -856,7 +856,7 @@ namespace ECU_Manager
                 Consts.TABLE_THROTTLES_32,
                 -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsFillingGbcTPS.SetConfig("filling_gbc_tps", "rotates", "throttles");
+            eCorrsFillingGbcTPS.SetConfig("filling_gbc_tps", "rotates_32", "throttles_32");
             eCorrsFillingGbcTPS.SetX("RPM", "RPM", "F0");
             eCorrsFillingGbcTPS.SetY(string.Empty, "Correction", "F3");
             eCorrsFillingGbcTPS.SetD("ThrottlePosition", "Throttle", "F1");
@@ -872,7 +872,7 @@ namespace ECU_Manager
                 Consts.ECU_CYLINDERS_COUNT,
                 -10.0D, 10.0D, 0.005D, 100.0D, 0.1D, -0.2D, 0.2D, 500, 0.1D, 3);
 
-            eCorrsKnockCyNoiseLevelMult.SetConfig("knock_cy_level_multiplier", "rotates", "cylinders");
+            eCorrsKnockCyNoiseLevelMult.SetConfig("knock_cy_level_multiplier", "rotates_32", "cylinders");
             eCorrsKnockCyNoiseLevelMult.SetX("RPM", "RPM", "F0");
             eCorrsKnockCyNoiseLevelMult.SetY(string.Empty, "Correction", "F3");
             eCorrsKnockCyNoiseLevelMult.SetTableEventHandler(ChartCorrectionEvent);
@@ -910,9 +910,9 @@ namespace ECU_Manager
             eCorrsIgnition.Initialize(cs, Editor2DMode.CorrectionsTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsIgnition.SetConfig("ignitions", "rotates", "fillings");
+            eCorrsIgnition.SetConfig("ignitions", "rotates_32", "fillings_32");
             eCorrsIgnition.SetX("RPM", "RPM", "F0");
             eCorrsIgnition.SetY(string.Empty, "Ignition Correction", "F2");
             eCorrsIgnition.SetD("CyclicAirFlow", "Filling", "F1");
@@ -926,9 +926,9 @@ namespace ECU_Manager
             eCorrsIgnitionCy1.Initialize(cs, Editor2DMode.CorrectionsTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsIgnitionCy1.SetConfig("ignition_corr_cy1", "rotates", "fillings");
+            eCorrsIgnitionCy1.SetConfig("ignition_corr_cy1", "rotates_32", "fillings_32");
             eCorrsIgnitionCy1.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy1.SetY(string.Empty, "Ignition Corr.Cy1", "F2");
             eCorrsIgnitionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -943,9 +943,9 @@ namespace ECU_Manager
             eCorrsIgnitionCy2.Initialize(cs, Editor2DMode.CorrectionsTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsIgnitionCy2.SetConfig("ignition_corr_cy2", "rotates", "fillings");
+            eCorrsIgnitionCy2.SetConfig("ignition_corr_cy2", "rotates_32", "fillings_32");
             eCorrsIgnitionCy2.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy2.SetY(string.Empty, "Ignition Corr.Cy2", "F2");
             eCorrsIgnitionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -960,9 +960,9 @@ namespace ECU_Manager
             eCorrsIgnitionCy3.Initialize(cs, Editor2DMode.CorrectionsTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsIgnitionCy3.SetConfig("ignition_corr_cy3", "rotates", "fillings");
+            eCorrsIgnitionCy3.SetConfig("ignition_corr_cy3", "rotates_32", "fillings_32");
             eCorrsIgnitionCy3.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy3.SetY(string.Empty, "Ignition Corr.Cy3", "F2");
             eCorrsIgnitionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -977,9 +977,9 @@ namespace ECU_Manager
             eCorrsIgnitionCy4.Initialize(cs, Editor2DMode.CorrectionsTable,
                 Consts.TABLE_ROTATES_32,
                 Consts.TABLE_FILLING_32,
-                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 2);
+                -45.0D, 45.0D, 0.1D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsIgnitionCy4.SetConfig("ignition_corr_cy4", "rotates", "fillings");
+            eCorrsIgnitionCy4.SetConfig("ignition_corr_cy4", "rotates_32", "fillings_32");
             eCorrsIgnitionCy4.SetX("RPM", "RPM", "F0");
             eCorrsIgnitionCy4.SetY(string.Empty, "Ignition Corr.Cy4", "F2");
             eCorrsIgnitionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1002,7 +1002,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -10D, 99.0D, 0.5D, 100.0D, 1D, -5D, 5D, 500, 1D, 1);
 
-            eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates", "fillings");
+            eCorrsKnockDetonationCounter.SetConfig("knock_detonation_counter", "rotates_32", "fillings_32");
             eCorrsKnockDetonationCounter.SetX("RPM", "RPM", "F0");
             eCorrsKnockDetonationCounter.SetY(string.Empty, "DetonationCounter", "F1");
             eCorrsKnockDetonationCounter.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1030,7 +1030,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy1.SetConfig("injection_corr_cy1", "rotates", "fillings");
+            eCorrsInjectionCy1.SetConfig("injection_corr_cy1", "rotates_32", "fillings_32");
             eCorrsInjectionCy1.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
             eCorrsInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1047,7 +1047,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy2.SetConfig("injection_corr_cy2", "rotates", "fillings");
+            eCorrsInjectionCy2.SetConfig("injection_corr_cy2", "rotates_32", "fillings_32");
             eCorrsInjectionCy2.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
             eCorrsInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1064,7 +1064,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy3.SetConfig("injection_corr_cy3", "rotates", "fillings");
+            eCorrsInjectionCy3.SetConfig("injection_corr_cy3", "rotates_32", "fillings_32");
             eCorrsInjectionCy3.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
             eCorrsInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1081,7 +1081,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eCorrsInjectionCy4.SetConfig("injection_corr_cy4", "rotates", "fillings");
+            eCorrsInjectionCy4.SetConfig("injection_corr_cy4", "rotates_32", "fillings_32");
             eCorrsInjectionCy4.SetX("RPM", "RPM", "F0");
             eCorrsInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
             eCorrsInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1099,7 +1099,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy1.SetConfig("injection_corr_cy1", "rotates", "fillings");
+            eInjectionCy1.SetConfig("injection_corr_cy1", "rotates_32", "fillings_32");
             eInjectionCy1.SetX("RPM", "RPM", "F0");
             eInjectionCy1.SetY(string.Empty, "Injection Corr.Cy1", "F2");
             eInjectionCy1.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1115,7 +1115,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy2.SetConfig("injection_corr_cy2", "rotates", "fillings");
+            eInjectionCy2.SetConfig("injection_corr_cy2", "rotates_32", "fillings_32");
             eInjectionCy2.SetX("RPM", "RPM", "F0");
             eInjectionCy2.SetY(string.Empty, "Injection Corr.Cy2", "F2");
             eInjectionCy2.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1131,7 +1131,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy3.SetConfig("injection_corr_cy3", "rotates", "fillings");
+            eInjectionCy3.SetConfig("injection_corr_cy3", "rotates_32", "fillings_32");
             eInjectionCy3.SetX("RPM", "RPM", "F0");
             eInjectionCy3.SetY(string.Empty, "Injection Corr.Cy3", "F2");
             eInjectionCy3.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1147,7 +1147,7 @@ namespace ECU_Manager
                 Consts.TABLE_FILLING_32,
                 -1.0D, 1.0D, 0.002D, 100.0D, 0.2D, -0.2D, 0.2D, 500, 0.05D, 3);
 
-            eInjectionCy4.SetConfig("injection_corr_cy4", "rotates", "fillings");
+            eInjectionCy4.SetConfig("injection_corr_cy4", "rotates_32", "fillings_32");
             eInjectionCy4.SetX("RPM", "RPM", "F0");
             eInjectionCy4.SetY(string.Empty, "Injection Corr.Cy4", "F2");
             eInjectionCy4.SetD("CyclicAirFlow", "Filling", "F1");
@@ -1173,7 +1173,7 @@ namespace ECU_Manager
                 Consts.TABLE_TEMPERATURES,
                 -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, 2);
 
-            eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings", "air_temps");
+            eAirTempMixCorr.SetConfig("air_temp_mix_corr", "fillings_16", "air_temps");
             eAirTempMixCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
             eAirTempMixCorr.SetD("CalculatedAirTemp", "CalcdAirTemp", "F1");
@@ -1188,7 +1188,7 @@ namespace ECU_Manager
                 Consts.TABLE_TEMPERATURES,
                 -0.9D, 5.0D, 0.01D, 20D, 0.1D, -0.2D, 0.2D, 20, 0.1D, 2);
 
-            eEngineTempMixCorr.SetConfig("engine_temp_mix_corr", "fillings", "engine_temps");
+            eEngineTempMixCorr.SetConfig("engine_temp_mix_corr", "fillings_16", "engine_temps");
             eEngineTempMixCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
             eEngineTempMixCorr.SetY(string.Empty, "Mix.Corr.", "F2");
             eEngineTempMixCorr.SetD("EngineTemp", "EngineTemp", "F1");
@@ -1239,7 +1239,7 @@ namespace ECU_Manager
                 Consts.TABLE_TEMPERATURES,
                 -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, 1);
 
-            eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings", "air_temps");
+            eAirTempIgnCorr.SetConfig("air_temp_ign_corr", "fillings_16", "air_temps");
             eAirTempIgnCorr.SetX("CyclicAirFlow", "CyclicAirFlow", "F1");
             eAirTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
             eAirTempIgnCorr.SetD("CalculatedAirTemp", "CalcAirTemp", "F1");
@@ -1254,7 +1254,7 @@ namespace ECU_Manager
                 Consts.TABLE_TEMPERATURES,
                 -10.0D, 10.0D, 0.1D, 20D, 1D, -5D, 5D, 20, 1D, 1);
 
-            eEngineTempIgnCorr.SetConfig("engine_temp_ign_corr", "fillings", "engine_temps");
+            eEngineTempIgnCorr.SetConfig("engine_temp_ign_corr", "fillings_16", "engine_temps");
             eEngineTempIgnCorr.SetX("CyclicEngineFlow", "CyclicEngineFlow", "F1");
             eEngineTempIgnCorr.SetY(string.Empty, "Ign.Corr.", "F1");
             eEngineTempIgnCorr.SetD("EngineTemp", "EngineTemp", "F1");
@@ -1351,28 +1351,28 @@ namespace ECU_Manager
             eStartTpsCorrs.Initialize(cs,
                 Consts.TABLE_THROTTLES_16,
                 0D, 1D, 0.01D, 0.05D, 0D, 1D, 10D, 0.1D, 2);
-            eStartTpsCorrs.SetConfig("start_tps_corrs", "throttles");
+            eStartTpsCorrs.SetConfig("start_tps_corrs", "throttles_16");
             eStartTpsCorrs.SetX("ThrottlePosition", "TPS", "F1");
             eStartTpsCorrs.SetTableEventHandler(ChartUpdateEvent);
 
             eIgnitionTimeByTPS.Initialize(cs,
                 Consts.TABLE_THROTTLES_32,
                 0D, 10D, 0.01D, 0.1D, 0D, 1D, 10D, 0.1D, 2);
-            eIgnitionTimeByTPS.SetConfig("idle_ignition_time_by_tps", "throttles");
+            eIgnitionTimeByTPS.SetConfig("idle_ignition_time_by_tps", "throttles_32");
             eIgnitionTimeByTPS.SetX("ThrottlePosition", "TPS", "F1");
             eIgnitionTimeByTPS.SetTableEventHandler(ChartUpdateEvent);
 
             eIdleEconDelay.Initialize(cs,
                 Consts.TABLE_TEMPERATURES,
                 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
-            eIdleEconDelay.SetConfig("idle_econ_delay", "throttles");
+            eIdleEconDelay.SetConfig("idle_econ_delay", "engine_temps");
             eIdleEconDelay.SetX("EngineTemp", "Temperature", "F0");
             eIdleEconDelay.SetTableEventHandler(ChartUpdateEvent);
 
             eStartEconDelay.Initialize(cs,
                 Consts.TABLE_TEMPERATURES,
                 0D, 60D, 0.1D, 1D, 0D, 10D, 10D, 1D, 1);
-            eStartEconDelay.SetConfig("start_econ_delay", "throttles");
+            eStartEconDelay.SetConfig("start_econ_delay", "engine_temps");
             eStartEconDelay.SetX("EngineTemp", "Temperature", "F0");
             eStartEconDelay.SetTableEventHandler(ChartUpdateEvent);
 
@@ -1498,14 +1498,14 @@ namespace ECU_Manager
             eTspsRelativePosition.Initialize(cs,
                 Consts.TABLE_ROTATES_32,
                 -175D, 175D, 0.1D, 2D, -120D, -110D, 500, 1D, 1);
-            eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates");
+            eTspsRelativePosition.SetConfig("tsps_relative_pos", "rotates_32");
             eTspsRelativePosition.SetX("RPM", "RPM", "F0");
             eTspsRelativePosition.SetTableEventHandler(ChartUpdateEvent);
 
             eTspsDesyncThr.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0.1D, 100D, 0.1D, 0.1D, 0D, 5D, 500, 0.1D, 1);
-            eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates");
+            eTspsDesyncThr.SetConfig("tsps_desync_thr", "rotates_16");
             eTspsDesyncThr.SetX("RPM", "RPM", "F0");
             eTspsDesyncThr.SetTableEventHandler(ChartUpdateEvent);
 
