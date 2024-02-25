@@ -238,7 +238,7 @@ namespace ECU_Manager.Controls
         public void ClearTable()
         {
             Array arraydef = null;
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             byte[] arraycalib = null;
             float[] array2d = null;
 
@@ -344,6 +344,12 @@ namespace ECU_Manager.Controls
         {
             try
             {
+                EcuParamTransform transformdepx = EcuParamTransform.Default;
+                EcuParamTransform transformdepy = EcuParamTransform.Default;
+                EcuParamTransform transform = EcuParamTransform.Default;
+                Array arraydefdepx = null;
+                Array arraydefdepy = null;
+                Array arraydef = null;
                 Series series;
                 
                 float[] depx = null;
@@ -368,8 +374,8 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
@@ -379,12 +385,16 @@ namespace ECU_Manager.Controls
                         FieldInfo fieldTransform = cs.ConfigStruct.corrections.transform.GetType().GetField(transformName);
                         if (fieldArray != null && fieldTransform != null)
                         {
-                            EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
-                            Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
+                            transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.corrections.transform);
+                            arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.corrections);
                             array2d = EcuConfigTransform.FromInteger(arraydef, transform);
                         }
                     }
 
+                    if (dStepSize < transform.gain)
+                    {
+                        dStepSize = transform.gain;
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(sConfigDepX))
@@ -393,8 +403,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transformdepx = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydefdepx = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         depx = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -405,8 +415,8 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransform = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepY);
                     if (fieldArray != null && fieldTransform != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array arraydef = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transformdepy = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydefdepy = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         depy = EcuConfigTransform.FromInteger(arraydef, transform);
                     }
                 }
@@ -803,7 +813,7 @@ namespace ECU_Manager.Controls
         {
             if (valueChangedEnabled)
             {
-                EcuParamTransform transform = default(EcuParamTransform);
+                EcuParamTransform transform = EcuParamTransform.Default;
                 Array arraydef = null;
                 int index = e.Index;
                 float value = e.Value;
@@ -937,7 +947,7 @@ namespace ECU_Manager.Controls
         {
             float[] array2d = null;
             Array arraydef = null;
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             float[] new2d = null;
             byte[] arraycalib = null;
             double koff = (double)nudInterpolationKoff.Value;
@@ -1129,7 +1139,7 @@ namespace ECU_Manager.Controls
 
         private void btnImport2DChart_Click(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array2d = null;
             float[][] array;
@@ -1272,7 +1282,7 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromCCode_Click(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array2d = null;
             float[] array_initial = null;
@@ -1414,7 +1424,7 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromText_Click(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array2d = null;
             float[] array_initial = null;

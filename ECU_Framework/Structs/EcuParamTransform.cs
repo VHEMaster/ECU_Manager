@@ -12,6 +12,8 @@ namespace ECU_Framework.Structs
     [StructLayout(LayoutKind.Sequential)]
     public struct EcuParamTransform
     {
+        public static readonly EcuParamTransform Default = new EcuParamTransform(1, 0);
+
         public float gain;
         public float offset;
         public EcuParamTransform(float gain, float offset)

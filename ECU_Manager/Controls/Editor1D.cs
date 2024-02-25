@@ -143,6 +143,10 @@ namespace ECU_Manager.Controls
         {
             try
             {
+                EcuParamTransform transform = EcuParamTransform.Default;
+                EcuParamTransform transformdep = EcuParamTransform.Default;
+                Array array = null;
+                Array arraydep = null;
                 float[] array1d = null;
                 float[] dep1d = null;
                 double min, max;
@@ -157,9 +161,9 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldDepTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sConfigDepX);
                     if (fieldDepX != null && fieldDepTransformX != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldDepTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array array = (Array)fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                        dep1d = EcuConfigTransform.FromInteger(array, transform);
+                        transformdep = (EcuParamTransform)fieldDepTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        arraydep = (Array)fieldDepX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        dep1d = EcuConfigTransform.FromInteger(arraydep, transformdep);
                     }
                 }
 
@@ -169,9 +173,14 @@ namespace ECU_Manager.Controls
                     FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
                     if (fieldArrayX != null && fieldTransformX != null)
                     {
-                        EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
-                        Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                        transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                        array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
                         array1d = EcuConfigTransform.FromInteger(array, transform);
+                    }
+
+                    if (dStepSize < transform.gain)
+                    {
+                        dStepSize = transform.gain;
                     }
                 }
 
@@ -413,7 +422,7 @@ namespace ECU_Manager.Controls
 
         private void nudItem_ValueChanged(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array1d = null;
             float[] dep1d = null;
@@ -463,7 +472,7 @@ namespace ECU_Manager.Controls
 
         private void nudValue_ValueChanged(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array1d = null;
             double chartMin = dChartMinY;
@@ -816,7 +825,7 @@ namespace ECU_Manager.Controls
 
         private void btnImportFromCCode_Click(object sender, EventArgs e)
         {
-            EcuParamTransform transform = default(EcuParamTransform);
+            EcuParamTransform transform = EcuParamTransform.Default;
             Array arraydef = null;
             float[] array1d = null;
 
