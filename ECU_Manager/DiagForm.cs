@@ -511,6 +511,7 @@ namespace ECU_Manager
                 if (fieldInfo.Name == "WishIdleRPM") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleRPM, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "WishIdleMassAirFlow") parameter.FloatFormat = "F1"; //&ecu_parameters.WishIdleMassAirFlow, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "WishIdleValvePosition") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleValvePosition, .title = "%s%0.0f"},
+                if (fieldInfo.Name == "WishIdleThrottlePosition") parameter.FloatFormat = "F1"; //&ecu_parameters.WishIdleThrottlePosition, .title = "%s%0.1f"},
                 if (fieldInfo.Name == "WishIdleIgnitionAdvance") parameter.FloatFormat = "F0"; //&ecu_parameters.WishIdleIgnitionAdvance, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "IgnitionAdvance") parameter.FloatFormat = "F1"; //&ecu_parameters.IgnitionAdvance, .title = "%s%0.0f"},
                 if (fieldInfo.Name == "InjectionPhase") parameter.FloatFormat = "F0"; //&ecu_parameters.InjectionPhase, .title = "%s%0.0f"},
@@ -557,7 +558,8 @@ namespace ECU_Manager
                     else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = Consts.IDLE_VALVE_POS_MAX; parameter.Step = 1.0F; }
                     else if (parameter.Name == "WishIdleIgnitionAdvance") { parameter.Min = -15; parameter.Max = 60; parameter.Step = 0.2F; }
                     else if (parameter.Name == "WishIdleMassAirFlow") { parameter.Min = 0; parameter.Max = 500; parameter.Step = 0.1F; }
-                    else if (parameter.Name == "WishThrottleTargetPosition") { parameter.Min = 0; parameter.Max = 100; parameter.Step = 0.1F; }
+                    else if (parameter.Name == "WishIdleValvePosition") { parameter.Min = 0; parameter.Max = Consts.IDLE_VALVE_POS_MAX; parameter.Step = 1.0F; }
+                    else if (parameter.Name == "WishIdleThrottlePosition") { parameter.Min = 0; parameter.Max = 20; parameter.Step = 0.1F; }
                     else if (parameter.Name == "MaximumThrottlePosition") { parameter.Min = 0; parameter.Max = 100; parameter.Step = 0.1F; }
                     else if (parameter.Name == "FanRelay") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
                     else if (parameter.Name == "FanSwitch") { parameter.Min = 0; parameter.Max = 1; parameter.Step = 1; }
