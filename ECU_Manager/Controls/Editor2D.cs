@@ -405,7 +405,7 @@ namespace ECU_Manager.Controls
                     {
                         transformdepx = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
                         arraydefdepx = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                        depx = EcuConfigTransform.FromInteger(arraydef, transform);
+                        depx = EcuConfigTransform.FromInteger(arraydefdepx, transformdepx);
                     }
                 }
 
@@ -417,7 +417,7 @@ namespace ECU_Manager.Controls
                     {
                         transformdepy = (EcuParamTransform)fieldTransform.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
                         arraydefdepy = (Array)fieldArray.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
-                        depy = EcuConfigTransform.FromInteger(arraydef, transform);
+                        depy = EcuConfigTransform.FromInteger(arraydefdepy, transformdepy);
                     }
                 }
 
