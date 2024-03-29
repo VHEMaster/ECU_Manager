@@ -2320,6 +2320,8 @@ namespace ECU_Manager
             nudParamsKnockIgnCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_ign_corr_max;
             nudParamsKnockInjCorr.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].knock_inj_corr_max;
             nudParamsStartLargeCount.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].start_large_count;
+            nudParamsStartLargeToSmallCount.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].start_large_to_small_transition;
+            nudParamsStartRetryCount.Value = (decimal)cs.ConfigStruct.tables[cs.CurrentTable].start_cycles_to_retry;
 
             if (cs.ConfigStruct.parameters.performAdaptation == 1)
             {
@@ -3809,6 +3811,24 @@ namespace ECU_Manager
         private void nudParamsStartLargeCount_ValueChanged(object sender, EventArgs e)
         {
             cs.ConfigStruct.tables[cs.CurrentTable].start_large_count = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsStartLargeToSmallCount_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].start_large_to_small_transition = (int)((NumericUpDown)sender).Value;
+            if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
+            {
+                middleLayer.UpdateTable(cs.CurrentTable);
+            }
+        }
+
+        private void nudParamsStartRetryCount_ValueChanged(object sender, EventArgs e)
+        {
+            cs.ConfigStruct.tables[cs.CurrentTable].start_cycles_to_retry = (int)((NumericUpDown)sender).Value;
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
                 middleLayer.UpdateTable(cs.CurrentTable);

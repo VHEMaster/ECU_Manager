@@ -571,8 +571,10 @@ namespace ECU_Framework.Structs
         [XmlArray("dynamic_fuel_corr_lpf")]
         [XmlArrayItem("value")]
         public byte[] dynamic_fuel_corr_lpf;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1304)]
+        
+        public int start_large_to_small_transition;
+        public int start_cycles_to_retry;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1302)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
