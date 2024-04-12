@@ -3279,7 +3279,7 @@ namespace ECU_Manager
             cs.ForceParameters.LambdaForceEnabled = (byte)(((CheckBox)sender).Checked ? 1 : 0);
             if (middleLayer != null && !middleLayer.IsSynchronizing && cbLive.Checked)
             {
-                middleLayer.UpdateConfig();
+                middleLayer.UpdateForceParameters();
             }
         }
 
