@@ -75,6 +75,8 @@ namespace ECU_Framework.Structs
         public EcuParamTransform idle_ign_to_rpm_pid_p;
         public EcuParamTransform idle_ign_to_rpm_pid_i;
         public EcuParamTransform idle_ign_to_rpm_pid_d;
+        public EcuParamTransform fan_enablement_speed;
+        public EcuParamTransform fan_speeds;
         public EcuParamTransform warmup_mixtures;
         public EcuParamTransform warmup_mix_koffs;
         public EcuParamTransform warmup_mix_corrs;
@@ -102,7 +104,6 @@ namespace ECU_Framework.Structs
         public EcuParamTransform idle_ignition_time_by_tps;
         public EcuParamTransform idle_econ_delay;
         public EcuParamTransform start_econ_delay;
-        public EcuParamTransform fan_advance_control;
         public EcuParamTransform idle_valve_econ_position;
         public EcuParamTransform idle_throttle_econ_position;
         public EcuParamTransform pedal_ignition_control;

@@ -24,6 +24,7 @@ namespace ECU_Framework.Structs
         public const int TABLE_TEMPERATURES = 16;
         public const int TABLE_VOLTAGES = 8;
         public const int TABLE_STRING_MAX = 16;
+        public const int TABLE_FAN_SPEEDS = 3;
         public const int TABLE_ENRICHMENT_PERCENTS = 8;
 
         public const int IDLE_VALVE_POS_MAX = 160;

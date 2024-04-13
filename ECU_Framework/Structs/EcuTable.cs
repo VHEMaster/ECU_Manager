@@ -358,6 +358,16 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("koff")]
         public short[] idle_ign_to_rpm_pid_d;
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FAN_SPEEDS * Consts.TABLE_SPEEDS)]
+        [XmlArray("fan_enablement_speed")]
+        [XmlArrayItem("temperature")]
+        public sbyte[] fan_enablement_speed;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_FAN_SPEEDS)]
+        [XmlArray("fan_speeds")]
+        [XmlArrayItem("speed")]
+        public sbyte[] fan_speeds;
+
         public float short_term_corr_pid_p;
         public float short_term_corr_pid_i;
         public float short_term_corr_pid_d;
@@ -502,14 +512,6 @@ namespace ECU_Framework.Structs
         [XmlArrayItem("time")]
         public byte[] start_econ_delay;
 
-        public float fan_advance_control_low;
-        public float fan_advance_control_mid;
-        public float fan_advance_control_high;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES * Consts.TABLE_SPEEDS)]
-        [XmlArray("fan_advance_control")]
-        [XmlArrayItem("value")]
-        public sbyte[] fan_advance_control;
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_32)]
         [XmlArray("idle_valve_econ_position")]
         [XmlArrayItem("valve")]
@@ -574,7 +576,7 @@ namespace ECU_Framework.Structs
         
         public int start_large_to_small_transition;
         public int start_cycles_to_retry;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1302)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1354)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;

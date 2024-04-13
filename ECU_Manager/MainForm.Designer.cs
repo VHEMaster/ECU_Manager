@@ -397,18 +397,12 @@
             this.nudSpeedOutputCorr = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.cbIsEconEnabled = new System.Windows.Forms.CheckBox();
             this.cbLambdaForceEnabled = new System.Windows.Forms.CheckBox();
-            this.nudParamsFanHighT = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.nudParamsFanMidT = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.rbSingleCoil = new System.Windows.Forms.RadioButton();
-            this.nudParamsFanLowT = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.cbUseLongTermCorr = new System.Windows.Forms.CheckBox();
             this.rbIgnitionModule = new System.Windows.Forms.RadioButton();
-            this.label31 = new System.Windows.Forms.Label();
             this.cbUseShortTermCorr = new System.Windows.Forms.CheckBox();
             this.rbIndividualCoils = new System.Windows.Forms.RadioButton();
-            this.label32 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
             this.nudSpeedInputCorr = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.label53 = new System.Windows.Forms.Label();
             this.nudEngVol = new ECU_Manager.Controls.NumericUpDownOneWheel();
@@ -497,6 +491,10 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl111 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label27 = new System.Windows.Forms.Label();
+            this.nudParamsStartRetryCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.nudParamsStartLargeToSmallCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.rbEtcPos1D = new System.Windows.Forms.RadioButton();
             this.rbEtcPos2D = new System.Windows.Forms.RadioButton();
@@ -511,12 +509,6 @@
             this.label106 = new System.Windows.Forms.Label();
             this.nudParamsIdleValveMax = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.nudParamsIdleValveMin = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label95 = new System.Windows.Forms.Label();
-            this.label96 = new System.Windows.Forms.Label();
-            this.label97 = new System.Windows.Forms.Label();
-            this.nudParamsFanHighV = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.nudParamsFanMidV = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.nudParamsFanLowV = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.rbInjCh1 = new System.Windows.Forms.RadioButton();
             this.rbInjCh2 = new System.Windows.Forms.RadioButton();
@@ -769,7 +761,7 @@
             this.tabPage95 = new System.Windows.Forms.TabPage();
             this.eIdleEconDelay = new ECU_Manager.Controls.Editor1D();
             this.tabPage111 = new System.Windows.Forms.TabPage();
-            this.eAdvancedFanControl = new ECU_Manager.Controls.Editor2D();
+            this.eFanEnablementSpeed = new ECU_Manager.Controls.Editor2D();
             this.tabPage26 = new System.Windows.Forms.TabPage();
             this.tabControl234 = new System.Windows.Forms.TabControl();
             this.tabPage57 = new System.Windows.Forms.TabPage();
@@ -957,10 +949,6 @@
             this.dlgSetupExport = new System.Windows.Forms.SaveFileDialog();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabControl8 = new System.Windows.Forms.TabControl();
-            this.label26 = new System.Windows.Forms.Label();
-            this.nudParamsStartLargeToSmallCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
-            this.label27 = new System.Windows.Forms.Label();
-            this.nudParamsStartRetryCount = new ECU_Manager.Controls.NumericUpDownOneWheel();
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -993,9 +981,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsAirCalcKoffMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLearnCyclesDelayMult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpeedOutputCorr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighT)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanMidT)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanLowT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpeedInputCorr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEngVol)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -1029,15 +1014,14 @@
             this.tabPage3.SuspendLayout();
             this.tabControl111.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartRetryCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeToSmallCount)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleThrottleMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleThrottleMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanMidV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanLowV)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleAirFanHCorr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleAirFanLCorr)).BeginInit();
@@ -1241,7 +1225,7 @@
             this.tabPage95.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eIdleEconDelay.Chart)).BeginInit();
             this.tabPage111.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.eAdvancedFanControl.Chart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eFanEnablementSpeed.Chart)).BeginInit();
             this.tabPage26.SuspendLayout();
             this.tabControl234.SuspendLayout();
             this.tabPage57.SuspendLayout();
@@ -1387,8 +1371,6 @@
             this.tableLayoutPanel14.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeToSmallCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartRetryCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr50ms
@@ -1928,10 +1910,10 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 34);
+            this.tabPage2.Location = new System.Drawing.Point(4, 45);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1097, 579);
+            this.tabPage2.Size = new System.Drawing.Size(1097, 568);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameters";
             // 
@@ -2427,18 +2409,12 @@
             this.groupBox4.Controls.Add(this.nudSpeedOutputCorr);
             this.groupBox4.Controls.Add(this.cbIsEconEnabled);
             this.groupBox4.Controls.Add(this.cbLambdaForceEnabled);
-            this.groupBox4.Controls.Add(this.nudParamsFanHighT);
-            this.groupBox4.Controls.Add(this.nudParamsFanMidT);
             this.groupBox4.Controls.Add(this.rbSingleCoil);
-            this.groupBox4.Controls.Add(this.nudParamsFanLowT);
             this.groupBox4.Controls.Add(this.cbUseLongTermCorr);
             this.groupBox4.Controls.Add(this.rbIgnitionModule);
-            this.groupBox4.Controls.Add(this.label31);
             this.groupBox4.Controls.Add(this.cbUseShortTermCorr);
             this.groupBox4.Controls.Add(this.rbIndividualCoils);
-            this.groupBox4.Controls.Add(this.label32);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.nudSpeedInputCorr);
             this.groupBox4.Controls.Add(this.label53);
             this.groupBox4.Controls.Add(this.nudEngVol);
@@ -2447,7 +2423,7 @@
             this.groupBox4.ForeColor = System.Drawing.Color.White;
             this.groupBox4.Location = new System.Drawing.Point(663, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 598);
+            this.groupBox4.Size = new System.Drawing.Size(409, 457);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Miscellaneous";
@@ -2455,7 +2431,7 @@
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.Location = new System.Drawing.Point(5, 508);
+            this.label87.Location = new System.Drawing.Point(5, 409);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(163, 24);
             this.label87.TabIndex = 109;
@@ -2469,7 +2445,7 @@
             0,
             0,
             65536});
-            this.nudParamsEtcPedalDeadZone.Location = new System.Drawing.Point(175, 506);
+            this.nudParamsEtcPedalDeadZone.Location = new System.Drawing.Point(175, 407);
             this.nudParamsEtcPedalDeadZone.Maximum = new decimal(new int[] {
             10,
             0,
@@ -2505,7 +2481,7 @@
             // label99
             // 
             this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(5, 476);
+            this.label99.Location = new System.Drawing.Point(5, 377);
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(157, 24);
             this.label99.TabIndex = 105;
@@ -2519,7 +2495,7 @@
             0,
             0,
             131072});
-            this.nudParamsAirCalcKoffMax.Location = new System.Drawing.Point(175, 474);
+            this.nudParamsAirCalcKoffMax.Location = new System.Drawing.Point(175, 375);
             this.nudParamsAirCalcKoffMax.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2543,7 +2519,7 @@
             0,
             0,
             131072});
-            this.nudParamsAirCalcKoffMin.Location = new System.Drawing.Point(175, 442);
+            this.nudParamsAirCalcKoffMin.Location = new System.Drawing.Point(175, 343);
             this.nudParamsAirCalcKoffMin.Maximum = new decimal(new int[] {
             1,
             0,
@@ -2562,7 +2538,7 @@
             // label100
             // 
             this.label100.AutoSize = true;
-            this.label100.Location = new System.Drawing.Point(6, 444);
+            this.label100.Location = new System.Drawing.Point(6, 345);
             this.label100.Name = "label100";
             this.label100.Size = new System.Drawing.Size(152, 24);
             this.label100.TabIndex = 103;
@@ -2571,7 +2547,7 @@
             // label98
             // 
             this.label98.AutoSize = true;
-            this.label98.Location = new System.Drawing.Point(5, 400);
+            this.label98.Location = new System.Drawing.Point(5, 301);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(119, 24);
             this.label98.TabIndex = 101;
@@ -2585,7 +2561,7 @@
             0,
             0,
             65536});
-            this.nudLearnCyclesDelayMult.Location = new System.Drawing.Point(125, 398);
+            this.nudLearnCyclesDelayMult.Location = new System.Drawing.Point(125, 299);
             this.nudLearnCyclesDelayMult.Maximum = new decimal(new int[] {
             10,
             0,
@@ -2672,52 +2648,6 @@
             this.cbLambdaForceEnabled.UseVisualStyleBackColor = true;
             this.cbLambdaForceEnabled.CheckedChanged += new System.EventHandler(this.cbLambdaForceEnabled_CheckedChanged);
             // 
-            // nudParamsFanHighT
-            // 
-            this.nudParamsFanHighT.Location = new System.Drawing.Point(125, 366);
-            this.nudParamsFanHighT.Maximum = new decimal(new int[] {
-            130,
-            0,
-            0,
-            0});
-            this.nudParamsFanHighT.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanHighT.Name = "nudParamsFanHighT";
-            this.nudParamsFanHighT.Size = new System.Drawing.Size(67, 29);
-            this.nudParamsFanHighT.TabIndex = 98;
-            this.nudParamsFanHighT.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanHighT.ValueChanged += new System.EventHandler(this.nudParamsFanHighT_ValueChanged);
-            // 
-            // nudParamsFanMidT
-            // 
-            this.nudParamsFanMidT.Location = new System.Drawing.Point(125, 332);
-            this.nudParamsFanMidT.Maximum = new decimal(new int[] {
-            130,
-            0,
-            0,
-            0});
-            this.nudParamsFanMidT.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanMidT.Name = "nudParamsFanMidT";
-            this.nudParamsFanMidT.Size = new System.Drawing.Size(67, 29);
-            this.nudParamsFanMidT.TabIndex = 96;
-            this.nudParamsFanMidT.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanMidT.ValueChanged += new System.EventHandler(this.nudParamsFanMidT_ValueChanged);
-            // 
             // rbSingleCoil
             // 
             this.rbSingleCoil.AutoSize = true;
@@ -2729,29 +2659,6 @@
             this.rbSingleCoil.Text = "Single Coil";
             this.rbSingleCoil.UseVisualStyleBackColor = true;
             this.rbSingleCoil.CheckedChanged += new System.EventHandler(this.rbSingleCoil_CheckedChanged);
-            // 
-            // nudParamsFanLowT
-            // 
-            this.nudParamsFanLowT.Location = new System.Drawing.Point(125, 297);
-            this.nudParamsFanLowT.Maximum = new decimal(new int[] {
-            130,
-            0,
-            0,
-            0});
-            this.nudParamsFanLowT.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanLowT.Name = "nudParamsFanLowT";
-            this.nudParamsFanLowT.Size = new System.Drawing.Size(67, 29);
-            this.nudParamsFanLowT.TabIndex = 94;
-            this.nudParamsFanLowT.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nudParamsFanLowT.ValueChanged += new System.EventHandler(this.nudParamsFanLowT_ValueChanged);
             // 
             // cbUseLongTermCorr
             // 
@@ -2776,15 +2683,6 @@
             this.rbIgnitionModule.UseVisualStyleBackColor = true;
             this.rbIgnitionModule.CheckedChanged += new System.EventHandler(this.rbIgnitionModule_CheckedChanged);
             // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(6, 368);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(121, 24);
-            this.label31.TabIndex = 99;
-            this.label31.Text = "FAN High T.:";
-            // 
             // cbUseShortTermCorr
             // 
             this.cbUseShortTermCorr.AutoSize = true;
@@ -2808,15 +2706,6 @@
             this.rbIndividualCoils.UseVisualStyleBackColor = true;
             this.rbIndividualCoils.CheckedChanged += new System.EventHandler(this.rbIndividualCoils_CheckedChanged);
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 334);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(112, 24);
-            this.label32.TabIndex = 97;
-            this.label32.Text = "FAN Mid T.:";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -2825,15 +2714,6 @@
             this.label11.Size = new System.Drawing.Size(119, 24);
             this.label11.TabIndex = 10;
             this.label11.Text = "Speed In. C.:";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 299);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(116, 24);
-            this.label33.TabIndex = 95;
-            this.label33.Text = "FAN Low T.:";
             // 
             // nudSpeedInputCorr
             // 
@@ -4074,12 +3954,6 @@
             this.tabPage8.Controls.Add(this.label106);
             this.tabPage8.Controls.Add(this.nudParamsIdleValveMax);
             this.tabPage8.Controls.Add(this.nudParamsIdleValveMin);
-            this.tabPage8.Controls.Add(this.label95);
-            this.tabPage8.Controls.Add(this.label96);
-            this.tabPage8.Controls.Add(this.label97);
-            this.tabPage8.Controls.Add(this.nudParamsFanHighV);
-            this.tabPage8.Controls.Add(this.nudParamsFanMidV);
-            this.tabPage8.Controls.Add(this.nudParamsFanLowV);
             this.tabPage8.Controls.Add(this.panel4);
             this.tabPage8.Controls.Add(this.label34);
             this.tabPage8.Controls.Add(this.label61);
@@ -4136,6 +4010,40 @@
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "Parameters";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(5, 395);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(113, 24);
+            this.label27.TabIndex = 140;
+            this.label27.Text = "Retry Count:";
+            // 
+            // nudParamsStartRetryCount
+            // 
+            this.nudParamsStartRetryCount.Location = new System.Drawing.Point(170, 393);
+            this.nudParamsStartRetryCount.Name = "nudParamsStartRetryCount";
+            this.nudParamsStartRetryCount.Size = new System.Drawing.Size(160, 29);
+            this.nudParamsStartRetryCount.TabIndex = 139;
+            this.nudParamsStartRetryCount.ValueChanged += new System.EventHandler(this.nudParamsStartRetryCount_ValueChanged);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(5, 360);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(134, 24);
+            this.label26.TabIndex = 138;
+            this.label26.Text = "Large to Small:";
+            // 
+            // nudParamsStartLargeToSmallCount
+            // 
+            this.nudParamsStartLargeToSmallCount.Location = new System.Drawing.Point(170, 358);
+            this.nudParamsStartLargeToSmallCount.Name = "nudParamsStartLargeToSmallCount";
+            this.nudParamsStartLargeToSmallCount.Size = new System.Drawing.Size(160, 29);
+            this.nudParamsStartLargeToSmallCount.TabIndex = 137;
+            this.nudParamsStartLargeToSmallCount.ValueChanged += new System.EventHandler(this.nudParamsStartLargeToSmallCount_ValueChanged);
+            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.rbEtcPos1D);
@@ -4182,7 +4090,7 @@
             // label107
             // 
             this.label107.AutoSize = true;
-            this.label107.Location = new System.Drawing.Point(617, 467);
+            this.label107.Location = new System.Drawing.Point(617, 363);
             this.label107.Name = "label107";
             this.label107.Size = new System.Drawing.Size(178, 24);
             this.label107.TabIndex = 132;
@@ -4191,7 +4099,7 @@
             // label108
             // 
             this.label108.AutoSize = true;
-            this.label108.Location = new System.Drawing.Point(617, 435);
+            this.label108.Location = new System.Drawing.Point(617, 331);
             this.label108.Name = "label108";
             this.label108.Size = new System.Drawing.Size(178, 24);
             this.label108.TabIndex = 130;
@@ -4199,7 +4107,7 @@
             // 
             // nudParamsIdleThrottleMax
             // 
-            this.nudParamsIdleThrottleMax.Location = new System.Drawing.Point(795, 465);
+            this.nudParamsIdleThrottleMax.Location = new System.Drawing.Point(795, 361);
             this.nudParamsIdleThrottleMax.Maximum = new decimal(new int[] {
             20,
             0,
@@ -4222,7 +4130,7 @@
             // 
             // nudParamsIdleThrottleMin
             // 
-            this.nudParamsIdleThrottleMin.Location = new System.Drawing.Point(795, 430);
+            this.nudParamsIdleThrottleMin.Location = new System.Drawing.Point(795, 326);
             this.nudParamsIdleThrottleMin.Maximum = new decimal(new int[] {
             20,
             0,
@@ -4263,7 +4171,7 @@
             // label105
             // 
             this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(617, 536);
+            this.label105.Location = new System.Drawing.Point(617, 432);
             this.label105.Name = "label105";
             this.label105.Size = new System.Drawing.Size(179, 24);
             this.label105.TabIndex = 126;
@@ -4272,7 +4180,7 @@
             // label106
             // 
             this.label106.AutoSize = true;
-            this.label106.Location = new System.Drawing.Point(617, 502);
+            this.label106.Location = new System.Drawing.Point(617, 398);
             this.label106.Name = "label106";
             this.label106.Size = new System.Drawing.Size(174, 24);
             this.label106.TabIndex = 124;
@@ -4285,7 +4193,7 @@
             0,
             0,
             0});
-            this.nudParamsIdleValveMax.Location = new System.Drawing.Point(795, 534);
+            this.nudParamsIdleValveMax.Location = new System.Drawing.Point(795, 430);
             this.nudParamsIdleValveMax.Maximum = new decimal(new int[] {
             255,
             0,
@@ -4313,7 +4221,7 @@
             0,
             0,
             0});
-            this.nudParamsIdleValveMin.Location = new System.Drawing.Point(795, 500);
+            this.nudParamsIdleValveMin.Location = new System.Drawing.Point(795, 396);
             this.nudParamsIdleValveMin.Maximum = new decimal(new int[] {
             255,
             0,
@@ -4333,120 +4241,6 @@
             0,
             0});
             this.nudParamsIdleValveMin.ValueChanged += new System.EventHandler(this.nudParamsIdleValveMin_ValueChanged);
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(617, 397);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(122, 24);
-            this.label95.TabIndex = 122;
-            this.label95.Text = "FAN High V.:";
-            // 
-            // label96
-            // 
-            this.label96.AutoSize = true;
-            this.label96.Location = new System.Drawing.Point(617, 363);
-            this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(113, 24);
-            this.label96.TabIndex = 120;
-            this.label96.Text = "FAN Mid V.:";
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(617, 328);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(117, 24);
-            this.label97.TabIndex = 118;
-            this.label97.Text = "FAN Low V.:";
-            // 
-            // nudParamsFanHighV
-            // 
-            this.nudParamsFanHighV.DecimalPlaces = 2;
-            this.nudParamsFanHighV.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudParamsFanHighV.Location = new System.Drawing.Point(795, 395);
-            this.nudParamsFanHighV.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanHighV.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsFanHighV.Name = "nudParamsFanHighV";
-            this.nudParamsFanHighV.Size = new System.Drawing.Size(96, 29);
-            this.nudParamsFanHighV.TabIndex = 121;
-            this.nudParamsFanHighV.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanHighV.ValueChanged += new System.EventHandler(this.nudParamsFanHighV_ValueChanged);
-            // 
-            // nudParamsFanMidV
-            // 
-            this.nudParamsFanMidV.DecimalPlaces = 2;
-            this.nudParamsFanMidV.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudParamsFanMidV.Location = new System.Drawing.Point(795, 361);
-            this.nudParamsFanMidV.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanMidV.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsFanMidV.Name = "nudParamsFanMidV";
-            this.nudParamsFanMidV.Size = new System.Drawing.Size(96, 29);
-            this.nudParamsFanMidV.TabIndex = 119;
-            this.nudParamsFanMidV.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanMidV.ValueChanged += new System.EventHandler(this.nudParamsFanMidV_ValueChanged);
-            // 
-            // nudParamsFanLowV
-            // 
-            this.nudParamsFanLowV.DecimalPlaces = 2;
-            this.nudParamsFanLowV.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudParamsFanLowV.Location = new System.Drawing.Point(795, 326);
-            this.nudParamsFanLowV.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanLowV.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            -2147483648});
-            this.nudParamsFanLowV.Name = "nudParamsFanLowV";
-            this.nudParamsFanLowV.Size = new System.Drawing.Size(96, 29);
-            this.nudParamsFanLowV.TabIndex = 117;
-            this.nudParamsFanLowV.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudParamsFanLowV.ValueChanged += new System.EventHandler(this.nudParamsFanLowV_ValueChanged);
             // 
             // panel4
             // 
@@ -11043,7 +10837,7 @@
             // tabPage111
             // 
             this.tabPage111.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(16)))), ((int)(((byte)(0)))));
-            this.tabPage111.Controls.Add(this.eAdvancedFanControl);
+            this.tabPage111.Controls.Add(this.eFanEnablementSpeed);
             this.tabPage111.Location = new System.Drawing.Point(4, 312);
             this.tabPage111.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage111.Name = "tabPage111";
@@ -11051,15 +10845,15 @@
             this.tabPage111.TabIndex = 23;
             this.tabPage111.Text = "Fan Control";
             // 
-            // eAdvancedFanControl
+            // eFanEnablementSpeed
             // 
             // 
             // 
             // 
-            this.eAdvancedFanControl.Chart.BackColor = System.Drawing.Color.Transparent;
-            this.eAdvancedFanControl.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
-            this.eAdvancedFanControl.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.eAdvancedFanControl.Chart.BorderlineColor = System.Drawing.Color.Black;
+            this.eFanEnablementSpeed.Chart.BackColor = System.Drawing.Color.Transparent;
+            this.eFanEnablementSpeed.Chart.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.HorizontalCenter;
+            this.eFanEnablementSpeed.Chart.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.eFanEnablementSpeed.Chart.BorderlineColor = System.Drawing.Color.Black;
             chartArea195.AxisX.IsLogarithmic = true;
             chartArea195.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
             chartArea195.AxisX.LabelStyle.Interval = 2000D;
@@ -11094,14 +10888,14 @@
             chartArea195.BackColor = System.Drawing.Color.Transparent;
             chartArea195.BorderColor = System.Drawing.Color.White;
             chartArea195.Name = "ChartArea1";
-            this.eAdvancedFanControl.Chart.ChartAreas.Add(chartArea195);
-            this.eAdvancedFanControl.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eFanEnablementSpeed.Chart.ChartAreas.Add(chartArea195);
+            this.eFanEnablementSpeed.Chart.Dock = System.Windows.Forms.DockStyle.Fill;
             legend62.BackColor = System.Drawing.Color.Transparent;
             legend62.ForeColor = System.Drawing.Color.White;
             legend62.Name = "Legend1";
-            this.eAdvancedFanControl.Chart.Legends.Add(legend62);
-            this.eAdvancedFanControl.Chart.Location = new System.Drawing.Point(0, 3);
-            this.eAdvancedFanControl.Chart.Name = "chart2DChart";
+            this.eFanEnablementSpeed.Chart.Legends.Add(legend62);
+            this.eFanEnablementSpeed.Chart.Location = new System.Drawing.Point(0, 3);
+            this.eFanEnablementSpeed.Chart.Name = "chart2DChart";
             series62.BorderWidth = 3;
             series62.ChartArea = "ChartArea1";
             series62.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -11121,34 +10915,34 @@
             series62.SmartLabelStyle.MinMovingDistance = 10D;
             series62.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
             series62.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.eAdvancedFanControl.Chart.Series.Add(series62);
-            this.eAdvancedFanControl.Chart.Size = new System.Drawing.Size(188, 121);
-            this.eAdvancedFanControl.Chart.TabIndex = 4;
-            this.eAdvancedFanControl.Chart.Text = " ";
-            this.eAdvancedFanControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.eAdvancedFanControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.eFanEnablementSpeed.Chart.Series.Add(series62);
+            this.eFanEnablementSpeed.Chart.Size = new System.Drawing.Size(188, 121);
+            this.eFanEnablementSpeed.Chart.TabIndex = 4;
+            this.eFanEnablementSpeed.Chart.Text = " ";
+            this.eFanEnablementSpeed.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.eFanEnablementSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             // 
             // 
             // 
-            this.eAdvancedFanControl.Graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
-            this.eAdvancedFanControl.Graph3D.AxisX_Legend = null;
-            this.eAdvancedFanControl.Graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
-            this.eAdvancedFanControl.Graph3D.AxisY_Legend = null;
-            this.eAdvancedFanControl.Graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
-            this.eAdvancedFanControl.Graph3D.AxisZ_Legend = null;
-            this.eAdvancedFanControl.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.eAdvancedFanControl.Graph3D.Location = new System.Drawing.Point(0, 0);
-            this.eAdvancedFanControl.Graph3D.Name = "graph3D";
-            this.eAdvancedFanControl.Graph3D.PolygonLineColor = System.Drawing.Color.Black;
-            this.eAdvancedFanControl.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
-            this.eAdvancedFanControl.Graph3D.TabIndex = 0;
-            this.eAdvancedFanControl.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
-            this.eAdvancedFanControl.LabelTitle = "Advanced Fan Control";
-            this.eAdvancedFanControl.Location = new System.Drawing.Point(0, 0);
-            this.eAdvancedFanControl.Margin = new System.Windows.Forms.Padding(6);
-            this.eAdvancedFanControl.Name = "eAdvancedFanControl";
-            this.eAdvancedFanControl.Size = new System.Drawing.Size(184, 0);
-            this.eAdvancedFanControl.TabIndex = 1;
+            this.eFanEnablementSpeed.Graph3D.AxisX_Color = System.Drawing.Color.DarkBlue;
+            this.eFanEnablementSpeed.Graph3D.AxisX_Legend = null;
+            this.eFanEnablementSpeed.Graph3D.AxisY_Color = System.Drawing.Color.DarkGreen;
+            this.eFanEnablementSpeed.Graph3D.AxisY_Legend = null;
+            this.eFanEnablementSpeed.Graph3D.AxisZ_Color = System.Drawing.Color.DarkRed;
+            this.eFanEnablementSpeed.Graph3D.AxisZ_Legend = null;
+            this.eFanEnablementSpeed.Graph3D.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.eFanEnablementSpeed.Graph3D.Location = new System.Drawing.Point(0, 0);
+            this.eFanEnablementSpeed.Graph3D.Name = "graph3D";
+            this.eFanEnablementSpeed.Graph3D.PolygonLineColor = System.Drawing.Color.Black;
+            this.eFanEnablementSpeed.Graph3D.Raster = ECU_Manager.Controls.Graph3D.eRaster.Off;
+            this.eFanEnablementSpeed.Graph3D.TabIndex = 0;
+            this.eFanEnablementSpeed.Graph3D.TopLegendColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(150)))));
+            this.eFanEnablementSpeed.LabelTitle = "Advanced Fan Control";
+            this.eFanEnablementSpeed.Location = new System.Drawing.Point(0, 0);
+            this.eFanEnablementSpeed.Margin = new System.Windows.Forms.Padding(6);
+            this.eFanEnablementSpeed.Name = "eFanEnablementSpeed";
+            this.eFanEnablementSpeed.Size = new System.Drawing.Size(184, 0);
+            this.eFanEnablementSpeed.TabIndex = 1;
             // 
             // tabPage26
             // 
@@ -16149,40 +15943,6 @@
             this.tabControl8.Size = new System.Drawing.Size(200, 100);
             this.tabControl8.TabIndex = 0;
             // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(5, 360);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(134, 24);
-            this.label26.TabIndex = 138;
-            this.label26.Text = "Large to Small:";
-            // 
-            // nudParamsStartLargeToSmallCount
-            // 
-            this.nudParamsStartLargeToSmallCount.Location = new System.Drawing.Point(170, 358);
-            this.nudParamsStartLargeToSmallCount.Name = "nudParamsStartLargeToSmallCount";
-            this.nudParamsStartLargeToSmallCount.Size = new System.Drawing.Size(160, 29);
-            this.nudParamsStartLargeToSmallCount.TabIndex = 137;
-            this.nudParamsStartLargeToSmallCount.ValueChanged += new System.EventHandler(this.nudParamsStartLargeToSmallCount_ValueChanged);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(5, 395);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(113, 24);
-            this.label27.TabIndex = 140;
-            this.label27.Text = "Retry Count:";
-            // 
-            // nudParamsStartRetryCount
-            // 
-            this.nudParamsStartRetryCount.Location = new System.Drawing.Point(170, 393);
-            this.nudParamsStartRetryCount.Name = "nudParamsStartRetryCount";
-            this.nudParamsStartRetryCount.Size = new System.Drawing.Size(160, 29);
-            this.nudParamsStartRetryCount.TabIndex = 139;
-            this.nudParamsStartRetryCount.ValueChanged += new System.EventHandler(this.nudParamsStartRetryCount_ValueChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -16240,9 +16000,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsAirCalcKoffMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLearnCyclesDelayMult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpeedOutputCorr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighT)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanMidT)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanLowT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpeedInputCorr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEngVol)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -16283,6 +16040,8 @@
             this.tabControl111.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartRetryCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeToSmallCount)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleThrottleMax)).EndInit();
@@ -16290,9 +16049,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleValveMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanHighV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanMidV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsFanLowV)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudParamsIdleAirFanHCorr)).EndInit();
@@ -16500,7 +16256,7 @@
             this.tabPage95.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.eIdleEconDelay.Chart)).EndInit();
             this.tabPage111.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.eAdvancedFanControl.Chart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eFanEnablementSpeed.Chart)).EndInit();
             this.tabPage26.ResumeLayout(false);
             this.tabControl234.ResumeLayout(false);
             this.tabPage57.ResumeLayout(false);
@@ -16648,8 +16404,6 @@
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartLargeToSmallCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudParamsStartRetryCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -17103,13 +16857,7 @@
         private System.Windows.Forms.RadioButton rbPhasedWithSensor;
         private System.Windows.Forms.RadioButton rbPhasedDisabled;
         private System.Windows.Forms.TabPage tabPage111;
-        private Controls.Editor2D eAdvancedFanControl;
-        private System.Windows.Forms.Label label95;
-        private System.Windows.Forms.Label label96;
-        private System.Windows.Forms.Label label97;
-        private Controls.NumericUpDownOneWheel nudParamsFanHighV;
-        private Controls.NumericUpDownOneWheel nudParamsFanMidV;
-        private Controls.NumericUpDownOneWheel nudParamsFanLowV;
+        private Controls.Editor2D eFanEnablementSpeed;
         private System.Windows.Forms.TabPage tabPage112;
         private Controls.Editor1D eIdleValveEconPos;
         private System.Windows.Forms.TabPage tabPage37;
@@ -17197,16 +16945,10 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.CheckBox cbIsEconEnabled;
         private System.Windows.Forms.CheckBox cbLambdaForceEnabled;
-        private Controls.NumericUpDownOneWheel nudParamsFanHighT;
-        private Controls.NumericUpDownOneWheel nudParamsFanMidT;
         private System.Windows.Forms.RadioButton rbSingleCoil;
-        private Controls.NumericUpDownOneWheel nudParamsFanLowT;
         private System.Windows.Forms.RadioButton rbIgnitionModule;
-        private System.Windows.Forms.Label label31;
         private System.Windows.Forms.RadioButton rbIndividualCoils;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.CheckBox cbUseLambda;
         private System.Windows.Forms.Label label107;

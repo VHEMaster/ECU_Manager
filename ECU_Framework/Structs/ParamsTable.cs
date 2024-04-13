@@ -40,10 +40,6 @@ namespace ECU_Framework.Structs
         public int isIndividualCoils;
         public int isEconEnabled;
 
-        public float fanHighTemperature;
-        public float fanMidTemperature;
-        public float fanLowTemperature;
-
         public int isBluetoothEnabled;
         public int bluetoothPin;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Consts.TABLE_STRING_MAX)]
@@ -75,7 +71,7 @@ namespace ECU_Framework.Structs
         public float map_pressure_gain;
         public float map_pressure_offset;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 714)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 717)]
         [XmlArray("reserveds")]
         [XmlArrayItem("reserved")]
         public int[] Reserved;
