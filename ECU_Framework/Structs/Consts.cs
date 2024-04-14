@@ -41,7 +41,7 @@ namespace ECU_Framework.Structs
         public const int SPECIFIC_PARAMETERS_ARRAY_MAX_ITEMS = 4;
         public const int SPECIFIC_PARAMETERS_ARRAY_POINTS = 1024;
 
-        public const int DRAG_POINTS = 3072;
+        public const int DRAG_POINTS = 2048;
         public const int DRAG_POINTS_DISTANCE = 20000;
     }
 }
