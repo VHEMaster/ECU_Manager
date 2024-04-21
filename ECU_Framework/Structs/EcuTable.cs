@@ -150,7 +150,7 @@ namespace ECU_Framework.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16 * Consts.TABLE_ENRICHMENT_PERCENTS)]
         [XmlArray("enrichment_ign_corr")]
         [XmlArrayItem("corr")]
-        public byte[] enrichment_ign_corr;
+        public sbyte[] enrichment_ign_corr;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_TEMPERATURES)]
         [XmlArray("enrichment_temp_mult")]

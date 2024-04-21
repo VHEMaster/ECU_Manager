@@ -4008,6 +4008,9 @@ namespace ECU_Manager
                     corrs2d[i] = 0.0F;
                 }
 
+                EcuConfigTransform.ToInteger(array2d, cs.ConfigStruct.tables[cs.CurrentTable].ignitions, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignitions);
+                EcuConfigTransform.ToInteger(corrs2d, cs.ConfigStruct.corrections.ignitions, cs.ConfigStruct.corrections.transform.ignitions);
+
                 array3d[0] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy1, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
                 array3d[1] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy2, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
                 array3d[2] = EcuConfigTransform.FromInteger(cs.ConfigStruct.tables[cs.CurrentTable].ignition_corr_cy3, cs.ConfigStruct.tables[cs.CurrentTable].transform.ignition_corr_cy);
