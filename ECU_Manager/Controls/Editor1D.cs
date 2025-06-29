@@ -729,14 +729,20 @@ namespace ECU_Manager.Controls
 
         private void chart1DChart_MouseWheel(object sender, MouseEventArgs e)
         {
+            Keys modifierKeys = ModifierKeys;
+            decimal mult;
+            decimal inc;
+
             if (e.Button == MouseButtons.None)
             {
-                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+
+                if (modifierKeys.HasFlag(Keys.Shift))
                 {
+                    inc = nudItem.Increment;
                     if (e.Delta > 0)
                     {
                         decimal value = nudItem.Value;
-                        value += nudItem.Increment;
+                        value += inc;
                         if (value > nudItem.Maximum)
                             value = nudItem.Maximum;
                         else if (value < nudItem.Minimum)
@@ -746,7 +752,7 @@ namespace ECU_Manager.Controls
                     else
                     {
                         decimal value = nudItem.Value;
-                        value -= nudItem.Increment;
+                        value -= inc;
                         if (value > nudItem.Maximum)
                             value = nudItem.Maximum;
                         else if (value < nudItem.Minimum)
@@ -756,10 +762,21 @@ namespace ECU_Manager.Controls
                 }
                 else
                 {
+                    if (modifierKeys.HasFlag(Keys.Control))
+                    {
+                        mult = 10;
+                    }
+                    else
+                    {
+                        mult = 1;
+                    }
+
+                    inc = nudValue.Increment;
+                    inc *= mult;
                     if (e.Delta > 0)
                     {
                         decimal value = nudValue.Value;
-                        value += nudValue.Increment;
+                        value += inc;
                         if (value > nudValue.Maximum)
                             value = nudValue.Maximum;
                         else if (value < nudValue.Minimum)
@@ -769,7 +786,7 @@ namespace ECU_Manager.Controls
                     else
                     {
                         decimal value = nudValue.Value;
-                        value -= nudValue.Increment;
+                        value -= inc;
                         if (value > nudValue.Maximum)
                             value = nudValue.Maximum;
                         else if (value < nudValue.Minimum)

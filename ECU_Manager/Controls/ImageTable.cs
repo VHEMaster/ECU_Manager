@@ -54,6 +54,9 @@ namespace ECU_Manager.Controls
 
         private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
+            Keys modifierKeys = ModifierKeys;
+            float mult;
+            float inc;
             float value = 0;
             int index = -1;
             
@@ -72,30 +75,41 @@ namespace ECU_Manager.Controls
                 }
             }
 
+            if(modifierKeys.HasFlag(Keys.Control))
+            {
+                mult = 10.0f;
+            } else
+            {
+                mult = 1.0f;
+            }
+
+            inc = this.Increment;
+            inc *= mult;
+
             if (index >= 0)
             {
                 value = this.Array[index];
 
                 if (e.Delta > 0)
                 {
-                    if (value + this.Increment > this.ValueMax)
+                    if (value + inc * mult > this.ValueMax)
                     {
                         value = this.ValueMax;
                     }
                     else
                     {
-                        value += this.Increment;
+                        value += inc;
                     }
                 }
                 else if (e.Delta < 0)
                 {
-                    if (value - this.Increment < this.ValueMin)
+                    if (value - inc < this.ValueMin)
                     {
                         value = this.ValueMin;
                     }
                     else
                     {
-                        value -= this.Increment;
+                        value -= inc;
                     }
                 }
                 if (this.Array[index] != value)
