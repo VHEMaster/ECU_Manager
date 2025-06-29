@@ -145,13 +145,17 @@ namespace ECU_Manager.Controls
                         break;
 
                     case eMouseAction.Theta:
+                        md_Phi -= s32_DiffX * VALUES_PHI[3]; // 3 = Factor
                         md_Theta -= s32_DiffY * VALUES_THETA[3];  // 3 = Factor
+                        SetPhi(md_Phi);
                         SetTheta(md_Theta);
                         break;
 
                     case eMouseAction.Phi:
                         md_Phi -= s32_DiffX * VALUES_PHI[3]; // 3 = Factor
+                        md_Theta -= s32_DiffY * VALUES_THETA[3];  // 3 = Factor
                         SetPhi(md_Phi);
+                        SetTheta(md_Theta);
                         break;
                 }
             }
@@ -629,7 +633,7 @@ namespace ECU_Manager.Controls
         // A movement of mouse by approx 1000 pixels on the screen results in getting from Min to Max or vice versa.
         //
         //                                                      MIN     MAX   DEFAULT  MOUSE FACTOR
-        static readonly double[] VALUES_RHO   = new double[] {  300,   3600,  1800,    2    };
+        static readonly double[] VALUES_RHO   = new double[] {  300,   3600,  1800,    10    };
         static readonly double[] VALUES_THETA = new double[] {   10,    170,    70,    0.25 }; // degree
         static readonly double[] VALUES_PHI   = new double[] {    0,    360,   230,    0.4  }; // degree  (continuous rotation)
 
@@ -1521,13 +1525,13 @@ namespace ECU_Manager.Controls
                 case Keys.None:
                     if (e.Button == MouseButtons.Left)
                     {
-                        Cursor = Cursors.NoMoveVert;
+                        Cursor = Cursors.NoMove2D;
                         mi_Mouse.me_Action = eMouseAction.Theta;
                     }
 
                     if (e.Button == MouseButtons.Right)
                     {
-                        Cursor = Cursors.NoMoveHoriz;
+                        Cursor = Cursors.NoMove2D;
                         mi_Mouse.me_Action = eMouseAction.Phi;
                     }
                     break;
