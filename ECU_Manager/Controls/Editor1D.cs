@@ -864,5 +864,80 @@ namespace ECU_Manager.Controls
                 }
             }
         }
+
+        private void btnCopyToText_Click(object sender, EventArgs e)
+        {
+            float[] array1d = null;
+            string text = string.Empty;
+            string decplaces = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    EcuParamTransform transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    Array array = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(array, transform);
+                }
+            }
+
+            if (iArraySizeX > 0 && array1d != null)
+            {
+                if (iDecPlaces > 0)
+                    decplaces = "." + Enumerable.Repeat("0", iDecPlaces).Aggregate((sum, next) => sum + next);
+                
+                for (int x = 0; x < iArraySizeX; x++)
+                {
+                    text += string.Format("{0:0" + decplaces + "}" + "\t", array1d[x]);
+                }
+                text = text.TrimEnd('\t');
+                text += "\r\n";
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void btnImportFromText_Click(object sender, EventArgs e)
+        {
+            EcuParamTransform transform = EcuParamTransform.Default;
+            Array arraydef = null;
+            float[] array1d = null;
+
+            if (!string.IsNullOrWhiteSpace(sArrayName))
+            {
+                FieldInfo fieldArrayX = cs.ConfigStruct.tables[cs.CurrentTable].GetType().GetField(sArrayName);
+                FieldInfo fieldTransformX = cs.ConfigStruct.tables[cs.CurrentTable].transform.GetType().GetField(sArrayName);
+                if (fieldArrayX != null && fieldTransformX != null)
+                {
+                    transform = (EcuParamTransform)fieldTransformX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable].transform);
+                    arraydef = (Array)fieldArrayX.GetValue(cs.ConfigStruct.tables[cs.CurrentTable]);
+                    array1d = EcuConfigTransform.FromInteger(arraydef, transform);
+                }
+            }
+
+
+            if (iArraySizeX > 0 && array1d != null)
+            {
+                ImportTextForm omportTextForm = new ImportTextForm(ArrayType.Array1D, array1d, iArraySizeX);
+
+                DialogResult result = omportTextForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    float[] output = omportTextForm.GetResult();
+                    for (int x = 0; x < iArraySizeX; x++)
+                    {
+                        if (output[x] > (float)dMaxY)
+                            output[x] = (float)dMaxY;
+                        if (output[x] < (float)dMinY)
+                            output[x] = (float)dMinY;
+                        array1d[x] = output[x];
+                    }
+                    EcuConfigTransform.ToInteger(array1d, arraydef, transform);
+                    this.UpdateChart();
+                    UpdateTableEvent?.Invoke(sender, new EventArgs());
+                }
+            }
+        }
     }
 }
