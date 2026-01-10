@@ -117,5 +117,7 @@ namespace ECU_Framework.Structs
         public EcuParamTransform dynamic_fuel_corr_gbc;
         public EcuParamTransform dynamic_fuel_corr_temp;
         public EcuParamTransform dynamic_fuel_corr_lpf;
+        public EcuParamTransform enrichment_by_rate_amount;
+        public EcuParamTransform enrichment_by_filling_amount;
     }
 }

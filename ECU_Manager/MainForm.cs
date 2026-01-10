@@ -417,6 +417,20 @@ namespace ECU_Manager
             eEnrichmentSyncAmount.SetX("RPM", "RPM", "F0");
             eEnrichmentSyncAmount.SetTableEventHandler(ChartUpdateEvent);
 
+            eEnrichmentByRateAmount.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 1, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentByRateAmount.SetConfig("enrichment_by_rate_amount", "rotates_16");
+            eEnrichmentByRateAmount.SetX("RPM", "RPM", "F0");
+            eEnrichmentByRateAmount.SetTableEventHandler(ChartUpdateEvent);
+
+            eEnrichmentByFillingAmount.Initialize(cs,
+                Consts.TABLE_ROTATES_16,
+                0, 1, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
+            eEnrichmentByFillingAmount.SetConfig("enrichment_by_filling_amount", "rotates_16");
+            eEnrichmentByFillingAmount.SetX("RPM", "RPM", "F0");
+            eEnrichmentByFillingAmount.SetTableEventHandler(ChartUpdateEvent);
+
             eEnrichmentAsyncAmount.Initialize(cs,
                 Consts.TABLE_ROTATES_16,
                 0, 10, 0.05D, 0.01D, 0D, 1D, 500, 0.1D, 2);
@@ -1553,6 +1567,8 @@ namespace ECU_Manager
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage102), Text = "Inj.Phase Correction" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage85), Text = "Temperature multiplier" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage149), Text = "Filling TPS Selection" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage161), Text = "By Rate Amount" });
+            subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl5, tabPage162), Text = "By Filling Amount" });
             subindex2 = treeView.Nodes[index].Nodes[subindex1].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl4, tabPage22), Text = "Ignition" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tpIgnFull), Text = "Advances" });
             subindex3 = treeView.Nodes[index].Nodes[subindex1].Nodes[subindex2].Nodes.Add(new TreeNode { Tag = new TreeNodeListInfo(tabControl6, tabPage115), Text = "Cylinders" });
@@ -1746,6 +1762,8 @@ namespace ECU_Manager
             eEnrichmentTpsSelection.UpdateChart();
             eEnrichmentSyncAmount.UpdateChart();
             eEnrichmentAsyncAmount.UpdateChart();
+            eEnrichmentByRateAmount.UpdateChart();
+            eEnrichmentByFillingAmount.UpdateChart();
             eEnrichmentIgnCorr.UpdateChart();
             eEnrichmentTempMult.UpdateChart();
             eEnrichmentInjectionPhase.UpdateChart();

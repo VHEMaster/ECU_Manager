@@ -576,7 +576,17 @@ namespace ECU_Framework.Structs
         
         public int start_large_to_small_transition;
         public int start_cycles_to_retry;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1354)]
+    
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16)]
+        [XmlArray("enrichment_by_rate_amount")]
+        [XmlArrayItem("amount")]
+        public byte[] enrichment_by_rate_amount;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Consts.TABLE_ROTATES_16)]
+        [XmlArray("enrichment_by_filling_amount")]
+        [XmlArrayItem("amount")]
+        public byte[] enrichment_by_filling_amount;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1342)]
         [XmlArray("Reserved")]
         [XmlArrayItem("value")]
         public int[] Reserved;
