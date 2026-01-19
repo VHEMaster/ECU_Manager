@@ -623,6 +623,16 @@ namespace ECU_Manager.Controls
             {
                 return X * md_cf + Y * md_sf;
             }
+            public double Depth(cPoint3D p, cPoint3D center)
+            {
+                double X = (p.md_X - center.md_X) * md_NormalizeX;
+                double Y = (p.md_Y - center.md_Y) * md_NormalizeY;
+                double Z = (p.md_Z - center.md_Z) * md_NormalizeZ;
+
+                double zn = -md_cf * md_st * X - md_sf * md_st * Y - md_ct * Z + md_Rho;
+                if (zn <= 0) zn = 0.01;
+                return zn; // больше = дальше
+            }
         }
 
         #endregion
@@ -1169,7 +1179,17 @@ namespace ECU_Manager.Controls
                 i_Line.mi_Points2D[0] = mi_Transform.Project(i_Line.mi_Points3D[0], mi_MinMax.mi_Center3D);
                 i_Line.mi_Points2D[1] = mi_Transform.Project(i_Line.mi_Points3D[1], mi_MinMax.mi_Center3D);
 
-                AddDrawObject(new cDrawObj(i_Line, i_Line.md_Sort));
+                double sort = i_Line.md_Sort;
+
+                if (i_Line.me_Line == eCoord.Z && i_Line.me_Offset == eCoord.Z)
+                {
+                    double d1 = mi_Transform.Depth(i_Line.mi_Points3D[0], mi_MinMax.mi_Center3D);
+                    double d2 = mi_Transform.Depth(i_Line.mi_Points3D[1], mi_MinMax.mi_Center3D);
+                    sort = -((d1 + d2) * 0.5);
+                    sort -= 0.01;
+                }
+
+                AddDrawObject(new cDrawObj(i_Line, sort));
             }
 
             // Move the graph to the left when labels are enabled
@@ -1220,10 +1240,15 @@ namespace ECU_Manager.Controls
 
                     i_Poly.md_FactorZ = (Zavrg - mi_MinMax.md_MinZ) / (mi_MinMax.md_MaxZ - mi_MinMax.md_MinZ);
 
-                    // Polygons must be painted in correct order: from back to front. Order depends on rotation angle.
-                    double d_Sort = mi_Transform.ProjectXY(X +1, Y +1); // +1 because Z axis is at 0,0
+                    double d1 = mi_Transform.Depth(mi_PolyArr[X, Y], mi_MinMax.mi_Center3D);
+                    double d2 = mi_Transform.Depth(mi_PolyArr[X, Y + 1], mi_MinMax.mi_Center3D);
+                    double d3 = mi_Transform.Depth(mi_PolyArr[X + 1, Y + 1], mi_MinMax.mi_Center3D);
+                    double d4 = mi_Transform.Depth(mi_PolyArr[X + 1, Y], mi_MinMax.mi_Center3D);
+                  
+                    double d_Sort = -(d1 + d2 + d3 + d4) / 4.0;
 
                     AddDrawObject(new cDrawObj(i_Poly, d_Sort));
+
                 }
             }
         }
@@ -1240,10 +1265,7 @@ namespace ECU_Manager.Controls
                 if (i_Scatter.mi_Brush == null)
                     i_Scatter.md_FactorZ = (i_Scatter.mi_Point3D.md_Z - mi_MinMax.md_MinZ) / (mi_MinMax.md_MaxZ - mi_MinMax.md_MinZ);
 
-                // Scatter circles must be painted in correct order: from back to front. Order depends on rotation angle.
-                double d_Sort = mi_Transform.ProjectXY(i_Scatter.mi_Point3D.md_X + 1.0, 
-                                                       i_Scatter.mi_Point3D.md_Y + 1.0); // +1 because Z axis is at 0,0
-
+                double d_Sort = -mi_Transform.Depth(i_Scatter.mi_Point3D, mi_MinMax.mi_Center3D);
                 AddDrawObject(new cDrawObj(i_Scatter, d_Sort));
             }
         }
@@ -1467,34 +1489,44 @@ namespace ECU_Manager.Controls
                     i_Graph.DrawLine(i_Line.mi_Pen, i_Line.mi_Points2D[0].Coord, i_Line.mi_Points2D[1].Coord);
 
                     // ------------ Label ------------
-
-                    if (me_Raster == eRaster.Labels        && 
-                        mi_Quadrant.mb_BottomView == false && // no label in bottom view
-                        mi_Quadrant.ms32_Quadrant == 3)       // only in quadrant 3 showing labels makes sense
+                    
+                    float Clamp01(float t) => (t < 0f) ? 0f : (t > 1f) ? 1f : t;
+                    
+                    float Smooth01(float t)
                     {
-                        PointF k_Pos = i_Line.mi_Points2D[1].Coord;
-                        StringFormat i_Align = new StringFormat();
-                        if (i_Line.me_Line == eCoord.Y && i_Line.me_Offset == eCoord.Z)
-                        {
-                            k_Pos.X += 5;
-                            k_Pos.Y -= Font.Height / 2;
-                        }
-                        else if (i_Line.me_Line == eCoord.Y && i_Line.me_Offset == eCoord.X)
-                        {
-                            k_Pos.X += (float)mi_Transform.ProjectXY(5, -5);
-                            k_Pos.Y += (float)mi_Transform.ProjectXY(-Font.Height / 2, 5);
-                        }
-                        else if (i_Line.me_Line == eCoord.X && i_Line.me_Offset == eCoord.Y)
-                        {
-                            k_Pos.X += (float)mi_Transform.ProjectXY(5, -5);
-                            k_Pos.Y += (float)mi_Transform.ProjectXY(5, -Font.Height / 2);
-                            i_Align.Alignment = StringAlignment.Far;
-                        }
-                        else continue;
+                        t = Clamp01(t);
+                        return t * t * (3f - 2f * t);
+                    }
 
-                        String s_Label = FormatLabel(i_Line.md_Label);
-                        Brush  i_Brush = mi_AxisBrushes[((int)i_Line.me_Offset ^ 1) - ((int)i_Line.me_Offset >> 1)];
-                        i_Graph.DrawString(s_Label, Font, i_Brush, k_Pos, i_Align);
+                    if (me_Raster == eRaster.Labels)
+                    {
+                        string s_Label = FormatLabel(i_Line.md_Label);
+                        Brush i_Brush = mi_AxisBrushes[((int)i_Line.me_Offset ^ 1) - ((int)i_Line.me_Offset >> 1)];
+
+                        PointF anchor = i_Line.mi_Points2D[1].Coord;
+                        
+                        PointF center = mi_Transform.Project(mi_MinMax.mi_Center3D, mi_MinMax.mi_Center3D).Coord;
+                        
+                        float vx = anchor.X - center.X;
+                        float vy = anchor.Y - center.Y;
+                        float len = (float)Math.Sqrt(vx * vx + vy * vy);
+                        if (len < 0.0001f) { vx = 1; vy = 0; len = 1; }
+                        vx /= len; vy /= len;
+                        
+                        float PAD = Math.Max(4f, Font.Height * 0.35f);
+                        PointF basePt = new PointF(anchor.X + vx * PAD, anchor.Y + vy * PAD);
+                        
+                        SizeF sz = i_Graph.MeasureString(s_Label, Font);
+                        
+                        const float EPS = 0.35f;
+                        
+                        float tx = Smooth01((vx / EPS + 1f) * 0.5f);
+                        float ty = Smooth01((vy / EPS + 1f) * 0.5f);
+                        
+                        float x = basePt.X - sz.Width * (1f - tx);
+                        float y = basePt.Y - sz.Height * (1f - ty);
+
+                        i_Graph.DrawString(s_Label, Font, i_Brush, new PointF(x, y));
                     }
                 }
             }
